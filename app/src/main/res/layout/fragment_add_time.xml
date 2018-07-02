@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".time.SetTimeFragment">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Time Left From Now"
+            android:textColor="@color/light_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="06h 53m"
+            android:textColor="@color/dark_blue"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Repeat"
+            android:textColor="@color/light_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvDays"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:text="Take a Note (Optional)"
+            android:textColor="@color/dark_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/floatingActionButton2"
+            app:layout_constraintTop_toBottomOf="@+id/rvDays" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:src="@drawable/fab_add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.043"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvDays" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Snooze Time"
+            android:textColor="@color/light_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/floatingActionButton2" />
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="10 Minutes"
+            android:textColor="@color/dark_blue"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.lukedeighton.wheelview.WheelView
+                android:id="@+id/hourWheel"
+                android:layout_width="240dp"
+                android:layout_height="240dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                app:repeatItems="true"
+                app:rotatableWheelDrawable="false"
+                app:selectionAngle="75.0"
+                app:wheelColor="@color/least_dark_blue"
+                app:wheelItemRadius="2dp"
+                app:wheelPosition="bottom|right"
+                app:wheelRadius="240dp"
+                app:wheelItemCount="12"
+                app:wheelPadding="36dp"
+                app:selectionPadding="15dp" />
+
+            <com.lukedeighton.wheelview.WheelView
+                android:visibility="visible"
+                android:id="@+id/minuteWheel"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                app:repeatItems="true"
+                app:rotatableWheelDrawable="true"
+                app:selectionAngle="75.0"
+                app:wheelColor="@color/lesser_dark_blue"
+                app:wheelItemRadius="10dp"
+                app:wheelPosition="bottom|right"
+                app:wheelRadius="180dp"
+                app:wheelItemCount="60"
+                app:wheelPadding="36dp"
+                app:selectionPadding="15dp" />
+
+            <com.lukedeighton.wheelview.WheelView
+                android:visibility="visible"
+                android:id="@+id/typeWheel"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                app:repeatItems="true"
+                app:rotatableWheelDrawable="true"
+                app:selectionAngle="75.0"
+                app:wheelColor="@color/light_blue"
+                app:wheelItemRadius="2dp"
+                app:wheelPosition="bottom|right"
+                app:wheelRadius="120dp"
+                app:wheelItemCount="2"
+                app:wheelPadding="36dp"
+                app:selectionPadding="15dp" />
+
+            <Button
+                android:id="@+id/setAlarmBtn"
+                android:paddingTop="15dp"
+                android:paddingStart="15dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/ok_button_set_time"
+                android:text="OK"
+                android:textColor="@color/pitchWhite"
+                android:visibility="visible" />
+
+        </RelativeLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</FrameLayout>

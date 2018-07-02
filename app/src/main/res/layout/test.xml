@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.lukedeighton.wheelview.WheelView
+            android:id="@+id/hourWheel"
+            android:layout_width="480dp"
+            android:layout_height="480dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            app:repeatItems="false"
+            app:rotatableWheelDrawable="false"
+            app:selectionAngle="225.0"
+            app:wheelColor="@color/least_dark_blue"
+            app:wheelItemRadius="30dp"
+            app:wheelPosition="bottom|right"
+            app:wheelRadius="240dp" />
+
+        <com.lukedeighton.wheelview.WheelView
+            android:id="@+id/minuteWheel"
+            android:layout_width="360dp"
+            android:layout_height="360dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            app:repeatItems="false"
+            app:rotatableWheelDrawable="false"
+            app:selectionAngle="225.0"
+            app:wheelColor="@color/lesser_dark_blue"
+            app:wheelItemRadius="30dp"
+            app:wheelPosition="bottom|right"
+            app:wheelRadius="180dp" />
+
+        <com.lukedeighton.wheelview.WheelView
+            android:id="@+id/typeWheel"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            app:repeatItems="false"
+            app:rotatableWheelDrawable="false"
+            app:selectionAngle="225.0"
+            app:wheelColor="@color/light_blue"
+            app:wheelItemRadius="30dp"
+            app:wheelPosition="bottom|right"
+            app:wheelRadius="120dp" />
+
+        <Button
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/ok_button_set_time"
+            android:text="OK"
+            android:textColor="@color/pitchWhite"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

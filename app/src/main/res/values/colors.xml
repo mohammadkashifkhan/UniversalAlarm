@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryDark">#4198FC</color>
+    <color name="colorPrimary">#A8D1FD</color>
+    <color name="colorOverlay">#003e86</color>
+    <color name="colorAccent">#66ACFC</color>
+    <color name="black">#000000</color>
+    <color name="white">#F1F8FF</color>
+    <color name="pitchWhite">#ffffff</color>
+    <color name="dark_blue">#4198fc</color>
+    <color name="light_blue">#66acfc</color>
+    <color name="lesser_dark_blue">#A8D1FD</color>
+    <color name="least_dark_blue">#CBE3FE</color>
+    <color name="red">#B71C1C</color>
+</resources>
