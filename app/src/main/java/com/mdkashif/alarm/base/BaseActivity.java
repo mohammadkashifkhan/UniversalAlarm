@@ -26,6 +26,7 @@ public class BaseActivity extends AppCompatActivity {
     View parentLayout;
     static public String city,country;
     BatteryReceiver batteryReceiver=BatteryReceiver.getInstance();
+    public String tag = "universal_alarm_";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

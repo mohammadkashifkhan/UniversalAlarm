@@ -4,13 +4,16 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.mdkashif.alarm.R
+import com.mdkashif.alarm.activities.home.HomeActivity
 import com.mdkashif.alarm.alarm.AlarmReceiver
 import com.mdkashif.alarm.time.adapters.DaysInWeekAdapter
 import com.mdkashif.alarm.time.adapters.HoursInDayAdapter
@@ -22,7 +25,7 @@ import java.util.*
 
 
 class SetTimeFragment : android.app.Fragment(), TimePresenter.TimePresenterCallback {
-
+    private var mActivity: HomeActivity?=null
     private var hours: List<String>? = null
     private var days: List<String>? = null
     private var minutes: List<String>? = null
@@ -58,8 +61,8 @@ class SetTimeFragment : android.app.Fragment(), TimePresenter.TimePresenterCallb
         val cal_now = Calendar.getInstance()
         cal_now.time = dat
         cal_alarm.time = dat
-        cal_alarm.set(Calendar.HOUR_OF_DAY, 11)
-        cal_alarm.set(Calendar.MINUTE, 48)
+        cal_alarm.set(Calendar.HOUR_OF_DAY, 2)
+        cal_alarm.set(Calendar.MINUTE, 35)
         cal_alarm.set(Calendar.SECOND, 0)
         if (cal_alarm.before(cal_now)) {
             cal_alarm.add(Calendar.DATE, 1)
@@ -68,11 +71,16 @@ class SetTimeFragment : android.app.Fragment(), TimePresenter.TimePresenterCallb
                 AlarmReceiver::class.java)
         val pintent = PendingIntent.getBroadcast(activity, 393, intent, 0)
 
-        val alarm = activity.getSystemService(
-                Context.ALARM_SERVICE) as AlarmManager
+        val alarmManager = activity.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        //alarm.set(AlarmManager.RTC_WAKEUP, cal_alarm.timeInMillis, pintent)
-        alarm.set(AlarmManager.RTC_WAKEUP, cal_alarm.timeInMillis, pintent)
+        if (Build.VERSION.SDK_INT >= 23) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal_alarm.timeInMillis, pintent)
+        }
+        else if (Build.VERSION.SDK_INT >= 21) {
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal_alarm.timeInMillis, pintent)
+        }
+
+        Log.d(mActivity!!.tag,"here")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -81,6 +89,11 @@ class SetTimeFragment : android.app.Fragment(), TimePresenter.TimePresenterCallb
         setHour(hours)
         setMinute(minutes)
         setTimeType(type)
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        this.mActivity = context as HomeActivity
     }
 
     override fun onDaysOfWeekSuccess(hours: List<String>?, minutes: List<String>?, type: List<String>?, days: List<String>?) {

@@ -12,7 +12,7 @@ import android.widget.Button;
 import com.mdkashif.alarm.R;
 import com.mdkashif.alarm.activities.home.HomeActivity;
 import com.mdkashif.alarm.base.BaseActivity;
-import com.mdkashif.alarm.persistence.sharedprefs.SharedPrefHolder;
+import com.mdkashif.alarm.utils.SharedPrefHolder;
 
 public class AppIntroActivity extends BaseActivity {
 

@@ -1,11 +1,14 @@
 package com.mdkashif.alarm.notifications;
 
 import android.app.IntentService;
+import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 
 import com.mdkashif.alarm.R;
 import com.mdkashif.alarm.activities.ShowBuzzingAlarmActivity;
@@ -22,29 +25,36 @@ public class NotificationService extends IntentService {
 
     @Override
     public void onHandleIntent(Intent intent) {
-
+        intent=new Intent(this, ShowBuzzingAlarmActivity.class);
         //Send notification
-        sendNotification("Wake Up! Wake Up! Alarm started!!");
+        //sendNotification("Wake Up! Wake Up! Alarm started!!");
+        showNotification("Universal Alarm","Wake Up! Wake Up! Alarm started!!",intent);
     }
 
-    //handle notification
-    private void sendNotification(String msg) {
-        alarmNotificationManager = (NotificationManager) this
-                .getSystemService(Context.NOTIFICATION_SERVICE);
+    public void showNotification( String title, String body, Intent intent) {
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        //get pending intent
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, ShowBuzzingAlarmActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+        String channelId = "channel-786";
+        String channelName = "universal_alarm_channel";
+        int importance = NotificationManager.IMPORTANCE_HIGH;
 
-        //Create notification
-        NotificationCompat.Builder alamNotificationBuilder = new NotificationCompat.Builder(
-                this).setContentTitle("Alarm").setSmallIcon(R.mipmap.ic_launcher)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
-                .setContentText(msg).setAutoCancel(true);
-        alamNotificationBuilder.setContentIntent(contentIntent);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel mChannel = new NotificationChannel(
+                    channelId, channelName, importance);
+            notificationManager.createNotificationChannel(mChannel);
+        }
 
-        //notiy notification manager about new notification
-        alarmNotificationManager.notify(NOTIFICATION_ID, alamNotificationBuilder.build());
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(title)
+                .setContentText(body);
+
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addNextIntent(intent);
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(resultPendingIntent);
+
+        notificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 
 }

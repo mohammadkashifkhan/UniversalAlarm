@@ -1,4 +1,4 @@
-package com.mdkashif.alarm.persistence.sharedprefs;
+package com.mdkashif.alarm.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
