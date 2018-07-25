@@ -19,6 +19,8 @@ import com.mdkashif.alarm.time.adapters.DaysInWeekAdapter
 import com.mdkashif.alarm.time.adapters.HoursInDayAdapter
 import com.mdkashif.alarm.time.adapters.MinutesInHourAdapter
 import com.mdkashif.alarm.time.adapters.TimeTypeInDayAdapter
+import com.mdkashif.alarm.utils.AppDatabase
+import com.mdkashif.alarm.utils.RoomInitializer
 import kotlinx.android.synthetic.main.fragment_add_time.*
 import kotlinx.android.synthetic.main.fragment_add_time.view.*
 import java.util.*
@@ -36,21 +38,23 @@ class SetTimeFragment : android.app.Fragment(), TimePresenter.TimePresenterCallb
         var view: View =inflater.inflate(R.layout.fragment_add_time, container, false)
         TimePresenter(this).setDataForTimeAndDays()
 
-        view.hourWheel.setOnWheelItemSelectedListener({ parent, itemDrawable, position ->
+        view.hourWheel.setOnWheelItemSelectedListener { parent, itemDrawable, position ->
             Toast.makeText(activity, hours?.get(position)+"", Toast.LENGTH_LONG).show()
-        })
+        }
 
-        view.minuteWheel.setOnWheelItemSelectedListener({ parent, itemDrawable, position ->
+        view.minuteWheel.setOnWheelItemSelectedListener { parent, itemDrawable, position ->
             Toast.makeText(activity, minutes?.get(position)+"", Toast.LENGTH_LONG).show()
-        })
+        }
 
-        view.typeWheel.setOnWheelItemSelectedListener({ parent, itemDrawable, position ->
+        view.typeWheel.setOnWheelItemSelectedListener { parent, itemDrawable, position ->
             Toast.makeText(activity, type?.get(position)+"", Toast.LENGTH_LONG).show()
-        })
+        }
 
         view.setAlarmBtn.setOnClickListener{
             setAlarm()
         }
+
+        //RoomInitializer.transactAsync(AppDatabase.getAppDatabase(activity))
 
         return view
     }

@@ -7,12 +7,14 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.location.Location
 import android.os.Bundle
+import android.support.design.widget.BottomSheetBehavior
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.arlib.floatingsearchview.FloatingSearchView
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GooglePlayServicesUtil
 import com.google.android.gms.common.api.GoogleApiClient
@@ -21,33 +23,31 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.mdkashif.alarm.R
-import com.miguelcatalan.materialsearchview.MaterialSearchView
 import kotlinx.android.synthetic.main.fragment_add_location.*
 import kotlinx.android.synthetic.main.fragment_add_location.view.*
-
 
 class SetLocationFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
 GoogleApiClient.OnConnectionFailedListener, LocationListener{
 
-    private var mgoogleMap: GoogleMap? = null
-    private val PLAY_SERVICES_RESOLUTION_REQUEST = 1000
-    private val REQ_CODE_SPEECH_INPUT = 100
 
+    private val PLAY_SERVICES_RESOLUTION_REQUEST = 1000
+    private val UPDATE_INTERVAL = 10000
+    private val FATEST_INTERVAL = 1000
+    private var DISPLACEMENT = 1000
+
+    private var mgoogleMap: GoogleMap? = null
     private var mLastLocation: Location? = null
     private var mGoogleApiClient: GoogleApiClient? = null
     private var mLocationRequest: LocationRequest? = null
 
-    private val UPDATE_INTERVAL = 10000
-    private val FATEST_INTERVAL = 1000
-    private var DISPLACEMENT = 1000
+    private var mapView : MapView? = null
     private var latitude: Double = 0.toDouble()
     private var longitude:Double = 0.toDouble()
-    private var midLatLng:LatLng? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -55,43 +55,29 @@ GoogleApiClient.OnConnectionFailedListener, LocationListener{
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        var view: View =inflater.inflate(R.layout.fragment_add_location, container, false)
-        (activity as AppCompatActivity).setSupportActionBar(view.toolbar)
-
-        view.toolbar.title = "Search for a Location"
-        view.search_view.setSuggestions(resources.getStringArray(R.array.query_suggestions))
-        view.search_view.setEllipsize(true)
-        view.search_view.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                //Do some magic
-                return false
+        val view =inflater.inflate(R.layout.fragment_add_location, container, false)
+        val behavior = BottomSheetBehavior.from(view.bottom_sheet)
+        mapView = view.findViewById(R.id.map)
+        behavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
             }
 
-            override fun onQueryTextChange(newText: String): Boolean {
-                //Do some magic
-                return false
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                fab_add.animate().scaleX(1 - slideOffset).scaleY(1 - slideOffset).setDuration(0).start()
             }
         })
 
-        view.search_view.setOnSearchViewListener(object : MaterialSearchView.SearchViewListener {
-            override fun onSearchViewShown() {
-                //Do some magic
-            }
-
-            override fun onSearchViewClosed() {
-                //Do some magic
-            }
-        })
+        view.mSearchView.setOnQueryChangeListener { oldQuery, newQuery ->  }
 
         return view
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (map != null) {
-            map.onCreate(null)
-            map.onResume()
-            map.getMapAsync(this)
+        if (mapView != null) {
+            mapView!!.onCreate(null)
+            mapView!!.onResume()
+            mapView!!.getMapAsync(this)
         }
 
         if (checkPlayServices()) {
@@ -163,7 +149,7 @@ GoogleApiClient.OnConnectionFailedListener, LocationListener{
         if (mLastLocation != null) {
             latitude = mLastLocation!!.latitude
             longitude = mLastLocation!!.longitude
-            map.getMapAsync(this)
+            mapView!!.getMapAsync(this)
         } else
             startLocationUpdates()
     }
@@ -178,7 +164,7 @@ GoogleApiClient.OnConnectionFailedListener, LocationListener{
 
     override fun onResume() {
         mGoogleApiClient!!.connect()
-        map.onResume()
+        mapView!!.onResume()
         checkPlayServices()
 
         if (mGoogleApiClient!!.isConnected) {
@@ -196,18 +182,18 @@ GoogleApiClient.OnConnectionFailedListener, LocationListener{
 
     override fun onPause() {
         super.onPause()
-        map.onPause()
+        mapView!!.onPause()
         stopLocationUpdates()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        map.onDestroy()
+        mapView!!.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        map.onLowMemory()
+        mapView!!.onLowMemory()
     }
 
     @SuppressLint("MissingPermission")

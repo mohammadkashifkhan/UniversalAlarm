@@ -20,6 +20,7 @@ import com.mdkashif.alarm.battery.BatteryReceiver;
 import com.mdkashif.alarm.custom.CustomProgressDialog;
 import com.mdkashif.alarm.prayer.geocoder.GetCurrentLocation;
 import com.mdkashif.alarm.prayer.geocoder.GetLocationAddress;
+import com.mdkashif.alarm.utils.AppDatabase;
 
 public class BaseActivity extends AppCompatActivity {
     CustomProgressDialog progressDialog;
@@ -102,6 +103,12 @@ public class BaseActivity extends AppCompatActivity {
                     country = "";
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        AppDatabase.destroyInstance();
+        super.onDestroy();
     }
 
 }

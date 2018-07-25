@@ -3,13 +3,13 @@
     <shortcut
         android:shortcutId="Add Time alarm"
         android:enabled="true"
-        android:icon="@drawable/ic_fab_time"
+        android:icon="@drawable/ic_shortcut_fab_time"
         android:shortcutShortLabel="@string/add_Time"
         android:shortcutLongLabel="@string/add_Time"
         android:shortcutDisabledMessage="@string/add_Time">
         <intent
             android:action="com.mdkashif.alarm.activities.home.time"
-            android:targetPackage="com.mdkashif.sharemyride"
+            android:targetPackage="com.mdkashif.alarm.activities.home"
             android:targetClass="com.mdkashif.alarm.activities.home.HomeActivity" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
@@ -17,7 +17,7 @@
     <shortcut
         android:shortcutId="Add Battery alarm"
         android:enabled="true"
-        android:icon="@drawable/ic_fab_battery"
+        android:icon="@drawable/ic_shortcut_fab_battery"
         android:shortcutShortLabel="@string/add_Battery"
         android:shortcutLongLabel="@string/add_Battery"
         android:shortcutDisabledMessage="@string/add_Battery">
@@ -31,7 +31,7 @@
     <shortcut
         android:shortcutId="Add Location alarm"
         android:enabled="true"
-        android:icon="@drawable/ic_fab_location"
+        android:icon="@drawable/ic_shortcut_fab_location"
         android:shortcutShortLabel="@string/add_Location"
         android:shortcutLongLabel="@string/add_Location"
         android:shortcutDisabledMessage="@string/add_Location">
@@ -45,10 +45,10 @@
     <shortcut
         android:shortcutId="Add Prayer alarm"
         android:enabled="true"
-        android:icon="@drawable/ic_fab_salat"
-        android:shortcutShortLabel="@string/add_Location"
-        android:shortcutLongLabel="@string/add_Location"
-        android:shortcutDisabledMessage="@string/add_Location">
+        android:icon="@drawable/ic_shortcut_praying_hands"
+        android:shortcutShortLabel="@string/add_Prayer"
+        android:shortcutLongLabel="@string/add_Prayer"
+        android:shortcutDisabledMessage="@string/add_Prayer">
         <intent
             android:action="com.mdkashif.alarm.activities.home.prayer"
             android:targetPackage="com.mdkashif.alarm.activities.home"

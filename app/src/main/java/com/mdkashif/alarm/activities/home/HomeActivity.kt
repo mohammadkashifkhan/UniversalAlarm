@@ -113,18 +113,14 @@ class HomeActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        if(search_view!=null){
-            if (search_view.isSearchOpen)
-                search_view.closeSearch()
-        } else {
+
             super.onBackPressed()
-        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.search_menu, menu)
-        val item = menu!!.findItem(R.id.action_search)
-        search_view?.setMenuItem(item)
+
         return true
     }
 

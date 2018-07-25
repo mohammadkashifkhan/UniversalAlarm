@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "457381347464",
+    "firebase_url": "https://universal-alarm.firebaseio.com",
+    "project_id": "universal-alarm",
+    "storage_bucket": "universal-alarm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457381347464:android:4987ee6fc0d50765",
+        "android_client_info": {
+          "package_name": "com.mdkashif.alarm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457381347464-kmaqi81ff3sdm07gdg7csncl3egf5ijd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTwjlV8LpdkSQZeZyi2JrzF6qVy8JGCy0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

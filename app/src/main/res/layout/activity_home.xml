@@ -57,7 +57,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:menu_fab_size="normal"
-            app:menu_icon="@drawable/ic_fab_add"
+            app:menu_icon="@drawable/ic_fab_add_blue"
             app:menu_fab_show_animation="@anim/show_from_bottom"
             app:menu_fab_hide_animation="@anim/hide_to_bottom">
 
