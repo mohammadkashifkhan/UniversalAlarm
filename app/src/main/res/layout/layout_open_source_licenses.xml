@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:padding="4dp"
+        android:background="@color/offwhite"
+        android:text="Picasso by Square"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:padding="4dp"
+        android:background="@color/offwhite"
+        android:text="Facebook by Facebook"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:padding="4dp"
+        android:background="@color/offwhite"
+        android:text="Material Dialogs by Afollestad"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:padding="4dp"
+        android:background="@color/offwhite"
+        android:text="Circular ImageView by Pkmmte"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:padding="4dp"
+        android:background="@color/offwhite"
+        android:text="SwitchButton by Zcweng"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:padding="4dp"
+        android:background="@color/offwhite"
+        android:text="Barcode Scanner by Zxing"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:padding="4dp"
+        android:background="@color/offwhite"
+        android:text="MaterialShowcaseView by Deano"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:padding="4dp"
+        android:background="@color/offwhite"
+        android:text="Blurry by Wasabeef"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:padding="4dp"
+        android:background="@color/offwhite"
+        android:text="TextDrawable by Amulya Khare"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:padding="4dp"
+        android:background="@color/offwhite"
+        android:text="CircleProgressView by Jakob Grabner"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

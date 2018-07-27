@@ -8,9 +8,9 @@
         android:shortcutLongLabel="@string/add_Time"
         android:shortcutDisabledMessage="@string/add_Time">
         <intent
-            android:action="com.mdkashif.alarm.activities.home.time"
-            android:targetPackage="com.mdkashif.alarm.activities.home"
-            android:targetClass="com.mdkashif.alarm.activities.home.HomeActivity" />
+            android:action="com.mdkashif.alarm.activities.time"
+            android:targetPackage="com.mdkashif.alarm.activities"
+            android:targetClass="com.mdkashif.alarm.activities.HomeActivity" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
 
@@ -22,9 +22,9 @@
         android:shortcutLongLabel="@string/add_Battery"
         android:shortcutDisabledMessage="@string/add_Battery">
         <intent
-            android:action="com.mdkashif.alarm.activities.home.battery"
-            android:targetPackage="com.mdkashif.alarm.activities.home"
-            android:targetClass="com.mdkashif.alarm.activities.home.HomeActivity" />
+            android:action="com.mdkashif.alarm.activities.battery"
+            android:targetPackage="com.mdkashif.alarm.activities"
+            android:targetClass="com.mdkashif.alarm.activities.HomeActivity" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
 
@@ -36,9 +36,9 @@
         android:shortcutLongLabel="@string/add_Location"
         android:shortcutDisabledMessage="@string/add_Location">
         <intent
-            android:action="com.mdkashif.alarm.activities.home.location"
-            android:targetPackage="com.mdkashif.alarm.activities.home"
-            android:targetClass="com.mdkashif.alarm.activities.home.HomeActivity" />
+            android:action="com.mdkashif.alarm.activities.location"
+            android:targetPackage="com.mdkashif.alarm.activities"
+            android:targetClass="com.mdkashif.alarm.activities.HomeActivity" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
 
@@ -50,9 +50,9 @@
         android:shortcutLongLabel="@string/add_Prayer"
         android:shortcutDisabledMessage="@string/add_Prayer">
         <intent
-            android:action="com.mdkashif.alarm.activities.home.prayer"
-            android:targetPackage="com.mdkashif.alarm.activities.home"
-            android:targetClass="com.mdkashif.alarm.activities.home.HomeActivity" />
+            android:action="com.mdkashif.alarm.activities.prayer"
+            android:targetPackage="com.mdkashif.alarm.activities"
+            android:targetClass="com.mdkashif.alarm.activities.HomeActivity" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
 

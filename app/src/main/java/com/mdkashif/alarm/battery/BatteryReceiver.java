@@ -13,7 +13,7 @@ import android.os.BatteryManager;
 import android.support.v4.app.NotificationCompat;
 
 import com.mdkashif.alarm.R;
-import com.mdkashif.alarm.activities.home.HomeActivity;
+import com.mdkashif.alarm.activities.HomeActivity;
 import com.mdkashif.alarm.alarm.AlarmSoundService;
 
 import static android.content.Context.MODE_PRIVATE;

@@ -1,4 +1,4 @@
-package com.mdkashif.alarm.activities.home
+package com.mdkashif.alarm.activities
 
 import android.Manifest
 import android.content.Intent
@@ -6,13 +6,16 @@ import android.content.IntentFilter
 import android.databinding.DataBindingUtil
 import android.graphics.Rect
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.mdkashif.alarm.R
-import com.mdkashif.alarm.activities.SettingsActivity
+import com.mdkashif.alarm.activities.needsPermissionWithPermissionCheck
+import com.mdkashif.alarm.activities.onRequestPermissionsResult
+import com.mdkashif.alarm.alarm.AlarmListAdapter
 import com.mdkashif.alarm.alarm.ShowAllAlarmsFragment
 import com.mdkashif.alarm.base.BaseActivity
 import com.mdkashif.alarm.battery.BatteryReceiver
@@ -22,7 +25,6 @@ import com.mdkashif.alarm.location.SetLocationFragment
 import com.mdkashif.alarm.prayer.SetPrayerTimeFragment
 import com.mdkashif.alarm.time.SetTimeFragment
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.fragment_add_location.*
 import permissions.dispatcher.*
 
 
@@ -38,10 +40,10 @@ class HomeActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
 
         when {
-            "com.mdkashif.alarm.activities.home.time" == intent.action -> replaceFragment(SetTimeFragment(),HomeActivity::class.java.simpleName,true)
-            //"com.mdkashif.alarm.activities.home.battery" == intent.action -> replaceFragment(SetBatteryLevelFragment(),HomeActivity::class.java.simpleName,true)
-            "com.mdkashif.alarm.activities.home.location" == intent.action -> replaceFragment(SetLocationFragment(),HomeActivity::class.java.simpleName,true)
-            "com.mdkashif.alarm.activities.home.prayer" == intent.action -> replaceFragment(SetPrayerTimeFragment(),HomeActivity::class.java.simpleName,true)
+            "com.mdkashif.alarm.activities.time" == intent.action -> replaceFragment(SetTimeFragment(), HomeActivity::class.java.simpleName,true)
+            "com.mdkashif.alarm.activities.battery" == intent.action -> replaceFragment(SetBatteryLevelFragment(),HomeActivity::class.java.simpleName,true)
+            "com.mdkashif.alarm.activities.location" == intent.action -> replaceFragment(SetLocationFragment(), HomeActivity::class.java.simpleName,true)
+            "com.mdkashif.alarm.activities.prayer" == intent.action -> replaceFragment(SetPrayerTimeFragment(), HomeActivity::class.java.simpleName,true)
         }
 
         needsPermissionWithPermissionCheck()
@@ -52,7 +54,7 @@ class HomeActivity : BaseActivity() {
 
         fab_time.setOnClickListener{
             menu.close(true)
-            replaceFragment(SetTimeFragment(),HomeActivity::class.java.simpleName,true)
+            replaceFragment(SetTimeFragment(), HomeActivity::class.java.simpleName,true)
         }
 
         fab_battery.setOnClickListener{
@@ -68,14 +70,14 @@ class HomeActivity : BaseActivity() {
 
         fab_location.setOnClickListener{
             menu.close(true)
-            replaceFragment(SetLocationFragment(),HomeActivity::class.java.simpleName,true)
+            replaceFragment(SetLocationFragment(), HomeActivity::class.java.simpleName,true)
         }
 
         fab_salat.setOnClickListener{
             menu.close(true)
 //            Log.d("check", city)
             if (!(isBlank(city) && (isBlank(country))))
-                replaceFragment(SetPrayerTimeFragment(),HomeActivity::class.java.simpleName,true)
+                replaceFragment(SetPrayerTimeFragment(), HomeActivity::class.java.simpleName,true)
             else
                 showSnackbar("Please try after some time", this)
         }
@@ -85,7 +87,7 @@ class HomeActivity : BaseActivity() {
         }
 
         tvSeeAll.setOnClickListener{
-            replaceFragment(ShowAllAlarmsFragment(),HomeActivity::class.java.simpleName,true)
+            replaceFragment(ShowAllAlarmsFragment(), HomeActivity::class.java.simpleName,true)
         }
 
     }
@@ -109,7 +111,8 @@ class HomeActivity : BaseActivity() {
             }
         })
 //        AnimationSingleton.getInstance().set_rule_and_emp_Animation(rvAlarms)
-        rvAlarms.adapter = HomeAlarmListAdapter(this, alarmType)
+        rvAlarms.adapter = AlarmListAdapter(this, alarmType)
+        rvAlarms.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
     }
 
     override fun onBackPressed() {

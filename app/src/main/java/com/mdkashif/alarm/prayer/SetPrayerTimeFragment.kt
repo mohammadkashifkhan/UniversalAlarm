@@ -1,8 +1,8 @@
 package com.mdkashif.alarm.prayer
 
-import android.app.Fragment
 import android.content.Context
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import com.mdkashif.alarm.R
-import com.mdkashif.alarm.activities.home.HomeActivity
+import com.mdkashif.alarm.activities.HomeActivity
 import com.mdkashif.alarm.base.BaseActivity.city
 import com.mdkashif.alarm.base.BaseActivity.country
 import com.mdkashif.alarm.prayer.compass.Compass

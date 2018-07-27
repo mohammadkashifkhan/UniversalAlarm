@@ -1,15 +1,15 @@
 package com.mdkashif.alarm.alarm
 
-import android.app.Fragment
 import android.graphics.Rect
 import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.mdkashif.alarm.R
-import com.mdkashif.alarm.activities.home.HomeAlarmListAdapter
 import com.mdkashif.alarm.utils.AnimationSingleton
 import kotlinx.android.synthetic.main.fragment_show_all_alarms.*
 
@@ -41,7 +41,8 @@ class ShowAllAlarmsFragment : Fragment() {
             }
         })
         AnimationSingleton.set_alarms_Animation(rvAlarms)
-        rvAlarms.adapter = HomeAlarmListAdapter(activity, alarmType)
+        rvAlarms.adapter = AlarmListAdapter(activity, alarmType)
+        rvAlarms.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
     }
 
 }

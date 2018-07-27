@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,20 +14,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.mdkashif.alarm.R
-import com.mdkashif.alarm.activities.home.HomeActivity
+import com.mdkashif.alarm.activities.HomeActivity
 import com.mdkashif.alarm.alarm.AlarmReceiver
 import com.mdkashif.alarm.time.adapters.DaysInWeekAdapter
 import com.mdkashif.alarm.time.adapters.HoursInDayAdapter
 import com.mdkashif.alarm.time.adapters.MinutesInHourAdapter
 import com.mdkashif.alarm.time.adapters.TimeTypeInDayAdapter
-import com.mdkashif.alarm.utils.AppDatabase
-import com.mdkashif.alarm.utils.RoomInitializer
 import kotlinx.android.synthetic.main.fragment_add_time.*
 import kotlinx.android.synthetic.main.fragment_add_time.view.*
 import java.util.*
 
 
-class SetTimeFragment : android.app.Fragment(), TimePresenter.TimePresenterCallback {
+class SetTimeFragment : Fragment(), TimePresenter.TimePresenterCallback {
     private var mActivity: HomeActivity?=null
     private var hours: List<String>? = null
     private var days: List<String>? = null
@@ -75,7 +74,7 @@ class SetTimeFragment : android.app.Fragment(), TimePresenter.TimePresenterCallb
                 AlarmReceiver::class.java)
         val pintent = PendingIntent.getBroadcast(activity, 393, intent, 0)
 
-        val alarmManager = activity.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val alarmManager = activity!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         if (Build.VERSION.SDK_INT >= 23) {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal_alarm.timeInMillis, pintent)

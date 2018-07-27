@@ -1,4 +1,4 @@
-package com.mdkashif.alarm.activities.home;
+package com.mdkashif.alarm.alarm;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -14,11 +14,11 @@ import java.util.List;
 /**
  * Created by Kashif on 20-Apr-18.
  */
-public class HomeAlarmListAdapter extends RecyclerView.Adapter {
+public class AlarmListAdapter extends RecyclerView.Adapter {
     private List<String> alarmType;
     Context context;
 
-    public HomeAlarmListAdapter(Context context,List<String> alarmType) {
+    public AlarmListAdapter(Context context, List<String> alarmType) {
         this.context=context;
         this.alarmType=alarmType;
     }

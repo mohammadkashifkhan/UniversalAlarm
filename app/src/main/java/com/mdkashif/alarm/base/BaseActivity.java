@@ -1,8 +1,8 @@
 package com.mdkashif.alarm.base;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.location.Location;
 import android.net.ConnectivityManager;
@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
@@ -79,7 +80,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void replaceFragment(Fragment fragment, String tag, boolean isAddTobackStack) {
-        FragmentManager fm = getFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.setCustomAnimations( R.animator.slide_up, 0, 0, R.animator.slide_down);
         ft.replace(R.id.fl_main_content, fragment, tag);

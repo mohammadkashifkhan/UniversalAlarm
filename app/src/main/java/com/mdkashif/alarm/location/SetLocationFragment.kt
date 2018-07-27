@@ -2,13 +2,13 @@ package com.mdkashif.alarm.location
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Fragment
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.location.Location
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v4.app.ActivityCompat
+import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -73,7 +73,7 @@ GoogleApiClient.OnConnectionFailedListener, LocationListener {
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (mapView != null) {
             mapView!!.onCreate(null)
@@ -91,7 +91,7 @@ GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     @Synchronized
     private fun buildGoogleApiClient() {
-        mGoogleApiClient = GoogleApiClient.Builder(activity)
+        mGoogleApiClient = GoogleApiClient.Builder(this.context!!)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API).build()
@@ -124,7 +124,7 @@ GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private fun startLocationUpdates() {
 
-        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this.context!!, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.context!!, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             return
         }
@@ -140,7 +140,7 @@ GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private fun displayLocation() {
 
-        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this.context!!, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.context!!, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return
         }
 

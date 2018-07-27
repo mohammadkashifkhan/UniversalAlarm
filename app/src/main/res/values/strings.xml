@@ -16,6 +16,7 @@
     <string name="summary_vibrate">Vibrate on new notification</string>
     <string name="pref_title_notifications">Notifications</string>
     <string name="summary_choose_ringtone">Choose notification sound</string>
+    <string name="pref_ringtone_silent">Silent</string>
     <string name="summary_about">Made with &#9825; by Kashif</string>
     <string name="rate">Rate</string>
     <string name="share">Share</string>
@@ -33,13 +34,8 @@
     <string name="customize">Customize</string>
     <string name="theme">Quick switch theme</string>
     <string name="search_hint">Search for any Location..</string>
-    <string-array name="query_suggestions">
-        <item>Android</item>
-        <item>iOS</item>
-        <item>SCALA</item>
-        <item>Ruby</item>
-        <item>JavaScript</item>
-    </string-array>
+    <string name="openSourceLicenses">Open Source Licenses</string>
+    <string name="aboutDevSummary">Software Er. Cinephile. Autodidact. Full time Nerd. Esurient Foodie</string>
 
     <string name="google_android_map_api_key">AIzaSyA7sGiJNI3y2SlipMaKX_dxB290mImTmlQ</string>
 </resources>

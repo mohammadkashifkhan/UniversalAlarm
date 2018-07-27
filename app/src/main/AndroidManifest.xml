@@ -32,7 +32,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/common" />
         <activity
-            android:name=".activities.home.HomeActivity"
+            android:name=".activities.HomeActivity"
             android:theme="@style/common" />
         <activity
             android:name=".activities.SettingsActivity"
