@@ -14,7 +14,7 @@ import com.mdkashif.alarm.utils.AnimationSingleton
 import kotlinx.android.synthetic.main.fragment_show_all_alarms.*
 
 class ShowAllAlarmsFragment : Fragment() {
-    val alarmType: List<String> = listOf("time","battery","location","time","time","location","battery","location")
+    val alarmType: List<String> = listOf("time","battery","location","prayer","location","battery")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

@@ -29,7 +29,7 @@ import permissions.dispatcher.*
 @RuntimePermissions
 class HomeActivity : BaseActivity() {
 
-    private val alarmType: List<String> = listOf("time","battery","location")
+    private val alarmType: List<String> = listOf("time","battery","location","prayer")
     private var binding: ActivityHomeBinding? = null
     private var mBatInfoReceiver: BatteryReceiver?=null
 

@@ -31,16 +31,16 @@ public class SettingsActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.activity_settings);
 
-//            Preference aboutdev= findPreference(getString(R.string.aboutDev));
-//            Preference rate = findPreference(getString(R.string.rate));
-//            Preference share = findPreference(getString(R.string.share));
-//            Preference appver = findPreference("appver");
-//            Preference faq = findPreference(getString(R.string.title_faq));
-//            Preference pp = findPreference(getString(R.string.privacy_policy));
-//            Preference tnc = findPreference(getString(R.string.title_terms));
-//            Preference feedback = findPreference(getString(R.string.key_send_feedback));
-//            Preference notification=findPreference(getString(R.string.notifications_new_message));
-//            Preference vibrate=findPreference(getString(R.string.key_vibrate));
+            Preference toggleAboutDev= findPreference(getString(R.string.aboutDev));
+            Preference toggleRate = findPreference(getString(R.string.rate));
+            Preference toggleShare = findPreference(getString(R.string.share));
+            Preference toggleAppVersion = findPreference(getString(R.string.keyAppVersion));
+            Preference toggleFaq = findPreference(getString(R.string.title_faq));
+            Preference togglePrivacyPolicy = findPreference(getString(R.string.privacy_policy));
+            Preference toggleTnc = findPreference(getString(R.string.title_terms));
+            Preference toggleFeedback = findPreference(getString(R.string.key_send_feedback));
+            Preference toggleNotification=findPreference(getString(R.string.notifications_new_message));
+            Preference toggleVibrate=findPreference(getString(R.string.key_vibrate));
 //
 //            aboutdev.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 //                @Override

@@ -60,6 +60,9 @@ public class HomeAlarmListAdapter extends RecyclerView.Adapter {
             case 2:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_alarm_location_list_item, parent, false);
                 return new BatteryViewHolder(view);
+            case 3:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_alarm_prayer_list_item, parent, false);
+                return new BatteryViewHolder(view);
         }
         return null;
     }
@@ -78,6 +81,8 @@ public class HomeAlarmListAdapter extends RecyclerView.Adapter {
                 return 1;
             case "location":
                 return 2;
+            case "prayer":
+                return 3;
             default:
                 return -1;
         }

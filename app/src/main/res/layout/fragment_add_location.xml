@@ -36,18 +36,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.arlib.floatingsearchview.FloatingSearchView
-                android:id="@+id/mSearchView"
+            <com.seatgeek.placesautocomplete.PlacesAutocompleteTextView
+                android:drawableEnd="@drawable/ic_search"
+                android:id="@+id/places_autocomplete"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:floatingSearch_searchBarMarginLeft="@dimen/searchBar_margin"
-                app:floatingSearch_searchBarMarginTop="@dimen/searchBar_margin"
-                app:floatingSearch_searchBarMarginRight="@dimen/searchBar_margin"
-                app:floatingSearch_suggestionsListAnimDuration="250"
-                app:floatingSearch_showSearchKey="true"
-                app:floatingSearch_leftActionMode="noLeftAction"
-                app:floatingSearch_menu="@menu/search_menu"
-                app:floatingSearch_close_search_on_keyboard_dismiss="true"/>
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:textColorHint="@color/dark_blue"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:textColor="@color/black"
+                android:hint="@string/search_hint"
+                android:background="@drawable/tv_auto_complete_bg"
+                app:pacv_googleMapsApiKey="AIzaSyA7sGiJNI3y2SlipMaKX_dxB290mImTmlQ"/>
 
         </FrameLayout>
 

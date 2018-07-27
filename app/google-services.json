@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "457381347464-spp3tu1h1ta6nbggo60qjdccdebfa5ed.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mdkashif.alarm",
+            "certificate_hash": "41d168f8d67ba14c88b0d58b780599b7dbf6bb9d"
+          }
+        },
+        {
           "client_id": "457381347464-kmaqi81ff3sdm07gdg7csncl3egf5ijd.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457381347464-kmaqi81ff3sdm07gdg7csncl3egf5ijd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

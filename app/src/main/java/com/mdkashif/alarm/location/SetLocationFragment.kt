@@ -9,12 +9,10 @@ import android.location.Location
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v4.app.ActivityCompat
-import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.arlib.floatingsearchview.FloatingSearchView
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GooglePlayServicesUtil
 import com.google.android.gms.common.api.GoogleApiClient
@@ -32,8 +30,7 @@ import kotlinx.android.synthetic.main.fragment_add_location.*
 import kotlinx.android.synthetic.main.fragment_add_location.view.*
 
 class SetLocationFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
-GoogleApiClient.OnConnectionFailedListener, LocationListener{
-
+GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private val PLAY_SERVICES_RESOLUTION_REQUEST = 1000
     private val UPDATE_INTERVAL = 10000
@@ -48,6 +45,8 @@ GoogleApiClient.OnConnectionFailedListener, LocationListener{
     private var mapView : MapView? = null
     private var latitude: Double = 0.toDouble()
     private var longitude:Double = 0.toDouble()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -67,7 +66,9 @@ GoogleApiClient.OnConnectionFailedListener, LocationListener{
             }
         })
 
-        view.mSearchView.setOnQueryChangeListener { oldQuery, newQuery ->  }
+        view.places_autocomplete.setOnPlaceSelectedListener {
+            // do something awesome with the selected place
+        }
 
         return view
     }
@@ -223,7 +224,6 @@ GoogleApiClient.OnConnectionFailedListener, LocationListener{
 
     override fun onConnected(p0: Bundle?) {
         displayLocation()
-
         startLocationUpdates()
     }
 
@@ -239,6 +239,5 @@ GoogleApiClient.OnConnectionFailedListener, LocationListener{
 
         displayLocation()
     }
-
 
 }

@@ -37,12 +37,12 @@
     <PreferenceCategory android:title="@string/pref_header_about">
 
         <Preference
-            android:title="About the Developer"
+            android:title="@string/aboutDevTitle"
             android:key="@string/aboutDev"
             android:selectable="true" />
 
         <Preference
-            android:key="appver"
+            android:key="@string/keyAppVersion"
             android:title="@string/title_version" />
 
         <Preference

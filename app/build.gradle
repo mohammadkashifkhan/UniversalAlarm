@@ -25,6 +25,10 @@ android {
                 minifyEnabled false
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             }
+            debug {
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            }
         }
     }
 
@@ -33,14 +37,10 @@ android {
     }
 }
 
-repositories {
-    maven { url 'https://maven.fabric.io/public' }
-}
-
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-crash:16.0.1'
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {
         transitive = true
     }
@@ -65,7 +65,7 @@ dependencies {
     implementation 'com.appyvet:materialrangebar:1.4.1'
     implementation 'com.github.fenjuly:ToggleExpandLayout:774e497692'
     implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.github.arimorty:floatingsearchview:2.1.1'
+    implementation 'com.seatgeek:placesautocomplete:0.3-SNAPSHOT'
     implementation 'com.github.lukedeighton:wheelview:0.4.1'
     implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
     implementation 'com.wang.avi:library:2.1.3'
