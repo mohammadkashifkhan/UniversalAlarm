@@ -24,6 +24,16 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/location">
+
+        <Preference
+            android:title="@string/locationPrecision"
+            android:summary="Within 100m"
+            android:key="@string/location"
+            android:selectable="true" />
+
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/customize">
 
         <Preference

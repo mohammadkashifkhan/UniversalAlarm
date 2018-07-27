@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -16,18 +19,26 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.mdkashif.alarm.R;
 import com.mdkashif.alarm.utils.SharedPrefHolder;
+import com.pkmmte.view.CircularImageView;
 
 import java.util.List;
+
+import jp.wasabeef.blurry.Blurry;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -51,7 +62,6 @@ public class SettingsActivity extends AppCompatActivity {
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.activity_settings);
-
             Preference toggleAboutDev= findPreference(getString(R.string.aboutDev));
             Preference toggleRate = findPreference(getString(R.string.rate));
             Preference toggleShare = findPreference(getString(R.string.share));
@@ -70,20 +80,39 @@ public class SettingsActivity extends AppCompatActivity {
                             .theme(Theme.LIGHT)
                             .cancelable(true)
                             .title(getString(R.string.aboutDevTitle))
-                            .customView(R.layout.layout_about_dev,true)
+                            .customView(R.layout.layout_about_dev,false)
                             .show();
 
                     View view = aboutDev.getCustomView();
 
-                    ImageView linkedIn,gmail,googlePlay,stackOverFlow,github;
-                    TextView openlicenses;
+                    CircularImageView avatar;
+                    Bitmap bitmap;
+                    ImageView ivDevBlurryImage,linkedIn,gmail,googlePlay,stackOverFlow,github;
+                    TextView madeWithLove,openlicenses;
 
+                    avatar = view.findViewById(R.id.avatar);
                     linkedIn=view.findViewById(R.id.linkedin);
                     gmail=view.findViewById(R.id.gmail);
                     googlePlay=view.findViewById(R.id.googleplay);
                     openlicenses=view.findViewById(R.id.opensource);
                     stackOverFlow=view.findViewById(R.id.stackOverFlow);
                     github=view.findViewById(R.id.github);
+                    ivDevBlurryImage=view.findViewById(R.id.ivDevBlurryImage);
+                    madeWithLove=view.findViewById(R.id.madeWithLove);
+
+                    Spannable spannable = new SpannableString(getString(R.string.summary_about));
+                    spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.red)), 10, 11, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    madeWithLove.setText(spannable, TextView.BufferType.SPANNABLE);
+
+                    if(avatar.getDrawable()!=null) {
+                        bitmap = ((BitmapDrawable) avatar.getDrawable()).getBitmap();
+                        Blurry.with(getActivity())
+                                .radius(5)
+                                .sampling(2)
+                                .color(Color.argb(100, 0, 0, 0))
+                                .async()
+                                .animate(1000).from(bitmap).into(ivDevBlurryImage);
+                    }
 
                     linkedIn.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -186,7 +215,7 @@ public class SettingsActivity extends AppCompatActivity {
 
             try {
                 PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
-                toggleAppVersion.setSummary(pInfo.versionName+" build("+pInfo.versionCode+")");
+                toggleAppVersion.setSummary("Build "+pInfo.versionName);
             }
             catch (Exception e)
             {
@@ -236,7 +265,8 @@ public class SettingsActivity extends AppCompatActivity {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     String endpoint=SharedPrefHolder.getInstance(getActivity()).returnUrl("faq");
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(endpoint));
+                    Intent browserIntent = new Intent(getActivity(), WebviewActivity.class);
+                    browserIntent.putExtra("endpoint",endpoint);
                     startActivity(browserIntent);
                     return true;
                 }
@@ -246,7 +276,8 @@ public class SettingsActivity extends AppCompatActivity {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     String endpoint=SharedPrefHolder.getInstance(getActivity()).returnUrl("pp");
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(endpoint));
+                    Intent browserIntent = new Intent(getActivity(), WebviewActivity.class);
+                    browserIntent.putExtra("endpoint",endpoint);
                     startActivity(browserIntent);
                     return true;
                 }
@@ -256,7 +287,8 @@ public class SettingsActivity extends AppCompatActivity {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     String endpoint=SharedPrefHolder.getInstance(getActivity()).returnUrl("tnc");
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(endpoint));
+                    Intent browserIntent = new Intent(getActivity(), WebviewActivity.class);
+                    browserIntent.putExtra("endpoint",endpoint);
                     startActivity(browserIntent);
                     return true;
                 }

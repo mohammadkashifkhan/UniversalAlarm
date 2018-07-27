@@ -12,8 +12,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -22,7 +22,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_android_map_api_key" />
@@ -37,7 +36,7 @@
         <activity
             android:name=".activities.SettingsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activities.SplashActivity"
             android:theme="@style/splash">
@@ -60,12 +59,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/common" />
 
-        <receiver android:name="com.mdkashif.alarm.battery.BatteryReceiver">
+        <receiver android:name=".battery.BatteryReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BATTERY_CHANGED"/>
+                <action android:name="android.intent.action.BATTERY_CHANGED" />
             </intent-filter>
         </receiver>
-
         <receiver android:name=".alarm.AlarmReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -74,6 +72,8 @@
 
         <service android:name=".alarm.AlarmSoundService" />
         <service android:name=".notifications.NotificationService" />
+
+        <activity android:name=".activities.WebviewActivity"></activity>
     </application>
 
 </manifest>

@@ -6,26 +6,40 @@
     android:background="@color/pitchWhite"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.pkmmte.view.CircularImageView
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/avatar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:scaleType="center"
-        android:src="@drawable/ic_kashif"
-        app:border="true"
-        app:border_width="0.1dp" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:scaleType="centerCrop"
+            android:id="@+id/ivDevBlurryImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.pkmmte.view.CircularImageView
+            android:layout_margin="50dp"
+            android:layout_gravity="center"
+            android:id="@+id/avatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_kashif"
+            app:border="true"
+            app:border_width="0.1dp" />
+
+    </FrameLayout>
 
     <TextView
-        android:layout_marginTop="16sp"
+        android:id="@+id/madeWithLove"
         android:gravity="center"
         android:textSize="16sp"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/black"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/summary_about"/>
+        android:layout_height="wrap_content"/>
 
     <TextView
+        android:layout_marginLeft="@dimen/d_20dp"
+        android:layout_marginRight="@dimen/d_20dp"
         android:layout_marginTop="16sp"
         android:gravity="center"
         android:textSize="16sp"
@@ -89,6 +103,8 @@
     </LinearLayout>
 
     <View
+        android:layout_marginRight="@dimen/d_20dp"
+        android:layout_marginLeft="@dimen/d_20dp"
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -98,11 +114,10 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:id="@+id/opensource"
-        android:padding="8dp"
+        android:padding="@dimen/d_20dp"
         android:gravity="left"
-        android:textColor="@color/black"
+        android:textColor="@color/dark_blue"
         android:textSize="18sp"
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Open Source Licenses"/>
