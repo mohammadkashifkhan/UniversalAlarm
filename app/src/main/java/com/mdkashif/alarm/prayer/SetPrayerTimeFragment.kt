@@ -11,8 +11,8 @@ import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import com.mdkashif.alarm.R
 import com.mdkashif.alarm.activities.HomeActivity
-import com.mdkashif.alarm.base.BaseActivity.city
-import com.mdkashif.alarm.base.BaseActivity.country
+import com.mdkashif.alarm.activities.base.BaseActivity.city
+import com.mdkashif.alarm.activities.base.BaseActivity.country
 import com.mdkashif.alarm.prayer.compass.Compass
 import com.mdkashif.alarm.prayer.pojos.PrayerApiResponse
 import kotlinx.android.synthetic.main.fragment_set_prayer_time.*

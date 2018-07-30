@@ -19,12 +19,13 @@
     <string name="pref_ringtone_silent">Silent</string>
     <string name="summary_about">Made with &#9825; by Kashif</string>
     <string name="rate">Rate</string>
+    <string name="rateSummary">Love this app, let me know by showing some love</string>
     <string name="share">Share</string>
     <string name="title_new_notification_sound">New alarm notification</string>
     <string name="aboutDev">aboutdev</string>
     <string name="aboutDevTitle">About the Developer</string>
-    <string name="title_version">App version</string>
-    <string name="keyAppVersion">App version</string>
+    <string name="title_version">Version</string>
+    <string name="keyAppVersion">AppVersion</string>
     <string name="pref_title_ringtone">Ringtone</string>
     <string name="add_Time">Time alarm</string>
     <string name="add_Battery">Battery alarm</string>
@@ -34,7 +35,7 @@
     <string name="customize">Customize</string>
     <string name="theme">Quick switch theme</string>
     <string name="location">Location</string>
-    <string name="locationPrecision">Buzz Alarm when you reach within a distance of</string>
+    <string name="locationPrecision">Location Precision</string>
     <string name="search_hint">Search for any Location..</string>
     <string name="openSourceLicenses">Open Source Licenses</string>
     <string name="aboutDevSummary">Software Er. Cinephile. Autodidact. Full time Nerd. Esurient Foodie</string>

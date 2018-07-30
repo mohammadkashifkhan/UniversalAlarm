@@ -3,7 +3,7 @@ package com.mdkashif.alarm.custom;
 import android.graphics.Bitmap;
 import android.webkit.WebView;
 
-import com.mdkashif.alarm.base.BaseActivity;
+import com.mdkashif.alarm.activities.base.BaseActivity;
 
 
 public class AlarmWebViewClient extends android.webkit.WebViewClient {

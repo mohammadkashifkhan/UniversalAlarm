@@ -55,6 +55,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
     }
 
     public static class MainPreferenceFragment extends PreferenceFragment {
@@ -215,7 +216,7 @@ public class SettingsActivity extends AppCompatActivity {
 
             try {
                 PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
-                toggleAppVersion.setSummary("Build "+pInfo.versionName);
+                toggleAppVersion.setSummary(pInfo.versionName);
             }
             catch (Exception e)
             {
@@ -355,6 +356,7 @@ public class SettingsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
+            overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
         }
         return super.onOptionsItemSelected(item);
     }

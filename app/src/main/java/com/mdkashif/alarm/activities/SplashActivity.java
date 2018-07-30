@@ -6,11 +6,12 @@ import android.os.Handler;
 
 import com.crashlytics.android.Crashlytics;
 import com.mdkashif.alarm.R;
-import com.mdkashif.alarm.base.BaseActivity;
+import com.mdkashif.alarm.activities.base.BaseActivity;
 
 import io.fabric.sdk.android.Fabric;
 
 public class SplashActivity extends BaseActivity{
+    private int splashTimeOut = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +24,9 @@ public class SplashActivity extends BaseActivity{
             public void run() {
                 Intent intent=new Intent(SplashActivity.this,AppIntroActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                 finish();
-//                overridePendingTransition(R.anim.right_enter,R.anim.slide_out);
             }
-        },2000);
+        },splashTimeOut);
     }
 }

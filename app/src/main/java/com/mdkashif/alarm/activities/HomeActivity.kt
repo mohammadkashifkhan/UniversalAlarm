@@ -13,11 +13,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.mdkashif.alarm.R
-import com.mdkashif.alarm.activities.needsPermissionWithPermissionCheck
-import com.mdkashif.alarm.activities.onRequestPermissionsResult
 import com.mdkashif.alarm.alarm.AlarmListAdapter
 import com.mdkashif.alarm.alarm.ShowAllAlarmsFragment
-import com.mdkashif.alarm.base.BaseActivity
+import com.mdkashif.alarm.activities.base.BaseActivity
 import com.mdkashif.alarm.battery.BatteryReceiver
 import com.mdkashif.alarm.battery.SetBatteryLevelFragment
 import com.mdkashif.alarm.databinding.ActivityHomeBinding
@@ -59,13 +57,7 @@ class HomeActivity : BaseActivity() {
 
         fab_battery.setOnClickListener{
             menu.close(true)
-            val fm = supportFragmentManager
-            val ft = fm.beginTransaction()
-            ft.setCustomAnimations(R.animator.slide_up, 0, 0, R.animator.slide_down)
-            ft.replace(R.id.fl_main_content, SetBatteryLevelFragment(), HomeActivity::class.java.simpleName)
-                ft.addToBackStack(HomeActivity::class.java.simpleName)
-
-            ft.commit()
+            replaceFragment(SetBatteryLevelFragment(), HomeActivity::class.java.simpleName,true)
         }
 
         fab_location.setOnClickListener{
@@ -84,6 +76,7 @@ class HomeActivity : BaseActivity() {
 
         ivSettings.setOnClickListener{
             startActivity(Intent(this, SettingsActivity::class.java))
+            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
         }
 
         tvSeeAll.setOnClickListener{

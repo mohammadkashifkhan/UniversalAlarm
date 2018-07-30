@@ -10,7 +10,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.mdkashif.alarm.R;
-import com.mdkashif.alarm.base.BaseActivity;
+import com.mdkashif.alarm.activities.base.BaseActivity;
 import com.mdkashif.alarm.utils.SharedPrefHolder;
 
 public class AppIntroActivity extends BaseActivity {
@@ -48,8 +48,9 @@ public class AppIntroActivity extends BaseActivity {
         SharedPrefHolder.getInstance(this).setFirstTimeLaunch(false);
 
         startActivity(new Intent(AppIntroActivity.this, HomeActivity.class));
+
+        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
         finish();
-//        overridePendingTransition(R.anim.right_enter,R.anim.slide_out);
     }
 
     private void changeStatusBarColor() {

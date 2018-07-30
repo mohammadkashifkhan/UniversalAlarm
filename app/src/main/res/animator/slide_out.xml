@@ -2,8 +2,8 @@
 <objectAnimator
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:interpolator="@android:anim/accelerate_decelerate_interpolator"
-    android:propertyName="translationY"
+    android:propertyName="translationX"
     android:valueType="floatType"
-    android:valueFrom="1280"
-    android:valueTo="0"
-    android:duration="@android:integer/config_mediumAnimTime"/>
+    android:valueFrom="0"
+    android:valueTo="1440"
+    android:duration="@integer/slide_animation_duration"/>

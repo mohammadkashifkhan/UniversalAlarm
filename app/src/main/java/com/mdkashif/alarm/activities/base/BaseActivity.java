@@ -1,4 +1,4 @@
-package com.mdkashif.alarm.base;
+package com.mdkashif.alarm.activities.base;
 
 
 import android.support.v4.app.FragmentManager;
@@ -82,7 +82,8 @@ public class BaseActivity extends AppCompatActivity {
     public void replaceFragment(Fragment fragment, String tag, boolean isAddTobackStack) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.setCustomAnimations( R.animator.slide_up, 0, 0, R.animator.slide_down);
+        ft.setCustomAnimations(R.animator.slide_in,
+                R.animator.slide_out);
         ft.replace(R.id.fl_main_content, fragment, tag);
         if (isAddTobackStack) {
             ft.addToBackStack(tag);

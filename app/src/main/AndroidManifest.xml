@@ -27,7 +27,7 @@
             android:value="@string/google_android_map_api_key" />
 
         <activity
-            android:name=".base.BaseActivity"
+            android:name=".activities.base.BaseActivity"
             android:screenOrientation="portrait"
             android:theme="@style/common" />
         <activity

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory android:title="@string/pref_title_notifications">
 
@@ -27,10 +28,10 @@
     <PreferenceCategory android:title="@string/location">
 
         <Preference
-            android:title="@string/locationPrecision"
-            android:summary="Within 100m"
             android:key="@string/location"
-            android:selectable="true" />
+            android:selectable="true"
+            android:summary="Within 100m"
+            android:title="@string/locationPrecision" />
 
     </PreferenceCategory>
 
@@ -79,13 +80,14 @@
 
         <Preference
             android:key="@string/rate"
+            android:title="@string/rate"
             android:selectable="true"
-            android:summary="@string/rate" />
+            android:summary="@string/rateSummary" />
 
         <Preference
             android:key="@string/share"
             android:selectable="true"
-            android:summary="@string/share" />
+            android:title="@string/share" />
 
     </PreferenceCategory>
 
