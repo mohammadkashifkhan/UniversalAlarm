@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".alarm.ShowAllAlarmsFragment"
-    android:background="@color/white">
+    android:background="@color/pitchWhite">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,9 +19,11 @@
             android:textStyle="bold"
             android:textSize="18sp"
             android:textColor="@color/dark_blue"
-            android:padding="@dimen/d_20dp"/>
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"/>
 
         <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="8dp"
             android:id="@+id/rvAlarms"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

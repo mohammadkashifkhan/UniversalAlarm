@@ -173,7 +173,6 @@
             app:mrb_connectingLineColor="@color/light_blue"
             app:mrb_selectorColor="@color/light_blue"/>
 
-
         <com.appyvet.materialrangebar.RangeBar
             android:id="@+id/rbTemp"
             android:layout_width="0dp"

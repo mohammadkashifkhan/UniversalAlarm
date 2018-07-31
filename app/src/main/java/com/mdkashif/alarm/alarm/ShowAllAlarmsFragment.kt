@@ -29,20 +29,8 @@ class ShowAllAlarmsFragment : Fragment() {
 
     private fun setAdapter() {
         rvAlarms.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        val defaultPadding = 20
-        rvAlarms.addItemDecoration(object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
-                val position = parent.getChildAdapterPosition(view)
-                if (position == RecyclerView.NO_POSITION) {
-                    return
-                }
-                outRect.top = if (position == 0) defaultPadding / 2 else defaultPadding / 4
-                outRect.bottom = if (position == parent.adapter.itemCount - 1) defaultPadding / 2 else defaultPadding / 4
-            }
-        })
         AnimationSingleton.set_alarms_Animation(rvAlarms)
         rvAlarms.adapter = AlarmListAdapter(activity, alarmType)
-        rvAlarms.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
     }
 
 }

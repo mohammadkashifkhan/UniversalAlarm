@@ -22,6 +22,7 @@ import com.mdkashif.alarm.databinding.ActivityHomeBinding
 import com.mdkashif.alarm.location.SetLocationFragment
 import com.mdkashif.alarm.prayer.SetPrayerTimeFragment
 import com.mdkashif.alarm.time.SetTimeFragment
+import com.mdkashif.alarm.utils.AnimationSingleton
 import kotlinx.android.synthetic.main.activity_home.*
 import permissions.dispatcher.*
 
@@ -29,7 +30,7 @@ import permissions.dispatcher.*
 @RuntimePermissions
 class HomeActivity : BaseActivity() {
 
-    private val alarmType: List<String> = listOf("time","battery","location","prayer")
+    private val alarmType: List<String> = listOf("time","battery","prayer")
     private var binding: ActivityHomeBinding? = null
     private var mBatInfoReceiver: BatteryReceiver?=null
 
@@ -92,26 +93,12 @@ class HomeActivity : BaseActivity() {
 
     private fun setAdapter() {
         rvAlarms.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        val defaultPadding = 20
-        rvAlarms.addItemDecoration(object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
-                val position = parent.getChildAdapterPosition(view)
-                if (position == RecyclerView.NO_POSITION) {
-                    return
-                }
-                outRect.top = if (position == 0) defaultPadding / 2 else defaultPadding / 4
-                outRect.bottom = if (position == parent.adapter.itemCount - 1) defaultPadding / 2 else defaultPadding / 4
-            }
-        })
-//        AnimationSingleton.getInstance().set_rule_and_emp_Animation(rvAlarms)
+        AnimationSingleton.set_alarms_Animation(rvAlarms)
         rvAlarms.adapter = AlarmListAdapter(this, alarmType)
-        rvAlarms.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
     }
 
     override fun onBackPressed() {
-
             super.onBackPressed()
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
