@@ -1,31 +1,16 @@
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
 
     <shortcut
-        android:shortcutId="Add Time alarm"
+        android:shortcutId="Add Prayer alarm"
         android:enabled="true"
-        android:icon="@drawable/ic_shortcut_fab_time"
-        android:shortcutShortLabel="@string/add_Time"
-        android:shortcutLongLabel="@string/add_Time"
-        android:shortcutDisabledMessage="@string/add_Time">
+        android:icon="@drawable/ic_shortcut_praying_hands"
+        android:shortcutShortLabel="@string/add_Prayer"
+        android:shortcutLongLabel="@string/add_Prayer"
+        android:shortcutDisabledMessage="@string/add_Prayer">
         <intent
-            android:action="com.mdkashif.alarm.activities.time"
-            android:targetPackage="com.mdkashif.alarm.activities"
+            android:action="com.mdkashif.alarm.activities.prayer"
+            android:targetPackage="com.mdkashif.alarm"
             android:targetClass="com.mdkashif.alarm.activities.HomeActivity" />
-        <categories android:name="android.shortcut.conversation" />
-    </shortcut>
-
-    <shortcut
-        android:shortcutId="Add Battery alarm"
-        android:enabled="true"
-        android:icon="@drawable/ic_shortcut_fab_battery"
-        android:shortcutShortLabel="@string/add_Battery"
-        android:shortcutLongLabel="@string/add_Battery"
-        android:shortcutDisabledMessage="@string/add_Battery">
-        <intent
-            android:action="com.mdkashif.alarm.activities.battery"
-            android:targetPackage="com.mdkashif.alarm.activities"
-            android:targetClass="com.mdkashif.alarm.activities.HomeActivity" />
-        <categories android:name="android.shortcut.conversation" />
     </shortcut>
 
     <shortcut
@@ -37,23 +22,34 @@
         android:shortcutDisabledMessage="@string/add_Location">
         <intent
             android:action="com.mdkashif.alarm.activities.location"
-            android:targetPackage="com.mdkashif.alarm.activities"
+            android:targetPackage="com.mdkashif.alarm"
             android:targetClass="com.mdkashif.alarm.activities.HomeActivity" />
-        <categories android:name="android.shortcut.conversation" />
     </shortcut>
 
     <shortcut
-        android:shortcutId="Add Prayer alarm"
+        android:shortcutId="Add Battery alarm"
         android:enabled="true"
-        android:icon="@drawable/ic_shortcut_praying_hands"
-        android:shortcutShortLabel="@string/add_Prayer"
-        android:shortcutLongLabel="@string/add_Prayer"
-        android:shortcutDisabledMessage="@string/add_Prayer">
+        android:icon="@drawable/ic_shortcut_fab_battery"
+        android:shortcutShortLabel="@string/add_Battery"
+        android:shortcutLongLabel="@string/add_Battery"
+        android:shortcutDisabledMessage="@string/add_Battery">
         <intent
-            android:action="com.mdkashif.alarm.activities.prayer"
-            android:targetPackage="com.mdkashif.alarm.activities"
+            android:action="com.mdkashif.alarm.activities.battery"
+            android:targetPackage="com.mdkashif.alarm"
             android:targetClass="com.mdkashif.alarm.activities.HomeActivity" />
-        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+    <shortcut
+        android:shortcutId="Add Time alarm"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_fab_time"
+        android:shortcutShortLabel="@string/add_Time"
+        android:shortcutLongLabel="@string/add_Time"
+        android:shortcutDisabledMessage="@string/add_Time">
+        <intent
+            android:action="com.mdkashif.alarm.activities.time"
+            android:targetPackage="com.mdkashif.alarm"
+            android:targetClass="com.mdkashif.alarm.activities.HomeActivity" />
     </shortcut>
 
 </shortcuts>

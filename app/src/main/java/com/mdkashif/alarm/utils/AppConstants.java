@@ -10,4 +10,19 @@ public class AppConstants {
     public static String PP= MAIN_URL+"privacy-policy.html";
     public static String TNC= MAIN_URL+"terms-and-conditions.html";
 
+    public static String isFirstTimeLaunch = "isFirstTimeLaunch";
+
+    public static String ringStatus = "ring_status";
+
+    public static String ringtoneUri = "ringtone_uri";
+
+    public static String vibrateStatus = "vibrate_status";
+
+    /////// SetBatteryLevelFragment params
+    public static String highBatteryLevel = "hbl";
+    public static String lowBatteryLevel = "lbl";
+    public static String batteryTempLevel = "temp";
+    public static String batteryAlarmStatus = "batteryAlarmStatus";
+    public static String theftAlarmStatus = "theftAlarmStatus";
+
 }

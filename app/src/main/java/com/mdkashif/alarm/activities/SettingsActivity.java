@@ -187,9 +187,9 @@ public class SettingsActivity extends AppCompatActivity {
                 public boolean onPreferenceChange(Preference preference, Object o) {
 
                     if(Boolean.valueOf(o.toString()))
-                        SharedPrefHolder.getInstance(getActivity()).setringstatus(true);
+                        SharedPrefHolder.getInstance(getActivity()).setRingStatus(true);
                     else
-                        SharedPrefHolder.getInstance(getActivity()).setringstatus(false);
+                        SharedPrefHolder.getInstance(getActivity()).setRingStatus(false);
                     return true;
                 }
             });
@@ -200,9 +200,9 @@ public class SettingsActivity extends AppCompatActivity {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object o) {
                     if(Boolean.valueOf(o.toString()))
-                        SharedPrefHolder.getInstance(getActivity()).setvibratestatus(true);
+                        SharedPrefHolder.getInstance(getActivity()).setVibrateStatus(true);
                     else
-                        SharedPrefHolder.getInstance(getActivity()).setvibratestatus(false);
+                        SharedPrefHolder.getInstance(getActivity()).setVibrateStatus(false);
                     return true;
                 }
             });
@@ -319,7 +319,7 @@ public class SettingsActivity extends AppCompatActivity {
                 } else {
                     Ringtone ringtone = RingtoneManager.getRingtone(
                             preference.getContext(), Uri.parse(stringValue));
-                    SharedPrefHolder.getInstance(preference.getContext()).seturi(Uri.parse(stringValue));
+                    SharedPrefHolder.getInstance(preference.getContext()).setRingtoneUri(Uri.parse(stringValue));
 
                     if (ringtone == null) {
 

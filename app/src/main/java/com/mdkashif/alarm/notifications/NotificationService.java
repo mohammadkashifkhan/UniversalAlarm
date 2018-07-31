@@ -31,28 +31,28 @@ public class NotificationService extends IntentService {
     public void onHandleIntent(Intent intent) {
         intent=new Intent(this, ShowBuzzingAlarmActivity.class);
         //Send notification
-        if(SharedPrefHolder.getInstance(getApplicationContext()).getringstatus() || SharedPrefHolder.getInstance(getApplicationContext()).getvibratestatus()) {
-            if (SharedPrefHolder.getInstance(getApplicationContext()).getringstatus()&& SharedPrefHolder.getInstance(getApplicationContext()).getvibratestatus())
+        if(SharedPrefHolder.getInstance(getApplicationContext()).getRingStatus() || SharedPrefHolder.getInstance(getApplicationContext()).getVibrateStatus()) {
+            if (SharedPrefHolder.getInstance(getApplicationContext()).getRingStatus()&& SharedPrefHolder.getInstance(getApplicationContext()).getVibrateStatus())
             {
-                if ((!SharedPrefHolder.getInstance(getApplicationContext()).geturi().equals("")) && SharedPrefHolder.getInstance(getApplicationContext()).getvibratestatus()) {
-                    uri = Uri.parse(SharedPrefHolder.getInstance(getApplicationContext()).geturi());
+                if ((!SharedPrefHolder.getInstance(getApplicationContext()).getRingtoneUri().equals("")) && SharedPrefHolder.getInstance(getApplicationContext()).getVibrateStatus()) {
+                    uri = Uri.parse(SharedPrefHolder.getInstance(getApplicationContext()).getRingtoneUri());
                     defaults = Notification.DEFAULT_VIBRATE;
                     showNotification("Universal Alarm","Wake Up! Wake Up! Alarm started!!",intent,"custom");
                 }
 
-                if ((SharedPrefHolder.getInstance(getApplicationContext()).geturi().equals("")) && SharedPrefHolder.getInstance(getApplicationContext()).getvibratestatus()) {
+                if ((SharedPrefHolder.getInstance(getApplicationContext()).getRingtoneUri().equals("")) && SharedPrefHolder.getInstance(getApplicationContext()).getVibrateStatus()) {
                     defaults = Notification.DEFAULT_ALL;
                     showNotification("Universal Alarm","Wake Up! Wake Up! Alarm started!!",intent,"normal");
                 }
             }
-            else if(SharedPrefHolder.getInstance(getApplicationContext()).getringstatus()&&(!SharedPrefHolder.getInstance(getApplicationContext()).getvibratestatus()))
+            else if(SharedPrefHolder.getInstance(getApplicationContext()).getRingStatus()&&(!SharedPrefHolder.getInstance(getApplicationContext()).getVibrateStatus()))
             {
-                if (!SharedPrefHolder.getInstance(getApplicationContext()).geturi().equals("")) {
-                    uri = Uri.parse(SharedPrefHolder.getInstance(getApplicationContext()).geturi());
+                if (!SharedPrefHolder.getInstance(getApplicationContext()).getRingtoneUri().equals("")) {
+                    uri = Uri.parse(SharedPrefHolder.getInstance(getApplicationContext()).getRingtoneUri());
                     showNotification("Universal Alarm","Wake Up! Wake Up! Alarm started!!",intent,"custom");
                 }
 
-                if (SharedPrefHolder.getInstance(getApplicationContext()).geturi().equals("")) {
+                if (SharedPrefHolder.getInstance(getApplicationContext()).getRingtoneUri().equals("")) {
                     defaults = Notification.DEFAULT_SOUND;
                     showNotification("Universal Alarm","Wake Up! Wake Up! Alarm started!!",intent,"normal");
                 }

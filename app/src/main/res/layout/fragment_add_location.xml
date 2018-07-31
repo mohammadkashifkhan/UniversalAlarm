@@ -91,7 +91,7 @@
         </FrameLayout>
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_add"
+            android:id="@+id/fab_add_location_alarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_anchor="@+id/bottom_sheet"

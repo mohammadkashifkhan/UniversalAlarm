@@ -11,6 +11,8 @@
     <color name="light_blue">#66acfc</color>
     <color name="lesser_dark_blue">#A8D1FD</color>
     <color name="least_dark_blue">#CBE3FE</color>
+    <color name="green">#32CD32</color>
+    <color name="yellow">#FFFF00</color>
     <color name="red">#B71C1C</color>
     <color name="offwhite">#f1f1f1</color>
     <color name="gray">#acacac</color>

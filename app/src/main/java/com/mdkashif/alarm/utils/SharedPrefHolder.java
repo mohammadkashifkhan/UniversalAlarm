@@ -4,6 +4,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 
+import static com.mdkashif.alarm.utils.AppConstants.batteryAlarmStatus;
+import static com.mdkashif.alarm.utils.AppConstants.batteryTempLevel;
+import static com.mdkashif.alarm.utils.AppConstants.highBatteryLevel;
+import static com.mdkashif.alarm.utils.AppConstants.isFirstTimeLaunch;
+import static com.mdkashif.alarm.utils.AppConstants.lowBatteryLevel;
+import static com.mdkashif.alarm.utils.AppConstants.ringStatus;
+import static com.mdkashif.alarm.utils.AppConstants.ringtoneUri;
+import static com.mdkashif.alarm.utils.AppConstants.theftAlarmStatus;
+import static com.mdkashif.alarm.utils.AppConstants.vibrateStatus;
+
 /**
  * Created by Kashif on 16-Apr-18.
  */
@@ -44,44 +54,84 @@ public class SharedPrefHolder {
     }
 
     public void setFirstTimeLaunch(boolean isFirstTime) {
-        editor.putBoolean("isFirstTimeLaunch", isFirstTime);
+        editor.putBoolean(isFirstTimeLaunch, isFirstTime);
         editor.commit();
     }
 
     public boolean isFirstTimeLaunch() {
-        return pref.getBoolean("isFirstTimeLaunch", true);
+        return pref.getBoolean(isFirstTimeLaunch, true);
     }
 
-    public void setringstatus(boolean status){
-        editor.putBoolean("ring_status",status);
+    public void setRingStatus(boolean status){
+        editor.putBoolean(ringStatus,status);
         editor.commit();
     }
 
-    public boolean getringstatus(){
-        return pref.getBoolean("ring_status",true);
+    public boolean getRingStatus(){
+        return pref.getBoolean(ringStatus,true);
     }
 
-    public void seturi(Uri uri){
-        editor.putString("uri",uri+"");
+    public void setRingtoneUri(Uri uri){
+        editor.putString(ringtoneUri,uri+"");
         editor.commit();
     }
 
-    public String geturi(){
-        return pref.getString("uri","");
+    public String getRingtoneUri(){
+        return pref.getString(ringtoneUri,"");
     }
 
-    public void setvibratestatus(boolean status){
-        editor.putBoolean("vibrate_status",status);
+    public void setVibrateStatus(boolean status){
+        editor.putBoolean(vibrateStatus,status);
         editor.commit();
     }
 
-    public boolean getvibratestatus(){
-        return pref.getBoolean("vibrate_status",true);
+    public boolean getVibrateStatus(){
+        return pref.getBoolean(vibrateStatus,true);
     }
 
-    public void setprofileuri(Uri uri){
-        editor.putString("profile_uri",uri+"");
+    public void setHBL(float level){
+        editor.putFloat(highBatteryLevel,level);
         editor.commit();
+    }
+
+    public Float getHBL(){
+        return pref.getFloat(highBatteryLevel,0f);
+    }
+
+    public void setLBL(float level){
+        editor.putFloat(lowBatteryLevel,level);
+        editor.commit();
+    }
+
+    public Float getLBL(){
+        return pref.getFloat(lowBatteryLevel,0f);
+    }
+
+    public void setTemp(float level){
+        editor.putFloat(batteryTempLevel,level);
+        editor.commit();
+    }
+
+    public Float getTemp(){
+        return pref.getFloat(batteryTempLevel,0f);
+    }
+
+    public void setBatteryAlarmStatus(boolean status){
+        editor.putBoolean(batteryAlarmStatus,status);
+        editor.commit();
+    }
+
+    public Boolean getBatteryAlarmStatus(){
+        return pref.getBoolean(batteryAlarmStatus,false);
+    }
+
+    public void setTheftAlarmStatus(boolean status){
+        editor.putBoolean(theftAlarmStatus,status);
+        editor.commit();
+    }
+
+    public Boolean getTheftAlarmStatus(){
+        return pref.getBoolean(theftAlarmStatus,false);
     }
 
 }
