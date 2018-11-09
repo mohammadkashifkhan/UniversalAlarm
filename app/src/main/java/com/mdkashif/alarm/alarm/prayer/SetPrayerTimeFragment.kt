@@ -1,7 +1,5 @@
 package com.mdkashif.alarm.alarm.prayer
 
-//import com.mdkashif.alarm.activities.BaseActivity.city
-//import com.mdkashif.alarm.activities.BaseActivity.country
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -12,13 +10,15 @@ import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import androidx.fragment.app.Fragment
 import com.mdkashif.alarm.R
-import com.mdkashif.alarm.activities.HomeActivity
+import com.mdkashif.alarm.activities.BaseActivity.Companion.city
+import com.mdkashif.alarm.activities.BaseActivity.Companion.country
+import com.mdkashif.alarm.activities.ContainerActivity
 import com.mdkashif.alarm.alarm.prayer.compass.Compass
 import com.mdkashif.alarm.alarm.prayer.pojos.PrayerApiResponse
 import kotlinx.android.synthetic.main.fragment_set_prayer_time.*
 
 class SetPrayerTimeFragment : Fragment(), PrayerPresenter.PrayerViewCallback {
-    private var mActivity: HomeActivity?=null
+    private lateinit var mActivity: ContainerActivity
 
     private val TAG = SetPrayerTimeFragment::class.java.simpleName
 
@@ -31,8 +31,8 @@ class SetPrayerTimeFragment : Fragment(), PrayerPresenter.PrayerViewCallback {
         var view: View =inflater.inflate(R.layout.fragment_set_prayer_time, container, false)
         mActivity!!.showLoader()
         if (mActivity!!.isOnline)
-//            if (!(mActivity!!.isBlank(city) && (mActivity!!.isBlank(country))))
-//                PrayerPresenter(this,city,country).getPrayerDetails()
+            if (!(mActivity!!.isBlank(city) && (mActivity!!.isBlank(country))))
+                PrayerPresenter(this, city!!, country!!).getPrayerDetails()
 
         setupCompass()
         return view
@@ -40,7 +40,7 @@ class SetPrayerTimeFragment : Fragment(), PrayerPresenter.PrayerViewCallback {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        this.mActivity = context as HomeActivity
+        this.mActivity = context as ContainerActivity
     }
 
     private fun setupCompass() {

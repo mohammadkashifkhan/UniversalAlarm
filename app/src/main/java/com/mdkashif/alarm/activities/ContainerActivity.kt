@@ -10,6 +10,7 @@ import com.mdkashif.alarm.R
 import com.mdkashif.alarm.alarm.battery.BatteryReceiver
 import com.mdkashif.alarm.alarm.battery.SetBatteryLevelFragment
 import com.mdkashif.alarm.alarm.location.SetLocationFragment
+import com.mdkashif.alarm.alarm.miscellaneous.BuzzingAlarmFragment
 import com.mdkashif.alarm.alarm.miscellaneous.HomeFragment
 import com.mdkashif.alarm.alarm.prayer.SetPrayerTimeFragment
 import com.mdkashif.alarm.alarm.time.SetTimeFragment
@@ -28,10 +29,11 @@ class ContainerActivity : BaseActivity() {
         initiateReceiver()
 
         when {
-            "com.mdkashif.alarm.activities.time" == intent.action -> replaceFragment(SetTimeFragment(), HomeActivity::class.java.simpleName,true)
-            "com.mdkashif.alarm.activities.battery" == intent.action -> replaceFragment(SetBatteryLevelFragment(),HomeActivity::class.java.simpleName,true)
-            "com.mdkashif.alarm.activities.location" == intent.action -> replaceFragment(SetLocationFragment(), HomeActivity::class.java.simpleName,true)
-            "com.mdkashif.alarm.activities.prayer" == intent.action -> replaceFragment(SetPrayerTimeFragment(), HomeActivity::class.java.simpleName,true)
+            "BuzzAlarm" == intent.getStringExtra("param")-> replaceFragment(BuzzingAlarmFragment(), BuzzingAlarmFragment::class.java.simpleName,false)
+            "com.mdkashif.alarm.activities.time" == intent.action -> replaceFragment(SetTimeFragment(), SetTimeFragment::class.java.simpleName,false)
+            "com.mdkashif.alarm.activities.battery" == intent.action -> replaceFragment(SetBatteryLevelFragment(),SetBatteryLevelFragment::class.java.simpleName,false)
+            "com.mdkashif.alarm.activities.location" == intent.action -> replaceFragment(SetLocationFragment(), SetLocationFragment::class.java.simpleName,false)
+            "com.mdkashif.alarm.activities.prayer" == intent.action -> replaceFragment(SetPrayerTimeFragment(), SetPrayerTimeFragment::class.java.simpleName,false)
         }
 
         replaceFragment(HomeFragment(), HomeFragment::class.java.simpleName,false)

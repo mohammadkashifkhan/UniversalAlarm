@@ -7,14 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mdkashif.alarm.R
 import com.mdkashif.alarm.activities.ContainerActivity
 import com.mdkashif.alarm.alarm.AlarmListAdapter
 import kotlinx.android.synthetic.main.fragment_show_all_alarms.*
 
 class ShowAllAlarmsFragment : Fragment() {
-    val alarmType: List<String> = listOf("time","battery","location","prayer","location","time","location")
-    var mlinearLayoutManager : LinearLayoutManager?=null
+    private val alarmType: List<String> = listOf("time","battery","location","prayer","location","time","location")
+    private var mLinearLayoutManager : LinearLayoutManager?=null
 
     private var mActivity: ContainerActivity?=null
 
@@ -35,10 +36,10 @@ class ShowAllAlarmsFragment : Fragment() {
     }
 
     private fun setAdapter() {
-        mlinearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        rvAlarms.layoutManager=mlinearLayoutManager
+        mLinearLayoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        rvAlarms.layoutManager=mLinearLayoutManager
         mActivity!!.setRVSlideInLeftAnimation(rvAlarms)
-        rvAlarms.adapter = AlarmListAdapter(mlinearLayoutManager!!, alarmType)
+        rvAlarms.adapter = AlarmListAdapter(mLinearLayoutManager!!, alarmType)
     }
 
 }

@@ -1,5 +1,6 @@
 package com.mdkashif.alarm.alarm.miscellaneous
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment : Fragment() {
     private val alarmType: List<String> = listOf("time","battery","prayer")
-    lateinit var mlinearLayoutManager : LinearLayoutManager
+    lateinit var mLinearLayoutManager : LinearLayoutManager
     lateinit var rootView: View
     private lateinit var mActivity: ContainerActivity
 
@@ -70,11 +71,16 @@ class HomeFragment : Fragment() {
         return rootView
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mActivity = context as ContainerActivity
+    }
+
     private fun setRVAdapter(view: ExpandableRecyclerView) {
-        mlinearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        view.rvAlarms.layoutManager=mlinearLayoutManager
+        mLinearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        view.rvAlarms.layoutManager=mLinearLayoutManager
         mActivity.setRVSlideInLeftAnimation(view.rvAlarms)
-        view.rvAlarms.setAdapter(AlarmListAdapter(mlinearLayoutManager, alarmType))
+        view.rvAlarms.setAdapter(AlarmListAdapter(mLinearLayoutManager, alarmType))
     }
 
 }

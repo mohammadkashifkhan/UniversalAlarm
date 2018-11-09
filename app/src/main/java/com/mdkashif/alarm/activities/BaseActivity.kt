@@ -67,13 +67,13 @@ open class BaseActivity : AppCompatActivity() {
         return strValue == null || strValue == ""
     }
 
-    fun replaceFragment(fragment: Fragment, tag: String, isAddTobackStack: Boolean) {
+    fun replaceFragment(fragment: Fragment, tag: String, isAddToBackStack: Boolean) {
         val fm = supportFragmentManager
         val ft = fm.beginTransaction()
         ft.setCustomAnimations(R.animator.slide_in,
                 R.animator.slide_out)
-        ft.replace(R.id.flMain, fragment, tag)
-        if (isAddTobackStack) {
+        ft.replace(R.id.flContainer, fragment, tag)
+        if (isAddToBackStack) {
             ft.addToBackStack(tag)
         }
         ft.commit()

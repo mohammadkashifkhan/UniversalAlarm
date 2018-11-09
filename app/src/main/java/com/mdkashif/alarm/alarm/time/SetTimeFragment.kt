@@ -13,7 +13,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mdkashif.alarm.R
-import com.mdkashif.alarm.activities.HomeActivity
+import com.mdkashif.alarm.activities.ContainerActivity
 import com.mdkashif.alarm.alarm.AlarmReceiver
 import com.mdkashif.alarm.alarm.time.adapters.DaysInWeekAdapter
 import com.mdkashif.alarm.alarm.time.adapters.HoursInDayAdapter
@@ -25,7 +25,7 @@ import java.util.*
 
 
 class SetTimeFragment : Fragment(), TimePresenter.TimePresenterCallback {
-    private var mActivity: HomeActivity?=null
+    private lateinit var mActivity: ContainerActivity
     private var hours: List<String>? = null
     private var days: List<String>? = null
     private var minutes: List<String>? = null
@@ -95,7 +95,7 @@ class SetTimeFragment : Fragment(), TimePresenter.TimePresenterCallback {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        this.mActivity = context as HomeActivity
+        this.mActivity = context as ContainerActivity
     }
 
     override fun onDaysOfWeekSuccess(hours: List<String>?, minutes: List<String>?, type: List<String>?, days: List<String>?) {

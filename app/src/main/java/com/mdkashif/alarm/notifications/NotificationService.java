@@ -11,7 +11,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 
 import com.mdkashif.alarm.R;
-import com.mdkashif.alarm.activities.ShowBuzzingAlarmActivity;
+import com.mdkashif.alarm.activities.ContainerActivity;
 import com.mdkashif.alarm.utils.SharedPrefHolder;
 
 import androidx.core.app.NotificationCompat;
@@ -30,8 +30,9 @@ public class NotificationService extends IntentService {
 
     @Override
     public void onHandleIntent(Intent intent) {
-        intent=new Intent(this, ShowBuzzingAlarmActivity.class);
-        //Send notification
+        intent=new Intent(this, ContainerActivity.class);
+        intent.putExtra("param","BuzzAlarm");
+
         if(SharedPrefHolder.getInstance(getApplicationContext()).getRingStatus() || SharedPrefHolder.getInstance(getApplicationContext()).getVibrateStatus()) {
             if (SharedPrefHolder.getInstance(getApplicationContext()).getRingStatus()&& SharedPrefHolder.getInstance(getApplicationContext()).getVibrateStatus())
             {

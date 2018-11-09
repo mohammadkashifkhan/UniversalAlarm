@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.mdkashif.alarm.R
-import com.mdkashif.alarm.activities.HomeActivity
+import com.mdkashif.alarm.activities.ContainerActivity
 import com.mdkashif.alarm.alarm.battery.pojo.BatteryStats
 import com.mdkashif.alarm.utils.SharedPrefHolder
 import kotlinx.android.synthetic.main.fragment_add_battery_level.*
@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_add_battery_level.view.*
 
 
 class SetBatteryLevelFragment : Fragment() {
-    private var mActivity: HomeActivity?=null
+    private lateinit var mActivity: ContainerActivity
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -75,7 +75,7 @@ class SetBatteryLevelFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        this.mActivity = context as HomeActivity
+        this.mActivity = context as ContainerActivity
     }
 
 }
