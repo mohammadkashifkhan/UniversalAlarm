@@ -5,10 +5,11 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.Window;
 
 import com.mdkashif.alarm.R;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by Kashif on 17-Apr-18.

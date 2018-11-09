@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".battery.SetBatteryLevelFragment"
+    tools:context=".alarm.battery.SetBatteryLevelFragment"
     android:background="@color/white">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -106,7 +106,7 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/ic_thermometer"/>
+                        android:src="@drawable/ic_thermometer_white"/>
 
                     <TextView
                         android:layout_marginLeft="8dp"
@@ -122,7 +122,7 @@
 
         </LinearLayout>
 
-        <android.support.v7.widget.SwitchCompat
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/batterySwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="40dp"
             android:text="Set Low &amp; High Battery Level(%) respectively"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/darkBlue"
             app:layout_constraintBottom_toTopOf="@+id/rbBatteryLevel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -160,18 +160,18 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-            app:mrb_pinColor="@color/light_blue"
+            app:mrb_pinColor="@color/lightBlue"
             app:mrb_pinMaxFont="12sp"
             app:mrb_pinTextColor="@color/pitchWhite"
             app:mrb_rangeBar="true"
-            app:mrb_rangeBarColor="@color/least_dark_blue"
+            app:mrb_rangeBarColor="@color/leastDarkBlue"
             app:mrb_selectorSize="10dp"
             app:mrb_tickEnd="95"
             app:mrb_tickInterval="5"
             app:mrb_tickStart="5"
-            app:mrb_tickColor="@color/dark_blue"
-            app:mrb_connectingLineColor="@color/light_blue"
-            app:mrb_selectorColor="@color/light_blue"/>
+            app:mrb_tickColor="@color/darkBlue"
+            app:mrb_connectingLineColor="@color/lightBlue"
+            app:mrb_selectorColor="@color/lightBlue"/>
 
         <com.appyvet.materialrangebar.RangeBar
             android:id="@+id/rbTemp"
@@ -183,18 +183,18 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8"
-            app:mrb_pinColor="@color/light_blue"
+            app:mrb_pinColor="@color/lightBlue"
             app:mrb_pinMaxFont="12sp"
             app:mrb_pinTextColor="@color/pitchWhite"
             app:mrb_rangeBar="false"
-            app:mrb_rangeBarColor="@color/least_dark_blue"
+            app:mrb_rangeBarColor="@color/leastDarkBlue"
             app:mrb_selectorSize="10dp"
             app:mrb_tickEnd="50"
             app:mrb_tickInterval="5"
             app:mrb_tickStart="25"
-            app:mrb_tickColor="@color/dark_blue"
-            app:mrb_connectingLineColor="@color/light_blue"
-            app:mrb_selectorColor="@color/light_blue"/>
+            app:mrb_tickColor="@color/darkBlue"
+            app:mrb_connectingLineColor="@color/lightBlue"
+            app:mrb_selectorColor="@color/lightBlue"/>
 
         <TextView
             android:layout_marginTop="40dp"
@@ -204,7 +204,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="16dp"
             android:text="Set Temperature Level"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/darkBlue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -218,13 +218,13 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="40dp"
             android:text="Theft Alarm"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/darkBlue"
             app:layout_constraintEnd_toStartOf="@+id/powerSwitch"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rbTemp" />
 
-        <android.support.v7.widget.SwitchCompat
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/theftSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -238,7 +238,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/darkBlue"
             android:text="Note: While charging, the alarm will buzz off, if anyone unplugs your device"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -246,6 +246,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

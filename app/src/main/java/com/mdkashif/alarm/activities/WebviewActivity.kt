@@ -3,7 +3,6 @@ package com.mdkashif.alarm.activities
 import android.os.Bundle
 import android.webkit.WebSettings
 import com.mdkashif.alarm.R
-import com.mdkashif.alarm.activities.base.BaseActivity
 import com.mdkashif.alarm.custom.AlarmWebViewClient
 import kotlinx.android.synthetic.main.activity_webview.*
 

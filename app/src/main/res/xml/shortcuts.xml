@@ -10,7 +10,7 @@
         <intent
             android:action="com.mdkashif.alarm.activities.prayer"
             android:targetPackage="com.mdkashif.alarm"
-            android:targetClass="com.mdkashif.alarm.activities.HomeActivity" />
+            android:targetClass="com.mdkashif.alarm.activities.ContainerActivity" />
     </shortcut>
 
     <shortcut
@@ -23,7 +23,7 @@
         <intent
             android:action="com.mdkashif.alarm.activities.location"
             android:targetPackage="com.mdkashif.alarm"
-            android:targetClass="com.mdkashif.alarm.activities.HomeActivity" />
+            android:targetClass="com.mdkashif.alarm.activities.ContainerActivity" />
     </shortcut>
 
     <shortcut
@@ -36,7 +36,7 @@
         <intent
             android:action="com.mdkashif.alarm.activities.battery"
             android:targetPackage="com.mdkashif.alarm"
-            android:targetClass="com.mdkashif.alarm.activities.HomeActivity" />
+            android:targetClass="com.mdkashif.alarm.activities.ContainerActivity" />
     </shortcut>
 
     <shortcut
@@ -49,7 +49,7 @@
         <intent
             android:action="com.mdkashif.alarm.activities.time"
             android:targetPackage="com.mdkashif.alarm"
-            android:targetClass="com.mdkashif.alarm.activities.HomeActivity" />
+            android:targetClass="com.mdkashif.alarm.activities.ContainerActivity" />
     </shortcut>
 
 </shortcuts>

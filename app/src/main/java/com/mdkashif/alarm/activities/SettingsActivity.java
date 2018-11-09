@@ -18,8 +18,6 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -27,7 +25,6 @@ import android.text.style.ForegroundColorSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -38,6 +35,7 @@ import com.pkmmte.view.CircularImageView;
 
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
 import jp.wasabeef.blurry.Blurry;
 
 public class SettingsActivity extends AppCompatActivity {

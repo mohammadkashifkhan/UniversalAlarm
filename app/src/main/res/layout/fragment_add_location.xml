@@ -4,11 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    tools:context=".location.SetLocationFragment"
+    tools:context=".alarm.location.SetLocationFragment"
     android:background="@color/white">
 
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -42,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:textColorHint="@color/dark_blue"
+                android:textColorHint="@color/darkBlue"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:textColor="@color/black"
@@ -74,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Set Date &amp; Time"
-                    android:textColor="@color/dark_blue"
+                    android:textColor="@color/darkBlue"
                     android:textSize="18sp" />
 
                 <Button
@@ -84,7 +83,7 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:text="Set Alarm"
-                    android:background="@drawable/button_background"/>
+                    android:background="@drawable/button_bg"/>
 
             </LinearLayout>
 
@@ -95,12 +94,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_anchor="@+id/bottom_sheet"
-            app:fab_colorNormal="@color/dark_blue"
+            app:fab_colorNormal="@color/darkBlue"
             app:fab_colorRipple="@color/pitchWhite"
-            app:fab_colorPressed="@color/lesser_dark_blue"
+            app:fab_colorPressed="@color/lesserDarkBlue"
             android:src="@drawable/ic_fab_add_white"
             app:layout_anchorGravity="top|center"/>
 
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </FrameLayout>

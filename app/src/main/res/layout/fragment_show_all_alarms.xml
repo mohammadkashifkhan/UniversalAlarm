@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".alarm.ShowAllAlarmsFragment"
+    tools:context=".alarm.miscellaneous.ShowAllAlarmsFragment"
     android:background="@color/pitchWhite">
 
     <LinearLayout
@@ -18,11 +18,11 @@
             android:text="All Alarms"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/darkBlue"
             android:layout_marginTop="16dp"
             android:layout_marginStart="24dp"/>
 
-        <android.support.v7.widget.RecyclerView
+        <com.hendraanggrian.widget.ExpandableRecyclerView
             android:layout_marginTop="8dp"
             android:id="@+id/rvAlarms"
             android:layout_width="match_parent"

@@ -5,22 +5,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <FrameLayout
-        android:id="@+id/fl_main_content"
+        android:id="@+id/flMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".activities.HomeActivity"
-            android:background="@color/pitchWhite">
+            android:background="@drawable/home_bg_light">
 
         <com.imankur.analogclockview.AnalogClock
             android:id="@+id/analogClock"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginTop="20dp"
-            app:dial="@drawable/clock_bg"
+            app:dial="@drawable/clock_dial_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,7 +29,7 @@
             app:hour="@drawable/hour_hand"
             app:second="@drawable/sec_hand"/>
 
-        <android.support.v7.widget.RecyclerView
+        <com.hendraanggrian.widget.ExpandableRecyclerView
             android:layout_marginTop="8dp"
             android:id="@+id/rvAlarms"
             android:layout_width="match_parent"
@@ -125,7 +125,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:text="Alarms"
-                android:textColor="@color/dark_blue"
+                android:textColor="@color/darkBlue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -139,14 +139,14 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="12dp"
                 android:text="+3 More"
-                android:textColor="@color/dark_blue"
+                android:textColor="@color/darkBlue"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.51"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rvAlarms" />
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>
 

@@ -1,25 +1,26 @@
 package com.mdkashif.alarm.alarm;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hendraanggrian.widget.ExpandableRecyclerView;
 import com.mdkashif.alarm.R;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by Kashif on 20-Apr-18.
  */
-public class AlarmListAdapter extends RecyclerView.Adapter {
+public class AlarmListAdapter extends ExpandableRecyclerView.Adapter {
     private List<String> alarmType;
-    Context context;
 
-    public AlarmListAdapter(Context context, List<String> alarmType) {
-        this.context=context;
+    public AlarmListAdapter(@NonNull LinearLayoutManager lm, List<String> alarmType) {
+        super(lm);
         this.alarmType=alarmType;
     }
 
@@ -52,16 +53,16 @@ public class AlarmListAdapter extends RecyclerView.Adapter {
         View view;
         switch (viewType) {
             case 0:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_alarm_time_list_item, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.alarm_time_list_item_row, parent, false);
                 return new TimeViewHolder(view);
             case 1:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_alarm_battery_list_item, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.alarm_battery_list_item_row, parent, false);
                 return new LocationViewHolder(view);
             case 2:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_alarm_location_list_item, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.alarm_location_list_item_row, parent, false);
                 return new BatteryViewHolder(view);
             case 3:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_alarm_prayer_list_item, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.alarm_prayer_list_item_row, parent, false);
                 return new BatteryViewHolder(view);
         }
         return null;
@@ -69,7 +70,7 @@ public class AlarmListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
+        super.onBindViewHolder(holder, position);
     }
 
     @Override

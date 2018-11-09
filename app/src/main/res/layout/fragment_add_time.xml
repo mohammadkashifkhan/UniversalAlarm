@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".time.SetTimeFragment">
+    tools:context=".alarm.time.SetTimeFragment">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -19,7 +19,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="Time Left From Now"
-            android:textColor="@color/light_blue"
+            android:textColor="@color/lightBlue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="06h 53m"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/darkBlue"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,13 +49,13 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="Repeat"
-            android:textColor="@color/light_blue"
+            android:textColor="@color/lightBlue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvDays"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -76,13 +76,13 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
             android:text="Take a Note (Optional)"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/darkBlue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/floatingActionButton2"
             app:layout_constraintTop_toBottomOf="@+id/rvDays" />
 
-        <android.support.design.widget.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="Snooze Time"
-            android:textColor="@color/light_blue"
+            android:textColor="@color/lightBlue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -118,7 +118,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="10 Minutes"
-            android:textColor="@color/dark_blue"
+            android:textColor="@color/darkBlue"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -139,7 +139,7 @@
                 app:repeatItems="true"
                 app:rotatableWheelDrawable="false"
                 app:selectionAngle="75.0"
-                app:wheelColor="@color/least_dark_blue"
+                app:wheelColor="@color/leastDarkBlue"
                 app:wheelItemRadius="2dp"
                 app:wheelPosition="bottom|right"
                 app:wheelRadius="240dp"
@@ -157,7 +157,7 @@
                 app:repeatItems="true"
                 app:rotatableWheelDrawable="true"
                 app:selectionAngle="75.0"
-                app:wheelColor="@color/lesser_dark_blue"
+                app:wheelColor="@color/lesserDarkBlue"
                 app:wheelItemRadius="10dp"
                 app:wheelPosition="bottom|right"
                 app:wheelRadius="180dp"
@@ -175,7 +175,7 @@
                 app:repeatItems="true"
                 app:rotatableWheelDrawable="true"
                 app:selectionAngle="75.0"
-                app:wheelColor="@color/light_blue"
+                app:wheelColor="@color/lightBlue"
                 app:wheelItemRadius="2dp"
                 app:wheelPosition="bottom|right"
                 app:wheelRadius="120dp"
@@ -198,6 +198,6 @@
 
         </RelativeLayout>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

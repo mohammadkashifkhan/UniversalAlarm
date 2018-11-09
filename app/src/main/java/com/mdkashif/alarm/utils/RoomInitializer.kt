@@ -1,11 +1,9 @@
 package com.mdkashif.alarm.utils
 
 
-import android.R
 import android.os.AsyncTask
 import android.util.Log
-
-import com.mdkashif.alarm.time.db.TimingsPojo
+import com.mdkashif.alarm.alarm.time.db.TimingsPojo
 
 class RoomInitializer {
 //    val user  = ArrayList<TimingsPojo>()

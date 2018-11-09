@@ -27,12 +27,12 @@
             android:value="@string/google_android_map_api_key" />
 
         <activity
-            android:name=".activities.base.BaseActivity"
+            android:name=".activities.BaseActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/common" />
+            android:theme="@style/commonLight" />
         <activity
             android:name=".activities.HomeActivity"
-            android:theme="@style/common" />
+            android:theme="@style/commonLight" />
         <activity
             android:name=".activities.SettingsActivity"
             android:screenOrientation="portrait"
@@ -53,13 +53,13 @@
         <activity
             android:name=".activities.AppIntroActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/common" />
+            android:theme="@style/commonLight" />
         <activity
             android:name=".activities.ShowBuzzingAlarmActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/common" />
+            android:theme="@style/commonLight" />
 
-        <receiver android:name=".battery.BatteryReceiver">
+        <receiver android:name=".alarm.battery.BatteryReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BATTERY_CHANGED" />
             </intent-filter>
@@ -73,7 +73,8 @@
         <service android:name=".alarm.AlarmSoundService" />
         <service android:name=".notifications.NotificationService" />
 
-        <activity android:name=".activities.WebviewActivity"></activity>
+        <activity android:name=".activities.WebviewActivity" />
+        <activity android:name=".activities.ContainerActivity"></activity>
     </application>
 
 </manifest>

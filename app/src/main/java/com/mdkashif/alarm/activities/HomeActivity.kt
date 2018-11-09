@@ -3,29 +3,22 @@ package com.mdkashif.alarm.activities
 import android.Manifest
 import android.content.Intent
 import android.content.IntentFilter
-import android.databinding.DataBindingUtil
-import android.graphics.Rect
 import android.os.Bundle
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mdkashif.alarm.R
 import com.mdkashif.alarm.alarm.AlarmListAdapter
-import com.mdkashif.alarm.alarm.ShowAllAlarmsFragment
-import com.mdkashif.alarm.activities.base.BaseActivity
-import com.mdkashif.alarm.battery.BatteryReceiver
-import com.mdkashif.alarm.battery.SetBatteryLevelFragment
+import com.mdkashif.alarm.alarm.battery.BatteryReceiver
+import com.mdkashif.alarm.alarm.battery.SetBatteryLevelFragment
+import com.mdkashif.alarm.alarm.location.SetLocationFragment
+import com.mdkashif.alarm.alarm.miscellaneous.ShowAllAlarmsFragment
+import com.mdkashif.alarm.alarm.prayer.SetPrayerTimeFragment
+import com.mdkashif.alarm.alarm.time.SetTimeFragment
 import com.mdkashif.alarm.databinding.ActivityHomeBinding
-import com.mdkashif.alarm.location.SetLocationFragment
-import com.mdkashif.alarm.prayer.SetPrayerTimeFragment
-import com.mdkashif.alarm.time.SetTimeFragment
-import com.mdkashif.alarm.utils.AnimationSingleton
 import kotlinx.android.synthetic.main.activity_home.*
 import permissions.dispatcher.*
-
 
 @RuntimePermissions
 class HomeActivity : BaseActivity() {
@@ -33,6 +26,7 @@ class HomeActivity : BaseActivity() {
     private val alarmType: List<String> = listOf("time","battery","prayer")
     private var binding: ActivityHomeBinding? = null
     private var mBatInfoReceiver: BatteryReceiver?=null
+    var mlinearLayoutManager : LinearLayoutManager?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,9 +86,10 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun setAdapter() {
-        rvAlarms.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        AnimationSingleton.set_alarms_Animation(rvAlarms)
-        rvAlarms.adapter = AlarmListAdapter(this, alarmType)
+        mlinearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rvAlarms.layoutManager=mlinearLayoutManager
+        setRVSlideInLeftAnimation(rvAlarms)
+        rvAlarms.adapter = AlarmListAdapter(mlinearLayoutManager!!, alarmType)
     }
 
     override fun onBackPressed() {

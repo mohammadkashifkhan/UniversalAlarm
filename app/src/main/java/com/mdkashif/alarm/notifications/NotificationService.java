@@ -9,12 +9,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 
 import com.mdkashif.alarm.R;
 import com.mdkashif.alarm.activities.ShowBuzzingAlarmActivity;
 import com.mdkashif.alarm.utils.SharedPrefHolder;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.TaskStackBuilder;
 
 public class NotificationService extends IntentService {
 

@@ -7,7 +7,7 @@
         <item name="colorControlNormal">@color/black</item>
         <item name="colorControlActivated">@color/colorPrimaryDark</item>
         <item name="colorControlHighlight">@color/colorPrimaryDark</item>
-        <item name="colorSwitchThumbNormal">@color/lesser_dark_blue</item>
+        <item name="colorSwitchThumbNormal">@color/lesserDarkBlue</item>
         <item name="android:colorForeground">@color/black</item>
     </style>
 
@@ -22,7 +22,10 @@
         <item name="colorControlHighlight">@color/colorPrimary</item>
     </style>
 
-    <style name="common" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    ////////////////////////// Light //////////////////////////
+    <style name="commonLight" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -31,10 +34,22 @@
         <item name="colorControlNormal">@color/black</item>
         <item name="colorControlActivated">@color/colorPrimaryDark</item>
         <item name="colorControlHighlight">@color/colorPrimaryDark</item>
-        <item name="colorSwitchThumbNormal">@color/lesser_dark_blue</item>
-        <item name="android:colorForeground">@color/lesser_dark_blue</item>
+        <item name="colorSwitchThumbNormal">@color/lesserDarkBlue</item>
+        <item name="android:colorForeground">@color/lesserDarkBlue</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    ////////////////////////// Dark //////////////////////////
+    <style name="commonDark" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/black</item>
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
+        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
+        <item name="colorSwitchThumbNormal">@color/lesserDarkBlue</item>
+        <item name="android:colorForeground">@color/lesserDarkBlue</item>
+    </style>
 
 </resources>

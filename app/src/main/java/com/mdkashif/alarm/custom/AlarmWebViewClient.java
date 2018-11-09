@@ -3,7 +3,7 @@ package com.mdkashif.alarm.custom;
 import android.graphics.Bitmap;
 import android.webkit.WebView;
 
-import com.mdkashif.alarm.activities.base.BaseActivity;
+import com.mdkashif.alarm.activities.BaseActivity;
 
 
 public class AlarmWebViewClient extends android.webkit.WebViewClient {
@@ -40,7 +40,7 @@ public class AlarmWebViewClient extends android.webkit.WebViewClient {
         }
         else {
             baseActivity.hideLoader();
-            baseActivity.showToast("Sorry for Inconvenience, Please try again later");
+            baseActivity.showToast("Sorry for the Inconvenience, Please try again later");
         }
 
     }

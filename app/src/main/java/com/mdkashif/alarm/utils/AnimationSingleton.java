@@ -1,11 +1,12 @@
 package com.mdkashif.alarm.utils;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.LayoutAnimationController;
 import android.view.animation.TranslateAnimation;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by Kashif on 16-Apr-18.

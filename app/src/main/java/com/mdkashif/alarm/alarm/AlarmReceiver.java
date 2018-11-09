@@ -4,11 +4,10 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.mdkashif.alarm.notifications.NotificationService;
 
-import static android.support.v4.content.WakefulBroadcastReceiver.startWakefulService;
+import static androidx.legacy.content.WakefulBroadcastReceiver.startWakefulService;
 
 public class AlarmReceiver extends BroadcastReceiver {
     @Override

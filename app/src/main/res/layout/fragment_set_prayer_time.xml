@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".prayer.SetPrayerTimeFragment"
+    tools:context=".alarm.prayer.SetPrayerTimeFragment"
     android:background="@color/pitchWhite">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -50,7 +50,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/least_dark_blue"
+                android:background="@color/leastDarkBlue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +63,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Timezone"
-                android:textColor="@color/light_blue"
+                android:textColor="@color/lightBlue"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view" />
@@ -87,7 +87,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/least_dark_blue"
+                android:background="@color/leastDarkBlue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +100,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Islamic Date"
-                android:textColor="@color/light_blue"
+                android:textColor="@color/lightBlue"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view1" />
@@ -124,7 +124,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/least_dark_blue"
+                android:background="@color/leastDarkBlue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +137,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Month"
-                android:textColor="@color/light_blue"
+                android:textColor="@color/lightBlue"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
@@ -161,7 +161,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/least_dark_blue"
+                android:background="@color/leastDarkBlue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -174,7 +174,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Fajr"
-                android:textColor="@color/light_blue"
+                android:textColor="@color/lightBlue"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view3" />
@@ -191,7 +191,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/fajrSwitch"
                 app:layout_constraintTop_toBottomOf="@+id/view3" />
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/fajrSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -207,7 +207,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/least_dark_blue"
+                android:background="@color/leastDarkBlue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -220,7 +220,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Sunrise"
-                android:textColor="@color/light_blue"
+                android:textColor="@color/lightBlue"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view4" />
@@ -237,7 +237,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/sunriseSwitch"
                 app:layout_constraintTop_toBottomOf="@+id/view4" />
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/sunriseSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -253,7 +253,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/least_dark_blue"
+                android:background="@color/leastDarkBlue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -266,7 +266,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Dhuhr"
-                android:textColor="@color/light_blue"
+                android:textColor="@color/lightBlue"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view5" />
@@ -283,7 +283,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/dhuhrSwitch"
                 app:layout_constraintTop_toBottomOf="@+id/view5" />
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/dhuhrSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -299,7 +299,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/least_dark_blue"
+                android:background="@color/leastDarkBlue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -312,7 +312,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Asr"
-                android:textColor="@color/light_blue"
+                android:textColor="@color/lightBlue"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view6" />
@@ -329,7 +329,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/asrSwitch"
                 app:layout_constraintTop_toBottomOf="@+id/view6" />
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/asrSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -345,7 +345,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/least_dark_blue"
+                android:background="@color/leastDarkBlue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -358,7 +358,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Sunset"
-                android:textColor="@color/light_blue"
+                android:textColor="@color/lightBlue"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view7" />
@@ -375,7 +375,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/sunsetSwitch"
                 app:layout_constraintTop_toBottomOf="@+id/view7" />
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/sunsetSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -391,7 +391,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/least_dark_blue"
+                android:background="@color/leastDarkBlue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -404,7 +404,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Maghrib"
-                android:textColor="@color/light_blue"
+                android:textColor="@color/lightBlue"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view8" />
@@ -421,7 +421,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/maghribSwitch"
                 app:layout_constraintTop_toBottomOf="@+id/view8" />
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/maghribSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -437,7 +437,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/least_dark_blue"
+                android:background="@color/leastDarkBlue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -450,7 +450,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Isha"
-                android:textColor="@color/light_blue"
+                android:textColor="@color/lightBlue"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view9" />
@@ -467,7 +467,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/ishaSwitch"
                 app:layout_constraintTop_toBottomOf="@+id/view9" />
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/ishaSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -483,7 +483,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/least_dark_blue"
+                android:background="@color/leastDarkBlue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -496,7 +496,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Imsak"
-                android:textColor="@color/light_blue"
+                android:textColor="@color/lightBlue"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view10" />
@@ -513,7 +513,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/imsakSwitch"
                 app:layout_constraintTop_toBottomOf="@+id/view10"  />
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/imsakSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -529,7 +529,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/least_dark_blue"
+                android:background="@color/leastDarkBlue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -541,7 +541,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Midnight"
-                android:textColor="@color/light_blue"
+                android:textColor="@color/lightBlue"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view11" />
@@ -558,7 +558,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/midnightSwitch"
                 app:layout_constraintTop_toBottomOf="@+id/view11"   />
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/midnightSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -567,7 +567,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view11" />
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
