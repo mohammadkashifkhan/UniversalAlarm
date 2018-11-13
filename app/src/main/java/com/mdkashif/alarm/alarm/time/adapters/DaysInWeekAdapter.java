@@ -60,8 +60,8 @@ public class DaysInWeekAdapter extends RecyclerView.Adapter<DaysInWeekAdapter.Da
         // set day slot background as blue if selected else least blue
         holder.day.setBackgroundResource(lastPosition == position ? R.drawable.day_selected_item :
                 R.drawable.day_unselected_item);
-        holder.day.setTextColor(lastPosition == position ? context.getResources().getColor(R.color.darkBlue):
-                context.getResources().getColor(R.color.lesserDarkBlue));
+        holder.day.setTextColor(lastPosition == position ? context.getResources().getColor(R.color.colorPrimaryDarkOrange):
+                context.getResources().getColor(R.color.lightColorPrimaryDarkOrange));
     }
 
     @Override

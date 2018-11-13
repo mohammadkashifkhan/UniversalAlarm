@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="Fajr"
-        android:textColor="@color/pitchWhite"
+        android:textColor="@color/colorPrimaryDarkOrange"
         android:textSize="38sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +34,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="06:56"
-        android:textColor="@color/pitchWhite"
+        android:textColor="@color/colorPrimaryDarkOrange"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
@@ -45,7 +45,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="AM"
-        android:textColor="@color/pitchWhite"
+        android:textColor="@color/colorPrimaryDarkOrange"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/textView12"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
@@ -57,7 +57,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:text="ETA: 4 hrs to go"
-        android:textColor="@color/pitchWhite"
+        android:textColor="@color/colorPrimaryDarkOrange"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />

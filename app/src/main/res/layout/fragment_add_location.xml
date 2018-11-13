@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:textColorHint="@color/darkBlue"
+                android:textColorHint="@color/colorPrimaryDarkOrange"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:textColor="@color/black"
@@ -73,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Set Date &amp; Time"
-                    android:textColor="@color/darkBlue"
+                    android:textColor="@color/colorPrimaryDarkOrange"
                     android:textSize="18sp" />
 
                 <Button
@@ -94,9 +94,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_anchor="@+id/bottom_sheet"
-            app:fab_colorNormal="@color/darkBlue"
+            app:fab_colorNormal="@color/colorPrimaryDarkOrange"
             app:fab_colorRipple="@color/pitchWhite"
-            app:fab_colorPressed="@color/lesserDarkBlue"
+            app:fab_colorPressed="@color/lightColorPrimaryDarkOrange"
             android:src="@drawable/ic_fab_add_white"
             app:layout_anchorGravity="top|center"/>
 

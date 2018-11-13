@@ -34,7 +34,7 @@ class AppIntroActivity : BaseActivity() {
     private fun goToHomeFragment() {
         SharedPrefHolder.getInstance(this).isFirstTimeLaunch = false
 
-        startActivity(Intent(this@AppIntroActivity, HomeActivity::class.java))
+        startActivity(Intent(this@AppIntroActivity, ContainerActivity::class.java))
 
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
         finish()

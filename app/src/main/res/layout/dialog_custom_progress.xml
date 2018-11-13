@@ -11,7 +11,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:visibility="visible"
-        app:indicatorColor="@color/colorPrimaryDark"
+        app:indicatorColor="@color/colorPrimaryDarkOrange"
         android:layout_centerInParent="true"
         app:indicatorName="BallScaleMultipleIndicator" />
 

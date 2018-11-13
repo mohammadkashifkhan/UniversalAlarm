@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorOverlay">#003e86</color>
+    <color name="colorOverlay">#a97664</color>
     <color name="black">#000000</color>
     <color name="white">#F1F8FF</color>
     <color name="pitchWhite">#ffffff</color>
     <color name="offWhite">#f1f1f1</color>
-    <color name="darkBlue">#4198fc</color>
-    <color name="lightBlue">#66acfc</color>
-    <color name="lesserDarkBlue">#A8D1FD</color>
-    <color name="leastDarkBlue">#CBE3FE</color>
     <color name="green">#32CD32</color>
     <color name="yellow">#FFFF00</color>
     <color name="red">#B71C1C</color>
     <color name="gray">#acacac</color>
 
     ////////////////////////// Light //////////////////////////
-    <color name="colorPrimaryDark">#F9B39A</color>
-    <color name="colorPrimary">#FCD7C7</color>
-    <color name="colorAccent">#F9B39A</color>
+    <color name="colorPrimaryDarkOrange">#F9B39A</color>
+    <color name="colorPrimaryOrange">#ffc4ab</color>
+    <color name="colorAccentOrange">#F9B39A</color>
+    <color name="lightColorPrimaryDarkOrange">#ffcdb8</color>
+    <color name="lightestColorPrimaryDarkOrange">#ffd6c5</color>
 
     ////////////////////////// Dark //////////////////////////
-    <!--<color name="colorPrimaryDark">#F9B39A</color>-->
-    <!--<color name="colorPrimary">#FCD7C7</color>-->
-    <!--<color name="colorAccent">#F9B39A</color>-->
+    <color name="colorPrimaryDarkGrey">#595a5c</color>
+    <color name="colorPrimaryGrey">#6d6e70</color>
+    <color name="colorAccentGrey">#595a5c</color>
+    <color name="lightColorPrimaryDarkGrey">#787a7c</color>
+    <color name="lightestColorPrimaryDarkGrey">#838587</color>
 </resources>

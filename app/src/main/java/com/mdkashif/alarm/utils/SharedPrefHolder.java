@@ -12,6 +12,7 @@ import static com.mdkashif.alarm.utils.AppConstants.lowBatteryLevel;
 import static com.mdkashif.alarm.utils.AppConstants.ringStatus;
 import static com.mdkashif.alarm.utils.AppConstants.ringtoneUri;
 import static com.mdkashif.alarm.utils.AppConstants.theftAlarmStatus;
+import static com.mdkashif.alarm.utils.AppConstants.themeSelected;
 import static com.mdkashif.alarm.utils.AppConstants.vibrateStatus;
 
 /**
@@ -38,19 +39,6 @@ public class SharedPrefHolder {
 
     public void clearData(){
         editor.clear().commit();
-    }
-
-    public String returnUrl(String type){
-        String url="";
-        switch (type){
-            case "faq": url= AppConstants.FAQ;
-                break;
-            case "tnc": url= AppConstants.TNC;
-                break;
-            case "pp": url= AppConstants.PP;
-                break;
-        }
-        return url;
     }
 
     public void setFirstTimeLaunch(boolean isFirstTime) {
@@ -132,6 +120,15 @@ public class SharedPrefHolder {
 
     public Boolean getTheftAlarmStatus(){
         return pref.getBoolean(theftAlarmStatus,false);
+    }
+
+    public void setTheme(String theme){
+        editor.putString(themeSelected,theme);
+        editor.commit();
+    }
+
+    public String getTheme(){
+        return pref.getString(themeSelected,"Light");
     }
 
 }

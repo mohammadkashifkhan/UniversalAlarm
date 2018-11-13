@@ -30,6 +30,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.mdkashif.alarm.R;
+import com.mdkashif.alarm.utils.AppConstants;
 import com.mdkashif.alarm.utils.SharedPrefHolder;
 import com.pkmmte.view.CircularImageView;
 
@@ -47,7 +48,6 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getResources().getString(R.string.settings));
         getFragmentManager().beginTransaction().replace(android.R.id.content, new MainPreferenceFragment()).commit();
-
     }
 
     @Override
@@ -71,6 +71,7 @@ public class SettingsActivity extends AppCompatActivity {
             Preference toggleFeedback = findPreference(getString(R.string.key_send_feedback));
             Preference toggleNotification=findPreference(getString(R.string.notifications_new_message));
             Preference toggleVibrate=findPreference(getString(R.string.key_vibrate));
+            Preference toggleTheme=findPreference(getString(R.string.theme));
 
             toggleAboutDev.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
@@ -86,22 +87,22 @@ public class SettingsActivity extends AppCompatActivity {
 
                     CircularImageView avatar;
                     Bitmap bitmap;
-                    ImageView ivDevBlurryImage,linkedIn,gmail,googlePlay,stackOverFlow,github;
-                    TextView madeWithLove,openlicenses;
+                    ImageView ivDevBlurryImage,ivLinkedIn,ivGmail,ivGooglePlay,ivStackOverFlow,ivGithub;
+                    TextView tvMadeWithLove,tvOpenLicenses;
 
                     avatar = view.findViewById(R.id.avatar);
-                    linkedIn=view.findViewById(R.id.linkedin);
-                    gmail=view.findViewById(R.id.gmail);
-                    googlePlay=view.findViewById(R.id.googleplay);
-                    openlicenses=view.findViewById(R.id.opensource);
-                    stackOverFlow=view.findViewById(R.id.stackOverFlow);
-                    github=view.findViewById(R.id.github);
+                    ivLinkedIn=view.findViewById(R.id.linkedin);
+                    ivGmail=view.findViewById(R.id.gmail);
+                    ivGooglePlay=view.findViewById(R.id.googleplay);
+                    tvOpenLicenses=view.findViewById(R.id.opensource);
+                    ivStackOverFlow=view.findViewById(R.id.stackOverFlow);
+                    ivGithub=view.findViewById(R.id.github);
                     ivDevBlurryImage=view.findViewById(R.id.ivDevBlurryImage);
-                    madeWithLove=view.findViewById(R.id.madeWithLove);
+                    tvMadeWithLove=view.findViewById(R.id.madeWithLove);
 
                     Spannable spannable = new SpannableString(getString(R.string.summary_about));
                     spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.red)), 10, 11, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    madeWithLove.setText(spannable, TextView.BufferType.SPANNABLE);
+                    tvMadeWithLove.setText(spannable, TextView.BufferType.SPANNABLE);
 
                     if(avatar.getDrawable()!=null) {
                         bitmap = ((BitmapDrawable) avatar.getDrawable()).getBitmap();
@@ -113,7 +114,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 .animate(1000).from(bitmap).into(ivDevBlurryImage);
                     }
 
-                    linkedIn.setOnClickListener(new View.OnClickListener() {
+                    ivLinkedIn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("linkedin://add/%@" + "mdkashif2093"));
@@ -126,7 +127,7 @@ public class SettingsActivity extends AppCompatActivity {
                         }
                     });
 
-                    gmail.setOnClickListener(new View.OnClickListener() {
+                    ivGmail.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
 
@@ -139,7 +140,7 @@ public class SettingsActivity extends AppCompatActivity {
                         }
                     });
 
-                    googlePlay.setOnClickListener(new View.OnClickListener() {
+                    ivGooglePlay.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             try {
@@ -150,21 +151,21 @@ public class SettingsActivity extends AppCompatActivity {
                         }
                     });
 
-                    stackOverFlow.setOnClickListener(new View.OnClickListener() {
+                    ivStackOverFlow.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://stackoverflow.com/users/5518744/kashif-k")));
                         }
                     });
 
-                    github.setOnClickListener(new View.OnClickListener() {
+                    ivGithub.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/mohammadkashifkhan")));
                         }
                     });
 
-                    openlicenses.setOnClickListener(new View.OnClickListener() {
+                    tvOpenLicenses.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             new MaterialDialog.Builder(getActivity())
@@ -263,7 +264,7 @@ public class SettingsActivity extends AppCompatActivity {
             toggleFaq.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    String endpoint=SharedPrefHolder.getInstance(getActivity()).returnUrl("faq");
+                    String endpoint=AppConstants.FAQ;
                     Intent browserIntent = new Intent(getActivity(), WebviewActivity.class);
                     browserIntent.putExtra("endpoint",endpoint);
                     startActivity(browserIntent);
@@ -274,7 +275,7 @@ public class SettingsActivity extends AppCompatActivity {
             togglePrivacyPolicy.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    String endpoint=SharedPrefHolder.getInstance(getActivity()).returnUrl("pp");
+                    String endpoint=AppConstants.PP;
                     Intent browserIntent = new Intent(getActivity(), WebviewActivity.class);
                     browserIntent.putExtra("endpoint",endpoint);
                     startActivity(browserIntent);
@@ -285,7 +286,7 @@ public class SettingsActivity extends AppCompatActivity {
             toggleTnc.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    String endpoint=SharedPrefHolder.getInstance(getActivity()).returnUrl("tnc");
+                    String endpoint=AppConstants.TNC;
                     Intent browserIntent = new Intent(getActivity(), WebviewActivity.class);
                     browserIntent.putExtra("endpoint",endpoint);
                     startActivity(browserIntent);
@@ -293,6 +294,23 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             });
 
+            toggleTheme.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    new MaterialDialog.Builder(getActivity())
+                            .title(R.string.dialogChooseThemeBtTitle)
+                            .items(R.array.themes)
+                            .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                                @Override
+                                public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                    return true;
+                                }
+                            })
+                            .positiveText(R.string.dialogChooseThemeBtText)
+                            .show();
+                    return true;
+                }
+            });
 
         }
     }

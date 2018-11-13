@@ -48,7 +48,7 @@ class SetTimeFragment : Fragment(), TimePresenter.TimePresenterCallback {
             Toast.makeText(activity, type?.get(position)+"", Toast.LENGTH_LONG).show()
         }
 
-        view.setAlarmBtn.setOnClickListener{
+        view.btSetAlarm.setOnClickListener{
             setAlarm()
         }
 

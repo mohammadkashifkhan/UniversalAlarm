@@ -35,7 +35,7 @@ public class MinutesInHourAdapter implements WheelAdapter {
 
     private Drawable createOvalDrawable() {
         ShapeDrawable shapeDrawable = new ShapeDrawable(new OvalShape());
-        shapeDrawable.getPaint().setColor(context.getResources().getColor(R.color.lesserDarkBlue));
+        shapeDrawable.getPaint().setColor(context.getResources().getColor(R.color.lightColorPrimaryDarkOrange));
         return shapeDrawable;
     }
 

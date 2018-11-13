@@ -12,7 +12,7 @@ import android.media.AudioManager;
 import android.os.BatteryManager;
 
 import com.mdkashif.alarm.R;
-import com.mdkashif.alarm.activities.HomeActivity;
+import com.mdkashif.alarm.activities.ContainerActivity;
 import com.mdkashif.alarm.alarm.AlarmSoundService;
 
 import androidx.core.app.NotificationCompat;
@@ -106,7 +106,7 @@ public class BatteryReceiver extends BroadcastReceiver {
 
     public void notif(String title, String msg, Context context){
 
-        Intent intent = new Intent(context, HomeActivity.class);
+        Intent intent = new Intent(context, ContainerActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(

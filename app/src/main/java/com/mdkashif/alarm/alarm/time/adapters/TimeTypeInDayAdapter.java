@@ -35,7 +35,7 @@ public class TimeTypeInDayAdapter implements WheelAdapter {
 
     private Drawable createOvalDrawable() {
         ShapeDrawable shapeDrawable = new ShapeDrawable(new OvalShape());
-        shapeDrawable.getPaint().setColor(context.getResources().getColor(R.color.lightBlue));
+        shapeDrawable.getPaint().setColor(context.getResources().getColor(R.color.colorPrimaryOrange));
         return shapeDrawable;
     }
 

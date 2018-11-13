@@ -9,7 +9,6 @@
     android:padding="8dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:backgroundColor="@color/colorPrimary"
     app:cornerRadius="8dp"
     app:shadowMargin="6dp"
     app:shadowRadius="4dp"

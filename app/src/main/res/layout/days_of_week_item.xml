@@ -7,7 +7,7 @@
     android:layout_margin="8dp">
 
     <TextView
-        android:textColor="@color/lesserDarkBlue"
+        android:textColor="@color/lightColorPrimaryDarkOrange"
         android:gravity="center"
         android:padding="8dp"
         android:id="@+id/time_slot"

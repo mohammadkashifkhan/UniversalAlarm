@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:gravity="center"
-        android:background="@color/darkBlue"
+        android:background="@color/colorPrimaryDarkOrange"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:orientation="vertical"
@@ -54,7 +54,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="190dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimaryDarkOrange"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -36,7 +36,7 @@ public class HoursInDayAdapter extends WheelArrayAdapter {
 
     private Drawable createOvalDrawable() {
         ShapeDrawable shapeDrawable = new ShapeDrawable(new OvalShape());
-        shapeDrawable.getPaint().setColor(context.getResources().getColor(R.color.leastDarkBlue));
+        shapeDrawable.getPaint().setColor(context.getResources().getColor(R.color.lightestColorPrimaryDarkOrange));
         return shapeDrawable;
     }
 

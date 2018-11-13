@@ -116,7 +116,7 @@
         android:id="@+id/opensource"
         android:padding="@dimen/d_20dp"
         android:gravity="left"
-        android:textColor="@color/darkBlue"
+        android:textColor="@color/colorPrimaryDarkOrange"
         android:textSize="18sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

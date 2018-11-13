@@ -1,74 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".alarm.prayer.SetPrayerTimeFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".alarm.prayer.SetPrayerTimeFragment"
-    android:background="@color/pitchWhite">
+    android:background="@drawable/prayer_fragment_bg_light">
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <RelativeLayout
+            android:id="@+id/relativeLayout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="200dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <RelativeLayout
-                android:id="@+id/relativeLayout2"
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/compass_dial"
+                android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_centerInParent="true"
+                android:src="@drawable/compass_light" />
 
-                    <ImageView
-                        android:id="@+id/compass_dial"
-                        android:layout_width="200dp"
-                        android:layout_height="200dp"
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/dial" />
+            <ImageView
+                android:id="@+id/compass_hands"
+                android:layout_width="10dp"
+                android:layout_height="175dp"
+                android:layout_centerInParent="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/hands" />
 
-                    <ImageView
-                        android:id="@+id/compass_hands"
-                        android:layout_width="10dp"
-                        android:layout_height="175dp"
-                        android:layout_centerInParent="true"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/hands" />
+        </RelativeLayout>
 
-                </RelativeLayout>
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/lightestColorPrimaryDarkOrange"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
 
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/leastDarkBlue"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="Timezone"
+            android:textColor="@color/lightColorPrimaryDarkOrange"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
 
-            <TextView
-                android:id="@+id/textView28"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="Timezone"
-                android:textColor="@color/lightBlue"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view" />
-
-            <TextView
+        <TextView
                 android:id="@+id/timezone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -87,7 +84,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/leastDarkBlue"
+                android:background="@color/lightestColorPrimaryDarkOrange"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +97,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Islamic Date"
-                android:textColor="@color/lightBlue"
+                android:textColor="@color/lightColorPrimaryDarkOrange"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view1" />
@@ -124,7 +121,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/leastDarkBlue"
+                android:background="@color/lightestColorPrimaryDarkOrange"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +134,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Month"
-                android:textColor="@color/lightBlue"
+                android:textColor="@color/lightColorPrimaryDarkOrange"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
@@ -161,7 +158,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/leastDarkBlue"
+                android:background="@color/lightestColorPrimaryDarkOrange"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -174,7 +171,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Fajr"
-                android:textColor="@color/lightBlue"
+                android:textColor="@color/lightColorPrimaryDarkOrange"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view3" />
@@ -207,7 +204,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/leastDarkBlue"
+                android:background="@color/lightestColorPrimaryDarkOrange"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -220,7 +217,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Sunrise"
-                android:textColor="@color/lightBlue"
+                android:textColor="@color/lightColorPrimaryDarkOrange"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view4" />
@@ -253,7 +250,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/leastDarkBlue"
+                android:background="@color/lightestColorPrimaryDarkOrange"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -266,7 +263,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Dhuhr"
-                android:textColor="@color/lightBlue"
+                android:textColor="@color/lightColorPrimaryDarkOrange"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view5" />
@@ -299,7 +296,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/leastDarkBlue"
+                android:background="@color/lightestColorPrimaryDarkOrange"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -312,7 +309,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Asr"
-                android:textColor="@color/lightBlue"
+                android:textColor="@color/lightColorPrimaryDarkOrange"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view6" />
@@ -345,7 +342,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/leastDarkBlue"
+                android:background="@color/lightestColorPrimaryDarkOrange"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -358,24 +355,24 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Sunset"
-                android:textColor="@color/lightBlue"
+                android:textColor="@color/lightColorPrimaryDarkOrange"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view7" />
 
-            <TextView
-                android:id="@+id/sunset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
-                android:layout_marginTop="16dp"
-                android:text=""
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@+id/sunsetSwitch"
-                app:layout_constraintTop_toBottomOf="@+id/view7" />
+        <TextView
+            android:id="@+id/sunset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="16dp"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/sunsetSwitch"
+            app:layout_constraintTop_toBottomOf="@+id/view7" />
 
-            <androidx.appcompat.widget.SwitchCompat
+        <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/sunsetSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -384,32 +381,32 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view7" />
 
-            <View
+        <View
                 android:id="@+id/view8"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/leastDarkBlue"
+                android:background="@color/lightestColorPrimaryDarkOrange"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView35" />
 
-            <TextView
+        <TextView
                 android:id="@+id/textView36"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Maghrib"
-                android:textColor="@color/lightBlue"
+                android:textColor="@color/lightColorPrimaryDarkOrange"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view8" />
 
-            <TextView
+        <TextView
                 android:id="@+id/maghrib"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -421,7 +418,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/maghribSwitch"
                 app:layout_constraintTop_toBottomOf="@+id/view8" />
 
-            <androidx.appcompat.widget.SwitchCompat
+        <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/maghribSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -430,32 +427,32 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view8" />
 
-            <View
+        <View
                 android:id="@+id/view9"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/leastDarkBlue"
+                android:background="@color/lightestColorPrimaryDarkOrange"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView36" />
 
-            <TextView
+        <TextView
                 android:id="@+id/textView37"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Isha"
-                android:textColor="@color/lightBlue"
+                android:textColor="@color/lightColorPrimaryDarkOrange"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view9" />
 
-            <TextView
+        <TextView
                 android:id="@+id/isha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -467,7 +464,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/ishaSwitch"
                 app:layout_constraintTop_toBottomOf="@+id/view9" />
 
-            <androidx.appcompat.widget.SwitchCompat
+        <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/ishaSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -476,32 +473,32 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view9" />
 
-            <View
+        <View
                 android:id="@+id/view10"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/leastDarkBlue"
+                android:background="@color/lightestColorPrimaryDarkOrange"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView37" />
 
-            <TextView
+        <TextView
                 android:id="@+id/textView38"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Imsak"
-                android:textColor="@color/lightBlue"
+                android:textColor="@color/lightColorPrimaryDarkOrange"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view10" />
 
-            <TextView
+        <TextView
                 android:id="@+id/imsak"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -513,7 +510,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/imsakSwitch"
                 app:layout_constraintTop_toBottomOf="@+id/view10"  />
 
-            <androidx.appcompat.widget.SwitchCompat
+        <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/imsakSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -522,31 +519,31 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view10" />
 
-            <View
+        <View
                 android:id="@+id/view11"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/leastDarkBlue"
+                android:background="@color/lightestColorPrimaryDarkOrange"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView38" />
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Midnight"
-                android:textColor="@color/lightBlue"
+                android:textColor="@color/lightColorPrimaryDarkOrange"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view11" />
 
-            <TextView
+        <TextView
                 android:id="@+id/midnight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -558,7 +555,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/midnightSwitch"
                 app:layout_constraintTop_toBottomOf="@+id/view11"   />
 
-            <androidx.appcompat.widget.SwitchCompat
+        <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/midnightSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -567,8 +564,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view11" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
-
-</FrameLayout>
+</ScrollView>

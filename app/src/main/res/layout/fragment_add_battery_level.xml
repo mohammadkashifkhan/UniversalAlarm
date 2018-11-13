@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".alarm.battery.SetBatteryLevelFragment"
-    android:background="@color/white">
+    android:background="@drawable/battery_fragment_bg_light">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                 app:cpv_innerContourSize="0dp"
                 app:cpv_maxValue="100"
                 app:cpv_outerContourSize="0dp"
-                app:cpv_rimColor="@color/colorPrimary"
+                app:cpv_rimColor="@color/colorPrimaryOrange"
                 app:cpv_rimWidth="3dp"
                 app:cpv_showUnit="true"
                 app:cpv_spinColor="@color/pitchWhite"
@@ -136,42 +136,39 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="40dp"
-            android:text="Set Low &amp; High Battery Level(%) respectively"
-            android:textColor="@color/darkBlue"
-            app:layout_constraintBottom_toTopOf="@+id/rbBatteryLevel"
+            android:layout_marginEnd="8dp"
+            android:text="Set Low &amp; High Battery (%) respectively"
+            android:textColor="@color/colorPrimaryDarkOrange"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
         <com.appyvet.materialrangebar.RangeBar
             android:id="@+id/rbBatteryLevel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-            app:mrb_pinColor="@color/lightBlue"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:mrb_connectingLineColor="@color/gray"
+            app:mrb_pinColor="@color/lightColorPrimaryDarkOrange"
             app:mrb_pinMaxFont="12sp"
             app:mrb_pinTextColor="@color/pitchWhite"
             app:mrb_rangeBar="true"
-            app:mrb_rangeBarColor="@color/leastDarkBlue"
+            app:mrb_rangeBarColor="@color/lightestColorPrimaryDarkOrange"
+            app:mrb_selectorColor="@color/lightColorPrimaryDarkOrange"
             app:mrb_selectorSize="10dp"
+            app:mrb_tickColor="@color/colorPrimaryDarkOrange"
             app:mrb_tickEnd="95"
             app:mrb_tickInterval="5"
-            app:mrb_tickStart="5"
-            app:mrb_tickColor="@color/darkBlue"
-            app:mrb_connectingLineColor="@color/lightBlue"
-            app:mrb_selectorColor="@color/lightBlue"/>
+            app:mrb_tickStart="5" />
 
         <com.appyvet.materialrangebar.RangeBar
             android:id="@+id/rbTemp"
@@ -183,18 +180,18 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8"
-            app:mrb_pinColor="@color/lightBlue"
+            app:mrb_pinColor="@color/lightColorPrimaryDarkOrange"
             app:mrb_pinMaxFont="12sp"
             app:mrb_pinTextColor="@color/pitchWhite"
             app:mrb_rangeBar="false"
-            app:mrb_rangeBarColor="@color/leastDarkBlue"
+            app:mrb_rangeBarColor="@color/lightestColorPrimaryDarkOrange"
             app:mrb_selectorSize="10dp"
             app:mrb_tickEnd="50"
             app:mrb_tickInterval="5"
             app:mrb_tickStart="25"
-            app:mrb_tickColor="@color/darkBlue"
-            app:mrb_connectingLineColor="@color/lightBlue"
-            app:mrb_selectorColor="@color/lightBlue"/>
+            app:mrb_tickColor="@color/colorPrimaryDarkOrange"
+            app:mrb_connectingLineColor="@color/gray"
+            app:mrb_selectorColor="@color/lightColorPrimaryDarkOrange"/>
 
         <TextView
             android:layout_marginTop="40dp"
@@ -203,8 +200,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="16dp"
-            android:text="Set Temperature Level"
-            android:textColor="@color/darkBlue"
+            android:text="Set Temperature (\u2103)"
+            android:textColor="@color/colorPrimaryDarkOrange"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -218,7 +215,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="40dp"
             android:text="Theft Alarm"
-            android:textColor="@color/darkBlue"
+            android:textColor="@color/colorPrimaryDarkOrange"
             app:layout_constraintEnd_toStartOf="@+id/powerSwitch"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -237,14 +234,16 @@
             android:id="@+id/textView18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="left"
             android:padding="16dp"
-            android:textColor="@color/darkBlue"
-            android:text="Note: While charging, the alarm will buzz off, if anyone unplugs your device"
+            android:text="While charging, the alarm will buzz off, if anyone unplugs your device"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+            app:layout_constraintTop_toBottomOf="@+id/textView9"
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

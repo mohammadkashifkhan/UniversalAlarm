@@ -56,7 +56,7 @@ class HomeFragment : Fragment() {
             if (!(mActivity.isBlank(city) && mActivity.isBlank(country)))
                 mActivity.replaceFragment(SetPrayerTimeFragment(), SetPrayerTimeFragment::class.java.simpleName,true)
             else
-                mActivity.showSnackbar("Please try after some time", mActivity)
+                mActivity.showSnackbar("Please try after some time")
         }
 
         rootView.ivSettings.setOnClickListener{

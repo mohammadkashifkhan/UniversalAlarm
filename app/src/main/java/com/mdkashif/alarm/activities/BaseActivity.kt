@@ -58,7 +58,7 @@ open class BaseActivity : AppCompatActivity() {
         Toast.makeText(this@BaseActivity, message + "", Toast.LENGTH_SHORT).show()
     }
 
-    fun showSnackbar(message: String, context: Context) {
+    fun showSnackbar(message: String) {
         Snackbar.make(parentLayout!!.findViewById(android.R.id.content),
                 message, Snackbar.LENGTH_LONG).show()
     }

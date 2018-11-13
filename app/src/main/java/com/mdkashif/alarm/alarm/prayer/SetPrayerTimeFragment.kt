@@ -2,7 +2,6 @@ package com.mdkashif.alarm.alarm.prayer
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +12,9 @@ import com.mdkashif.alarm.R
 import com.mdkashif.alarm.activities.BaseActivity.Companion.city
 import com.mdkashif.alarm.activities.BaseActivity.Companion.country
 import com.mdkashif.alarm.activities.ContainerActivity
-import com.mdkashif.alarm.alarm.prayer.compass.Compass
 import com.mdkashif.alarm.alarm.prayer.pojos.PrayerApiResponse
 import kotlinx.android.synthetic.main.fragment_set_prayer_time.*
+
 
 class SetPrayerTimeFragment : Fragment(), PrayerPresenter.PrayerViewCallback {
     private lateinit var mActivity: ContainerActivity
@@ -29,9 +28,9 @@ class SetPrayerTimeFragment : Fragment(), PrayerPresenter.PrayerViewCallback {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         var view: View =inflater.inflate(R.layout.fragment_set_prayer_time, container, false)
-        mActivity!!.showLoader()
-        if (mActivity!!.isOnline)
-            if (!(mActivity!!.isBlank(city) && (mActivity!!.isBlank(country))))
+        mActivity.showLoader()
+        if (mActivity.isOnline)
+            if (!(mActivity.isBlank(city) && (mActivity.isBlank(country))))
                 PrayerPresenter(this, city!!, country!!).getPrayerDetails()
 
         setupCompass()
@@ -44,15 +43,12 @@ class SetPrayerTimeFragment : Fragment(), PrayerPresenter.PrayerViewCallback {
     }
 
     private fun setupCompass() {
-        compass = Compass(activity)
-        val cl = Compass.CompassListener { azimuth -> adjustArrow(azimuth) }
+        compass = Compass(mActivity)
+        val cl = getCompassListener()
         compass!!.setListener(cl)
     }
 
     private fun adjustArrow(azimuth: Float) {
-        Log.d(TAG, "will set rotation from " + currentAzimuth + " to "
-                + azimuth)
-
         val an = RotateAnimation(-currentAzimuth, -azimuth,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
                 0.5f)
@@ -65,8 +61,18 @@ class SetPrayerTimeFragment : Fragment(), PrayerPresenter.PrayerViewCallback {
         compass_hands.startAnimation(an)
     }
 
+    private fun getCompassListener(): Compass.CompassListener {
+        return object : Compass.CompassListener {
+            override fun onNewAzimuth(azimuth: Float) {
+                mActivity.runOnUiThread {
+                    adjustArrow(azimuth)
+                }
+            }
+        }
+    }
+
     override fun onPrayerDetailSuccess(prayerApiResponse: PrayerApiResponse?) {
-        mActivity!!.hideLoader()
+        mActivity.hideLoader()
         timezone.text = prayerApiResponse!!.data!!.meta!!.timezone
         date.text = prayerApiResponse.data!!.date!!.hijri!!.date
         month.text = prayerApiResponse.data.date!!.hijri!!.month!!.en
@@ -82,7 +88,7 @@ class SetPrayerTimeFragment : Fragment(), PrayerPresenter.PrayerViewCallback {
     }
 
     override fun onError(error: String) {
-//       mActivity!!.showSnackbar(error, activity)
+       mActivity.showSnackbar(error)
     }
 
     override fun onStart() {
