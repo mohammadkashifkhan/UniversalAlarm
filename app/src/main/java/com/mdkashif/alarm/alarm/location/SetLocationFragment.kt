@@ -24,10 +24,7 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mdkashif.alarm.R
-import kotlinx.android.synthetic.main.fragment_add_location.*
-import kotlinx.android.synthetic.main.fragment_add_location.view.*
 
 class SetLocationFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
 GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -55,24 +52,24 @@ GoogleApiClient.OnConnectionFailedListener, LocationListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view =inflater.inflate(R.layout.fragment_add_location, container, false)
-        val mBottomSheetBehavior = BottomSheetBehavior.from(view.bottom_sheet)
+//        val mBottomSheetBehavior = BottomSheetBehavior.from(view.bottom_sheet)
         mapView = view.findViewById(R.id.map)
-        mBottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-            }
-
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                fab_add_location_alarm.animate().scaleX(1 - slideOffset).scaleY(1 - slideOffset).setDuration(0).start()
-            }
-        })
-
-        view.places_autocomplete.setOnPlaceSelectedListener {
-            // do something awesome with the selected place
-        }
-
-        view.fab_add_location_alarm.setOnClickListener{
-            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED)
-        }
+//        mBottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+//            override fun onStateChanged(bottomSheet: View, newState: Int) {
+//            }
+//
+//            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+//                fab_add_location_alarm.animate().scaleX(1 - slideOffset).scaleY(1 - slideOffset).setDuration(0).start()
+//            }
+//        })
+//
+//        view.places_autocomplete.setOnPlaceSelectedListener {
+//            // do something awesome with the selected place
+//        }
+//
+//        view.fab_add_location_alarm.setOnClickListener{
+//            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED)
+//        }
 
         return view
     }
@@ -222,8 +219,6 @@ GoogleApiClient.OnConnectionFailedListener, LocationListener {
         }
 
         mgoogleMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 18f))
-
-
     }
 
     override fun onConnected(p0: Bundle?) {

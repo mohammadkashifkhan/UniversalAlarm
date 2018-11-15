@@ -6,6 +6,76 @@
     android:background="@color/pitchWhite"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_gravity="left"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/ic_launcher"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="@color/colorPrimaryDarkOrange"
+                android:gravity="left"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"/>
+
+            <TextView
+                android:id="@+id/tvVersion"
+                android:textColor="@color/black"
+                android:drawableTint="@color/gray"
+                android:drawablePadding="8dp"
+                android:gravity="center"
+                android:drawableStart="@drawable/ic_version"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:id="@+id/opensource"
+        android:padding="@dimen/d_20dp"
+        android:gravity="left"
+        android:textColor="@color/colorPrimaryDarkOrange"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Open Source Licenses"/>
+
+    <View
+        android:layout_marginRight="@dimen/d_20dp"
+        android:layout_marginLeft="@dimen/d_20dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
+
+    <TextView
+        android:padding="@dimen/d_20dp"
+        android:id="@+id/madeWithLove"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -17,7 +87,7 @@
             android:layout_height="match_parent" />
 
         <com.pkmmte.view.CircularImageView
-            android:layout_margin="50dp"
+            android:layout_margin="30dp"
             android:layout_gravity="center"
             android:id="@+id/avatar"
             android:layout_width="100dp"
@@ -28,14 +98,6 @@
             app:border_width="0.1dp" />
 
     </FrameLayout>
-
-    <TextView
-        android:id="@+id/madeWithLove"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
     <TextView
         android:layout_marginLeft="@dimen/d_20dp"
@@ -101,26 +163,5 @@
             android:layout_height="30dp"
             android:src="@drawable/ic_github"/>
     </LinearLayout>
-
-    <View
-        android:layout_marginRight="@dimen/d_20dp"
-        android:layout_marginLeft="@dimen/d_20dp"
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray"/>
-
-    <TextView
-        android:foreground="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:id="@+id/opensource"
-        android:padding="@dimen/d_20dp"
-        android:gravity="left"
-        android:textColor="@color/colorPrimaryDarkOrange"
-        android:textSize="18sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Open Source Licenses"/>
-
 
 </LinearLayout>

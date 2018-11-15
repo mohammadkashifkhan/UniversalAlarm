@@ -33,7 +33,7 @@ class SetBatteryLevelFragment : Fragment() {
             temperature.text = connection.temp.toString()
         })
 
-        view.batterySwitch.isChecked = SharedPrefHolder.getInstance(activity).batteryAlarmStatus == true
+        view.swBattery.isChecked = SharedPrefHolder.getInstance(activity).batteryAlarmStatus == true
         view.theftSwitch.isChecked = SharedPrefHolder.getInstance(activity).theftAlarmStatus == true
 
         if((SharedPrefHolder.getInstance(activity).hbl == 0f) && (SharedPrefHolder.getInstance(activity).lbl == 0f))
@@ -63,7 +63,7 @@ class SetBatteryLevelFragment : Fragment() {
                 SharedPrefHolder.getInstance(activity).temp = rightPinValue.toFloat()
         }
 
-        view.batterySwitch.setOnCheckedChangeListener{ buttonView, isChecked ->
+        view.swBattery.setOnCheckedChangeListener{ buttonView, isChecked ->
             SharedPrefHolder.getInstance(activity).batteryAlarmStatus = isChecked
         }
 

@@ -62,7 +62,7 @@ dependencies {
     implementation 'com.getkeepsafe.taptargetview:taptargetview:1.11.0'
     implementation 'com.appyvet:materialrangebar:1.4.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.seatgeek:placesautocomplete:0.3-SNAPSHOT'
+    implementation 'com.github.arimorty:floatingsearchview:2.1.1'
     implementation 'com.github.lukedeighton:wheelview:0.4.1'
     implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
     implementation 'com.wang.avi:library:2.1.3'

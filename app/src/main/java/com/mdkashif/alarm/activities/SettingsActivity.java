@@ -88,7 +88,7 @@ public class SettingsActivity extends AppCompatActivity {
                     CircularImageView avatar;
                     Bitmap bitmap;
                     ImageView ivDevBlurryImage,ivLinkedIn,ivGmail,ivGooglePlay,ivStackOverFlow,ivGithub;
-                    TextView tvMadeWithLove,tvOpenLicenses;
+                    TextView tvMadeWithLove,tvOpenLicenses, tvVersion;
 
                     avatar = view.findViewById(R.id.avatar);
                     ivLinkedIn=view.findViewById(R.id.linkedin);
@@ -99,6 +99,7 @@ public class SettingsActivity extends AppCompatActivity {
                     ivGithub=view.findViewById(R.id.github);
                     ivDevBlurryImage=view.findViewById(R.id.ivDevBlurryImage);
                     tvMadeWithLove=view.findViewById(R.id.madeWithLove);
+                    tvVersion=view.findViewById(R.id.tvVersion);
 
                     Spannable spannable = new SpannableString(getString(R.string.summary_about));
                     spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.red)), 10, 11, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -176,6 +177,15 @@ public class SettingsActivity extends AppCompatActivity {
                                     .show();
                         }
                     });
+
+                    try {
+                        PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
+                        tvVersion.setText(pInfo.versionName);
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
 
                     return true;
                 }

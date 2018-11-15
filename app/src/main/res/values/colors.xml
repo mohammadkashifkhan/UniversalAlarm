@@ -16,6 +16,7 @@
     <color name="colorAccentOrange">#F9B39A</color>
     <color name="lightColorPrimaryDarkOrange">#ffcdb8</color>
     <color name="lightestColorPrimaryDarkOrange">#ffd6c5</color>
+    <color name="lightCvBgOverlay">#80ffd6c5</color>
 
     ////////////////////////// Dark //////////////////////////
     <color name="colorPrimaryDarkGrey">#595a5c</color>
@@ -23,4 +24,5 @@
     <color name="colorAccentGrey">#595a5c</color>
     <color name="lightColorPrimaryDarkGrey">#787a7c</color>
     <color name="lightestColorPrimaryDarkGrey">#838587</color>
+    <color name="darkCvBgOverlay">#80838587</color>
 </resources>

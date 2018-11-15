@@ -44,16 +44,12 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/pref_header_about">
+    <PreferenceCategory android:title="@string/pref_header_misc">
 
         <Preference
             android:title="@string/aboutDevTitle"
             android:key="@string/aboutDev"
             android:selectable="true" />
-
-        <Preference
-            android:key="@string/keyAppVersion"
-            android:title="@string/title_version" />
 
         <Preference
             android:key="@string/title_faq"
@@ -70,9 +66,7 @@
             android:key="@string/title_terms"
             android:title="@string/title_terms">
         </Preference>
-    </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/pref_header_misc">
         <Preference
             android:key="@string/key_send_feedback"
             android:title="@string/title_send_feedback" />

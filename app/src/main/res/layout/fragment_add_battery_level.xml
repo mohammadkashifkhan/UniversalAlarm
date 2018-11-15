@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".alarm.battery.SetBatteryLevelFragment"
-    android:background="@drawable/battery_fragment_bg_light">
+    android:background="@drawable/home_fragment_bg_light">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,15 +15,14 @@
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:background="@drawable/curve_bg"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center">
 
             <at.grabner.circleprogress.CircleProgressView
                 android:id="@+id/batteryChangeMeter"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
                 android:padding="20dp"
                 app:cpv_autoTextSize="true"
                 app:cpv_barColor="@color/red"
@@ -47,7 +46,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="250dp"
                 android:orientation="vertical"
                 android:gravity="center_vertical">
 
@@ -122,128 +121,242 @@
 
         </LinearLayout>
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/batterySwitch"
-            android:layout_width="wrap_content"
+        <com.loopeer.shadow.ShadowView
+            android:id="@+id/sv1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:padding="8dp"
+            app:backgroundColor="#80ffd6c5"
+            app:cornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            app:shadowColor="@color/gray"
+            app:shadowMargin="4dp"
+            app:shadowRadius="2dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Low (Left) &amp; High (Right) Battery Percentage"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toStartOf="@+id/swBattery"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/swBattery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.appyvet.materialrangebar.RangeBar
+                    android:id="@+id/rbBatteryLevel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/swBattery"
+                    app:mrb_connectingLineColor="@color/gray"
+                    app:mrb_pinColor="@color/lightColorPrimaryDarkOrange"
+                    app:mrb_pinMaxFont="12sp"
+                    app:mrb_pinTextColor="@color/pitchWhite"
+                    app:mrb_rangeBar="true"
+                    app:mrb_rangeBarColor="@color/lightestColorPrimaryDarkOrange"
+                    app:mrb_selectorColor="@color/lightColorPrimaryDarkOrange"
+                    app:mrb_selectorSize="10dp"
+                    app:mrb_tickColor="@color/colorPrimaryDarkOrange"
+                    app:mrb_tickEnd="95"
+                    app:mrb_tickInterval="5"
+                    app:mrb_tickStart="5" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.loopeer.shadow.ShadowView>
+
+        <com.loopeer.shadow.ShadowView
+            android:id="@+id/sv2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:padding="8dp"
+            app:backgroundColor="#80ffd6c5"
+            app:cornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sv1"
+            app:shadowColor="@color/gray"
+            app:shadowMargin="4dp"
+            app:shadowRadius="2dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Set Temperature (\u2103)"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toStartOf="@+id/swTemperature"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/swTemperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.appyvet.materialrangebar.RangeBar
+                    android:id="@+id/rbTemp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/swTemperature"
+                    app:mrb_connectingLineColor="@color/gray"
+                    app:mrb_pinColor="@color/lightColorPrimaryDarkOrange"
+                    app:mrb_pinMaxFont="12sp"
+                    app:mrb_pinTextColor="@color/pitchWhite"
+                    app:mrb_rangeBar="false"
+                    app:mrb_rangeBarColor="@color/lightestColorPrimaryDarkOrange"
+                    app:mrb_selectorColor="@color/lightColorPrimaryDarkOrange"
+                    app:mrb_selectorSize="10dp"
+                    app:mrb_tickColor="@color/colorPrimaryDarkOrange"
+                    app:mrb_tickEnd="50"
+                    app:mrb_tickInterval="5"
+                    app:mrb_tickStart="25" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.loopeer.shadow.ShadowView>
+
+        <com.loopeer.shadow.ShadowView
+            android:id="@+id/sv3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:padding="8dp"
+            app:backgroundColor="#80ffd6c5"
+            app:cornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sv2"
+            app:shadowColor="@color/gray"
+            app:shadowMargin="4dp"
+            app:shadowRadius="2dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Theft Alarm"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toStartOf="@+id/theftSwitch"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/theftSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="left"
+                    android:text="While charging, the alarm will buzz off, if anyone unplugs your device"
+                    android:textColor="@color/gray"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/theftSwitch"
+                    app:layout_constraintVertical_bias="0.0" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.loopeer.shadow.ShadowView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"/>
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="8dp"
-            android:text="Set Low &amp; High Battery (%) respectively"
-            android:textColor="@color/colorPrimaryDarkOrange"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-
-        <com.appyvet.materialrangebar.RangeBar
-            android:id="@+id/rbBatteryLevel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:mrb_connectingLineColor="@color/gray"
-            app:mrb_pinColor="@color/lightColorPrimaryDarkOrange"
-            app:mrb_pinMaxFont="12sp"
-            app:mrb_pinTextColor="@color/pitchWhite"
-            app:mrb_rangeBar="true"
-            app:mrb_rangeBarColor="@color/lightestColorPrimaryDarkOrange"
-            app:mrb_selectorColor="@color/lightColorPrimaryDarkOrange"
-            app:mrb_selectorSize="10dp"
-            app:mrb_tickColor="@color/colorPrimaryDarkOrange"
-            app:mrb_tickEnd="95"
-            app:mrb_tickInterval="5"
-            app:mrb_tickStart="5" />
-
-        <com.appyvet.materialrangebar.RangeBar
-            android:id="@+id/rbTemp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8"
-            app:mrb_pinColor="@color/lightColorPrimaryDarkOrange"
-            app:mrb_pinMaxFont="12sp"
-            app:mrb_pinTextColor="@color/pitchWhite"
-            app:mrb_rangeBar="false"
-            app:mrb_rangeBarColor="@color/lightestColorPrimaryDarkOrange"
-            app:mrb_selectorSize="10dp"
-            app:mrb_tickEnd="50"
-            app:mrb_tickInterval="5"
-            app:mrb_tickStart="25"
-            app:mrb_tickColor="@color/colorPrimaryDarkOrange"
-            app:mrb_connectingLineColor="@color/gray"
-            app:mrb_selectorColor="@color/lightColorPrimaryDarkOrange"/>
-
-        <TextView
-            android:layout_marginTop="40dp"
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="16dp"
-            android:text="Set Temperature (\u2103)"
-            android:textColor="@color/colorPrimaryDarkOrange"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rbBatteryLevel" />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="40dp"
-            android:text="Theft Alarm"
-            android:textColor="@color/colorPrimaryDarkOrange"
-            app:layout_constraintEnd_toStartOf="@+id/powerSwitch"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rbTemp" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/theftSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="40dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rbTemp"/>
-
-        <TextView
-            android:id="@+id/textView18"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:padding="16dp"
-            android:text="While charging, the alarm will buzz off, if anyone unplugs your device"
-            android:textColor="@color/black"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView9"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/sv3">
+
+            <TextView
+                android:id="@+id/tvAssistantPH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="left"
+                android:padding="16dp"
+                android:text="Alarm Assistant"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_support"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAssistantPH"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/ic_speech_bubble"
+                android:gravity="left"
+                android:padding="16dp"
+                android:text="Experiencing any problems, contact me via email"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                app:layout_constraintTop_toBottomOf="@+id/tvAssistantPH" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
