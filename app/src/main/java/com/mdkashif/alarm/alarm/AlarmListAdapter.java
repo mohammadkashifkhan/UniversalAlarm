@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import com.hendraanggrian.widget.ExpandableRecyclerView;
 import com.mdkashif.alarm.R;
+import com.mdkashif.alarm.utils.AppConstants;
 
 import java.util.List;
 
@@ -76,13 +77,13 @@ public class AlarmListAdapter extends ExpandableRecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         switch (alarmType.get(position)) {
-            case "time":
+            case AppConstants.alarmTypeTime:
                 return 0;
-            case "battery":
+            case AppConstants.alarmTypeBattery:
                 return 1;
-            case "location":
+            case AppConstants.alarmTypeLocation:
                 return 2;
-            case "prayer":
+            case AppConstants.alarmTypePrayer:
                 return 3;
             default:
                 return -1;

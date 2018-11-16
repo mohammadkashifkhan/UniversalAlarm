@@ -4,8 +4,6 @@ import android.Manifest
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import com.mdkashif.alarm.R
 import com.mdkashif.alarm.alarm.battery.BatteryReceiver
 import com.mdkashif.alarm.alarm.battery.SetBatteryLevelFragment
@@ -42,20 +40,6 @@ class ContainerActivity : BaseActivity() {
     private fun initiateReceiver(){
         mBatInfoReceiver= BatteryReceiver.getInstance()
         registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.search_menu, menu)
-
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item != null) {
-            if (item.itemId==R.id.action_search)
-                return true
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {

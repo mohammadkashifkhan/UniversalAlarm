@@ -23,6 +23,7 @@
 
             <com.arlib.floatingsearchview.FloatingSearchView
                 android:id="@+id/svMap"
+                app:floatingSearch_searchHint="@string/search_hint"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:floatingSearch_searchBarMarginLeft="8dp"

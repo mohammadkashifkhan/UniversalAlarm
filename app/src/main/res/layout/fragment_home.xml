@@ -23,7 +23,6 @@
         app:second="@drawable/sec_hand"/>
 
     <com.hendraanggrian.widget.ExpandableRecyclerView
-        android:layout_marginTop="8dp"
         android:id="@+id/rvAlarms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -117,9 +116,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Alarms"
-        android:textColor="@color/colorPrimaryDarkOrange"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

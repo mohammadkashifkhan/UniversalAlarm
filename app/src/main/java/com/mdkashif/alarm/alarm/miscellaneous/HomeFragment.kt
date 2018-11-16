@@ -23,7 +23,7 @@ import com.mdkashif.alarm.alarm.time.SetTimeFragment
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment : Fragment() {
-    private val alarmType: List<String> = listOf("time","battery","prayer")
+    private val alarmType: List<String> = listOf("time","battery","prayer","location")
     lateinit var mLinearLayoutManager : LinearLayoutManager
     lateinit var rootView: View
     private lateinit var mActivity: ContainerActivity

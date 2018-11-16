@@ -18,6 +18,11 @@ public class AppConstants {
     public static String ringtoneUri = "ringtone_uri";
     public static String vibrateStatus = "vibrate_status";
 
+    public final static String alarmTypeLocation = "location";
+    public final static String alarmTypeBattery = "battery";
+    public final static String alarmTypeTime = "time";
+    public final static String alarmTypePrayer = "prayer";
+
     /////// SetBatteryLevelFragment ///////
     public static String highBatteryLevel = "hbl";
     public static String lowBatteryLevel = "lbl";

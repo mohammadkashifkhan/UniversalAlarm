@@ -7,6 +7,7 @@
     android:layout_marginRight="16dp"
     android:layout_marginTop="4dp"
     android:padding="8dp"
+    app:backgroundColor="@color/lightCvBgOverlay"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cornerRadius="8dp"
