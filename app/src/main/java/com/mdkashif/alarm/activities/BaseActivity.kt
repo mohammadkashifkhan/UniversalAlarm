@@ -17,12 +17,14 @@ import com.mdkashif.alarm.alarm.battery.BatteryReceiver
 import com.mdkashif.alarm.alarm.prayer.geocoder.GetCurrentLocation
 import com.mdkashif.alarm.alarm.prayer.geocoder.GetLocationAddress
 import com.mdkashif.alarm.custom.CustomProgressDialog
-import com.mdkashif.alarm.utils.AppDatabase
+import com.mdkashif.alarm.utils.db.AppDatabase
+
 
 open class BaseActivity : AppCompatActivity() {
     private var progressDialog: CustomProgressDialog? = null
     private var parentLayout: View? = null
     private val batteryReceiver = BatteryReceiver.getInstance()
+    lateinit var appDatabase: AppDatabase
 
     val isOnline: Boolean
         get() {
@@ -33,7 +35,6 @@ open class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         parentLayout = findViewById(android.R.id.content)
         val location = GetCurrentLocation.getInstance().findLocation(applicationContext)
         progressDialog = CustomProgressDialog(this@BaseActivity)
@@ -44,6 +45,7 @@ open class BaseActivity : AppCompatActivity() {
                     applicationContext, GeocoderHandler())
         }
 
+        appDatabase = AppDatabase.getAppDatabase(applicationContext)
     }
 
     fun showLoader() {

@@ -1,4 +1,4 @@
-package com.mdkashif.alarm.alarm;
+package com.mdkashif.alarm.alarm.miscellaneous;
 
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;

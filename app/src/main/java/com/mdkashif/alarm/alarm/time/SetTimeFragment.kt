@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mdkashif.alarm.R
 import com.mdkashif.alarm.activities.ContainerActivity
-import com.mdkashif.alarm.alarm.AlarmReceiver
+import com.mdkashif.alarm.alarm.miscellaneous.AlarmReceiver
 import com.mdkashif.alarm.alarm.time.adapters.DaysInWeekAdapter
 import com.mdkashif.alarm.alarm.time.adapters.HoursInDayAdapter
 import com.mdkashif.alarm.alarm.time.adapters.MinutesInHourAdapter
@@ -52,7 +52,7 @@ class SetTimeFragment : Fragment(), TimePresenter.TimePresenterCallback {
             setAlarm()
         }
 
-        //RoomInitializer.transactAsync(AppDatabase.getAppDatabase(activity))
+        //RoomHelper.transactAsync(AppDatabase.getAppDatabase(activity))
 
         return view
     }

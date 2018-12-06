@@ -13,7 +13,7 @@ import android.os.BatteryManager;
 
 import com.mdkashif.alarm.R;
 import com.mdkashif.alarm.activities.ContainerActivity;
-import com.mdkashif.alarm.alarm.AlarmSoundService;
+import com.mdkashif.alarm.alarm.miscellaneous.AlarmSoundService;
 
 import androidx.core.app.NotificationCompat;
 

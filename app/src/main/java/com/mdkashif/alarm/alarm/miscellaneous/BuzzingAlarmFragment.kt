@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mdkashif.alarm.R
 import com.mdkashif.alarm.activities.ContainerActivity
-import com.mdkashif.alarm.alarm.AlarmSoundService
 import kotlinx.android.synthetic.main.fragment_buzzing_alarm.view.*
 
 class BuzzingAlarmFragment : Fragment() {

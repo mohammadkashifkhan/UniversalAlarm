@@ -1,6 +1,6 @@
 package com.mdkashif.alarm.alarm.prayer
 
-import com.mdkashif.alarm.alarm.prayer.pojos.PrayerApiResponse
+import com.mdkashif.alarm.alarm.prayer.model.PrayerApiResponse
 import com.mdkashif.alarm.connectivity.ServiceGenerator
 import retrofit2.Call
 import retrofit2.Callback

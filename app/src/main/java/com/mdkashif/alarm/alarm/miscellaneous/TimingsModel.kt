@@ -1,22 +1,22 @@
-package com.mdkashif.alarm.alarm.time.db
+package com.mdkashif.alarm.alarm.miscellaneous
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "Timings")
-data class TimingsPojo(
+data class TimingsModel(
         @PrimaryKey(autoGenerate = true)
         var id: Int = 0,
 
-        @ColumnInfo(name = "time")
-        var time: String? = null,
+        @ColumnInfo(name = "hour")
+        var hour: String? = null,
+
+        @ColumnInfo(name = "minute")
+        var minute: String? = null,
 
         @ColumnInfo(name = "type")
         var type: String? = null,
 
         @ColumnInfo(name = "repeat")
-        var repeat: Boolean = false,
-
-        @ColumnInfo(name = "days")
-        var days: String? = null)
+        var repeat: Boolean = false)

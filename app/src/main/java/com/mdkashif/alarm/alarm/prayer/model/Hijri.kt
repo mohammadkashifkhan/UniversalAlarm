@@ -1,16 +1,19 @@
-package com.mdkashif.alarm.alarm.prayer.pojos
+package com.mdkashif.alarm.alarm.prayer.model
 
 
 import com.google.gson.annotations.SerializedName
 
 
-data class Gregorian(
+data class Hijri(
 
 	@field:SerializedName("date")
 	val date: String? = null,
 
 	@field:SerializedName("month")
 	val month: Month? = null,
+
+	@field:SerializedName("holidays")
+	val holidays: List<String?>? = null,
 
 	@field:SerializedName("year")
 	val year: String? = null,

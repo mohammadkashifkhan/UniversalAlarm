@@ -15,7 +15,6 @@ import com.mdkashif.alarm.activities.BaseActivity.Companion.city
 import com.mdkashif.alarm.activities.BaseActivity.Companion.country
 import com.mdkashif.alarm.activities.ContainerActivity
 import com.mdkashif.alarm.activities.SettingsActivity
-import com.mdkashif.alarm.alarm.AlarmListAdapter
 import com.mdkashif.alarm.alarm.battery.SetBatteryLevelFragment
 import com.mdkashif.alarm.alarm.location.SetLocationFragment
 import com.mdkashif.alarm.alarm.prayer.SetPrayerTimeFragment

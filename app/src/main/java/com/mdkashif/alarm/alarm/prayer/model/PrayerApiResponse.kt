@@ -1,4 +1,4 @@
-package com.mdkashif.alarm.alarm.prayer.pojos
+package com.mdkashif.alarm.alarm.prayer.model
 
 import com.google.gson.annotations.SerializedName
 

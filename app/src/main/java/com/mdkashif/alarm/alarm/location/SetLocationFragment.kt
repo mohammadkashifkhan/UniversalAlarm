@@ -2,6 +2,7 @@ package com.mdkashif.alarm.alarm.location
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.location.Location
@@ -15,9 +16,14 @@ import androidx.fragment.app.Fragment
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GooglePlayServicesUtil
 import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.LocationListener
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.places.AutocompleteFilter
+import com.google.android.gms.location.places.Place
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment
+import com.google.android.gms.location.places.ui.PlaceSelectionListener
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -25,6 +31,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.mdkashif.alarm.R
+import com.mdkashif.alarm.activities.ContainerActivity
 
 class SetLocationFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
 GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -42,7 +49,8 @@ GoogleApiClient.OnConnectionFailedListener, LocationListener {
     private var mapView : MapView? = null
     private var latitude: Double = 0.toDouble()
     private var longitude:Double = 0.toDouble()
-
+    private lateinit var mActivity: ContainerActivity
+    private lateinit var fgPlaceAutocomplete: PlaceAutocompleteFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +62,8 @@ GoogleApiClient.OnConnectionFailedListener, LocationListener {
         val view =inflater.inflate(R.layout.fragment_add_location, container, false)
 //        val mBottomSheetBehavior = BottomSheetBehavior.from(view.bottom_sheet)
         mapView = view.findViewById(R.id.map)
+
+        fgPlaceAutocomplete = activity!!.fragmentManager!!.findFragmentById(R.id.fgPlaceAutocomplete) as PlaceAutocompleteFragment
 //        mBottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
 //            override fun onStateChanged(bottomSheet: View, newState: Int) {
 //            }
@@ -70,6 +80,21 @@ GoogleApiClient.OnConnectionFailedListener, LocationListener {
 //        view.fab_add_location_alarm.setOnClickListener{
 //            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED)
 //        }
+
+        fgPlaceAutocomplete.setOnPlaceSelectedListener(object:PlaceSelectionListener {
+            override fun onPlaceSelected(place:Place) {
+                mActivity.showToast(place.name.toString())
+            }
+            override fun onError(status:Status) {
+                mActivity.showToast(status.toString())
+            }
+        })
+
+        var typeFilter = AutocompleteFilter.Builder()
+                .setCountry("Ind")
+                .build()
+
+        fgPlaceAutocomplete.setFilter(typeFilter)
 
         return view
     }
@@ -237,6 +262,11 @@ GoogleApiClient.OnConnectionFailedListener, LocationListener {
         mLastLocation = location
 
         displayLocation()
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        this.mActivity = context as ContainerActivity
     }
 
 }

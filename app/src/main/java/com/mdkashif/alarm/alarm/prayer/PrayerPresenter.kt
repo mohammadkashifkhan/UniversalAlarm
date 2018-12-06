@@ -1,6 +1,6 @@
 package com.mdkashif.alarm.alarm.prayer
 
-import com.mdkashif.alarm.alarm.prayer.pojos.PrayerApiResponse
+import com.mdkashif.alarm.alarm.prayer.model.PrayerApiResponse
 
 class PrayerPresenter(private val prayerViewCallback: PrayerViewCallback, city: String, country: String) : PrayerManager.PrayerPresenterCallback{
     private var prayerManager = PrayerManager(this)

@@ -59,13 +59,13 @@
                 <action android:name="android.intent.action.BATTERY_CHANGED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".alarm.AlarmReceiver">
+        <receiver android:name=".alarm.miscellaneous.AlarmReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <service android:name=".alarm.AlarmSoundService" />
+        <service android:name=".alarm.miscellaneous.AlarmSoundService" />
         <service android:name=".notifications.NotificationService" />
 
         <activity android:name=".activities.WebviewActivity" />

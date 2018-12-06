@@ -7,6 +7,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:fontFamily="sans-serif-smallcaps"
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,6 +30,7 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
+            android:fontFamily="sans-serif-smallcaps"
             android:id="@+id/textView12"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

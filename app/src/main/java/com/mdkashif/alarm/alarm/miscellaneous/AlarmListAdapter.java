@@ -1,4 +1,4 @@
-package com.mdkashif.alarm.alarm;
+package com.mdkashif.alarm.alarm.miscellaneous;
 
 import android.view.LayoutInflater;
 import android.view.View;

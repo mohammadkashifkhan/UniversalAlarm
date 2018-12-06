@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mdkashif.alarm.R
 import com.mdkashif.alarm.activities.ContainerActivity
-import com.mdkashif.alarm.alarm.AlarmListAdapter
 import kotlinx.android.synthetic.main.fragment_show_all_alarms.*
 
 class ShowAllAlarmsFragment : Fragment() {

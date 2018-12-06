@@ -12,14 +12,12 @@ import com.mdkashif.alarm.R
 import com.mdkashif.alarm.activities.BaseActivity.Companion.city
 import com.mdkashif.alarm.activities.BaseActivity.Companion.country
 import com.mdkashif.alarm.activities.ContainerActivity
-import com.mdkashif.alarm.alarm.prayer.pojos.PrayerApiResponse
+import com.mdkashif.alarm.alarm.prayer.model.PrayerApiResponse
 import kotlinx.android.synthetic.main.fragment_set_prayer_time.*
 
 
 class SetPrayerTimeFragment : Fragment(), PrayerPresenter.PrayerViewCallback {
     private lateinit var mActivity: ContainerActivity
-
-    private val TAG = SetPrayerTimeFragment::class.java.simpleName
 
     private var compass: Compass? = null
 
