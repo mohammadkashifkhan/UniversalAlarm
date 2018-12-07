@@ -121,21 +121,20 @@
 
         </LinearLayout>
 
-        <com.loopeer.shadow.ShadowView
-            android:id="@+id/sv1"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:padding="8dp"
-            app:backgroundColor="@color/lightCvBgOverlay"
-            app:cornerRadius="8dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="4dp"
+            app:cardBackgroundColor="@color/lightCvBgOverlay"
+            app:cardCornerRadius="8dp"
+            app:contentPadding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-            app:shadowColor="@color/gray"
-            app:shadowMargin="4dp"
-            app:shadowRadius="2dp">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -183,24 +182,23 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </com.loopeer.shadow.ShadowView>
+        </androidx.cardview.widget.CardView>
 
-        <com.loopeer.shadow.ShadowView
-            android:id="@+id/sv2"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:padding="8dp"
-            app:backgroundColor="@color/lightCvBgOverlay"
-            app:cornerRadius="8dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            app:cardBackgroundColor="@color/lightCvBgOverlay"
+            app:cardCornerRadius="8dp"
+            app:contentPadding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sv1"
-            app:shadowColor="@color/gray"
-            app:shadowMargin="4dp"
-            app:shadowRadius="2dp">
+            app:layout_constraintTop_toBottomOf="@+id/cv1">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -248,24 +246,23 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </com.loopeer.shadow.ShadowView>
+        </androidx.cardview.widget.CardView>
 
-        <com.loopeer.shadow.ShadowView
-            android:id="@+id/sv3"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:padding="8dp"
-            app:backgroundColor="@color/lightCvBgOverlay"
-            app:cornerRadius="8dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            app:cardBackgroundColor="@color/lightCvBgOverlay"
+            app:cardCornerRadius="8dp"
+            app:contentPadding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sv2"
-            app:shadowColor="@color/gray"
-            app:shadowMargin="4dp"
-            app:shadowRadius="2dp">
+            app:layout_constraintTop_toBottomOf="@+id/cv2">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -295,7 +292,7 @@
                     android:id="@+id/textView18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:gravity="left"
                     android:text="While charging, the alarm will buzz off, if anyone unplugs your device"
                     android:textColor="@color/gray"
@@ -308,7 +305,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </com.loopeer.shadow.ShadowView>
+        </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -319,7 +316,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sv3">
+            app:layout_constraintTop_toBottomOf="@+id/cv3">
 
             <TextView
                 android:fontFamily="sans-serif-smallcaps"

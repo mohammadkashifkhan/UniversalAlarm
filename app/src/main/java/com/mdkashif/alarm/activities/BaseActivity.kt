@@ -10,13 +10,16 @@ import android.view.animation.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import com.hendraanggrian.widget.ExpandableRecyclerView
 import com.mdkashif.alarm.R
 import com.mdkashif.alarm.alarm.battery.BatteryReceiver
+import com.mdkashif.alarm.alarm.miscellaneous.AlarmListAdapter
 import com.mdkashif.alarm.alarm.prayer.geocoder.GetCurrentLocation
 import com.mdkashif.alarm.alarm.prayer.geocoder.GetLocationAddress
 import com.mdkashif.alarm.custom.CustomProgressDialog
+import com.mdkashif.alarm.custom.SwipeToDeleteCallback
 import com.mdkashif.alarm.utils.db.AppDatabase
 
 
@@ -60,7 +63,7 @@ open class BaseActivity : AppCompatActivity() {
         Toast.makeText(this@BaseActivity, message + "", Toast.LENGTH_SHORT).show()
     }
 
-    fun showSnackbar(message: String) {
+    fun showSnackBar(message: String) {
         Snackbar.make(parentLayout!!.findViewById(android.R.id.content),
                 message, Snackbar.LENGTH_LONG).show()
     }
@@ -81,7 +84,7 @@ open class BaseActivity : AppCompatActivity() {
         ft.commit()
     }
 
-    fun setRVSlideInLeftAnimation(view: ExpandableRecyclerView){
+    fun setRVSlideInLeftAnimation(view: RecyclerView){
         val set = AnimationSet(true)
         var animation: Animation = AlphaAnimation(0.0f, 1.0f)
         animation.duration = 100
@@ -95,6 +98,30 @@ open class BaseActivity : AppCompatActivity() {
 
         val controller = LayoutAnimationController(set, 0.5f)
         view.layoutAnimation = controller
+    }
+
+    fun enableSwipeToDeleteAndUndo(mAdapter : AlarmListAdapter, mRecyclerView: RecyclerView) {
+        val swipeToDeleteCallback = object : SwipeToDeleteCallback(this) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
+                val position = viewHolder.adapterPosition
+                val item = mAdapter.data[position]
+
+                mAdapter.removeItem(position)
+
+                val snackBar = Snackbar
+                        .make(parentLayout!!.findViewById(android.R.id.content),
+                                "Alarm removed", Snackbar.LENGTH_LONG)
+                snackBar.setAction("UNDO") {
+                    mAdapter.restoreItem(item, position)
+                    mRecyclerView.scrollToPosition(position)
+                }
+                snackBar.setActionTextColor(resources.getColor(R.color.gray))
+                snackBar.show()
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
+        itemTouchHelper.attachToRecyclerView(mRecyclerView)
     }
 
     private class GeocoderHandler : Handler() {

@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.hendraanggrian.widget.ExpandableRecyclerView
 import com.mdkashif.alarm.R
 import com.mdkashif.alarm.activities.BaseActivity.Companion.city
 import com.mdkashif.alarm.activities.BaseActivity.Companion.country
@@ -19,12 +18,13 @@ import com.mdkashif.alarm.alarm.battery.SetBatteryLevelFragment
 import com.mdkashif.alarm.alarm.location.SetLocationFragment
 import com.mdkashif.alarm.alarm.prayer.SetPrayerTimeFragment
 import com.mdkashif.alarm.alarm.time.SetTimeFragment
+import com.mdkashif.alarm.security.AntiTheftUnlockFragment
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment : Fragment() {
-    private val alarmType: List<String> = listOf("time","battery","prayer","location")
-    lateinit var mLinearLayoutManager : LinearLayoutManager
-    lateinit var rootView: View
+    private val alarmType: MutableList<String> = mutableListOf("time","battery","prayer","location")
+    private lateinit var mLinearLayoutManager : LinearLayoutManager
+    private lateinit var rootView: View
     private lateinit var mActivity: ContainerActivity
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -55,7 +55,7 @@ class HomeFragment : Fragment() {
             if (!(mActivity.isBlank(city) && mActivity.isBlank(country)))
                 mActivity.replaceFragment(SetPrayerTimeFragment(), SetPrayerTimeFragment::class.java.simpleName,true)
             else
-                mActivity.showSnackbar("Please try after some time")
+                mActivity.showSnackBar("Please try after some time")
         }
 
         rootView.ivSettings.setOnClickListener{
@@ -64,7 +64,7 @@ class HomeFragment : Fragment() {
         }
 
         rootView.tvSeeAll.setOnClickListener{
-            mActivity.replaceFragment(ShowAllAlarmsFragment(), ShowAllAlarmsFragment::class.java.simpleName,true)
+            mActivity.replaceFragment(AntiTheftUnlockFragment(), AntiTheftUnlockFragment::class.java.simpleName,true)
         }
 
         return rootView
@@ -75,11 +75,13 @@ class HomeFragment : Fragment() {
         mActivity = context as ContainerActivity
     }
 
-    private fun setRVAdapter(view: ExpandableRecyclerView) {
+    private fun setRVAdapter(view: RecyclerView) {
         mLinearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         view.rvAlarms.layoutManager=mLinearLayoutManager
         mActivity.setRVSlideInLeftAnimation(view.rvAlarms)
-        view.rvAlarms.setAdapter(AlarmListAdapter(mLinearLayoutManager, alarmType))
+        val adapter = AlarmListAdapter(alarmType)
+        view.rvAlarms.adapter = adapter
+        mActivity.enableSwipeToDeleteAndUndo(adapter, view.rvAlarms)
     }
 
 }

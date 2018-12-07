@@ -13,15 +13,15 @@ import com.mdkashif.alarm.activities.ContainerActivity
 import kotlinx.android.synthetic.main.fragment_show_all_alarms.*
 
 class ShowAllAlarmsFragment : Fragment() {
-    private val alarmType: List<String> = listOf("time","battery","location","prayer","location","time","location")
+    private val alarmType: MutableList<String> = mutableListOf("time","battery","location","prayer","location","time","location")
     private var mLinearLayoutManager : LinearLayoutManager?=null
 
-    private var mActivity: ContainerActivity?=null
+    private lateinit var mActivity: ContainerActivity
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        var view: View =inflater.inflate(R.layout.fragment_show_all_alarms, container, false)
-        return view
+        var rootView: View =inflater.inflate(R.layout.fragment_show_all_alarms, container, false)
+        return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,8 +37,10 @@ class ShowAllAlarmsFragment : Fragment() {
     private fun setAdapter() {
         mLinearLayoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
         rvAlarms.layoutManager=mLinearLayoutManager
-        mActivity!!.setRVSlideInLeftAnimation(rvAlarms)
-        rvAlarms.adapter = AlarmListAdapter(mLinearLayoutManager!!, alarmType)
+        mActivity.setRVSlideInLeftAnimation(rvAlarms)
+        val adapter = AlarmListAdapter(alarmType)
+        rvAlarms.adapter = adapter
+        mActivity.enableSwipeToDeleteAndUndo(adapter, rvAlarms)
     }
 
 }
