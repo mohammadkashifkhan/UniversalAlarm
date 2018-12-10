@@ -11,7 +11,10 @@ interface DaoAccess {
     fun countAlarms(): Int
 
     @Insert
-    fun addNewAlarm(vararg timings: TimingsModel)
+    fun addNewAlarm(vararg timings: TimingsModel) : Int
+
+    @Insert
+    fun addRepeatDays(vararg days: DaysModel)
 
     @Update
     fun updateAlarm(timings: TimingsModel)

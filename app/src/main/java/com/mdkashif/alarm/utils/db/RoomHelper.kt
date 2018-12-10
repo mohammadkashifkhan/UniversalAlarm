@@ -2,6 +2,7 @@ package com.mdkashif.alarm.utils.db
 
 
 import android.os.AsyncTask
+import com.mdkashif.alarm.alarm.miscellaneous.DaysModel
 import com.mdkashif.alarm.alarm.miscellaneous.TimingsModel
 
 
@@ -9,21 +10,28 @@ class RoomHelper {
 
     companion object {
 
-        fun transactAsync(db: AppDatabase, type: String, timingsModel: TimingsModel) {
-            val task = TransactDbAsync(db, timingsModel)
-            task.execute(type)
+        fun transactFetchAsync(db: AppDatabase): List<TimingsModel> {
+            return db.userDao().getAllAlarms()
+        }
+
+        fun transactAmendAsync(db: AppDatabase, type: String, timingsModel: TimingsModel, days : List<String>?) {
+            TransactDbAsync(db, timingsModel, days).execute(type)
+        }
+
+        fun transactCountAsync(db: AppDatabase): Int {
+            return db.userDao().countAlarms()
+        }
+
+        private fun addAlarm(db: AppDatabase, timingsModel: TimingsModel, days : List<String>) {
+            val alarmId = db.userDao().addNewAlarm(timingsModel)
+            for(x in 0 until days.size) {
+                val daysModel = DaysModel(0, alarmId, days[x])
+                db.userDao().addRepeatDays(daysModel)
+            }
         }
 
         private fun addAlarm(db: AppDatabase, timingsModel: TimingsModel) {
             db.userDao().addNewAlarm(timingsModel)
-        }
-
-        private fun viewAllAlarms(db: AppDatabase): List<TimingsModel> {
-            return db.userDao().getAllAlarms()
-        }
-
-        private fun countAlarms(db: AppDatabase): Int{
-            return db.userDao().countAlarms()
         }
 
         private fun deleteAlarm(db: AppDatabase, timingsModel: TimingsModel) {
@@ -35,21 +43,18 @@ class RoomHelper {
         }
     }
 
-    private class TransactDbAsync internal constructor(internal var mDb: AppDatabase, internal var  timingsModel: TimingsModel) : AsyncTask<String, Void, Void>() {
+    private class TransactDbAsync internal constructor(internal var mDb: AppDatabase, internal var  timingsModel: TimingsModel, internal var  days: List<String>?) : AsyncTask<String, Any, Any>() {
 
         override fun doInBackground(vararg params: String): Void? {
             when (params[0]) {
                 "add" -> {
-                    addAlarm(mDb, timingsModel)
-                }
-                "view" -> {
-                    viewAllAlarms(mDb)
+                    if(timingsModel.repeat)
+                        addAlarm(mDb, timingsModel, days!!)
+                    else
+                        addAlarm(mDb, timingsModel)
                 }
                 "update" -> {
                     updateAlarm(mDb, timingsModel)
-                }
-                "count" -> {
-                    countAlarms(mDb)
                 }
                 "delete" -> {
                     deleteAlarm(mDb, timingsModel)

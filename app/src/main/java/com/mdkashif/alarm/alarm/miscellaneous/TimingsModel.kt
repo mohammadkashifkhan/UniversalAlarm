@@ -7,16 +7,16 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "Timings")
 data class TimingsModel(
         @PrimaryKey(autoGenerate = true)
-        var id: Int = 0,
+        var id: Int,
 
         @ColumnInfo(name = "hour")
-        var hour: String? = null,
+        var hour: String,
 
         @ColumnInfo(name = "minute")
-        var minute: String? = null,
+        var minute: String,
 
         @ColumnInfo(name = "type")
-        var type: String? = null,
+        var type: String,
 
         @ColumnInfo(name = "repeat")
         var repeat: Boolean = false)

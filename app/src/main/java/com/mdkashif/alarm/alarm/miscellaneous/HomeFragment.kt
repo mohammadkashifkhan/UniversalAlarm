@@ -3,6 +3,7 @@ package com.mdkashif.alarm.alarm.miscellaneous
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,15 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mdkashif.alarm.R
-import com.mdkashif.alarm.activities.BaseActivity.Companion.city
-import com.mdkashif.alarm.activities.BaseActivity.Companion.country
 import com.mdkashif.alarm.activities.ContainerActivity
 import com.mdkashif.alarm.activities.SettingsActivity
 import com.mdkashif.alarm.alarm.battery.SetBatteryLevelFragment
 import com.mdkashif.alarm.alarm.location.SetLocationFragment
 import com.mdkashif.alarm.alarm.prayer.SetPrayerTimeFragment
 import com.mdkashif.alarm.alarm.time.SetTimeFragment
-import com.mdkashif.alarm.security.AntiTheftUnlockFragment
+import com.mdkashif.alarm.utils.db.RoomHelper
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment : Fragment() {
@@ -52,7 +51,7 @@ class HomeFragment : Fragment() {
         rootView.fab_salat.setOnClickListener{
             rootView.menu.close(true)
 //            Log.d("check", city)
-            if (!(mActivity.isBlank(city) && mActivity.isBlank(country)))
+            if (!mActivity.isOnline)
                 mActivity.replaceFragment(SetPrayerTimeFragment(), SetPrayerTimeFragment::class.java.simpleName,true)
             else
                 mActivity.showSnackBar("Please try after some time")
@@ -64,8 +63,20 @@ class HomeFragment : Fragment() {
         }
 
         rootView.tvSeeAll.setOnClickListener{
-            mActivity.replaceFragment(AntiTheftUnlockFragment(), AntiTheftUnlockFragment::class.java.simpleName,true)
+            mActivity.replaceFragment(ShowAllAlarmsFragment(), ShowAllAlarmsFragment::class.java.simpleName,true)
+//            val intent = Intent(activity, AntiTheftUnlockActivity::class.java)
+//            intent.putExtra(AppLock.EXTRA_TYPE, AppLock.UNLOCK_PIN)
+//            startActivity(intent)
         }
+
+        var timingsModel=TimingsModel(0,"7","15","prayer",false)
+        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(),"add", timingsModel, null)
+
+        var timingsModel1=TimingsModel(0,"8","30","generic",true)
+        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(),"add",timingsModel1, listOf("m","w","f"))
+        var count = RoomHelper.transactFetchAsync(mActivity.returnDbInstance())
+
+        Log.d("check132",""+count)
 
         return rootView
     }

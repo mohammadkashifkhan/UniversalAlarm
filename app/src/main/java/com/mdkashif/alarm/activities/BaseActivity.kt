@@ -140,6 +140,10 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
+    fun returnDbInstance():AppDatabase{
+        return appDatabase
+    }
+
     override fun onDestroy() {
         AppDatabase.destroyInstance()
         super.onDestroy()

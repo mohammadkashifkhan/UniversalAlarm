@@ -84,7 +84,7 @@ class NotificationService : IntentService("NotificationService") {
                 .setWhen(System.currentTimeMillis())
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setSmallIcon(R.drawable.speakers)
+                .setSmallIcon(R.drawable.ic_alarm)
                 .setAutoCancel(true)
 
         notificationManager.notify(bundleNotificationId, notificationBuilder.build())
