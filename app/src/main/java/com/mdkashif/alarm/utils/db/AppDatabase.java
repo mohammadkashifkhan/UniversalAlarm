@@ -2,8 +2,8 @@ package com.mdkashif.alarm.utils.db;
 
 import android.content.Context;
 
-import com.mdkashif.alarm.alarm.miscellaneous.DaoAccess;
-import com.mdkashif.alarm.alarm.miscellaneous.TimingsModel;
+import com.mdkashif.alarm.alarm.miscellaneous.db.DaoAccess;
+import com.mdkashif.alarm.alarm.miscellaneous.db.TimingsModel;
 
 import androidx.room.Database;
 import androidx.room.Room;

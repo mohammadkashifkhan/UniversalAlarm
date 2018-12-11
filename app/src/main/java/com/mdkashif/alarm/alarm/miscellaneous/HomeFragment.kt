@@ -15,6 +15,8 @@ import com.mdkashif.alarm.activities.ContainerActivity
 import com.mdkashif.alarm.activities.SettingsActivity
 import com.mdkashif.alarm.alarm.battery.SetBatteryLevelFragment
 import com.mdkashif.alarm.alarm.location.SetLocationFragment
+import com.mdkashif.alarm.alarm.miscellaneous.db.DaysModel
+import com.mdkashif.alarm.alarm.miscellaneous.db.TimingsModel
 import com.mdkashif.alarm.alarm.prayer.SetPrayerTimeFragment
 import com.mdkashif.alarm.alarm.time.SetTimeFragment
 import com.mdkashif.alarm.utils.db.RoomHelper
@@ -64,16 +66,18 @@ class HomeFragment : Fragment() {
 
         rootView.tvSeeAll.setOnClickListener{
             mActivity.replaceFragment(ShowAllAlarmsFragment(), ShowAllAlarmsFragment::class.java.simpleName,true)
+
+            // TODO: Implement this somewhere ;)
 //            val intent = Intent(activity, AntiTheftUnlockActivity::class.java)
 //            intent.putExtra(AppLock.EXTRA_TYPE, AppLock.UNLOCK_PIN)
 //            startActivity(intent)
         }
 
-        var timingsModel=TimingsModel(0,"7","15","prayer",false)
-        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(),"add", timingsModel, null)
+        var timingsModel= TimingsModel(0, "7", "15", "prayer", false, null)
+        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(),"add", timingsModel)
 
-        var timingsModel1=TimingsModel(0,"8","30","generic",true)
-        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(),"add",timingsModel1, listOf("m","w","f"))
+        var timingsModel1= TimingsModel(0, "8", "30", "generic", true, listOf(DaysModel(0,1,"m"),DaysModel(0,1,"w"),DaysModel(0,1,"f")))
+        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(),"add", timingsModel1)
         var count = RoomHelper.transactFetchAsync(mActivity.returnDbInstance())
 
         Log.d("check132",""+count)
