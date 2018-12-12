@@ -10,7 +10,7 @@ class RoomHelper {
     companion object {
 
         fun transactFetchAsync(db: AppDatabase): List<TimingsModel> {
-            return db.userDao().getTimingsWithDays()
+            return getTimingsWithDays(db)
         }
 
         fun transactAmendAsync(db: AppDatabase, type: String, timingsModel: TimingsModel) {
@@ -26,11 +26,9 @@ class RoomHelper {
         }
 
         private fun addTimingsWithRepeatDays(db: AppDatabase, timings: TimingsModel) {
-            val days = timings.repeatDays
-            for (i in days!!.indices) {
-                days[i].alarmId=timings.id
+            for (i in timings.repeatDays!!.indices) {
+                db.userDao().addRepeatDays(timings.repeatDays!![i])
             }
-            db.userDao().addRepeatDays(days)
             db.userDao().addNewAlarm(timings)
         }
 

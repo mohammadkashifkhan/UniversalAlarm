@@ -1,6 +1,7 @@
 package com.mdkashif.alarm.activities
 
 import android.content.Context
+import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
@@ -14,7 +15,6 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.mdkashif.alarm.R
-import com.mdkashif.alarm.alarm.battery.BatteryReceiver
 import com.mdkashif.alarm.alarm.miscellaneous.AlarmListAdapter
 import com.mdkashif.alarm.alarm.prayer.geocoder.GetCurrentLocation
 import com.mdkashif.alarm.alarm.prayer.geocoder.GetLocationAddress
@@ -26,7 +26,7 @@ import com.mdkashif.alarm.utils.db.AppDatabase
 open class BaseActivity : AppCompatActivity() {
     private var progressDialog: CustomProgressDialog? = null
     private var parentLayout: View? = null
-    private val batteryReceiver = BatteryReceiver.getInstance()
+//    private val batteryReceiver = BatteryReceiver.getInstance()
     lateinit var appDatabase: AppDatabase
 
     val isOnline: Boolean
@@ -142,6 +142,18 @@ open class BaseActivity : AppCompatActivity() {
 
     fun returnDbInstance():AppDatabase{
         return appDatabase
+    }
+
+    fun detectThemeAuto(): String{
+        var autoTheme = ""
+        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO-> autoTheme= "light"
+
+            Configuration.UI_MODE_NIGHT_YES-> autoTheme= "dark"
+
+            Configuration.UI_MODE_NIGHT_UNDEFINED-> autoTheme= "undefined"
+        }
+        return autoTheme
     }
 
     override fun onDestroy() {

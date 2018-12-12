@@ -9,19 +9,19 @@ import androidx.room.PrimaryKey
 data class TimingsModel(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "id")
-        var id: Int,
+        var id: Int=0,
 
         @ColumnInfo(name = "hour")
-        var hour: String,
+        var hour: String="",
 
         @ColumnInfo(name = "minute")
-        var minute: String,
+        var minute: String="",
 
         @ColumnInfo(name = "type")
-        var type: String,
+        var type: String="",
 
         @ColumnInfo(name = "repeat")
         var repeat: Boolean = false,
 
         @Ignore
-        var repeatDays: List<DaysModel>?)
+        var repeatDays: List<DaysModel>?=null)

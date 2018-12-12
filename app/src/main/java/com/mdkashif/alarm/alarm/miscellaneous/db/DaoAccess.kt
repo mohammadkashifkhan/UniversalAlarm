@@ -8,7 +8,7 @@ interface DaoAccess {
     fun addNewAlarm(vararg timings: TimingsModel)
 
     @Insert
-    fun addRepeatDays(vararg days: List<DaysModel>)
+    fun addRepeatDays(vararg days: DaysModel)
 
     @Update
     fun updateAlarm(timings: TimingsModel)
@@ -18,7 +18,6 @@ interface DaoAccess {
 
     @Query("SELECT COUNT(*) from Timings")
     fun countAlarms(): Int
-    ///////////////////////////////////////////////////////
 
     @Query("SELECT * FROM Timings")
     fun getAllAlarms(): List<TimingsModel>

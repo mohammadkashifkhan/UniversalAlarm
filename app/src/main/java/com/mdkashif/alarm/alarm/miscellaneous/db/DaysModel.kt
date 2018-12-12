@@ -9,10 +9,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "Days", foreignKeys =[ForeignKey(entity = TimingsModel::class, parentColumns=["id"], childColumns = ["fkAlarmId"], onUpdate = CASCADE, onDelete=CASCADE)])
 data class DaysModel(
         @PrimaryKey(autoGenerate = true)
-        var id: Int,
+        var id: Int=0,
 
         @ColumnInfo(name = "fkAlarmId")
-        var alarmId: Int,
+        var alarmId: Int=0,
 
         @ColumnInfo(name = "days")
-        var day: String)
+        var day: String="")

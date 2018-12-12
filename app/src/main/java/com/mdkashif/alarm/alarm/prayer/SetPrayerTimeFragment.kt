@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
+import android.widget.CompoundButton
 import androidx.fragment.app.Fragment
 import com.mdkashif.alarm.R
 import com.mdkashif.alarm.activities.BaseActivity.Companion.city
@@ -16,7 +17,8 @@ import com.mdkashif.alarm.alarm.prayer.model.PrayerApiResponse
 import kotlinx.android.synthetic.main.fragment_set_prayer_time.*
 
 
-class SetPrayerTimeFragment : Fragment(), PrayerPresenter.PrayerViewCallback {
+class SetPrayerTimeFragment : Fragment(), PrayerPresenter.PrayerViewCallback, CompoundButton.OnCheckedChangeListener {
+
     private lateinit var mActivity: ContainerActivity
 
     private var compass: Compass? = null
@@ -25,19 +27,26 @@ class SetPrayerTimeFragment : Fragment(), PrayerPresenter.PrayerViewCallback {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        var view: View =inflater.inflate(R.layout.fragment_set_prayer_time, container, false)
+        var rootView: View =inflater.inflate(R.layout.fragment_set_prayer_time, container, false)
+
         mActivity.showLoader()
         if (mActivity.isOnline)
             if (!(mActivity.isBlank(city) && (mActivity.isBlank(country))))
                 PrayerPresenter(this, city!!, country!!).getPrayerDetails()
 
         setupCompass()
-        return view
+        return rootView
     }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         this.mActivity = context as ContainerActivity
+    }
+
+    override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
+        when(p0!!.id){
+
+        }
     }
 
     private fun setupCompass() {

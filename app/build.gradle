@@ -70,6 +70,7 @@ dependencies {
     implementation ('com.github.omadahealth:lollipin:2.1.0@aar') {
         transitive = true
     }
+    implementation 'com.facebook.stetho:stetho:1.5.0'
     implementation 'androidx.room:room-runtime:2.1.0-alpha03'
     annotationProcessor "androidx.room:room-compiler:2.1.0-alpha03"
     kapt "androidx.room:room-compiler:2.1.0-alpha03"

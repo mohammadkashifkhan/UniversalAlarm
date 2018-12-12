@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.appyvet.materialrangebar.RangeBar
 import com.mdkashif.alarm.R
 import com.mdkashif.alarm.activities.ContainerActivity
 import com.mdkashif.alarm.alarm.battery.pojo.BatteryStats
@@ -15,14 +17,19 @@ import kotlinx.android.synthetic.main.fragment_add_battery_level.*
 import kotlinx.android.synthetic.main.fragment_add_battery_level.view.*
 
 
-class SetBatteryLevelFragment : Fragment() {
+class SetBatteryLevelFragment : Fragment(), CompoundButton.OnCheckedChangeListener, RangeBar.OnRangeBarChangeListener {
+
     private lateinit var mActivity: ContainerActivity
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
+        var rootView : View =inflater.inflate(R.layout.fragment_add_battery_level, container, false)
 
-        var view : View =inflater.inflate(R.layout.fragment_add_battery_level, container, false)
+        rootView.swBattery.setOnCheckedChangeListener(this)
+        rootView.swTheft.setOnCheckedChangeListener(this)
+        rootView.rbBatteryLevel.setOnRangeBarChangeListener(this)
+        rootView.rbTemp.setOnRangeBarChangeListener(this)
+
         val batteryLiveData = BatteryLiveData(activity)
         batteryLiveData.observe(this, Observer<BatteryStats> { connection ->
             batteryChangeMeter.isShowTextWhileSpinning = true
@@ -33,44 +40,51 @@ class SetBatteryLevelFragment : Fragment() {
             temperature.text = connection.temp.toString()
         })
 
-        view.swBattery.isChecked = SharedPrefHolder.getInstance(activity).batteryAlarmStatus == true
-        view.theftSwitch.isChecked = SharedPrefHolder.getInstance(activity).theftAlarmStatus == true
+        rootView.swBattery.isChecked = SharedPrefHolder.getInstance(activity).batteryAlarmStatus == true
+        rootView.swTheft.isChecked = SharedPrefHolder.getInstance(activity).theftAlarmStatus == true
 
         if((SharedPrefHolder.getInstance(activity).hbl == 0f) && (SharedPrefHolder.getInstance(activity).lbl == 0f))
-            view.rbBatteryLevel.setRangePinsByValue(20f,85f)
+            rootView.rbBatteryLevel.setRangePinsByValue(20f,85f)
         else if (SharedPrefHolder.getInstance(activity).hbl == 0f)
-            view.rbBatteryLevel.setRangePinsByValue(SharedPrefHolder.getInstance(activity).lbl,85f)
+            rootView.rbBatteryLevel.setRangePinsByValue(SharedPrefHolder.getInstance(activity).lbl,85f)
         else if (SharedPrefHolder.getInstance(activity).lbl == 0f)
-            view.rbBatteryLevel.setRangePinsByValue(20f,SharedPrefHolder.getInstance(activity).hbl)
+            rootView.rbBatteryLevel.setRangePinsByValue(20f,SharedPrefHolder.getInstance(activity).hbl)
         else
-            view.rbBatteryLevel.setRangePinsByValue(SharedPrefHolder.getInstance(activity).lbl,SharedPrefHolder.getInstance(activity).hbl)
+            rootView.rbBatteryLevel.setRangePinsByValue(SharedPrefHolder.getInstance(activity).lbl,SharedPrefHolder.getInstance(activity).hbl)
 
 
         if(SharedPrefHolder.getInstance(activity).temp == 0f)
-            view.rbTemp.setSeekPinByValue(35f)
+            rootView.rbTemp.setSeekPinByValue(35f)
         else
-            view.rbTemp.setSeekPinByValue(SharedPrefHolder.getInstance(activity).temp)
+            rootView.rbTemp.setSeekPinByValue(SharedPrefHolder.getInstance(activity).temp)
 
-        view.rbBatteryLevel.setOnRangeBarChangeListener { rangeBar, leftPinIndex, rightPinIndex, leftPinValue, rightPinValue ->
-            if(SharedPrefHolder.getInstance(activity).hbl != rightPinValue.toFloat())
-                SharedPrefHolder.getInstance(activity).hbl = rightPinValue.toFloat()
-            if(SharedPrefHolder.getInstance(activity).lbl != leftPinValue.toFloat())
-                SharedPrefHolder.getInstance(activity).lbl = leftPinValue.toFloat()
-        }
+        return rootView
+    }
 
-        view.rbTemp.setOnRangeBarChangeListener { rangeBar, leftPinIndex, rightPinIndex, leftPinValue, rightPinValue ->
-            if(SharedPrefHolder.getInstance(activity).temp != rightPinValue.toFloat())
-                SharedPrefHolder.getInstance(activity).temp = rightPinValue.toFloat()
+    override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
+        when(p0!!.id){
+            R.id.swBattery->{
+                SharedPrefHolder.getInstance(activity).batteryAlarmStatus = p1
+            }
+            R.id.swTheft->{
+                SharedPrefHolder.getInstance(activity).theftAlarmStatus = p1
+            }
         }
+    }
 
-        view.swBattery.setOnCheckedChangeListener{ buttonView, isChecked ->
-            SharedPrefHolder.getInstance(activity).batteryAlarmStatus = isChecked
+    override fun onRangeChangeListener(rangeBar: RangeBar?, leftPinIndex: Int, rightPinIndex: Int, leftPinValue: String?, rightPinValue: String?) {
+        when(rangeBar!!.id){
+            R.id.rbBatteryLevel->{
+                if(SharedPrefHolder.getInstance(activity).hbl != rightPinValue!!.toFloat())
+                    SharedPrefHolder.getInstance(activity).hbl = rightPinValue.toFloat()
+                if(SharedPrefHolder.getInstance(activity).lbl != leftPinValue!!.toFloat())
+                    SharedPrefHolder.getInstance(activity).lbl = leftPinValue.toFloat()
+            }
+            R.id.rbTemp->{
+                if(SharedPrefHolder.getInstance(activity).temp != rightPinValue!!.toFloat())
+                    SharedPrefHolder.getInstance(activity).temp = rightPinValue.toFloat()
+            }
         }
-
-        view.theftSwitch.setOnCheckedChangeListener{ buttonView, isChecked ->
-            SharedPrefHolder.getInstance(activity).theftAlarmStatus = isChecked
-        }
-        return view
     }
 
     override fun onAttach(context: Context?) {
