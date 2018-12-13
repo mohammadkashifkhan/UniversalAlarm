@@ -31,7 +31,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.mdkashif.alarm.R;
 import com.mdkashif.alarm.utils.AppConstants;
-import com.mdkashif.alarm.utils.SharedPrefHolder;
+import com.mdkashif.alarm.utils.persistence.SharedPrefHolder;
 import com.pkmmte.view.CircularImageView;
 
 import java.util.List;

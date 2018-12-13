@@ -61,19 +61,32 @@
             android:screenOrientation="portrait"
             android:theme="@style/commonLight" />
 
-        <receiver android:name=".alarm.battery.BatteryReceiver">
+        <receiver android:name=".alarm.battery.misc.BatteryReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BATTERY_CHANGED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".alarm.miscellaneous.AlarmReceiver">
+
+        <receiver android:name=".alarm.miscellaneous.misc.AlarmReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <service android:name=".alarm.miscellaneous.AlarmSoundService" />
+        <receiver android:name=".alarm.prayer.job.JobScheduleReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".alarm.miscellaneous.misc.AlarmSoundService" />
+
         <service android:name=".notifications.NotificationService" />
+
+        <service
+            android:name=".alarm.prayer.job.DataFetchJobService"
+            android:label="Prayer Data Fetch Service"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity android:name=".activities.WebviewActivity" />
     </application>

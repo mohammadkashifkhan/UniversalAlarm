@@ -27,6 +27,9 @@ public class AppConstants {
     public final static String themeDark = "Dark";
     public final static String themeSelected = "theme";
 
+    public final static String city = "city";
+    public final static String country = "country";
+
     /////// SetBatteryLevelFragment ///////
     public final static String highBatteryLevel = "hbl";
     public final static String lowBatteryLevel = "lbl";

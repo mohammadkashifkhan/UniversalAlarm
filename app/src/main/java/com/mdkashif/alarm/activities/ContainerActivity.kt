@@ -5,13 +5,13 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import com.mdkashif.alarm.R
-import com.mdkashif.alarm.alarm.battery.BatteryReceiver
-import com.mdkashif.alarm.alarm.battery.SetBatteryLevelFragment
-import com.mdkashif.alarm.alarm.location.SetLocationFragment
-import com.mdkashif.alarm.alarm.miscellaneous.BuzzingAlarmFragment
-import com.mdkashif.alarm.alarm.miscellaneous.HomeFragment
-import com.mdkashif.alarm.alarm.prayer.SetPrayerTimeFragment
-import com.mdkashif.alarm.alarm.time.SetTimeFragment
+import com.mdkashif.alarm.alarm.battery.misc.BatteryReceiver
+import com.mdkashif.alarm.alarm.battery.ui.SetBatteryLevelFragment
+import com.mdkashif.alarm.alarm.location.ui.SetLocationFragment
+import com.mdkashif.alarm.alarm.miscellaneous.ui.BuzzingAlarmFragment
+import com.mdkashif.alarm.alarm.miscellaneous.ui.HomeFragment
+import com.mdkashif.alarm.alarm.prayer.ui.SetPrayerTimeFragment
+import com.mdkashif.alarm.alarm.time.ui.SetTimeFragment
 import permissions.dispatcher.*
 
 @RuntimePermissions
@@ -29,7 +29,7 @@ class ContainerActivity : BaseActivity() {
         when {
             "BuzzAlarm" == intent.getStringExtra("param")-> replaceFragment(BuzzingAlarmFragment(), BuzzingAlarmFragment::class.java.simpleName,false)
             "com.mdkashif.alarm.activities.time" == intent.action -> replaceFragment(SetTimeFragment(), SetTimeFragment::class.java.simpleName,false)
-            "com.mdkashif.alarm.activities.battery" == intent.action -> replaceFragment(SetBatteryLevelFragment(),SetBatteryLevelFragment::class.java.simpleName,false)
+            "com.mdkashif.alarm.activities.battery" == intent.action -> replaceFragment(SetBatteryLevelFragment(), SetBatteryLevelFragment::class.java.simpleName,false)
             "com.mdkashif.alarm.activities.location" == intent.action -> replaceFragment(SetLocationFragment(), SetLocationFragment::class.java.simpleName,false)
             "com.mdkashif.alarm.activities.prayer" == intent.action -> replaceFragment(SetPrayerTimeFragment(), SetPrayerTimeFragment::class.java.simpleName,false)
             else -> replaceFragment(HomeFragment(), HomeFragment::class.java.simpleName,false)

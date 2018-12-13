@@ -10,7 +10,7 @@ import androidx.core.app.NotificationCompat
 import com.mdkashif.alarm.R
 import com.mdkashif.alarm.activities.ContainerActivity
 import com.mdkashif.alarm.utils.AppConstants
-import com.mdkashif.alarm.utils.SharedPrefHolder
+import com.mdkashif.alarm.utils.persistence.SharedPrefHolder
 
 class NotificationService : IntentService("NotificationService") {
     private var bundleNotificationId= AppConstants.notificationId as Int

@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import com.mdkashif.alarm.R
-import com.mdkashif.alarm.utils.SharedPrefHolder
+import com.mdkashif.alarm.utils.persistence.SharedPrefHolder
 import kotlinx.android.synthetic.main.activity_app_intro.*
 
 class AppIntroActivity : BaseActivity() {

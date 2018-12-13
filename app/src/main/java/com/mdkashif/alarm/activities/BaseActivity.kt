@@ -15,13 +15,14 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.mdkashif.alarm.R
-import com.mdkashif.alarm.alarm.miscellaneous.AlarmListAdapter
+import com.mdkashif.alarm.alarm.miscellaneous.misc.AlarmListAdapter
 import com.mdkashif.alarm.alarm.prayer.geocoder.GetCurrentLocation
 import com.mdkashif.alarm.alarm.prayer.geocoder.GetLocationAddress
 import com.mdkashif.alarm.custom.CustomProgressDialog
 import com.mdkashif.alarm.custom.SwipeToDeleteCallback
 import com.mdkashif.alarm.utils.AppConstants
-import com.mdkashif.alarm.utils.db.AppDatabase
+import com.mdkashif.alarm.utils.persistence.AppDatabase
+import com.mdkashif.alarm.utils.persistence.SharedPrefHolder
 
 
 open class BaseActivity : AppCompatActivity() {
@@ -46,7 +47,7 @@ open class BaseActivity : AppCompatActivity() {
             val latitude = location.latitude
             val longitude = location.longitude
             GetLocationAddress.getAddressFromLocation(latitude, longitude,
-                    applicationContext, GeocoderHandler())
+                    applicationContext, GeocoderHandler(applicationContext))
         }
 
         appDatabase = AppDatabase.getAppDatabase(applicationContext)
@@ -125,17 +126,13 @@ open class BaseActivity : AppCompatActivity() {
         itemTouchHelper.attachToRecyclerView(mRecyclerView)
     }
 
-    private class GeocoderHandler : Handler() {
+    private class GeocoderHandler(var context: Context) : Handler() {
         override fun handleMessage(message: Message) {
             when (message.what) {
                 1 -> {
                     val bundle = message.data
-                    city = bundle.getString("city")
-                    country = bundle.getString("country")
-                }
-                else -> {
-                    city = ""
-                    country = ""
+                    SharedPrefHolder.getInstance(context).city = bundle.getString("city")
+                    SharedPrefHolder.getInstance(context).country  = bundle.getString("country")
                 }
             }
         }
@@ -160,11 +157,6 @@ open class BaseActivity : AppCompatActivity() {
     override fun onDestroy() {
         AppDatabase.destroyInstance()
         super.onDestroy()
-    }
-
-    companion object {
-        var city: String? = null
-        var country: String? = null
     }
 
 }

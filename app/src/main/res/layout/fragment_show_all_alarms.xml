@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".alarm.miscellaneous.ShowAllAlarmsFragment"
+    tools:context=".alarm.miscellaneous.ui.ShowAllAlarmsFragment"
     android:background="@color/pitchWhite">
 
     <LinearLayout
