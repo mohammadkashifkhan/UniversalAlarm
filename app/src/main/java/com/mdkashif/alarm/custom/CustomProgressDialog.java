@@ -25,7 +25,7 @@ public class CustomProgressDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.dialog_custom_progress);
+        setContentView(R.layout.layout_dialog_custom_progress);
         setCanceledOnTouchOutside(false);
         setCancelable(false);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

@@ -32,9 +32,8 @@ class ContainerActivity : BaseActivity() {
             "com.mdkashif.alarm.activities.battery" == intent.action -> replaceFragment(SetBatteryLevelFragment(),SetBatteryLevelFragment::class.java.simpleName,false)
             "com.mdkashif.alarm.activities.location" == intent.action -> replaceFragment(SetLocationFragment(), SetLocationFragment::class.java.simpleName,false)
             "com.mdkashif.alarm.activities.prayer" == intent.action -> replaceFragment(SetPrayerTimeFragment(), SetPrayerTimeFragment::class.java.simpleName,false)
+            else -> replaceFragment(HomeFragment(), HomeFragment::class.java.simpleName,false)
         }
-
-        replaceFragment(HomeFragment(), HomeFragment::class.java.simpleName,false)
     }
 
     private fun initiateReceiver(){

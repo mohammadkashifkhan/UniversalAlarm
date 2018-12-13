@@ -2,6 +2,7 @@ package com.mdkashif.alarm.alarm.miscellaneous;
 
 import android.app.Service;
 import android.content.Intent;
+import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 
@@ -15,6 +16,9 @@ public class AlarmSoundService extends Service {
     @Override
     public void onCreate() {
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.alarmtone);
+        mediaPlayer.setAudioAttributes(new AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_ALARM)
+                        .build());
 
         if(!mediaPlayer.isPlaying()) {
             mediaPlayer.setLooping(true);

@@ -20,6 +20,7 @@ import com.mdkashif.alarm.alarm.prayer.geocoder.GetCurrentLocation
 import com.mdkashif.alarm.alarm.prayer.geocoder.GetLocationAddress
 import com.mdkashif.alarm.custom.CustomProgressDialog
 import com.mdkashif.alarm.custom.SwipeToDeleteCallback
+import com.mdkashif.alarm.utils.AppConstants
 import com.mdkashif.alarm.utils.db.AppDatabase
 
 
@@ -147,9 +148,9 @@ open class BaseActivity : AppCompatActivity() {
     fun detectThemeAuto(): String{
         var autoTheme = ""
         when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_NO-> autoTheme= "light"
+            Configuration.UI_MODE_NIGHT_NO-> autoTheme= AppConstants.themeLight
 
-            Configuration.UI_MODE_NIGHT_YES-> autoTheme= "dark"
+            Configuration.UI_MODE_NIGHT_YES-> autoTheme= AppConstants.themeDark
 
             Configuration.UI_MODE_NIGHT_UNDEFINED-> autoTheme= "undefined"
         }

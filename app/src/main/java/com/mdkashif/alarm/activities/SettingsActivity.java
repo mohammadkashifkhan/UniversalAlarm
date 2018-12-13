@@ -71,8 +71,9 @@ public class SettingsActivity extends AppCompatActivity {
             Preference toggleFeedback = findPreference(getString(R.string.key_send_feedback));
             Preference toggleNotification=findPreference(getString(R.string.notifications_new_message));
             Preference toggleVibrate=findPreference(getString(R.string.key_vibrate));
-            Preference toggleTheme=findPreference(getString(R.string.theme));
+            final Preference toggleTheme=findPreference(getString(R.string.theme));
 
+            toggleTheme.setSummary(SharedPrefHolder.getInstance(getActivity()).getTheme());
             toggleAboutDev.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
@@ -313,6 +314,8 @@ public class SettingsActivity extends AppCompatActivity {
                             .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
                                 @Override
                                 public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                    SharedPrefHolder.getInstance(getActivity()).setTheme(getResources().getStringArray(R.array.themes)[which]);
+                                    toggleTheme.setSummary(getResources().getStringArray(R.array.themes)[which]);
                                     return true;
                                 }
                             })

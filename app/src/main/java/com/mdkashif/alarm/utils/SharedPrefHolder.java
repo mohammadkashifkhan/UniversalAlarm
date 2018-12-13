@@ -128,7 +128,7 @@ public class SharedPrefHolder {
     }
 
     public String getTheme(){
-        return pref.getString(themeSelected,"Light");
+        return pref.getString(themeSelected, AppConstants.themeLight);
     }
 
 }

@@ -60,7 +60,6 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:fontFamily="sans-serif-smallcaps"
                 android:text="Timezone"
                 android:textColor="@color/black"
                 android:textSize="16sp"
@@ -90,7 +89,6 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:fontFamily="sans-serif-smallcaps"
                 android:text="Islamic Date"
                 android:textColor="@color/black"
                 android:textSize="16sp"
@@ -120,7 +118,6 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:fontFamily="sans-serif-smallcaps"
                 android:text="Month"
                 android:textColor="@color/black"
                 android:textSize="16sp"
@@ -171,7 +168,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:fontFamily="sans-serif-smallcaps"
                     android:text="Fajr"
                     android:textColor="@color/black"
                     android:textSize="16sp"
@@ -212,7 +208,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView31" />
 
                 <TextView
-                    android:fontFamily="sans-serif-smallcaps"
                     android:id="@+id/textView32"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -259,7 +254,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView32" />
 
                 <TextView
-                    android:fontFamily="sans-serif-smallcaps"
                     android:id="@+id/textView33"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -306,7 +300,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView33" />
 
                 <TextView
-                    android:fontFamily="sans-serif-smallcaps"
                     android:id="@+id/textView34"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -353,7 +346,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView34" />
 
                 <TextView
-                    android:fontFamily="sans-serif-smallcaps"
                     android:id="@+id/textView35"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -400,7 +392,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView35" />
 
                 <TextView
-                    android:fontFamily="sans-serif-smallcaps"
                     android:id="@+id/textView36"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -447,7 +438,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView36" />
 
                 <TextView
-                    android:fontFamily="sans-serif-smallcaps"
                     android:id="@+id/textView37"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -494,7 +484,6 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView37" />
 
                 <TextView
-                    android:fontFamily="sans-serif-smallcaps"
                     android:id="@+id/textView38"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -541,7 +530,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView38" />
 
                 <TextView
-                    android:fontFamily="sans-serif-smallcaps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -616,6 +604,7 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
+                android:fontFamily="sans-serif-smallcaps"
                 android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

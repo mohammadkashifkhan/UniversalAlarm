@@ -42,10 +42,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
         setRVAdapter(rootView.rvAlarms)
 
-        var timingsModel= TimingsModel(0, "7", "15", "prayer", false, null)
+        var timingsModel= TimingsModel(0, "20","07","1993","7", "15", "prayer", false, null)
         RoomHelper.transactAmendAsync(mActivity.returnDbInstance(),"add", timingsModel)
 
-        var timingsModel1= TimingsModel(0, "8", "30", "generic", true, listOf(DaysModel(0,1,"m"),DaysModel(0,1,"w"),DaysModel(0,1,"f")))
+        var timingsModel1= TimingsModel(0, "20","07","1993","8", "30", "generic", true, listOf(DaysModel(0,1,"m"),DaysModel(0,1,"w"),DaysModel(0,1,"f")))
         RoomHelper.transactAmendAsync(mActivity.returnDbInstance(),"add", timingsModel1)
         var count = RoomHelper.transactFetchAsync(mActivity.returnDbInstance())
 
@@ -75,7 +75,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             }
             R.id.fab_salat ->{
                 rootView.menu.close(true)
-                if (!mActivity.isOnline)
+                if (mActivity.isOnline)
                     mActivity.replaceFragment(SetPrayerTimeFragment(), SetPrayerTimeFragment::class.java.simpleName,true)
                 else
                     mActivity.showSnackBar("Please try after some time")

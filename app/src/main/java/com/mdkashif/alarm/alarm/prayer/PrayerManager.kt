@@ -15,12 +15,12 @@ class PrayerManager(val prayerPresenterCallback: PrayerPresenterCallback) {
 
         prayerCall.enqueue(object : Callback<PrayerApiResponse> {
             override fun onResponse(call: Call<PrayerApiResponse>, response: Response<PrayerApiResponse>) {
-                prayerPresenterCallback!!.onGetPrayerDetails(response.body())
+                prayerPresenterCallback.onGetPrayerDetails(response.body())
 //                Log.d("check", response.body().toString())
             }
 
             override fun onFailure(call: Call<PrayerApiResponse>, t: Throwable) {
-                prayerPresenterCallback!!.onError("Internal Server Error")
+                prayerPresenterCallback.onError("Internal Server Error")
             }
         })
     }

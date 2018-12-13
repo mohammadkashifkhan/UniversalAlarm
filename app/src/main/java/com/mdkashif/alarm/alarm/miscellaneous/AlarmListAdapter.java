@@ -64,16 +64,16 @@ public class AlarmListAdapter extends RecyclerView.Adapter {
         View view;
         switch (viewType) {
             case 0:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.alarm_time_list_item_parent, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_alarm_time_list, parent, false);
                 return new TimeViewHolder(view);
             case 1:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.alarm_battery_list_item_parent, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_alarm_battery_list, parent, false);
                 return new BatteryViewHolder(view);
             case 2:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.alarm_location_list_item_parent, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_alarm_location_list, parent, false);
                 return new LocationViewHolder(view);
             case 3:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.alarm_prayer_list_item_parent, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_alarm_prayer_list, parent, false);
                 return new PrayerViewHolder(view);
         }
         return null;
