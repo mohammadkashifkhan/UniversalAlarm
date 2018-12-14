@@ -10,6 +10,10 @@
     <color name="red">#B71C1C</color>
     <color name="gray">#acacac</color>
 
+    <color name="dayPressed">#F1F8FF</color>
+    <color name="daySelected">#F1F8FF</color>
+    <color name="dayDeselected">#696969</color>
+
     ////////////////////////// Light //////////////////////////
     <color name="colorPrimaryDarkOrange">#F9B39A</color>
     <color name="colorPrimaryOrange">#ffc4ab</color>
