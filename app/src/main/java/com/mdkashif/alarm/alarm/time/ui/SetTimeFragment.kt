@@ -1,10 +1,6 @@
 package com.mdkashif.alarm.alarm.time.ui
 
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,11 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mdkashif.alarm.R
 import com.mdkashif.alarm.activities.ContainerActivity
-import com.mdkashif.alarm.alarm.miscellaneous.misc.AlarmReceiver
 import com.mdkashif.alarm.alarm.time.misc.*
 import kotlinx.android.synthetic.main.fragment_add_time.*
 import kotlinx.android.synthetic.main.fragment_add_time.view.*
-import java.util.*
 
 
 class SetTimeFragment : Fragment(), TimePresenter.TimePresenterCallback {
@@ -46,40 +40,11 @@ class SetTimeFragment : Fragment(), TimePresenter.TimePresenterCallback {
         }
 
         view.btSetAlarm.setOnClickListener{
-            setAlarm()
+            // TODO: insert in Db
+            //RoomHelper.transactAsync(AppDatabase.getAppDatabase(activity))
         }
-
-        //RoomHelper.transactAsync(AppDatabase.getAppDatabase(activity))
 
         return view
-    }
-
-    private fun setAlarm(){
-        val dat = Date()//initializes to now
-        val cal_alarm = Calendar.getInstance()
-        val cal_now = Calendar.getInstance()
-        cal_now.time = dat
-        cal_alarm.time = dat
-        cal_alarm.set(Calendar.HOUR_OF_DAY, 2)
-        cal_alarm.set(Calendar.MINUTE, 35)
-        cal_alarm.set(Calendar.SECOND, 0)
-        if (cal_alarm.before(cal_now)) {
-            cal_alarm.add(Calendar.DATE, 1)
-        }
-        val intent = Intent(activity,
-                AlarmReceiver::class.java)
-        val pintent = PendingIntent.getBroadcast(activity, 393, intent, 0)
-
-        val alarmManager = activity!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-        if (Build.VERSION.SDK_INT >= 23) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal_alarm.timeInMillis, pintent)
-        }
-        else if (Build.VERSION.SDK_INT >= 21) {
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal_alarm.timeInMillis, pintent)
-        }
-
-//        Log.d(mActivity!!.tag,"here")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

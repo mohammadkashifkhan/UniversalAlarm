@@ -27,21 +27,20 @@ class SetBatteryLevelFragment : Fragment(), CompoundButton.OnCheckedChangeListen
         var rootView : View =inflater.inflate(R.layout.fragment_add_battery_level, container, false)
 
         rootView.swBattery.setOnCheckedChangeListener(this)
+        rootView.swTemperature.setOnCheckedChangeListener(this)
         rootView.swTheft.setOnCheckedChangeListener(this)
         rootView.rbBatteryLevel.setOnRangeBarChangeListener(this)
         rootView.rbTemp.setOnRangeBarChangeListener(this)
 
-        val batteryLiveData = BatteryLiveData(activity)
-        batteryLiveData.observe(this, Observer<BatteryStats> { connection ->
+        BatteryLiveData(activity).observe(this, Observer<BatteryStats> { connection ->
             batteryChangeMeter.isShowTextWhileSpinning = true
             batteryChangeMeter.setValueAnimated(connection!!.level.toFloat())
-
             batteryStatus.text = connection.status
-
             temperature.text = connection.temp.toString()
         })
 
         rootView.swBattery.isChecked = SharedPrefHolder.getInstance(activity).batteryAlarmStatus == true
+        rootView.swTemperature.isChecked = SharedPrefHolder.getInstance(activity).temperatureAlarmStatus == true
         rootView.swTheft.isChecked = SharedPrefHolder.getInstance(activity).theftAlarmStatus == true
 
         if((SharedPrefHolder.getInstance(activity).hbl == 0f) && (SharedPrefHolder.getInstance(activity).lbl == 0f))
@@ -66,6 +65,9 @@ class SetBatteryLevelFragment : Fragment(), CompoundButton.OnCheckedChangeListen
         when(p0!!.id){
             R.id.swBattery->{
                 SharedPrefHolder.getInstance(activity).batteryAlarmStatus = p1
+            }
+            R.id.swTemperature->{
+                SharedPrefHolder.getInstance(activity).temperatureAlarmStatus = p1
             }
             R.id.swTheft->{
                 SharedPrefHolder.getInstance(activity).theftAlarmStatus = p1

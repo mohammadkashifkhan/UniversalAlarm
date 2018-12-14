@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.os.BatteryManager;
@@ -14,18 +13,14 @@ import android.os.BatteryManager;
 import com.mdkashif.alarm.R;
 import com.mdkashif.alarm.activities.ContainerActivity;
 import com.mdkashif.alarm.alarm.miscellaneous.misc.AlarmSoundService;
+import com.mdkashif.alarm.utils.persistence.SharedPrefHolder;
 
 import androidx.core.app.NotificationCompat;
 
-import static android.content.Context.MODE_PRIVATE;
-
 public class BatteryReceiver extends BroadcastReceiver {
 
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    String HBL,LBL,TEMP;
+    Float HBL,LBL,TEMP,level;
     float temp,currLevel,maxLevel;
-    int level;
     AudioManager mAudioManager;
 
     private static BatteryReceiver mBatteryReceiver;
@@ -40,58 +35,39 @@ public class BatteryReceiver extends BroadcastReceiver {
         return mBatteryReceiver;
     }
 
-
     @Override
     public void onReceive(Context context, Intent intent) {
-        sharedPreferences=context.getSharedPreferences("MyPrefs",MODE_PRIVATE);
-        editor=sharedPreferences.edit();
-        HBL=sharedPreferences.getString("HBL","0");
-        LBL=sharedPreferences.getString("LBL","0");
-        TEMP=sharedPreferences.getString("TEMP","0");
+        HBL= SharedPrefHolder.getInstance(context).getHBL();
+        LBL= SharedPrefHolder.getInstance(context).getLBL();
+        TEMP= SharedPrefHolder.getInstance(context).getTemp();
 
         currLevel = intent.getIntExtra(
                 BatteryManager.EXTRA_LEVEL, -1);
         maxLevel = intent.getIntExtra(
                 BatteryManager.EXTRA_SCALE, -1);
-        level = (int) Math.round((currLevel * 100.0) / maxLevel);
-        HBL=HBL.replace("%","");
-        LBL=LBL.replace("%","");
-        TEMP=TEMP.replace("℃","");
+        level = (float) Math.round((currLevel * 100.0) / maxLevel);
 
         mAudioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-            if ((level >= Integer.parseInt(HBL))&&(!("0".trim().equals(HBL)))&&("true".trim().equals(sharedPreferences.getString("Alarmstatus","")))) {
-                if(isConnected(context)) {
-                    notif("Unplug your Charger", "Your mobile is already " + HBL + "% charged", context);
-                    editor.putString("alarmringing", "true");
-                    editor.commit();
-                }
-            }
+        // TODO: send to notification service
+        if ((level >= HBL)&&SharedPrefHolder.getInstance(context).getBatteryAlarmStatus())
+            if(isConnected(context))
+                notif("Unplug your Charger", "Your mobile is already " + HBL + "% charged", context);
 
-            if ((level <= Integer.parseInt(LBL))&&(!("0".trim().equals(LBL)))&&("true".trim().equals(sharedPreferences.getString("Alarmstatus","")))) {
-                if(!isConnected(context)) {
-                    notif("Plugin your Charger", "Battery has less than " + LBL + "% charge left", context);
-                    editor.putString("alarmringing", "true");
-                    editor.commit();
-                }
-            }
+        if ((level <= LBL)&&SharedPrefHolder.getInstance(context).getBatteryAlarmStatus())
+            if(!isConnected(context))
+                notif("Plugin your Charger", "Battery has less than " + LBL + "% charge left", context);
 
-            if("true".equals(sharedPreferences.getString("enabletheftalarm",""))){
-                if(!isConnected(context)) {
-                    notif("Theft Alarm", "Someone just might be unplugging your phone!", context);
-                    editor.putString("theftringing", "true");
-                    editor.commit();
-                }
-            }
+        if(SharedPrefHolder.getInstance(context).getTheftAlarmStatus())
+            if(!isConnected(context))
+                notif("Theft Alarm", "Someone just might be unplugging your phone!", context);
 
-            if(((int)batteryTemperature(context))>(Integer.parseInt(TEMP))&&("true".equals(sharedPreferences.getString("Tempstatus","")))){
-                notif("Your Phone is getting too warm","Either switch it off or unplug it",context);
-                editor.putString("tempringing", "true");
-                editor.commit();
-            }
+        if((getBatteryTemperature(context)>TEMP)&&SharedPrefHolder.getInstance(context).getTemperatureAlarmStatus())
+            notif("Your Phone is getting too warm","Either switch it off or unplug it",context);
+
     }
 
-    public float batteryTemperature(Context context)
+    public float getBatteryTemperature(Context context)
     {
         Intent intent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         temp = ((float) intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE,0)) / 10;
@@ -105,7 +81,6 @@ public class BatteryReceiver extends BroadcastReceiver {
     }
 
     public void notif(String title, String msg, Context context){
-
         Intent intent = new Intent(context, ContainerActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -120,25 +95,8 @@ public class BatteryReceiver extends BroadcastReceiver {
 
         mNotificationManager.notify(0, mBuilder.build());
 
-        switch (mAudioManager.getRingerMode()) {
-            case AudioManager.RINGER_MODE_SILENT:
-                if(("true".equals(sharedPreferences.getString("overridesilent",""))))
-                {
-                    context.startService(new Intent(context,AlarmSoundService.class));
-                }
-                break;
-            case AudioManager.RINGER_MODE_VIBRATE:
-                if(("true".equals(sharedPreferences.getString("overridesilent",""))))
-                {
-                    context.startService(new Intent(context,AlarmSoundService.class));
-                }
-                break;
-            case AudioManager.RINGER_MODE_NORMAL:
-                context.startService(new Intent(context,AlarmSoundService.class));
-                break;
-            }
-
-        }
-
+        context.startService(new Intent(context,AlarmSoundService.class));
     }
+
+}
 

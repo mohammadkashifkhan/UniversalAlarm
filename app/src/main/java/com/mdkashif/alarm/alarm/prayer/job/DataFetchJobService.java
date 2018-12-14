@@ -11,7 +11,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class DataFetchJobService extends JobService implements PrayerPresenter.PrayerViewCallback {
-    private static final String TAG = "SyncService";
 
     @Override
     public boolean onStartJob(JobParameters params) {
@@ -33,6 +32,6 @@ public class DataFetchJobService extends JobService implements PrayerPresenter.P
 
     @Override
     public void onError(@NotNull String error) {
-
+        // do nothing
     }
 }

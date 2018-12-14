@@ -35,6 +35,7 @@ public class AppConstants {
     public final static String lowBatteryLevel = "lbl";
     public final static String batteryTempLevel = "temp";
     public final static String batteryAlarmStatus = "batteryAlarmStatus";
+    public final static String temperatureAlarmStatus = "temperatureAlarmStatus";
     public final static String theftAlarmStatus = "theftAlarmStatus";
 
     /////// Notification ///////

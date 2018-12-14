@@ -97,7 +97,8 @@ class SetPrayerTimeFragment : Fragment(), PrayerPresenter.PrayerViewCallback, Co
     }
 
     override fun onError(error: String) {
-       mActivity.showSnackBar(error)
+        mActivity.hideLoader()
+        mActivity.showSnackBar(error)
     }
 
     override fun onStart() {

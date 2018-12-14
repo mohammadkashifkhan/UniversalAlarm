@@ -26,6 +26,9 @@ class NotificationService : IntentService("NotificationService") {
 
         val pendingIntent = PendingIntent.getActivity(baseContext, bundleNotificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
+        // TODO: check the type of alarm here and take appropriate actions
+        // TODO: combine notification sound and notification sound ie, only one sound should play at all time
+
         if (SharedPrefHolder.getInstance(applicationContext).ringStatus || SharedPrefHolder.getInstance(applicationContext).vibrateStatus) {
             if (SharedPrefHolder.getInstance(applicationContext).ringStatus && SharedPrefHolder.getInstance(applicationContext).vibrateStatus) {
                 if (SharedPrefHolder.getInstance(applicationContext).ringtoneUri != "" && SharedPrefHolder.getInstance(applicationContext).vibrateStatus) {
@@ -33,8 +36,7 @@ class NotificationService : IntentService("NotificationService") {
                     defaults = Notification.DEFAULT_VIBRATE
                     sendNotificationAlert("Universal Alarm", "Wake Up! Wake Up! Alarm started!!", pendingIntent, groupNotificationId, bundleNotificationId)
                 }
-
-                if (SharedPrefHolder.getInstance(applicationContext).ringtoneUri == "" && SharedPrefHolder.getInstance(applicationContext).vibrateStatus) {
+                else if (SharedPrefHolder.getInstance(applicationContext).ringtoneUri == "" && SharedPrefHolder.getInstance(applicationContext).vibrateStatus) {
                     defaults = Notification.DEFAULT_ALL
                     sendNotificationAlert("Universal Alarm", "Wake Up! Wake Up! Alarm started!!", pendingIntent, groupNotificationId, bundleNotificationId)
                 }
@@ -43,8 +45,7 @@ class NotificationService : IntentService("NotificationService") {
                     uri = Uri.parse(SharedPrefHolder.getInstance(applicationContext).ringtoneUri)
                     sendNotificationAlert("Universal Alarm", "Wake Up! Wake Up! Alarm started!!", pendingIntent, groupNotificationId, bundleNotificationId)
                 }
-
-                if (SharedPrefHolder.getInstance(applicationContext).ringtoneUri == "") {
+                else if (SharedPrefHolder.getInstance(applicationContext).ringtoneUri == "") {
                     defaults = Notification.DEFAULT_SOUND
                     sendNotificationAlert("Universal Alarm", "Wake Up! Wake Up! Alarm started!!", pendingIntent, groupNotificationId, bundleNotificationId)
                 }
@@ -87,6 +88,10 @@ class NotificationService : IntentService("NotificationService") {
                 .setSmallIcon(R.drawable.ic_alarm)
                 .setAutoCancel(true)
 
-        notificationManager.notify(bundleNotificationId, notificationBuilder.build())
+        val notification : Notification = notificationBuilder.build()
+        notification.flags = notification.flags or Notification.FLAG_ONGOING_EVENT // non cancellable until tapped, should be only for theft alarms
+        notification.flags = notification.flags or Notification.FLAG_INSISTENT // repeat unless tapped and cancelled
+
+        notificationManager.notify(bundleNotificationId, notification)
     }
 }

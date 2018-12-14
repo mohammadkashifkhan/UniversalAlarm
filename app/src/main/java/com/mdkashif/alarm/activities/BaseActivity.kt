@@ -31,13 +31,6 @@ open class BaseActivity : AppCompatActivity() {
 //    private val batteryReceiver = BatteryReceiver.getInstance()
     lateinit var appDatabase: AppDatabase
 
-    val isOnline: Boolean
-        get() {
-            val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val netInfo = cm.activeNetworkInfo
-            return netInfo != null && netInfo.isConnectedOrConnecting && cm.activeNetworkInfo.isAvailable && cm.activeNetworkInfo.isConnected
-        }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         parentLayout = findViewById(android.R.id.content)
@@ -52,6 +45,13 @@ open class BaseActivity : AppCompatActivity() {
 
         appDatabase = AppDatabase.getAppDatabase(applicationContext)
     }
+
+    val isOnline: Boolean
+        get() {
+            val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val netInfo = cm.activeNetworkInfo
+            return netInfo != null && netInfo.isConnectedOrConnecting && cm.activeNetworkInfo.isAvailable && cm.activeNetworkInfo.isConnected
+        }
 
     fun showLoader() {
         progressDialog!!.show()
