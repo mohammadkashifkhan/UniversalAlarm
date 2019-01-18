@@ -5,7 +5,6 @@ import android.app.job.JobService;
 
 import com.mdkashif.alarm.alarm.prayer.misc.PrayerPresenter;
 import com.mdkashif.alarm.alarm.prayer.model.PrayerApiResponse;
-import com.mdkashif.alarm.utils.persistence.SharedPrefHolder;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -15,8 +14,8 @@ public class DataFetchJobService extends JobService implements PrayerPresenter.P
     @Override
     public boolean onStartJob(JobParameters params) {
 //        Util.scheduleJob(getApplicationContext()); // reschedule the job
-        new PrayerPresenter(this, SharedPrefHolder.getInstance(getApplicationContext()).getCity(),
-                SharedPrefHolder.getInstance(getApplicationContext()).getCountry()).getPrayerDetails();
+//        new PrayerPresenter(this, SharedPrefHolder.getInstance(getApplicationContext()).getCity(),
+//                SharedPrefHolder.getInstance(getApplicationContext()).getCountry()).getPrayerDetails();
         return true;
     }
 

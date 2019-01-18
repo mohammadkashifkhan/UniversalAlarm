@@ -15,6 +15,7 @@ import com.mdkashif.alarm.alarm.prayer.misc.Compass
 import com.mdkashif.alarm.alarm.prayer.misc.PrayerPresenter
 import com.mdkashif.alarm.alarm.prayer.model.PrayerApiResponse
 import com.mdkashif.alarm.utils.persistence.SharedPrefHolder
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_set_prayer_time.*
 
 
@@ -25,16 +26,15 @@ class SetPrayerTimeFragment : Fragment(), PrayerPresenter.PrayerViewCallback, Co
     private var compass: Compass? = null
 
     private var currentAzimuth: Float = 0.toFloat()
+    private val disposable = CompositeDisposable()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        var rootView: View =inflater.inflate(R.layout.fragment_set_prayer_time, container, false)
+        val rootView: View =inflater.inflate(R.layout.fragment_set_prayer_time, container, false)
 
         mActivity.showLoader()
         if (mActivity.isOnline)
-            if (!(mActivity.isBlank(SharedPrefHolder.getInstance(context).city)
-                            && (mActivity.isBlank(SharedPrefHolder.getInstance(context).country))))
-                PrayerPresenter(this, SharedPrefHolder.getInstance(context).city!!, SharedPrefHolder.getInstance(context).country!!).getPrayerDetails()
+            PrayerPresenter(disposable,this, SharedPrefHolder.getInstance(context).city!!, SharedPrefHolder.getInstance(context).country!!).getPrayerDetails()
 
         setupCompass()
         return rootView
@@ -119,5 +119,10 @@ class SetPrayerTimeFragment : Fragment(), PrayerPresenter.PrayerViewCallback, Co
     override fun onResume() {
         super.onResume()
         compass!!.start()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.dispose()
     }
 }

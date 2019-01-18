@@ -1,8 +1,9 @@
 package com.mdkashif.alarm.alarm.prayer.misc
 
 import com.mdkashif.alarm.alarm.prayer.model.PrayerApiResponse
+import io.reactivex.disposables.CompositeDisposable
 
-class PrayerPresenter(private val prayerViewCallback: PrayerViewCallback, city: String, country: String) : PrayerManager.PrayerPresenterCallback {
+class PrayerPresenter(private val disposable: CompositeDisposable, private val prayerViewCallback: PrayerViewCallback, city: String, country: String) : PrayerManager.PrayerPresenterCallback {
     private var prayerManager = PrayerManager(this)
     private var city : String = ""
     private var country : String = ""
@@ -13,7 +14,10 @@ class PrayerPresenter(private val prayerViewCallback: PrayerViewCallback, city: 
     }
 
     fun getPrayerDetails() {
-        prayerManager.getPrayerDetails(city,country)
+        if(city!="")
+            prayerManager.getPrayerDetails(disposable, city, country)
+        else
+            prayerManager.getPrayerDetails(disposable, "Delhi", "India") // Defaulting to Delhi
     }
 
     override fun onGetPrayerDetails(prayerApiResponse: PrayerApiResponse?) {

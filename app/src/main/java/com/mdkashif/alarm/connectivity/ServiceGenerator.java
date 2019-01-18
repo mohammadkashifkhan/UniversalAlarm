@@ -3,6 +3,7 @@ package com.mdkashif.alarm.connectivity;
 import com.mdkashif.alarm.utils.AppConstants;
 
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -19,6 +20,7 @@ public class ServiceGenerator {
         if (retrofit==null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(AppConstants.PRAYER_API)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

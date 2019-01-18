@@ -19,8 +19,8 @@ import java.util.Locale;
 public class GetLocationAddress {
 
     private static final String TAG = "LocationAddress";
-    static String city;
-    static String country;
+    private static String city;
+    private static String country;
 
     public static void getAddressFromLocation(final double latitude, final double longitude,
                                               final Context context, final Handler handler) {

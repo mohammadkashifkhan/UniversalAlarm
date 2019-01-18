@@ -15,7 +15,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
-        versionName "D - 0.45.20181213(a)"
+        versionName "D - 0.46.20190118(a)"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -45,8 +45,8 @@ dependencies {
         transitive = true
     }
     implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
-    implementation 'com.google.android.material:material:1.1.0-alpha01'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
+    implementation 'com.google.android.material:material:1.1.0-alpha02'
     implementation 'com.imankur.library:analogclockview:1.0.0'
     implementation 'com.github.clans:fab:1.6.4'
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
@@ -55,11 +55,14 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
     implementation 'com.google.android.gms:play-services-places:16.0.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.5'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
     implementation 'com.pkmmte.view:circularimageview:1.1'
     implementation 'jp.wasabeef:blurry:2.1.1'
-    implementation 'com.google.code.gson:gson:2.8.2'
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.getkeepsafe.taptargetview:taptargetview:1.11.0'
     implementation 'com.appyvet:materialrangebar:1.4.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
