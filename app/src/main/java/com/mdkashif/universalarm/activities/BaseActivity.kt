@@ -1,6 +1,8 @@
 package com.mdkashif.universalarm.activities
 
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.os.Bundle
@@ -13,12 +15,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.MaterialDialog
 import com.google.android.material.snackbar.Snackbar
 import com.mdkashif.universalarm.R
+import com.mdkashif.universalarm.alarm.battery.misc.BatteryInfoReceiver
 import com.mdkashif.universalarm.alarm.miscellaneous.misc.AlarmListAdapter
 import com.mdkashif.universalarm.alarm.prayer.geocoder.GetCurrentLocation
 import com.mdkashif.universalarm.alarm.prayer.geocoder.GetLocationAddress
-import com.mdkashif.universalarm.custom.CustomProgressDialog
 import com.mdkashif.universalarm.custom.SwipeToDeleteCallback
 import com.mdkashif.universalarm.utils.AppConstants
 import com.mdkashif.universalarm.utils.persistence.AppDatabase
@@ -26,16 +29,17 @@ import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
 
 
 open class BaseActivity : AppCompatActivity() {
-    private var progressDialog: CustomProgressDialog? = null
+    private lateinit var progressDialog: MaterialDialog
     private var parentLayout: View? = null
-//    private val batteryReceiver = BatteryInfoReceiver.getInstance()
-    lateinit var appDatabase: AppDatabase
+    private lateinit var appDatabase: AppDatabase
+    private lateinit var mBatInfoReceiver: BatteryInfoReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         parentLayout = findViewById(android.R.id.content)
         val location = GetCurrentLocation.getInstance().findLocation(applicationContext)
-        progressDialog = CustomProgressDialog(this@BaseActivity)
+        makeProgressDialog()
+        initiateReceiver()
         if (location != null) {
             val latitude = location.latitude
             val longitude = location.longitude
@@ -53,16 +57,23 @@ open class BaseActivity : AppCompatActivity() {
             return netInfo != null && netInfo.isConnectedOrConnecting && cm.activeNetworkInfo.isAvailable && cm.activeNetworkInfo.isConnected
         }
 
+    private fun makeProgressDialog(){
+        progressDialog = MaterialDialog.Builder(this@BaseActivity)
+                        .cancelable(false)
+                        .backgroundColor(resources.getColor(R.color.translucentBlack))
+                        .customView(R.layout.layout_dialog_custom_progress, false).build()
+    }
+
     fun showLoader() {
-        progressDialog!!.show()
+        progressDialog.show()
     }
 
     fun hideLoader() {
-        progressDialog!!.dismiss()
+        progressDialog.dismiss()
     }
 
     fun showToast(message: String) {
-        Toast.makeText(this@BaseActivity, message + "", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@BaseActivity, message, Toast.LENGTH_SHORT).show()
     }
 
     fun showSnackBar(message: String) {
@@ -72,6 +83,11 @@ open class BaseActivity : AppCompatActivity() {
 
     fun isBlank(strValue: String?): Boolean {
         return strValue == null || strValue == ""
+    }
+
+    private fun initiateReceiver(){
+        mBatInfoReceiver= BatteryInfoReceiver.instance
+        registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
     }
 
     fun replaceFragment(fragment: Fragment, tag: String, isAddToBackStack: Boolean) {

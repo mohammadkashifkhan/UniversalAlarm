@@ -14,8 +14,6 @@ import java.util.*
 
 
 class SetTimeFragment : Fragment(), View.OnClickListener{
-
-
     private lateinit var mActivity: ContainerActivity
     private lateinit var rootView:View
 

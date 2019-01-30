@@ -9,6 +9,7 @@
     <color name="yellow">#FFFF00</color>
     <color name="red">#B71C1C</color>
     <color name="gray">#acacac</color>
+    <color name="translucentBlack">#64000000</color>
 
     <color name="dayPressed">#F1F8FF</color>
     <color name="daySelected">#F1F8FF</color>

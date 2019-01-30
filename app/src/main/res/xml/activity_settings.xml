@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="@string/pref_title_notifications">
+    <PreferenceCategory android:title="@string/customize">
 
         <RingtonePreference
             android:defaultValue="content://settings/system/notification_sound"
-            android:dependency="notifications_new_message"
             android:key="@string/key_notifications_new_message_ringtone"
             android:ringtoneType="notification"
             android:summary="@string/summary_choose_ringtone"
@@ -17,19 +16,11 @@
             android:summary="@string/summary_vibrate"
             android:title="@string/title_vibrate" />
 
-    </PreferenceCategory>
-
-    <PreferenceCategory android:title="@string/location">
-
         <Preference
             android:key="@string/location"
             android:selectable="true"
             android:summary="Within 100m"
             android:title="@string/locationPrecision" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory android:title="@string/customize">
 
         <Preference
             android:title="@string/theme"
