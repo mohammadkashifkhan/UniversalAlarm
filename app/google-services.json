@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:457381347464:android:4987ee6fc0d50765",
         "android_client_info": {
-          "package_name": "com.mdkashif.alarm"
+          "package_name": "com.mdkashif.universalarm"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "457381347464-spp3tu1h1ta6nbggo60qjdccdebfa5ed.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.mdkashif.alarm",
+            "package_name": "com.mdkashif.universalarm",
             "certificate_hash": "41d168f8d67ba14c88b0d58b780599b7dbf6bb9d"
           }
         },

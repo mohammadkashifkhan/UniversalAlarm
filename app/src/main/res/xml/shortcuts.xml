@@ -8,9 +8,9 @@
         android:shortcutLongLabel="@string/add_Prayer"
         android:shortcutDisabledMessage="@string/add_Prayer">
         <intent
-            android:action="com.mdkashif.alarm.activities.prayer"
-            android:targetPackage="com.mdkashif.alarm"
-            android:targetClass="com.mdkashif.alarm.activities.ContainerActivity" />
+            android:action="com.mdkashif.universalarm.activities.prayer"
+            android:targetPackage="com.mdkashif.universalarm"
+            android:targetClass="com.mdkashif.universalarm.activities.ContainerActivity" />
     </shortcut>
 
     <shortcut
@@ -21,9 +21,9 @@
         android:shortcutLongLabel="@string/add_Location"
         android:shortcutDisabledMessage="@string/add_Location">
         <intent
-            android:action="com.mdkashif.alarm.activities.location"
-            android:targetPackage="com.mdkashif.alarm"
-            android:targetClass="com.mdkashif.alarm.activities.ContainerActivity" />
+            android:action="com.mdkashif.universalarm.activities.location"
+            android:targetPackage="com.mdkashif.universalarm"
+            android:targetClass="com.mdkashif.universalarm.activities.ContainerActivity" />
     </shortcut>
 
     <shortcut
@@ -34,9 +34,9 @@
         android:shortcutLongLabel="@string/add_Battery"
         android:shortcutDisabledMessage="@string/add_Battery">
         <intent
-            android:action="com.mdkashif.alarm.activities.battery"
-            android:targetPackage="com.mdkashif.alarm"
-            android:targetClass="com.mdkashif.alarm.activities.ContainerActivity" />
+            android:action="com.mdkashif.universalarm.activities.battery"
+            android:targetPackage="com.mdkashif.universalarm"
+            android:targetClass="com.mdkashif.universalarm.activities.ContainerActivity" />
     </shortcut>
 
     <shortcut
@@ -47,9 +47,9 @@
         android:shortcutLongLabel="@string/add_Time"
         android:shortcutDisabledMessage="@string/add_Time">
         <intent
-            android:action="com.mdkashif.alarm.activities.time"
-            android:targetPackage="com.mdkashif.alarm"
-            android:targetClass="com.mdkashif.alarm.activities.ContainerActivity" />
+            android:action="com.mdkashif.universalarm.activities.time"
+            android:targetPackage="com.mdkashif.universalarm"
+            android:targetClass="com.mdkashif.universalarm.activities.ContainerActivity" />
     </shortcut>
 
 </shortcuts>

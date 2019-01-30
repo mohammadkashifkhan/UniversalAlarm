@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mdkashif.alarm">
+    package="com.mdkashif.universalarm">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -16,7 +16,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
-        android:name=".utils.AlarmApplication"
+        android:name="com.mdkashif.universalarm.utils.AlarmApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -27,18 +27,18 @@
             android:value="@string/google_android_map_api_key" />
 
         <activity
-            android:name=".activities.BaseActivity"
+            android:name="com.mdkashif.universalarm.activities.BaseActivity"
             android:screenOrientation="portrait"
             android:theme="@style/commonLight" />
         <activity
-            android:name=".activities.ContainerActivity"
+            android:name="com.mdkashif.universalarm.activities.ContainerActivity"
             android:theme="@style/commonLight" />
         <activity
-            android:name=".activities.SettingsActivity"
+            android:name="com.mdkashif.universalarm.activities.SettingsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.SplashActivity"
+            android:name="com.mdkashif.universalarm.activities.SplashActivity"
             android:theme="@style/splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,38 +52,38 @@
                 android:resource="@xml/shortcuts" />
         </activity>
         <activity
-            android:name=".activities.AppIntroActivity"
+            android:name="com.mdkashif.universalarm.activities.AppIntroActivity"
             android:screenOrientation="portrait"
             android:theme="@style/commonLight" />
 
         <activity
-            android:name="com.mdkashif.alarm.security.AntiTheftUnlockActivity"
+            android:name="com.mdkashif.universalarm.security.AntiTheftUnlockActivity"
             android:screenOrientation="portrait"
             android:theme="@style/commonLight" />
 
-        <receiver android:name=".alarm.battery.misc.BatteryInfoReceiver">
+        <receiver android:name="com.mdkashif.universalarm.alarm.battery.misc.BatteryInfoReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BATTERY_CHANGED" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".alarm.prayer.job.JobScheduleReceiver">
+        <receiver android:name="com.mdkashif.universalarm.alarm.prayer.job.JobScheduleReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <service android:name=".alarm.miscellaneous.misc.AlarmSoundService" />
+        <service android:name="com.mdkashif.universalarm.alarm.miscellaneous.misc.AlarmSoundService" />
 
-        <service android:name=".notifications.NotificationService" />
+        <service android:name="com.mdkashif.universalarm.notifications.NotificationService" />
 
         <service
-            android:name=".alarm.prayer.job.DataFetchJobService"
+            android:name="com.mdkashif.universalarm.alarm.prayer.job.DataFetchJobService"
             android:label="Prayer Data Fetch Service"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
-        <activity android:name=".activities.WebviewActivity" />
+        <activity android:name="com.mdkashif.universalarm.activities.WebviewActivity" />
     </application>
 
 </manifest>
