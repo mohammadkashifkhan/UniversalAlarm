@@ -68,7 +68,6 @@ public class SettingsActivity extends AppCompatActivity {
             Preference togglePrivacyPolicy = findPreference(getString(R.string.privacy_policy));
             Preference toggleTnc = findPreference(getString(R.string.title_terms));
             Preference toggleFeedback = findPreference(getString(R.string.key_send_feedback));
-            Preference toggleNotification=findPreference(getString(R.string.notifications_new_message));
             Preference toggleVibrate=findPreference(getString(R.string.key_vibrate));
             final Preference toggleTheme=findPreference(getString(R.string.theme));
 
@@ -191,18 +190,6 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             });
 
-            toggleNotification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object o) {
-
-                    if(Boolean.valueOf(o.toString()))
-                        SharedPrefHolder.getInstance(getActivity()).setRingStatus(true);
-                    else
-                        SharedPrefHolder.getInstance(getActivity()).setRingStatus(false);
-                    return true;
-                }
-            });
-//
             bindPreferenceSummaryToValue(findPreference(getString(R.string.key_notifications_new_message_ringtone)));
 
             toggleVibrate.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {

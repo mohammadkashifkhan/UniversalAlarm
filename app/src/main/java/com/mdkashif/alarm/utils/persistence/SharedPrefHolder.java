@@ -11,7 +11,6 @@ import static com.mdkashif.alarm.utils.AppConstants.batteryTempLevel;
 import static com.mdkashif.alarm.utils.AppConstants.highBatteryLevel;
 import static com.mdkashif.alarm.utils.AppConstants.isFirstTimeLaunch;
 import static com.mdkashif.alarm.utils.AppConstants.lowBatteryLevel;
-import static com.mdkashif.alarm.utils.AppConstants.ringStatus;
 import static com.mdkashif.alarm.utils.AppConstants.ringtoneUri;
 import static com.mdkashif.alarm.utils.AppConstants.temperatureAlarmStatus;
 import static com.mdkashif.alarm.utils.AppConstants.theftAlarmStatus;
@@ -51,15 +50,6 @@ public class SharedPrefHolder {
 
     public boolean isFirstTimeLaunch() {
         return pref.getBoolean(isFirstTimeLaunch, true);
-    }
-
-    public void setRingStatus(boolean status){
-        editor.putBoolean(ringStatus,status);
-        editor.commit();
-    }
-
-    public boolean getRingStatus(){
-        return pref.getBoolean(ringStatus,true);
     }
 
     public void setRingtoneUri(Uri uri){

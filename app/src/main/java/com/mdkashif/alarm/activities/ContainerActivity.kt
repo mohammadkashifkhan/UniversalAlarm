@@ -5,7 +5,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import com.mdkashif.alarm.R
-import com.mdkashif.alarm.alarm.battery.misc.BatteryReceiver
+import com.mdkashif.alarm.alarm.battery.misc.BatteryInfoReceiver
 import com.mdkashif.alarm.alarm.battery.ui.SetBatteryLevelFragment
 import com.mdkashif.alarm.alarm.location.ui.SetLocationFragment
 import com.mdkashif.alarm.alarm.miscellaneous.ui.BuzzingAlarmFragment
@@ -17,7 +17,7 @@ import permissions.dispatcher.*
 @RuntimePermissions
 class ContainerActivity : BaseActivity() {
 
-    private var mBatInfoReceiver: BatteryReceiver?=null
+    private var mBatInfoReceiver: BatteryInfoReceiver?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +37,7 @@ class ContainerActivity : BaseActivity() {
     }
 
     private fun initiateReceiver(){
-        mBatInfoReceiver= BatteryReceiver.getInstance()
+        mBatInfoReceiver= BatteryInfoReceiver.instance
         registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
     }
 

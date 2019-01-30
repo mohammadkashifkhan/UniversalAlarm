@@ -61,14 +61,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/commonLight" />
 
-        <receiver android:name=".alarm.battery.misc.BatteryReceiver">
+        <receiver android:name=".alarm.battery.misc.BatteryInfoReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BATTERY_CHANGED" />
-            </intent-filter>
-        </receiver>
-
-        <receiver android:name=".alarm.miscellaneous.misc.AlarmReceiver">
-            <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>

@@ -3,11 +3,6 @@
 
     <PreferenceCategory android:title="@string/pref_title_notifications">
 
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="@string/notifications_new_message"
-            android:title="@string/title_new_notification_sound" />
-
         <RingtonePreference
             android:defaultValue="content://settings/system/notification_sound"
             android:dependency="notifications_new_message"

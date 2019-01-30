@@ -28,7 +28,7 @@ import com.mdkashif.alarm.utils.persistence.SharedPrefHolder
 open class BaseActivity : AppCompatActivity() {
     private var progressDialog: CustomProgressDialog? = null
     private var parentLayout: View? = null
-//    private val batteryReceiver = BatteryReceiver.getInstance()
+//    private val batteryReceiver = BatteryInfoReceiver.getInstance()
     lateinit var appDatabase: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {

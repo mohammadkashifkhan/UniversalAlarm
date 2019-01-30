@@ -12,7 +12,7 @@ import com.appyvet.materialrangebar.RangeBar
 import com.mdkashif.alarm.R
 import com.mdkashif.alarm.activities.ContainerActivity
 import com.mdkashif.alarm.alarm.battery.misc.BatteryLiveData
-import com.mdkashif.alarm.alarm.battery.misc.BatteryStats
+import com.mdkashif.alarm.alarm.battery.misc.BatteryStatsPoJo
 import com.mdkashif.alarm.utils.persistence.SharedPrefHolder
 import kotlinx.android.synthetic.main.fragment_add_battery_level.*
 import kotlinx.android.synthetic.main.fragment_add_battery_level.view.*
@@ -32,7 +32,7 @@ class SetBatteryLevelFragment : Fragment(), CompoundButton.OnCheckedChangeListen
         rootView.rbBatteryLevel.setOnRangeBarChangeListener(this)
         rootView.rbTemp.setOnRangeBarChangeListener(this)
 
-        BatteryLiveData(activity).observe(this, Observer<BatteryStats> { connection ->
+        BatteryLiveData(context!!).observe(this, Observer<BatteryStatsPoJo> { connection ->
             batteryChangeMeter.isShowTextWhileSpinning = true
             batteryChangeMeter.setValueAnimated(connection!!.level.toFloat())
             batteryStatus.text = connection.status

@@ -16,8 +16,14 @@
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
             android:orientation="horizontal"
-            android:gravity="center">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <at.grabner.circleprogress.CircleProgressView
                 android:id="@+id/batteryChangeMeter"
@@ -47,73 +53,73 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="250dp"
-                android:orientation="vertical"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:padding="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="left|bottom"
                     android:orientation="horizontal"
-                    android:gravity="left|bottom">
+                    android:padding="8dp">
 
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/ic_battery"/>
+                        android:src="@drawable/ic_battery" />
 
                     <TextView
-                        android:layout_marginLeft="8dp"
-                        android:textColor="@color/pitchWhite"
-                        android:textSize="22sp"
                         android:id="@+id/batteryStatus"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/pitchWhite"
+                        android:textSize="22sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:padding="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="left|bottom"
                     android:orientation="horizontal"
-                    android:gravity="left|bottom">
+                    android:padding="8dp">
 
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/ic_eta"/>
+                        android:src="@drawable/ic_eta" />
 
                     <TextView
-                        android:layout_marginLeft="8dp"
-                        android:textColor="@color/pitchWhite"
-                        android:textSize="18sp"
                         android:id="@+id/eta"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="6h 22m left"/>
+                        android:layout_marginLeft="8dp"
+                        android:text="6h 22m left"
+                        android:textColor="@color/pitchWhite"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:padding="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="left|bottom"
                     android:orientation="horizontal"
-                    android:gravity="left|bottom">
+                    android:padding="8dp">
 
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/ic_thermometer_white"/>
+                        android:src="@drawable/ic_thermometer_white" />
 
                     <TextView
-                        android:layout_marginLeft="8dp"
-                        android:textColor="@color/pitchWhite"
-                        android:textSize="18sp"
                         android:id="@+id/temperature"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/pitchWhite"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
