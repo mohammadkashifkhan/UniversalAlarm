@@ -1,10 +1,9 @@
-package com.mdkashif.universalarm.utils
+package com.mdkashif.universalarm
 
 import android.app.Application
 
 import com.facebook.stetho.Stetho
 import com.github.omadahealth.lollipin.lib.managers.LockManager
-import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.security.AntiTheftUnlockActivity
 
 class AlarmApplication : Application() {

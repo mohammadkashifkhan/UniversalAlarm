@@ -1,8 +1,6 @@
 package com.mdkashif.universalarm.activities
 
 import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.os.Bundle
@@ -18,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.google.android.material.snackbar.Snackbar
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.alarm.battery.misc.BatteryInfoReceiver
+import com.mdkashif.universalarm.alarm.battery.job.BatteryInfoScheduler
 import com.mdkashif.universalarm.alarm.miscellaneous.misc.AlarmListAdapter
 import com.mdkashif.universalarm.alarm.prayer.geocoder.GetCurrentLocation
 import com.mdkashif.universalarm.alarm.prayer.geocoder.GetLocationAddress
@@ -32,21 +30,19 @@ open class BaseActivity : AppCompatActivity() {
     private lateinit var progressDialog: MaterialDialog
     private var parentLayout: View? = null
     private lateinit var appDatabase: AppDatabase
-    private lateinit var mBatInfoReceiver: BatteryInfoReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         parentLayout = findViewById(android.R.id.content)
-        val location = GetCurrentLocation.getInstance().findLocation(applicationContext)
+        val location = GetCurrentLocation.instance.findLocation(applicationContext)
         makeProgressDialog()
-        initiateReceiver()
         if (location != null) {
             val latitude = location.latitude
             val longitude = location.longitude
             GetLocationAddress.getAddressFromLocation(latitude, longitude,
-                    applicationContext, GeocoderHandler(applicationContext))
+                    applicationContext, GeocodeHandler(applicationContext))
         }
-
+        BatteryInfoScheduler.scheduleJob(applicationContext)
         appDatabase = AppDatabase.getAppDatabase(applicationContext)
     }
 
@@ -83,11 +79,6 @@ open class BaseActivity : AppCompatActivity() {
 
     fun isBlank(strValue: String?): Boolean {
         return strValue == null || strValue == ""
-    }
-
-    private fun initiateReceiver(){
-        mBatInfoReceiver= BatteryInfoReceiver.instance
-        registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
     }
 
     fun replaceFragment(fragment: Fragment, tag: String, isAddToBackStack: Boolean) {
@@ -142,7 +133,7 @@ open class BaseActivity : AppCompatActivity() {
         itemTouchHelper.attachToRecyclerView(mRecyclerView)
     }
 
-    private class GeocoderHandler(var context: Context) : Handler() {
+    private class GeocodeHandler(var context: Context) : Handler() {
         override fun handleMessage(message: Message) {
             when (message.what) {
                 1 -> {

@@ -16,7 +16,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
-        android:name="com.mdkashif.universalarm.utils.AlarmApplication"
+        android:name="com.mdkashif.universalarm.AlarmApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -68,19 +68,18 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="com.mdkashif.universalarm.alarm.prayer.job.JobScheduleReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
         <service android:name="com.mdkashif.universalarm.alarm.miscellaneous.misc.AlarmSoundService" />
 
         <service android:name="com.mdkashif.universalarm.notifications.NotificationService" />
 
         <service
-            android:name="com.mdkashif.universalarm.alarm.prayer.job.DataFetchJobService"
+            android:name="com.mdkashif.universalarm.alarm.prayer.job.PrayerDataFetchScheduleService"
             android:label="Prayer Data Fetch Service"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <service
+            android:name="com.mdkashif.universalarm.alarm.battery.job.BatteryScheduleService"
+            android:label="Battery Info change Service"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity android:name="com.mdkashif.universalarm.activities.WebviewActivity" />

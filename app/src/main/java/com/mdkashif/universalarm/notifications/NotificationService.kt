@@ -12,7 +12,7 @@ import com.mdkashif.universalarm.alarm.miscellaneous.misc.AlarmSoundService
 import com.mdkashif.universalarm.utils.AppConstants
 
 class NotificationService : IntentService("NotificationService") {
-    private var bundleNotificationId = AppConstants.notificationId as Int
+    private var bundleNotificationId = AppConstants.notificationId
 
     public override fun onHandleIntent(intent: Intent?) {
         val mIntent = Intent(this, ContainerActivity::class.java)
