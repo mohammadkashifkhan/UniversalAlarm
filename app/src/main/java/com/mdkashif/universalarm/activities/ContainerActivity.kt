@@ -11,13 +11,15 @@ import com.mdkashif.universalarm.alarm.prayer.ui.SetPrayerTimeFragment
 import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment
 import permissions.dispatcher.*
 
+
 @RuntimePermissions
 class ContainerActivity : BaseActivity() {
+//    @Inject lateinit var containerActivity : ContainerActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container)
-
+//        (application as AlarmApplication).getActivityComponent().inject(this)
         getPermissionsWithPermissionCheck()
 
         when {

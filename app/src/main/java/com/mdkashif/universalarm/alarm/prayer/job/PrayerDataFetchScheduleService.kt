@@ -2,6 +2,7 @@ package com.mdkashif.universalarm.alarm.prayer.job
 
 import android.app.job.JobParameters
 import android.app.job.JobService
+import android.util.Log
 
 import com.mdkashif.universalarm.alarm.prayer.misc.PrayerPresenter
 import com.mdkashif.universalarm.alarm.prayer.model.PrayerApiResponse
@@ -12,6 +13,7 @@ class PrayerDataFetchScheduleService : JobService(), PrayerPresenter.PrayerViewC
     private val disposable = CompositeDisposable()
 
     override fun onStartJob(params: JobParameters): Boolean {
+        Log.d("check1233324234", "kkkk")
         PrayerPresenter(disposable, this, SharedPrefHolder.getInstance(applicationContext).city,
                         SharedPrefHolder.getInstance(applicationContext).country).getPrayerDetails()
         jobFinished(params, false)
@@ -25,7 +27,7 @@ class PrayerDataFetchScheduleService : JobService(), PrayerPresenter.PrayerViewC
     }
 
     override fun onPrayerDetailSuccess(prayerApiResponse: PrayerApiResponse?) {
-        // TODO: insert in db
+        Log.d("check1233324234", ""+ prayerApiResponse)
     }
 
     override fun onError(error: String) {

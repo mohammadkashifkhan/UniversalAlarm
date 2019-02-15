@@ -16,10 +16,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.google.android.material.snackbar.Snackbar
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.alarm.battery.job.BatteryInfoScheduler
 import com.mdkashif.universalarm.alarm.miscellaneous.misc.AlarmListAdapter
 import com.mdkashif.universalarm.alarm.prayer.geocoder.GetCurrentLocation
 import com.mdkashif.universalarm.alarm.prayer.geocoder.GetLocationAddress
+import com.mdkashif.universalarm.alarm.prayer.job.PrayerDataFetchScheduler
 import com.mdkashif.universalarm.custom.SwipeToDeleteCallback
 import com.mdkashif.universalarm.utils.AppConstants
 import com.mdkashif.universalarm.utils.persistence.AppDatabase
@@ -42,7 +42,7 @@ open class BaseActivity : AppCompatActivity() {
             GetLocationAddress.getAddressFromLocation(latitude, longitude,
                     applicationContext, GeocodeHandler(applicationContext))
         }
-        BatteryInfoScheduler.scheduleJob(applicationContext)
+        PrayerDataFetchScheduler.scheduleJob(applicationContext)
         appDatabase = AppDatabase.getAppDatabase(applicationContext)
     }
 

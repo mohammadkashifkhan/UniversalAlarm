@@ -14,16 +14,6 @@ class PrayerManager(val prayerPresenterCallback: PrayerPresenterCallback) {
         val apiInterface = ServiceGenerator.client.create(ApiInterface::class.java)
         val prayerCall = apiInterface.getPrayerDetails(city, country)
 
-//        prayerCall.enqueue(object : Callback<PrayerApiResponse> {
-//            override fun onResponse(call: Call<PrayerApiResponse>, response: Response<PrayerApiResponse>) {
-//                prayerPresenterCallback.onGetPrayerDetails(response.body())
-//            }
-//
-//            override fun onFailure(call: Call<PrayerApiResponse>, t: Throwable) {
-//                prayerPresenterCallback.onError("Internal Server Error")
-//            }
-//        })
-
         disposable.add(prayerCall.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<PrayerApiResponse>() {
