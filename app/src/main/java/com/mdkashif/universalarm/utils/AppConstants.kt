@@ -17,11 +17,6 @@ object AppConstants {
     const val ringtoneUri = "ringtone_uri"
     const val vibrateStatus = "vibrate_status"
 
-    const val alarmTypeLocation = "location"
-    const val alarmTypeBattery = "battery"
-    const val alarmTypeTime = "time"
-    const val alarmTypePrayer = "prayer"
-
     const val themeLight = "Light"
     const val themeDark = "Dark"
     const val themeSelected = "theme"

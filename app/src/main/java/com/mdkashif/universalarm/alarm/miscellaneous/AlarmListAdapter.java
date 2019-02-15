@@ -1,11 +1,10 @@
-package com.mdkashif.universalarm.alarm.miscellaneous.misc;
+package com.mdkashif.universalarm.alarm.miscellaneous;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mdkashif.universalarm.R;
-import com.mdkashif.universalarm.utils.AppConstants;
 
 import java.util.List;
 
@@ -97,18 +96,10 @@ public class AlarmListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        switch (alarmType.get(position)) {
-            case AppConstants.alarmTypeTime:
-                return 0;
-            case AppConstants.alarmTypeBattery:
-                return 1;
-            case AppConstants.alarmTypeLocation:
-                return 2;
-            case AppConstants.alarmTypePrayer:
-                return 3;
-            default:
-                return -1;
-        }
+        if (AlarmTypes.Time.toString().equals(alarmType.get(position))) return 0;
+        else if (AlarmTypes.Battery.toString().equals(alarmType.get(position))) return 1;
+        else if (AlarmTypes.Location.toString().equals(alarmType.get(position))) return 2;
+        else return AlarmTypes.Prayer.toString().equals(alarmType.get(position)) ? 3 : -1;
     }
 
     @Override

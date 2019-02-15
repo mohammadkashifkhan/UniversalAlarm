@@ -2,8 +2,6 @@ package com.mdkashif.universalarm.alarm.prayer.job
 
 import android.app.job.JobParameters
 import android.app.job.JobService
-import android.util.Log
-
 import com.mdkashif.universalarm.alarm.prayer.misc.PrayerPresenter
 import com.mdkashif.universalarm.alarm.prayer.model.PrayerApiResponse
 import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
@@ -11,13 +9,12 @@ import io.reactivex.disposables.CompositeDisposable
 
 class PrayerDataFetchScheduleService : JobService(), PrayerPresenter.PrayerViewCallback {
     private val disposable = CompositeDisposable()
+    private lateinit var params: JobParameters
 
     override fun onStartJob(params: JobParameters): Boolean {
-        Log.d("check1233324234", "kkkk")
+        this.params = params
         PrayerPresenter(disposable, this, SharedPrefHolder.getInstance(applicationContext).city,
-                        SharedPrefHolder.getInstance(applicationContext).country).getPrayerDetails()
-        jobFinished(params, false)
-        PrayerDataFetchScheduler.scheduleJob(applicationContext)
+                SharedPrefHolder.getInstance(applicationContext).country).getPrayerDetails()
         return true
     }
 
@@ -27,11 +24,15 @@ class PrayerDataFetchScheduleService : JobService(), PrayerPresenter.PrayerViewC
     }
 
     override fun onPrayerDetailSuccess(prayerApiResponse: PrayerApiResponse?) {
-        Log.d("check1233324234", ""+ prayerApiResponse)
+        jobFinished(params, false)
+//        val timingsModel= TimingsModel()
+//        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Update.toString(), timingsModel)
+        PrayerDataFetchScheduler.scheduleJob(applicationContext)
     }
 
     override fun onError(error: String) {
+        jobFinished(params, false)
         disposable.clear()
-        // do nothing
+        PrayerDataFetchScheduler.scheduleJob(applicationContext)
     }
 }

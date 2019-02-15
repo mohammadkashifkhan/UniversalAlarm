@@ -14,15 +14,16 @@ import com.mdkashif.universalarm.activities.ContainerActivity
 import com.mdkashif.universalarm.activities.SettingsActivity
 import com.mdkashif.universalarm.alarm.battery.ui.SetBatteryLevelFragment
 import com.mdkashif.universalarm.alarm.location.ui.SetLocationFragment
-import com.mdkashif.universalarm.alarm.miscellaneous.misc.AlarmListAdapter
+import com.mdkashif.universalarm.alarm.miscellaneous.AlarmListAdapter
+import com.mdkashif.universalarm.alarm.miscellaneous.AlarmTypes
 import com.mdkashif.universalarm.alarm.prayer.ui.SetPrayerTimeFragment
 import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment : Fragment(), View.OnClickListener {
 
-    private val alarmType: MutableList<String> = mutableListOf("time","battery","prayer","location")
-    private lateinit var mLinearLayoutManager : LinearLayoutManager
+    private val alarmType: MutableList<String> = mutableListOf(AlarmTypes.Time.toString(), AlarmTypes.Battery.toString(), AlarmTypes.Prayer.toString(), AlarmTypes.Location.toString())
+    private lateinit var mLinearLayoutManager: LinearLayoutManager
     private lateinit var rootView: View
     private lateinit var mActivity: ContainerActivity
 
@@ -57,32 +58,32 @@ class HomeFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(p0: View?) {
-        when(p0!!.id){
-            R.id.fab_time ->{
+        when (p0!!.id) {
+            R.id.fab_time -> {
                 rootView.menu.close(true)
-                mActivity.replaceFragment(SetTimeFragment(), SetTimeFragment::class.java.simpleName,true)
+                mActivity.replaceFragment(SetTimeFragment(), SetTimeFragment::class.java.simpleName, true)
             }
-            R.id.fab_battery ->{
+            R.id.fab_battery -> {
                 rootView.menu.close(true)
-                mActivity.replaceFragment(SetBatteryLevelFragment(), SetBatteryLevelFragment::class.java.simpleName,true)
+                mActivity.replaceFragment(SetBatteryLevelFragment(), SetBatteryLevelFragment::class.java.simpleName, true)
             }
-            R.id.fab_location ->{
+            R.id.fab_location -> {
                 rootView.menu.close(true)
-                mActivity.replaceFragment(SetLocationFragment(), SetLocationFragment::class.java.simpleName,true)
+                mActivity.replaceFragment(SetLocationFragment(), SetLocationFragment::class.java.simpleName, true)
             }
-            R.id.fab_salat ->{
+            R.id.fab_salat -> {
                 rootView.menu.close(true)
                 if (mActivity.isOnline)
-                    mActivity.replaceFragment(SetPrayerTimeFragment(), SetPrayerTimeFragment::class.java.simpleName,true)
+                    mActivity.replaceFragment(SetPrayerTimeFragment(), SetPrayerTimeFragment::class.java.simpleName, true)
                 else
                     mActivity.showSnackBar("Please try after some time")
             }
-            R.id.ivSettings ->{
+            R.id.ivSettings -> {
                 mActivity.startActivity(Intent(context, SettingsActivity::class.java))
                 mActivity.overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
             }
-            R.id.tvSeeAll ->{
-                mActivity.replaceFragment(ShowAllAlarmsFragment(), ShowAllAlarmsFragment::class.java.simpleName,true)
+            R.id.tvSeeAll -> {
+                mActivity.replaceFragment(ShowAllAlarmsFragment(), ShowAllAlarmsFragment::class.java.simpleName, true)
 
                 // TODO: Implement this somewhere ;)
 //            val intent = Intent(activity, AntiTheftUnlockActivity::class.java)
@@ -94,7 +95,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
     private fun setRVAdapter(view: RecyclerView) {
         mLinearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        view.rvAlarms.layoutManager=mLinearLayoutManager
+        view.rvAlarms.layoutManager = mLinearLayoutManager
         mActivity.setRVSlideInLeftAnimation(view.rvAlarms)
         val adapter = AlarmListAdapter(alarmType)
         view.rvAlarms.adapter = adapter

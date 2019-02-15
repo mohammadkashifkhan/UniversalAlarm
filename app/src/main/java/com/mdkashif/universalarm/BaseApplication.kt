@@ -8,7 +8,7 @@ import com.mdkashif.universalarm.utils.di.ActivityComponent
 import com.mdkashif.universalarm.utils.di.ActivityModule
 import com.mdkashif.universalarm.utils.di.DaggerActivityComponent
 
-class AlarmApplication : Application() {
+class BaseApplication : Application() {
     private lateinit var activityComponent: ActivityComponent
 
     override fun onCreate() {

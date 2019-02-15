@@ -16,7 +16,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
-        android:name="com.mdkashif.universalarm.AlarmApplication"
+        android:name="com.mdkashif.universalarm.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -68,7 +68,7 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="com.mdkashif.universalarm.alarm.miscellaneous.misc.AlarmSoundService" />
+        <service android:name="com.mdkashif.universalarm.alarm.miscellaneous.AlarmSoundService" />
 
         <service android:name="com.mdkashif.universalarm.notifications.NotificationService" />
 

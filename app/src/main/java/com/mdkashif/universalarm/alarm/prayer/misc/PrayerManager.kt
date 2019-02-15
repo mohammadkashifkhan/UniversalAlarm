@@ -8,10 +8,9 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
 class PrayerManager(val prayerPresenterCallback: PrayerPresenterCallback) {
+    private val apiInterface = ServiceGenerator.client.create(ApiInterface::class.java)
 
     fun getPrayerDetails(disposable: CompositeDisposable, city: String, country: String) {
-
-        val apiInterface = ServiceGenerator.client.create(ApiInterface::class.java)
         val prayerCall = apiInterface.getPrayerDetails(city, country)
 
         disposable.add(prayerCall.subscribeOn(Schedulers.io())

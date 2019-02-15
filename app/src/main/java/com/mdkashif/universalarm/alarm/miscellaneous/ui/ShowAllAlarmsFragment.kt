@@ -10,11 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.activities.ContainerActivity
-import com.mdkashif.universalarm.alarm.miscellaneous.misc.AlarmListAdapter
+import com.mdkashif.universalarm.alarm.miscellaneous.AlarmListAdapter
+import com.mdkashif.universalarm.alarm.miscellaneous.AlarmTypes
 import kotlinx.android.synthetic.main.fragment_show_all_alarms.*
 
 class ShowAllAlarmsFragment : Fragment() {
-    private val alarmType: MutableList<String> = mutableListOf("time","battery","location","prayer","location","time","location")
+    private val alarmType: MutableList<String> = mutableListOf(AlarmTypes.Time.toString(), AlarmTypes.Battery.toString(), AlarmTypes.Prayer.toString(), AlarmTypes.Location.toString(), AlarmTypes.Prayer.toString(), AlarmTypes.Time.toString())
     private var mLinearLayoutManager : LinearLayoutManager?=null
 
     private lateinit var mActivity: ContainerActivity

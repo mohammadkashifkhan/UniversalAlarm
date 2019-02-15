@@ -2,6 +2,7 @@ package com.mdkashif.universalarm.utils.persistence
 
 
 import android.os.AsyncTask
+import com.mdkashif.universalarm.alarm.miscellaneous.AlarmOps
 import com.mdkashif.universalarm.alarm.miscellaneous.db.TimingsModel
 
 
@@ -57,16 +58,16 @@ class RoomHelper {
 
         override fun doInBackground(vararg params: String): Void? {
             when (params[0]) {
-                "add" -> {
+                AlarmOps.Add.toString() -> {
                     if(timingsModel.repeat)
                         addTimingsWithRepeatDays(mDb, timingsModel)
                     else
                         addTimingsWithoutRepeatDays(mDb, timingsModel)
                 }
-                "update" -> {
+                AlarmOps.Update.toString() -> {
                     updateAlarm(mDb, timingsModel)
                 }
-                "delete" -> {
+                AlarmOps.Delete.toString() -> {
                     deleteAlarm(mDb, timingsModel)
                 }
             }

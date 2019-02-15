@@ -19,7 +19,7 @@ class ContainerActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container)
-//        (application as AlarmApplication).getActivityComponent().inject(this)
+//        (application as BaseApplication).getActivityComponent().inject(this)
         getPermissionsWithPermissionCheck()
 
         when {
