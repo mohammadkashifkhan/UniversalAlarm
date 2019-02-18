@@ -82,7 +82,10 @@
             android:label="Battery Info change Service"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
-        <activity android:name="com.mdkashif.universalarm.activities.WebviewActivity" />
+        <activity
+            android:name="com.mdkashif.universalarm.activities.WebviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/commonLight" />
     </application>
 
 </manifest>

@@ -90,7 +90,7 @@ class SetBatteryLevelFragment : Fragment(), CompoundButton.OnCheckedChangeListen
         }
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         this.mActivity = context as ContainerActivity
     }

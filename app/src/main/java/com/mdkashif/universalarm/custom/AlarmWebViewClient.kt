@@ -2,7 +2,6 @@ package com.mdkashif.universalarm.custom
 
 import android.graphics.Bitmap
 import android.webkit.WebView
-
 import com.mdkashif.universalarm.activities.BaseActivity
 
 class AlarmWebViewClient(private val baseActivity: BaseActivity) : android.webkit.WebViewClient() {
@@ -19,7 +18,8 @@ class AlarmWebViewClient(private val baseActivity: BaseActivity) : android.webki
         isErrorReceived = true
     }
 
-    override fun onPageStarted(view: WebView, url: String, favicon: Bitmap) {
+    override fun onPageStarted(view: WebView, url: String, favicon: Bitmap?) {
+        super.onPageStarted(view, url, favicon)
         baseActivity.showLoader()
     }
 
