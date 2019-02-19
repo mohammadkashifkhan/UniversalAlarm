@@ -24,7 +24,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
-        versionName "D - 0.52.20190215(a)"
+        versionName "D - 0.61.20190219(a)"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -76,9 +76,9 @@ dependencies {
     implementation 'com.facebook.stetho:stetho:1.5.0' // for DB(Room)
 
     ////////////// Play Services //////////////
-    implementation 'com.google.android.gms:play-services-maps:16.0.0'
-    implementation 'com.google.android.gms:play-services-location:16.0.0'
-    implementation 'com.google.android.gms:play-services-places:16.0.0'
+    implementation "com.google.android.gms:play-services-maps:$play_services_version"
+    implementation "com.google.android.gms:play-services-location:$play_services_version"
+    implementation "com.google.android.gms:play-services-places:$play_services_version"
 
     ////////////// Rx //////////////
     implementation 'io.reactivex.rxjava2:rxjava:2.2.5'
@@ -99,9 +99,9 @@ dependencies {
     implementation "androidx.preference:preference:1.1.0-alpha03"
 
     ////////////// Room //////////////
-    implementation 'androidx.room:room-runtime:2.1.0-alpha04'
-    annotationProcessor "androidx.room:room-compiler:2.1.0-alpha04"
-    kapt "androidx.room:room-compiler:2.1.0-alpha04"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
     ////////////// Dagger //////////////
     kapt "com.google.dagger:dagger-compiler:$dagger_version"

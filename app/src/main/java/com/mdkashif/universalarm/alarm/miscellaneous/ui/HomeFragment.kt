@@ -15,9 +15,12 @@ import com.mdkashif.universalarm.activities.SettingsActivity
 import com.mdkashif.universalarm.alarm.battery.ui.SetBatteryLevelFragment
 import com.mdkashif.universalarm.alarm.location.ui.SetLocationFragment
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmListAdapter
+import com.mdkashif.universalarm.alarm.miscellaneous.AlarmOps
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmTypes
+import com.mdkashif.universalarm.alarm.miscellaneous.db.TimingsModel
 import com.mdkashif.universalarm.alarm.prayer.ui.SetPrayerTimeFragment
 import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment
+import com.mdkashif.universalarm.utils.persistence.RoomHelper
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment : Fragment(), View.OnClickListener {
@@ -31,20 +34,21 @@ class HomeFragment : Fragment(), View.OnClickListener {
                               savedInstanceState: Bundle?): View? {
 
         rootView = inflater.inflate(R.layout.fragment_home, container, false)
-        rootView.fab_time.setOnClickListener(this)
-        rootView.fab_battery.setOnClickListener(this)
-        rootView.fab_location.setOnClickListener(this)
-        rootView.fab_salat.setOnClickListener(this)
+        rootView.fabTime.setOnClickListener(this)
+        rootView.fabBattery.setOnClickListener(this)
+        rootView.fabLocation.setOnClickListener(this)
+        rootView.fabSalat.setOnClickListener(this)
         rootView.ivSettings.setOnClickListener(this)
         rootView.tvSeeAll.setOnClickListener(this)
 
         setRVAdapter(rootView.rvAlarms)
 
-//        var timingsModel= TimingsModel(0, "20","07","1993","7", "15", "prayer", false, null)
-//        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(),"add", timingsModel)
-//
-//        var timingsModel1= TimingsModel(0, "20","07","1993","8", "30", "generic", true, listOf(DaysModel(0,1,"m"),DaysModel(0,1,"w"),DaysModel(0,1,"f")))
-//        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(),"add", timingsModel1)
+        for (i in 0 until 4) {
+            var timingsModel = TimingsModel(day = "20", month = "07", year = "199$i", hour = "7", minute = "15", alarmType = AlarmTypes.Prayer.toString())
+            RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsModel)
+        }
+//        var timingsModel1 = TimingsModel(day = "13", month = "10", year = "1997", hour = "8", minute = "30", alarmType = AlarmTypes.Time.toString(), repeat = true, repeatDays = listOf(DaysModel(repeatDay = "m"), DaysModel(repeatDay = "w"), DaysModel(repeatDay= "f")))
+//        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsModel1)
 //        var count = RoomHelper.transactCountAsync(mActivity.returnDbInstance())
 //
 //        Log.d("check132",""+count)
@@ -59,19 +63,19 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(p0: View?) {
         when (p0!!.id) {
-            R.id.fab_time -> {
+            R.id.fabTime -> {
                 rootView.menu.close(true)
                 mActivity.replaceFragment(SetTimeFragment(), SetTimeFragment::class.java.simpleName, true)
             }
-            R.id.fab_battery -> {
+            R.id.fabBattery -> {
                 rootView.menu.close(true)
                 mActivity.replaceFragment(SetBatteryLevelFragment(), SetBatteryLevelFragment::class.java.simpleName, true)
             }
-            R.id.fab_location -> {
+            R.id.fabLocation -> {
                 rootView.menu.close(true)
                 mActivity.replaceFragment(SetLocationFragment(), SetLocationFragment::class.java.simpleName, true)
             }
-            R.id.fab_salat -> {
+            R.id.fabSalat -> {
                 rootView.menu.close(true)
                 if (mActivity.isOnline)
                     mActivity.replaceFragment(SetPrayerTimeFragment(), SetPrayerTimeFragment::class.java.simpleName, true)

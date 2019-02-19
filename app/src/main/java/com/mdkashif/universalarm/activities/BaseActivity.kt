@@ -3,6 +3,8 @@ package com.mdkashif.universalarm.activities
 import android.content.Context
 import android.content.res.Configuration
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -48,8 +50,24 @@ open class BaseActivity : AppCompatActivity() {
     val isOnline: Boolean
         get() {
             val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val netInfo = cm.activeNetworkInfo
-            return netInfo != null && netInfo.isConnectedOrConnecting && cm.activeNetworkInfo.isAvailable && cm.activeNetworkInfo.isConnected
+            if (cm != null) {
+                if (Build.VERSION.SDK_INT < 23) {
+                    val ni = cm.activeNetworkInfo
+
+                    if (ni != null) {
+                        return ni.isConnected && (ni.type == ConnectivityManager.TYPE_WIFI || ni.type == ConnectivityManager.TYPE_MOBILE)
+                    }
+                } else {
+                    val n = cm.activeNetwork
+
+                    if (n != null) {
+                        val nc = cm.getNetworkCapabilities(n)
+
+                        return nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+                    }
+                }
+            }
+            return false
         }
 
     private fun makeProgressDialog(){
@@ -74,10 +92,6 @@ open class BaseActivity : AppCompatActivity() {
     fun showSnackBar(message: String) {
         Snackbar.make(parentLayout!!.findViewById(android.R.id.content),
                 message, Snackbar.LENGTH_LONG).show()
-    }
-
-    fun isBlank(strValue: String?): Boolean {
-        return strValue == null || strValue == ""
     }
 
     fun replaceFragment(fragment: Fragment, tag: String, isAddToBackStack: Boolean) {
@@ -158,11 +172,6 @@ open class BaseActivity : AppCompatActivity() {
             Configuration.UI_MODE_NIGHT_UNDEFINED-> autoTheme= "undefined"
         }
         return autoTheme
-    }
-
-    override fun onDestroy() {
-        AppDatabase.destroyInstance()
-        super.onDestroy()
     }
 
 }
