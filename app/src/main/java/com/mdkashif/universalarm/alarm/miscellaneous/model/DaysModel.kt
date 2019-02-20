@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.alarm.miscellaneous.db
+package com.mdkashif.universalarm.alarm.miscellaneous.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

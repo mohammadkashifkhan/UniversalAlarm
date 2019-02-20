@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.alarm.miscellaneous.db
+package com.mdkashif.universalarm.alarm.miscellaneous.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "Timings")
 data class TimingsModel(
         @PrimaryKey(autoGenerate = true)
-        var id: Int=0,
+        var id: Long=0,
 
         var day: String="",
 
