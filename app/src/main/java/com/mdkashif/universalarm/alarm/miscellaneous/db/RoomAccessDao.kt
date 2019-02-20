@@ -7,10 +7,10 @@ import androidx.room.Query
 @Dao
 interface RoomAccessDao {
     @Insert
-    fun addNewAlarm(vararg timings: TimingsModel)
+    fun addNewAlarm(timings: TimingsModel) : Long
 
     @Insert
-    fun addRepeatDays(vararg days: DaysModel)
+    fun addRepeatDays(days: DaysModel) : Long
 
     @Query("Update Timings set day= :day, month=:month, year=:year where id=:alarmId")
     fun updateAlarm(day: String, month: String, year: String, alarmId: Int)
@@ -29,6 +29,9 @@ interface RoomAccessDao {
 
     @Query("SELECT * FROM Timings")
     fun getAllAlarms(): List<TimingsModel>
+
+    @Query("SELECT * FROM Timings where type=:type")
+    fun getAllSpecificAlarms(type: String): List<TimingsModel>
 
     @Query("SELECT * FROM Days WHERE alarmId =:alarmId")
     fun getRepeatDays(alarmId: Int): List<DaysModel>

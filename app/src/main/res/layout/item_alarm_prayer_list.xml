@@ -19,11 +19,10 @@
 
         <TextView
             android:fontFamily="sans-serif-smallcaps"
-            android:id="@+id/textView10"
+            android:id="@+id/tvPrayerType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Fajr"
             android:textColor="@color/black"
             android:textSize="38sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +48,7 @@
             android:text="06:56"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+            app:layout_constraintTop_toBottomOf="@+id/tvPrayerType" />
 
         <TextView
             android:id="@+id/textView11"
@@ -61,7 +60,7 @@
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/textView12"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+            app:layout_constraintTop_toBottomOf="@+id/tvPrayerType" />
 
         <TextView
             android:id="@+id/textView19"
@@ -73,7 +72,7 @@
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/clDelete"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/tvPrayerType"
             app:layout_constraintVertical_bias="0.0" />
 
         <androidx.constraintlayout.widget.ConstraintLayout

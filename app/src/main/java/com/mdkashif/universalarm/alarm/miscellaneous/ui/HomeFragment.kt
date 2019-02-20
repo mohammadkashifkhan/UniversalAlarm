@@ -17,6 +17,7 @@ import com.mdkashif.universalarm.alarm.location.ui.SetLocationFragment
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmListAdapter
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmOps
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmTypes
+import com.mdkashif.universalarm.alarm.miscellaneous.db.DaysModel
 import com.mdkashif.universalarm.alarm.miscellaneous.db.TimingsModel
 import com.mdkashif.universalarm.alarm.prayer.ui.SetPrayerTimeFragment
 import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment
@@ -25,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment : Fragment(), View.OnClickListener {
 
-    private val alarmType: MutableList<String> = mutableListOf(AlarmTypes.Time.toString(), AlarmTypes.Battery.toString(), AlarmTypes.Prayer.toString(), AlarmTypes.Location.toString())
+    private val alarmType: MutableList<String> = mutableListOf(AlarmTypes.Time.toString(), AlarmTypes.Battery.toString(), AlarmTypes.Asr.toString(), AlarmTypes.Location.toString())
     private lateinit var mLinearLayoutManager: LinearLayoutManager
     private lateinit var rootView: View
     private lateinit var mActivity: ContainerActivity
@@ -43,12 +44,17 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
         setRVAdapter(rootView.rvAlarms)
 
-        for (i in 0 until 4) {
-            var timingsModel = TimingsModel(day = "20", month = "07", year = "199$i", hour = "7", minute = "15", alarmType = AlarmTypes.Prayer.toString())
-            RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsModel)
-        }
-//        var timingsModel1 = TimingsModel(day = "13", month = "10", year = "1997", hour = "8", minute = "30", alarmType = AlarmTypes.Time.toString(), repeat = true, repeatDays = listOf(DaysModel(repeatDay = "m"), DaysModel(repeatDay = "w"), DaysModel(repeatDay= "f")))
-//        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsModel1)
+        var timingsModel = TimingsModel(day = "20", month = "02", year = "2019", hour = "6", minute = "15", alarmType = AlarmTypes.Fajr.toString())
+        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsModel)
+
+        var timingsModel1 = TimingsModel(day = "21", month = "03", year = "2020", hour = "8", minute = "30", alarmType = AlarmTypes.Time.toString(), repeat = true, repeatDays = listOf(DaysModel(repeatDay = "m"), DaysModel(repeatDay = "w"), DaysModel(repeatDay = "f")))
+        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsModel1)
+//
+        var timingsModel2 = TimingsModel(day = "22", month = "04", year = "2021", hour = "9", minute = "45", alarmType = AlarmTypes.Asr.toString(), repeat = true, repeatDays = listOf(DaysModel(repeatDay = "t"), DaysModel(repeatDay = "t")))
+        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsModel2)
+
+        var timingsModel3 = TimingsModel(day = "23", month = "05", year = "2022", hour = "10", minute = "00", alarmType = AlarmTypes.Fajr.toString())
+        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsModel3)
 //        var count = RoomHelper.transactCountAsync(mActivity.returnDbInstance())
 //
 //        Log.d("check132",""+count)

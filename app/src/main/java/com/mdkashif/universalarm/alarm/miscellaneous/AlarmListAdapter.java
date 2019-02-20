@@ -3,6 +3,7 @@ package com.mdkashif.universalarm.alarm.miscellaneous;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.mdkashif.universalarm.R;
 
@@ -18,12 +19,13 @@ public class AlarmListAdapter extends RecyclerView.Adapter {
     private List<String> alarmType;
 
     public AlarmListAdapter(List<String> alarmType) {
-        this.alarmType=alarmType;
+        this.alarmType = alarmType;
     }
 
     class TimeViewHolder extends RecyclerView.ViewHolder {
         ConstraintLayout clParentTimeListItem, clDelete;
-        public TimeViewHolder(View itemView){
+
+        public TimeViewHolder(View itemView) {
             super(itemView);
             clParentTimeListItem = itemView.findViewById(R.id.clParentTimeListItem);
             clDelete = itemView.findViewById(R.id.clDelete);
@@ -32,6 +34,7 @@ public class AlarmListAdapter extends RecyclerView.Adapter {
 
     class LocationViewHolder extends RecyclerView.ViewHolder {
         ConstraintLayout clParentLocationListItem, clDelete;
+
         public LocationViewHolder(View itemView) {
             super(itemView);
             clParentLocationListItem = itemView.findViewById(R.id.clParentLocationListItem);
@@ -41,6 +44,7 @@ public class AlarmListAdapter extends RecyclerView.Adapter {
 
     class BatteryViewHolder extends RecyclerView.ViewHolder {
         ConstraintLayout clParentBatteryListItem, clDelete;
+
         public BatteryViewHolder(View itemView) {
             super(itemView);
             clParentBatteryListItem = itemView.findViewById(R.id.clParentBatteryListItem);
@@ -50,10 +54,13 @@ public class AlarmListAdapter extends RecyclerView.Adapter {
 
     class PrayerViewHolder extends RecyclerView.ViewHolder {
         ConstraintLayout clParentPrayerListItem, clDelete;
+        TextView tvPrayerType;
+
         public PrayerViewHolder(View itemView) {
             super(itemView);
             clParentPrayerListItem = itemView.findViewById(R.id.clParentPrayerListItem);
             clDelete = itemView.findViewById(R.id.clDelete);
+            tvPrayerType = itemView.findViewById(R.id.tvPrayerType);
         }
     }
 
@@ -82,15 +89,12 @@ public class AlarmListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof TimeViewHolder) {
 
-        }
-        else if (holder instanceof BatteryViewHolder) {
+        } else if (holder instanceof BatteryViewHolder) {
 
-        }
-        else if (holder instanceof LocationViewHolder) {
+        } else if (holder instanceof LocationViewHolder) {
 
-        }
-        else if (holder instanceof PrayerViewHolder) {
-
+        } else if (holder instanceof PrayerViewHolder) {
+            ((PrayerViewHolder)holder).tvPrayerType.setText(alarmType.get(position));
         }
     }
 
@@ -99,7 +103,7 @@ public class AlarmListAdapter extends RecyclerView.Adapter {
         if (AlarmTypes.Time.toString().equals(alarmType.get(position))) return 0;
         else if (AlarmTypes.Battery.toString().equals(alarmType.get(position))) return 1;
         else if (AlarmTypes.Location.toString().equals(alarmType.get(position))) return 2;
-        else return AlarmTypes.Prayer.toString().equals(alarmType.get(position)) ? 3 : -1;
+        else  return 3;
     }
 
     @Override

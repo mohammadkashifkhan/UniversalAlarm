@@ -2,8 +2,8 @@ package com.mdkashif.universalarm.utils.persistence
 
 
 import android.os.AsyncTask
-import android.util.Log
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmOps
+import com.mdkashif.universalarm.alarm.miscellaneous.AlarmTypes
 import com.mdkashif.universalarm.alarm.miscellaneous.db.TimingsModel
 
 
@@ -16,22 +16,36 @@ class RoomHelper {
         }
 
         fun transactAmendAsync(db: AppDatabase, taskType: String, timingsModel: TimingsModel, id: Int = 0) { //id=0 means we are just inserting
-            TransactDbAsync(db, timingsModel, id).execute(taskType)
+            for (index in 3 until 7) {
+                if (timingsModel.alarmType == AlarmTypes.values()[index].toString()) {
+                    val prayerTimings = db.accessDao().getAllSpecificAlarms(timingsModel.alarmType)
+
+                    if (prayerTimings.isNotEmpty()) {
+                        TransactDbAsync(db, timingsModel, prayerTimings[0].id).execute(AlarmOps.Update.toString())
+                        break
+                    } else {
+                        TransactDbAsync(db, timingsModel, id).execute(taskType)
+                        break
+                    }
+                } else if (timingsModel.alarmType == AlarmTypes.Time.toString()) {
+                    TransactDbAsync(db, timingsModel, id).execute(taskType)
+                    break
+                }
+            }
         }
 
         fun transactCountAsync(db: AppDatabase): Int {
             return db.accessDao().countAlarms()
         }
 
-        private fun addTimingsWithoutRepeatDays(db: AppDatabase, timingsModel: TimingsModel) {
-            val alarmId = db.accessDao().addNewAlarm(timingsModel) as Any
-            Log.d("check23132131321", ""+alarmId) // TODO: get alarmId to insert as foreignkey
+        private fun addTimingsWithoutRepeatDays(db: AppDatabase, timingsModel: TimingsModel): Long {
+            return db.accessDao().addNewAlarm(timingsModel)
         }
 
         private fun addTimingsWithRepeatDays(db: AppDatabase, timingsModel: TimingsModel) {
-            db.accessDao().addNewAlarm(timingsModel)
-            // TODO: insert foreignkey here
+            val alarmId = db.accessDao().addNewAlarm(timingsModel)
             for (i in timingsModel.repeatDays!!.indices) {
+                timingsModel.repeatDays!![i].fkAlarmId = alarmId
                 db.accessDao().addRepeatDays(timingsModel.repeatDays!![i])
             }
         }
@@ -64,23 +78,25 @@ class RoomHelper {
         }
     }
 
-    private class TransactDbAsync(private val db: AppDatabase, private val timingsModel: TimingsModel, private val id: Int) : AsyncTask<String, Any, Any>() {
+    private class TransactDbAsync(private val db: AppDatabase, private val timingsModel: TimingsModel, private val alarmId: Int) : AsyncTask<String, Any, Any>() {
 
         override fun doInBackground(vararg params: String): Void? {
             when (params[0]) {
                 AlarmOps.Add.toString() -> {
-                    if (timingsModel.repeat)
+                    if (timingsModel.repeat) {
                         addTimingsWithRepeatDays(db, timingsModel)
-                    else
+                    } else {
                         addTimingsWithoutRepeatDays(db, timingsModel)
+                    }
+
                 }
                 AlarmOps.Update.toString() -> {
-                    if (id != 0)
-                        updateAlarm(db, timingsModel, id)
+                    if (alarmId != 0)
+                        updateAlarm(db, timingsModel, alarmId)
                 }
                 AlarmOps.Delete.toString() -> {
-                    if (id != 0)
-                        deleteAlarm(db, id)
+                    if (alarmId != 0)
+                        deleteAlarm(db, alarmId)
                 }
             }
             return null

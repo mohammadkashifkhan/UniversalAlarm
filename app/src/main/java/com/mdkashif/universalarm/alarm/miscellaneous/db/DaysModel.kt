@@ -12,7 +12,7 @@ data class DaysModel(
         var id: Int=0,
 
         @ColumnInfo(name = "alarmId")
-        var fkAlarmId: Int=0,
+        var fkAlarmId: Long=0,
 
         @ColumnInfo(name = "day")
         var repeatDay: String="")

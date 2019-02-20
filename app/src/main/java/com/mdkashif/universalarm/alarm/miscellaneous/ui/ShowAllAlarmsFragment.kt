@@ -15,7 +15,7 @@ import com.mdkashif.universalarm.alarm.miscellaneous.AlarmTypes
 import kotlinx.android.synthetic.main.fragment_show_all_alarms.*
 
 class ShowAllAlarmsFragment : Fragment() {
-    private val alarmType: MutableList<String> = mutableListOf(AlarmTypes.Time.toString(), AlarmTypes.Battery.toString(), AlarmTypes.Prayer.toString(), AlarmTypes.Location.toString(), AlarmTypes.Prayer.toString(), AlarmTypes.Time.toString())
+    private val alarmType: MutableList<String> = mutableListOf(AlarmTypes.Time.toString(), AlarmTypes.Battery.toString(), AlarmTypes.Fajr.toString(), AlarmTypes.Dhuhr.toString(), AlarmTypes.Isha.toString(), AlarmTypes.Time.toString())
     private var mLinearLayoutManager : LinearLayoutManager?=null
 
     private lateinit var mActivity: ContainerActivity
