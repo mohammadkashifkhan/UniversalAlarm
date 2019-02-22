@@ -1,6 +1,7 @@
 package com.mdkashif.universalarm.activities
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -23,18 +24,21 @@ import com.mdkashif.universalarm.alarm.prayer.geocoder.GetCurrentLocation
 import com.mdkashif.universalarm.alarm.prayer.geocoder.GetLocationAddress
 import com.mdkashif.universalarm.custom.SwipeToDeleteCallback
 import com.mdkashif.universalarm.utils.AppConstants
-import com.mdkashif.universalarm.utils.persistence.AppDatabase
 import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
 
 
 open class BaseActivity : AppCompatActivity() {
+
     private lateinit var progressDialog: MaterialDialog
     private var parentLayout: View? = null
-    private lateinit var appDatabase: AppDatabase
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
+//        AndroidInjection.inject(this) // Dagger
+
         super.onCreate(savedInstanceState)
         parentLayout = findViewById(android.R.id.content)
+
         val location = GetCurrentLocation.instance.findLocation(applicationContext)
         makeProgressDialog()
         if (location != null) {
@@ -44,7 +48,7 @@ open class BaseActivity : AppCompatActivity() {
                     applicationContext, GeocodeHandler(applicationContext))
         }
 //        PrayerDataFetchScheduler.scheduleJob(applicationContext)
-        appDatabase = AppDatabase.getAppDatabase(applicationContext)
+//        appDatabase = AppDatabase.getAppDatabase(applicationContext)
     }
 
     val isOnline: Boolean
@@ -70,11 +74,11 @@ open class BaseActivity : AppCompatActivity() {
             return false
         }
 
-    private fun makeProgressDialog(){
+    private fun makeProgressDialog() {
         progressDialog = MaterialDialog.Builder(this@BaseActivity)
-                        .cancelable(false)
-                        .backgroundColor(resources.getColor(R.color.translucentBlack))
-                        .customView(R.layout.layout_dialog_custom_progress, false).build()
+                .cancelable(false)
+                .backgroundColor(resources.getColor(R.color.translucentBlack))
+                .customView(R.layout.layout_dialog_custom_progress, false).build()
     }
 
     fun showLoader() {
@@ -94,11 +98,18 @@ open class BaseActivity : AppCompatActivity() {
                 message, Snackbar.LENGTH_LONG).show()
     }
 
+    fun executeIntent(intent: Intent, doFinish : Boolean) {
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        if(doFinish)
+            finish()
+    }
+
     fun replaceFragment(fragment: Fragment, tag: String, isAddToBackStack: Boolean) {
         val fm = supportFragmentManager
         val ft = fm.beginTransaction()
-        ft.setCustomAnimations(R.animator.slide_in,
-                R.animator.slide_out)
+        ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out, android.R.animator.fade_in,
+                android.R.animator.fade_out)
         ft.replace(R.id.flContainer, fragment, tag)
         if (isAddToBackStack) {
             ft.addToBackStack(tag)
@@ -106,7 +117,7 @@ open class BaseActivity : AppCompatActivity() {
         ft.commit()
     }
 
-    fun setRVSlideInLeftAnimation(view: RecyclerView){
+    fun setRVSlideInLeftAnimation(view: RecyclerView) {
         val set = AnimationSet(true)
         var animation: Animation = AlphaAnimation(0.0f, 1.0f)
         animation.duration = 100
@@ -115,14 +126,14 @@ open class BaseActivity : AppCompatActivity() {
                 Animation.RELATIVE_TO_SELF, 1.0f, Animation.RELATIVE_TO_SELF, 0.0f,
                 Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 0.0f
         )
-        animation.duration=800
+        animation.duration = 800
         set.addAnimation(animation)
 
         val controller = LayoutAnimationController(set, 0.5f)
         view.layoutAnimation = controller
     }
 
-    fun enableSwipeToDeleteAndUndo(mAdapter : AlarmListAdapter, mRecyclerView: RecyclerView) {
+    fun enableSwipeToDeleteAndUndo(mAdapter: AlarmListAdapter, mRecyclerView: RecyclerView) {
         val swipeToDeleteCallback = object : SwipeToDeleteCallback(this) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
                 val position = viewHolder.adapterPosition
@@ -152,24 +163,24 @@ open class BaseActivity : AppCompatActivity() {
                 1 -> {
                     val bundle = message.data
                     SharedPrefHolder.getInstance(context).city = bundle.getString("city")
-                    SharedPrefHolder.getInstance(context).country  = bundle.getString("country")
+                    SharedPrefHolder.getInstance(context).country = bundle.getString("country")
                 }
             }
         }
     }
 
-    fun returnDbInstance():AppDatabase{
-        return appDatabase
-    }
+//    fun returnDbInstance():AppDatabase{
+//        return appDatabase
+//    }
 
-    fun detectThemeAuto(): String{
+    fun detectThemeAuto(): String {
         var autoTheme = ""
         when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_NO-> autoTheme= AppConstants.themeLight
+            Configuration.UI_MODE_NIGHT_NO -> autoTheme = AppConstants.themeLight
 
-            Configuration.UI_MODE_NIGHT_YES-> autoTheme= AppConstants.themeDark
+            Configuration.UI_MODE_NIGHT_YES -> autoTheme = AppConstants.themeDark
 
-            Configuration.UI_MODE_NIGHT_UNDEFINED-> autoTheme= "undefined"
+            Configuration.UI_MODE_NIGHT_UNDEFINED -> autoTheme = "undefined"
         }
         return autoTheme
     }

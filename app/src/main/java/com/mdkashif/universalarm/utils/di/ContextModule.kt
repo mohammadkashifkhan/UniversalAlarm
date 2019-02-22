@@ -6,10 +6,9 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class ActivityModule(val context: Context) {
+class ContextModule(val context: Context) {
 
     @Provides
     @Singleton
-    fun providesContext() = context
-
+    fun provideContext() = context
 }

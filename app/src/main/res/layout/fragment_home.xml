@@ -1,26 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".activities.ContainerActivity"
-    android:background="@drawable/home_fragment_bg_light"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:background="@color/pitchWhite"
+    tools:context=".activities.ContainerActivity">
 
-    <com.imankur.analogclockview.AnalogClock
-        android:id="@+id/analogClock"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginTop="20dp"
-        app:dial="@drawable/clock_dial_light"
+    <ImageView
+        android:id="@+id/ivSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_settings" />
+
+    <TextView
+        android:id="@+id/tvHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="104dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="Alarms"
+        android:textColor="@color/black"
+        android:textSize="56sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:showSecondHand="true"
-        app:minute="@drawable/min_hand"
-        app:hour="@drawable/hour_hand"
-        app:second="@drawable/sec_hand"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:text="Upcoming"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvHeader" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAlarms"
@@ -31,106 +55,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-    <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        app:menu_colorNormal="@color/pitchWhite"
-        app:menu_colorRipple="@color/pitchWhite"
-        app:menu_colorPressed="@color/pitchWhite"
-        app:menu_labels_textColor="@color/black"
-        app:menu_labels_colorNormal="@color/pitchWhite"
-        app:menu_labels_colorRipple="@color/colorPrimaryDarkOrange"
-        app:menu_labels_colorPressed="@color/pitchWhite"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:menu_fab_size="normal"
-        app:menu_icon="@drawable/ic_fab_add_blue"
-        app:menu_fab_show_animation="@anim/show_from_bottom"
-        app:menu_fab_hide_animation="@anim/hide_to_bottom">
-
-        <com.github.clans.fab.FloatingActionButton
-            app:fab_colorNormal="@color/pitchWhite"
-            app:fab_colorRipple="@color/colorPrimaryDarkOrange"
-            app:fab_colorPressed="@color/pitchWhite"
-            android:id="@+id/fabSalat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_fab_salat"
-            app:fab_label="@string/add_Prayer"
-            app:fab_size="mini"/>
-
-        <com.github.clans.fab.FloatingActionButton
-            app:fab_colorNormal="@color/pitchWhite"
-            app:fab_colorRipple="@color/colorPrimaryDarkOrange"
-            app:fab_colorPressed="@color/pitchWhite"
-            android:id="@+id/fabLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_fab_location"
-            app:fab_label="@string/add_Location"
-            app:fab_size="mini" />
-
-        <com.github.clans.fab.FloatingActionButton
-            app:fab_colorNormal="@color/pitchWhite"
-            app:fab_colorRipple="@color/colorPrimaryDarkOrange"
-            app:fab_colorPressed="@color/pitchWhite"
-            android:id="@+id/fabBattery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:foregroundTint="@color/colorPrimaryDarkOrange"
-            android:src="@drawable/ic_fab_battery"
-            app:fab_label="@string/add_Battery"
-            app:fab_size="mini" />
-
-        <com.github.clans.fab.FloatingActionButton
-            app:fab_colorNormal="@color/pitchWhite"
-            app:fab_colorRipple="@color/colorPrimaryDarkOrange"
-            app:fab_colorPressed="@color/pitchWhite"
-            android:id="@+id/fabTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_fab_time"
-            app:fab_label="@string/add_Time"
-            app:fab_size="mini"/>
-
-    </com.github.clans.fab.FloatingActionMenu>
-
-    <ImageView
-        android:id="@+id/ivSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_settings" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:text="Alarms"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/analogClock" />
-
     <TextView
         android:id="@+id/tvSeeAll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
         android:text="+3 More"
         android:textColor="@color/colorPrimaryDarkOrange"
         android:textSize="18sp"
@@ -138,5 +69,74 @@
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rvAlarms" />
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:menu_colorNormal="@color/pitchWhite"
+        app:menu_colorPressed="@color/pitchWhite"
+        app:menu_colorRipple="@color/pitchWhite"
+        app:menu_fab_hide_animation="@anim/hide_to_bottom"
+        app:menu_fab_show_animation="@anim/show_from_bottom"
+        app:menu_fab_size="normal"
+        app:menu_icon="@drawable/ic_fab_add_blue"
+        app:menu_labels_colorNormal="@color/pitchWhite"
+        app:menu_labels_colorPressed="@color/pitchWhite"
+        app:menu_labels_colorRipple="@color/colorPrimaryDarkOrange"
+        app:menu_labels_textColor="@color/black">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabSalat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_fab_salat"
+            app:fab_colorNormal="@color/pitchWhite"
+            app:fab_colorPressed="@color/pitchWhite"
+            app:fab_colorRipple="@color/colorPrimaryDarkOrange"
+            app:fab_label="@string/add_Prayer"
+            app:fab_size="mini" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_fab_location"
+            app:fab_colorNormal="@color/pitchWhite"
+            app:fab_colorPressed="@color/pitchWhite"
+            app:fab_colorRipple="@color/colorPrimaryDarkOrange"
+            app:fab_label="@string/add_Location"
+            app:fab_size="mini" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabBattery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foregroundTint="@color/colorPrimaryDarkOrange"
+            android:src="@drawable/ic_fab_battery"
+            app:fab_colorNormal="@color/pitchWhite"
+            app:fab_colorPressed="@color/pitchWhite"
+            app:fab_colorRipple="@color/colorPrimaryDarkOrange"
+            app:fab_label="@string/add_Battery"
+            app:fab_size="mini" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_fab_time"
+            app:fab_colorNormal="@color/pitchWhite"
+            app:fab_colorPressed="@color/pitchWhite"
+            app:fab_colorRipple="@color/colorPrimaryDarkOrange"
+            app:fab_label="@string/add_Time"
+            app:fab_size="mini" />
+
+    </com.github.clans.fab.FloatingActionMenu>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

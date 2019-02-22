@@ -5,9 +5,10 @@ import android.os.AsyncTask
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmOps
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmTypes
 import com.mdkashif.universalarm.alarm.miscellaneous.model.TimingsModel
+import javax.inject.Inject
 
 
-class RoomHelper {
+class RoomHelper @Inject constructor(accessDao: RoomAccessDao){
 
     companion object {
         var alarmCount=0

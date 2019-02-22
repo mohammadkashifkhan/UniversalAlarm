@@ -15,11 +15,6 @@ class AppIntroActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (!SharedPrefHolder.getInstance(this).isFirstTimeLaunch) {
-            goToHomeFragment()
-            finish()
-        }
-
         if (Build.VERSION.SDK_INT >= 21) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         }
@@ -33,11 +28,7 @@ class AppIntroActivity : BaseActivity() {
 
     private fun goToHomeFragment() {
         SharedPrefHolder.getInstance(this).isFirstTimeLaunch = false
-
-        startActivity(Intent(this@AppIntroActivity, ContainerActivity::class.java))
-
-        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
-        finish()
+        executeIntent(Intent(this@AppIntroActivity, ContainerActivity::class.java), true)
     }
 
     private fun changeStatusBarColor() {

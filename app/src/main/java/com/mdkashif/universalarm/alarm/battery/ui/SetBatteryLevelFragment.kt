@@ -14,8 +14,8 @@ import com.mdkashif.universalarm.activities.ContainerActivity
 import com.mdkashif.universalarm.alarm.battery.misc.BatteryLiveData
 import com.mdkashif.universalarm.alarm.battery.misc.BatteryStatsPoJo
 import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
-import kotlinx.android.synthetic.main.fragment_add_battery_level.*
-import kotlinx.android.synthetic.main.fragment_add_battery_level.view.*
+import kotlinx.android.synthetic.main.fragment_set_battery_level.*
+import kotlinx.android.synthetic.main.fragment_set_battery_level.view.*
 
 
 class SetBatteryLevelFragment : Fragment(), CompoundButton.OnCheckedChangeListener, RangeBar.OnRangeBarChangeListener {
@@ -24,7 +24,7 @@ class SetBatteryLevelFragment : Fragment(), CompoundButton.OnCheckedChangeListen
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        var rootView : View =inflater.inflate(R.layout.fragment_add_battery_level, container, false)
+        var rootView : View =inflater.inflate(R.layout.fragment_set_battery_level, container, false)
 
         rootView.swBattery.setOnCheckedChangeListener(this)
         rootView.swTemperature.setOnCheckedChangeListener(this)

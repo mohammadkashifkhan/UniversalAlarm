@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.mdkashif.universalarm.R
 
@@ -16,24 +15,13 @@ class AlarmListAdapter(private val alarmType: MutableList<String>) : RecyclerVie
     val data: List<String>
         get() = alarmType
 
-    internal inner class TimeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var clParentTimeListItem: ConstraintLayout = itemView.findViewById(R.id.clParentTimeListItem)
-        var clDelete: ConstraintLayout = itemView.findViewById(R.id.clDelete)
-    }
+    internal inner class TimeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    internal inner class LocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var clParentLocationListItem: ConstraintLayout = itemView.findViewById(R.id.clParentLocationListItem)
-        var clDelete: ConstraintLayout = itemView.findViewById(R.id.clDelete)
-    }
+    internal inner class LocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    internal inner class BatteryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var clParentBatteryListItem: ConstraintLayout = itemView.findViewById(R.id.clParentBatteryListItem)
-        var clDelete: ConstraintLayout = itemView.findViewById(R.id.clDelete)
-    }
+    internal inner class BatteryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     internal inner class PrayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var clParentPrayerListItem: ConstraintLayout = itemView.findViewById(R.id.clParentPrayerListItem)
-        var clDelete: ConstraintLayout = itemView.findViewById(R.id.clDelete)
         var tvPrayerType: TextView = itemView.findViewById(R.id.tvPrayerType)
     }
 

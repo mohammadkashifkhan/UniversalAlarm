@@ -82,18 +82,18 @@ class SetPrayerTimeFragment : Fragment(), PrayerPresenter.PrayerViewCallback, Co
 
     override fun onPrayerDetailSuccess(prayerApiResponse: PrayerApiResponse?) {
         mActivity.hideLoader()
-        timezone.text = prayerApiResponse!!.data!!.meta!!.timezone
-        date.text = prayerApiResponse.data!!.date!!.hijri!!.date
-        month.text = prayerApiResponse.data.date!!.hijri!!.month!!.en
-        fajr.text = prayerApiResponse.data.timings!!.fajr
-        sunrise.text = prayerApiResponse.data.timings.sunrise
-        dhuhr.text = prayerApiResponse.data.timings.dhuhr
-        asr.text = prayerApiResponse.data.timings.asr
-        sunset.text = prayerApiResponse.data.timings.sunset
-        maghrib.text = prayerApiResponse.data.timings.maghrib
-        isha.text = prayerApiResponse.data.timings.isha
-        imsak.text = prayerApiResponse.data.timings.imsak
-        midnight.text = prayerApiResponse.data.timings.midnight
+        tvTimezone.text = prayerApiResponse!!.data!!.meta!!.timezone
+        tvIslamicDate.text = prayerApiResponse.data!!.date!!.hijri!!.date
+        tvMonth.text = prayerApiResponse.data.date!!.hijri!!.month!!.en
+        tvFajr.text = prayerApiResponse.data.timings!!.fajr
+        tvSunrise.text = prayerApiResponse.data.timings.sunrise
+        tvDhuhr.text = prayerApiResponse.data.timings.dhuhr
+        tvAsr.text = prayerApiResponse.data.timings.asr
+        tvSunset.text = prayerApiResponse.data.timings.sunset
+        tvMaghrib.text = prayerApiResponse.data.timings.maghrib
+        tvIsha.text = prayerApiResponse.data.timings.isha
+        tvImsak.text = prayerApiResponse.data.timings.imsak
+        tvMidnight.text = prayerApiResponse.data.timings.midnight
     }
 
     override fun onError(error: String) {

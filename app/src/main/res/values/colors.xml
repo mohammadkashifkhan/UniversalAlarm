@@ -11,9 +11,9 @@
     <color name="gray">#acacac</color>
     <color name="translucentBlack">#64000000</color>
 
-    <color name="dayPressed">#F1F8FF</color>
-    <color name="daySelected">#F1F8FF</color>
-    <color name="dayDeselected">#696969</color>
+    <color name="dayPressed">#F9B39A</color>
+    <color name="daySelected">#F9B39A</color>
+    <color name="dayDeselected">#80ffd6c5</color>
 
     ////////////////////////// Light //////////////////////////
     <color name="colorPrimaryDarkOrange">#F9B39A</color>

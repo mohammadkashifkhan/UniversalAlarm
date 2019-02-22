@@ -21,7 +21,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.Theme
@@ -31,7 +30,7 @@ import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
 import com.pkmmte.view.CircularImageView
 import jp.wasabeef.blurry.Blurry
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +42,8 @@ class SettingsActivity : AppCompatActivity() {
     class SettingsFragment : PreferenceFragmentCompat(), androidx.preference.Preference.OnPreferenceClickListener {
         lateinit var toggleTheme: androidx.preference.Preference
         private val googlePlayUrl = "http://play.google.com/store/apps/details?id="
+        private lateinit var mActivity: SettingsActivity
+        private lateinit var mIntent: Intent
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.fragment_settings, rootKey)
@@ -115,34 +116,34 @@ class SettingsActivity : AppCompatActivity() {
             }
 
             ivLinkedIn.setOnClickListener {
-                var intent = Intent(Intent.ACTION_VIEW, Uri.parse("linkedin://add/%@" + "mdkashif2093"))
+                mIntent=Intent(Intent.ACTION_VIEW, Uri.parse("linkedin://add/%@" + "mdkashif2093"))
                 val packageManager = activity!!.packageManager
-                val list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+                val list = packageManager.queryIntentActivities(mIntent, PackageManager.MATCH_DEFAULT_ONLY)
                 if (list.isEmpty()) {
-                    intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.linkedin.com/profile/view?id=" + "mdkashif2093"))
+                    mIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.linkedin.com/profile/view?id=" + "mdkashif2093"))
                 }
-                startActivity(intent)
+                mActivity.executeIntent(mIntent, false)
             }
 
             ivGmail.setOnClickListener {
                 val addresses = "mohammadkshf2093@gmail.com"
                 val uri = Uri.parse("mailto:$addresses").buildUpon().build()
-                val emailIntent = Intent(Intent.ACTION_SENDTO, uri)
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Query!")
-                activity!!.startActivity(emailIntent)
+                mIntent = Intent(Intent.ACTION_SENDTO, uri)
+                mIntent.putExtra(Intent.EXTRA_SUBJECT, "Query!")
+                mActivity.executeIntent(mIntent, false)
             }
 
             ivGooglePlay.setOnClickListener {
                 try {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=pub:Mohammad+Kashif+Khan")))
+                    mActivity.executeIntent(Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=pub:Mohammad+Kashif+Khan")), false)
                 } catch (anfe: android.content.ActivityNotFoundException) {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/developer?id=Mohammad+Kashif+Khan")))
+                    mActivity.executeIntent(Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/developer?id=Mohammad+Kashif+Khan")), false)
                 }
             }
 
-            ivStackOverFlow.setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://stackoverflow.com/users/5518744/kashif-k"))) }
+            ivStackOverFlow.setOnClickListener { mActivity.executeIntent(Intent(Intent.ACTION_VIEW, Uri.parse("https://stackoverflow.com/users/5518744/kashif-k")), false) }
 
-            ivGithub.setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/mohammadkashifkhan"))) }
+            ivGithub.setOnClickListener { mActivity.executeIntent(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/mohammadkashifkhan")), false) }
 
             tvOpenLicenses.setOnClickListener {
                 MaterialDialog.Builder(activity!!)
@@ -173,10 +174,10 @@ class SettingsActivity : AppCompatActivity() {
 
             val addresses = "mohammadkshf2093@gmail.com"
             val uri = Uri.parse("mailto:$addresses").buildUpon().build()
-            val emailIntent = Intent(Intent.ACTION_SENDTO, uri)
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Query from Universal Alarm app")
-            emailIntent.putExtra(Intent.EXTRA_TEXT, body)
-            context.startActivity(emailIntent)
+            mIntent = Intent(Intent.ACTION_SENDTO, uri)
+            mIntent.putExtra(Intent.EXTRA_SUBJECT, "Query from Universal Alarm app")
+            mIntent.putExtra(Intent.EXTRA_TEXT, body)
+            mActivity.executeIntent(mIntent, false)
         }
 
         override fun onPreferenceClick(preference: androidx.preference.Preference?): Boolean {
@@ -186,47 +187,47 @@ class SettingsActivity : AppCompatActivity() {
 
                 getString(R.string.rate) -> {
                     val uri = Uri.parse("market://details?id=" + activity!!.packageName)
-                    val goToMarket = Intent(Intent.ACTION_VIEW, uri)
-                    goToMarket.addFlags((Intent.FLAG_ACTIVITY_NO_HISTORY or
+                    mIntent = Intent(Intent.ACTION_VIEW, uri)
+                    mIntent.addFlags((Intent.FLAG_ACTIVITY_NO_HISTORY or
                             Intent.FLAG_ACTIVITY_NEW_DOCUMENT or
                             Intent.FLAG_ACTIVITY_MULTIPLE_TASK))
                     try {
-                        startActivity(goToMarket)
+                        mActivity.executeIntent(mIntent, false)
                     } catch (e: ActivityNotFoundException) {
-                        startActivity(Intent(Intent.ACTION_VIEW,
-                                Uri.parse(googlePlayUrl + activity!!.packageName)))
+                        mActivity.executeIntent(Intent(Intent.ACTION_VIEW,
+                                Uri.parse(googlePlayUrl + activity!!.packageName)), false)
                     }
                 }
 
                 getString(R.string.share) -> {
                     try {
-                        val i = Intent(Intent.ACTION_SEND)
-                        i.type = "text/plain"
-                        i.putExtra(Intent.EXTRA_SUBJECT, "Universal Alarm")
+                        mIntent = Intent(Intent.ACTION_SEND)
+                        mIntent.type = "text/plain"
+                        mIntent.putExtra(Intent.EXTRA_SUBJECT, "Universal Alarm")
                         var sAux = "\nLet me recommend you this application\n\n"
                         sAux = sAux + googlePlayUrl + activity!!.packageName
-                        i.putExtra(Intent.EXTRA_TEXT, sAux)
-                        startActivity(Intent.createChooser(i, "Share with"))
+                        mIntent.putExtra(Intent.EXTRA_TEXT, sAux)
+                        mActivity.executeIntent(Intent.createChooser(mIntent, "Share with"), false)
                     } catch (e: Exception) { //e.toString();
                     }
                 }
 
                 getString(R.string.title_faq) -> {
-                    val browserIntent = Intent(activity, WebviewActivity::class.java)
-                    browserIntent.putExtra("endpoint", AppConstants.FAQ)
-                    startActivity(browserIntent)
+                    mIntent = Intent(activity, WebviewActivity::class.java)
+                    mIntent.putExtra("endpoint", AppConstants.FAQ)
+                    mActivity.executeIntent(mIntent, false)
                 }
 
                 getString(R.string.privacy_policy) -> {
-                    val browserIntent = Intent(activity, WebviewActivity::class.java)
-                    browserIntent.putExtra("endpoint", AppConstants.PP)
-                    startActivity(browserIntent)
+                    mIntent= Intent(activity, WebviewActivity::class.java)
+                    mIntent.putExtra("endpoint", AppConstants.PP)
+                    mActivity.executeIntent(mIntent, false)
                 }
 
                 getString(R.string.title_terms) -> {
-                    val browserIntent = Intent(activity, WebviewActivity::class.java)
-                    browserIntent.putExtra("endpoint", AppConstants.TNC)
-                    startActivity(browserIntent)
+                    mIntent = Intent(activity, WebviewActivity::class.java)
+                    mIntent.putExtra("endpoint", AppConstants.TNC)
+                    mActivity.executeIntent(mIntent, false)
                 }
 
                 getString(R.string.key_send_feedback) ->
@@ -249,17 +250,22 @@ class SettingsActivity : AppCompatActivity() {
             }
             return true
         }
+
+        override fun onAttach(context: Context) {
+            super.onAttach(context)
+            mActivity = context as SettingsActivity
+        }
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
             onBackPressed()
-            overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
         return super.onOptionsItemSelected(item)
     }

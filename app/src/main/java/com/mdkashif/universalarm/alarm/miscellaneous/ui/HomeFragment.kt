@@ -41,7 +41,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
         setRVAdapter(rootView.rvAlarms)
 
 //        var timingsModel = TimingsModel(day = "20", month = "02", year = "2019", hour = "6", minute = "15", alarmType = AlarmTypes.Fajr.toString())
-//        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsModel)
+//        RoomHelper.transactAmendAsync(mActivity.appDatabase, AlarmOps.Add.toString(), timingsModel)
 //
 //        var timingsModel1 = TimingsModel(day = "21", month = "03", year = "2020", hour = "8", minute = "30", alarmType = AlarmTypes.Time.toString(), repeat = true, repeatDays = listOf(DaysModel(repeatDay = "m"), DaysModel(repeatDay = "w"), DaysModel(repeatDay = "f")))
 //        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsModel1)
@@ -83,8 +83,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
                     mActivity.showSnackBar("Please try after some time")
             }
             R.id.ivSettings -> {
-                mActivity.startActivity(Intent(context, SettingsActivity::class.java))
-                mActivity.overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
+                mActivity.executeIntent(Intent(context, SettingsActivity::class.java), false)
             }
             R.id.tvSeeAll -> {
                 mActivity.replaceFragment(ShowAllAlarmsFragment(), ShowAllAlarmsFragment::class.java.simpleName, true)

@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.activities.ContainerActivity
-import kotlinx.android.synthetic.main.fragment_add_time.view.*
+import kotlinx.android.synthetic.main.fragment_set_time.view.*
 import java.util.*
 
 
@@ -19,8 +19,8 @@ class SetTimeFragment : Fragment(), View.OnClickListener{
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        rootView = inflater.inflate(R.layout.fragment_add_time, container, false)
-
+        rootView = inflater.inflate(R.layout.fragment_set_time, container, false)
+        rootView.tvPickTime.setOnClickListener(this)
         return rootView
     }
 
@@ -31,17 +31,13 @@ class SetTimeFragment : Fragment(), View.OnClickListener{
 
     override fun onClick(p0: View?) {
         when(p0!!.id){
-            R.id.fbAddNote->{
-                rootView.fbAddNote.visibility=View.GONE
-                rootView.etNote.visibility=View.VISIBLE
-            }
 
-            R.id.tvTime->{
-                val mcurrentTime = Calendar.getInstance()
-                val hour = mcurrentTime.get(Calendar.HOUR_OF_DAY)
-                val minute = mcurrentTime.get(Calendar.MINUTE)
+            R.id.tvPickTime->{
+                val mCurrentTime = Calendar.getInstance()
+                val hour = mCurrentTime.get(Calendar.HOUR_OF_DAY)
+                val minute = mCurrentTime.get(Calendar.MINUTE)
                 val mTimePicker: TimePickerDialog
-                mTimePicker = TimePickerDialog(mActivity, TimePickerDialog.OnTimeSetListener { timePicker, selectedHour, selectedMinute -> rootView.tvTime.text = selectedHour.toString() + ":" + selectedMinute }, hour, minute, false)
+                mTimePicker = TimePickerDialog(mActivity, TimePickerDialog.OnTimeSetListener { _, selectedHour, selectedMinute -> rootView.tvTime.text = "$selectedHour:$selectedMinute" }, hour, minute, false)
                 mTimePicker.setTitle("Select Time")
                 mTimePicker.show()
             }
