@@ -14,5 +14,4 @@ class SharedPrefsModule {
     @Singleton
     @Inject
     fun provideSharedPrefs(context: Context): SharedPreferences = context.getSharedPreferences("universal-alarm-sp", Context.MODE_PRIVATE)
-
 }

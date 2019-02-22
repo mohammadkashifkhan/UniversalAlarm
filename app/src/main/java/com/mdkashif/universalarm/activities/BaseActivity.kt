@@ -25,6 +25,7 @@ import com.mdkashif.universalarm.alarm.prayer.geocoder.GetLocationAddress
 import com.mdkashif.universalarm.custom.SwipeToDeleteCallback
 import com.mdkashif.universalarm.utils.AppConstants
 import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
+import dagger.android.AndroidInjection
 
 
 open class BaseActivity : AppCompatActivity() {
@@ -34,7 +35,7 @@ open class BaseActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-//        AndroidInjection.inject(this) // Dagger
+        AndroidInjection.inject(this) // Dagger
 
         super.onCreate(savedInstanceState)
         parentLayout = findViewById(android.R.id.content)

@@ -9,7 +9,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-
 @Module
 class RetrofitModule {
 
@@ -23,5 +22,5 @@ class RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideRetrofitApiInterface(retrofit: Retrofit): ApiInterface = retrofit.create(ApiInterface::class.java)
+    fun provideApiInterface(retrofit: Retrofit): ApiInterface = retrofit.create(ApiInterface::class.java)
 }
