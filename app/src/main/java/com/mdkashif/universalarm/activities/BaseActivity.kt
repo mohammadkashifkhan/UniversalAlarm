@@ -24,8 +24,8 @@ import com.mdkashif.universalarm.alarm.prayer.geocoder.GetCurrentLocation
 import com.mdkashif.universalarm.alarm.prayer.geocoder.GetLocationAddress
 import com.mdkashif.universalarm.custom.SwipeToDeleteCallback
 import com.mdkashif.universalarm.utils.AppConstants
+import com.mdkashif.universalarm.utils.persistence.AppDatabase
 import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
-import dagger.android.AndroidInjection
 
 
 open class BaseActivity : AppCompatActivity() {
@@ -33,9 +33,12 @@ open class BaseActivity : AppCompatActivity() {
     private lateinit var progressDialog: MaterialDialog
     private var parentLayout: View? = null
 
+//    @Inject
+    lateinit var appDatabase: AppDatabase
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this) // Dagger
+//        AndroidInjection.inject(this) // Dagger
 
         super.onCreate(savedInstanceState)
         parentLayout = findViewById(android.R.id.content)
@@ -49,7 +52,7 @@ open class BaseActivity : AppCompatActivity() {
                     applicationContext, GeocodeHandler(applicationContext))
         }
 //        PrayerDataFetchScheduler.scheduleJob(applicationContext)
-//        appDatabase = AppDatabase.getAppDatabase(applicationContext)
+        appDatabase = AppDatabase.getAppDatabase(applicationContext)
     }
 
     val isOnline: Boolean
@@ -170,9 +173,9 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-//    fun returnDbInstance():AppDatabase{
-//        return appDatabase
-//    }
+    fun returnDbInstance():AppDatabase{
+        return appDatabase
+    }
 
     fun detectThemeAuto(): String {
         var autoTheme = ""

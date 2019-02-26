@@ -6,10 +6,9 @@ import com.facebook.stetho.Stetho
 import com.github.omadahealth.lollipin.lib.managers.LockManager
 import com.mdkashif.universalarm.security.AntiTheftUnlockActivity
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
 import javax.inject.Inject
 
-class BaseApplication : Application(), HasActivityInjector {
+class BaseApplication : Application() { //, HasActivityInjector
 
     @Inject
     lateinit var activityInjector: DispatchingAndroidInjector<Activity>
@@ -27,5 +26,5 @@ class BaseApplication : Application(), HasActivityInjector {
         lockManager.appLock.logoId = R.mipmap.ic_launcher_foreground
     }
 
-    override fun activityInjector(): DispatchingAndroidInjector<Activity>  = activityInjector
+//    override fun activityInjector(): DispatchingAndroidInjector<Activity>  = activityInjector
 }
