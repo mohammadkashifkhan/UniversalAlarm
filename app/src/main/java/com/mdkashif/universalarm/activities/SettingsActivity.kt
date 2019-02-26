@@ -76,8 +76,7 @@ class SettingsActivity : BaseActivity() {
         private fun showAboutDevDialog() {
             val dialogAboutDev = MaterialDialog(mActivity).show {
                 cancelable(true)
-                title(R.string.prefKeyTitleAbout)
-                customView(R.layout.layout_about_dev)
+                customView(R.layout.layout_about_dev, scrollable = true)
             }
 
             val view = dialogAboutDev.getCustomView()
