@@ -7,7 +7,7 @@ import java.util.*
 class TimePresenter {
 
     companion object {
-        fun calculateTimeFromNow(selectedHour: Int, selectedMinute: Int) : String {
+        fun calculateTimeFromNow(selectedHour: Int, selectedMinute: Int): String {
             val format = SimpleDateFormat("HH:mm")
             val cal = Calendar.getInstance()
 
@@ -17,23 +17,25 @@ class TimePresenter {
             val date1 = format.parse(currentTime)
             val date2 = format.parse(selectedTime)
 
-            val differenceInSeconds = (date2.time - date1.time)/1000
+            val differenceInSeconds = (date2.time - date1.time) / 1000
 
-            val hours = differenceInSeconds / 3600
+            var hours = differenceInSeconds / 3600
             val minutes = differenceInSeconds % 3600 / 60
 
+            if (hours < 0)
+                hours += 24
             return """${Math.abs(hours)}h ${Math.abs(minutes)}m"""
         }
 
-        fun getDifferentZonedTimes(id: Int) : String {
+        fun getDifferentZonedTimes(id: Int): String {
             val dateFormat = SimpleDateFormat("HH mm")
-            when(id){
-                1->dateFormat.timeZone = TimeZone.getTimeZone("Asia/Dubai")
-                2->dateFormat.timeZone = TimeZone.getTimeZone("America/New_York")
-                3->dateFormat.timeZone = TimeZone.getTimeZone("Australia/Sydney")
-                4->dateFormat.timeZone = TimeZone.getTimeZone("Europe/Moscow")
-                5->dateFormat.timeZone = TimeZone.getTimeZone("America/Sao_Paulo")
-                6->dateFormat.timeZone = TimeZone.getTimeZone("Europe/London")
+            when (id) {
+                1 -> dateFormat.timeZone = TimeZone.getTimeZone("Asia/Dubai")
+                2 -> dateFormat.timeZone = TimeZone.getTimeZone("America/New_York")
+                3 -> dateFormat.timeZone = TimeZone.getTimeZone("Australia/Sydney")
+                4 -> dateFormat.timeZone = TimeZone.getTimeZone("Europe/Moscow")
+                5 -> dateFormat.timeZone = TimeZone.getTimeZone("America/Sao_Paulo")
+                6 -> dateFormat.timeZone = TimeZone.getTimeZone("Europe/London")
             }
 
             val cal = Calendar.getInstance()

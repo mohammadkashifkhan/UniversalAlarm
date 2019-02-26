@@ -24,6 +24,8 @@ object AppConstants {
     const val city = "city"
     const val country = "country"
 
+    const val snoozeTimeArrayPosition = "snoozeTimeArrayPosition"
+
     /////// SetBatteryLevelFragment ///////
     const val highBatteryLevel = "hbl"
     const val lowBatteryLevel = "lbl"

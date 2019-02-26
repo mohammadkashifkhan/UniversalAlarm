@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mdkashif.universalarm.R
+import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
 
 /**
  * Created by Kashif on 20-Apr-18.
@@ -19,7 +20,11 @@ class AlarmListAdapter(private val alarmType: MutableList<String>) : RecyclerVie
 
     internal inner class LocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    internal inner class BatteryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    internal inner class BatteryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        var tvHbl: TextView = itemView.findViewById(R.id.tvHbl)
+        var tvLbl: TextView = itemView.findViewById(R.id.tvLbl)
+        var tvTemp: TextView = itemView.findViewById(R.id.tvTemp)
+    }
 
     internal inner class PrayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvPrayerType: TextView = itemView.findViewById(R.id.tvPrayerType)
@@ -55,7 +60,9 @@ class AlarmListAdapter(private val alarmType: MutableList<String>) : RecyclerVie
 
             }
             is BatteryViewHolder -> {
-
+                holder.tvHbl.text = SharedPrefHolder.getInstance(holder.tvHbl.context).hbl.toString()
+                holder.tvLbl.text = SharedPrefHolder.getInstance(holder.tvHbl.context).lbl.toString()
+                holder.tvTemp.text = SharedPrefHolder.getInstance(holder.tvHbl.context).temp.toString()
             }
             is LocationViewHolder -> {
 

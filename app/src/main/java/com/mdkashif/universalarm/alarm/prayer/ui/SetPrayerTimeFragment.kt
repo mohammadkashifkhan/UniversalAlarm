@@ -34,7 +34,7 @@ class SetPrayerTimeFragment : Fragment(), PrayerPresenter.PrayerViewCallback, Co
 
         mActivity.showLoader()
         if (mActivity.isOnline)
-            PrayerPresenter(disposable,this, SharedPrefHolder.getInstance(context).city!!, SharedPrefHolder.getInstance(context).country!!).getPrayerDetails()
+            PrayerPresenter(disposable,this, SharedPrefHolder.getInstance(mActivity).city!!, SharedPrefHolder.getInstance(mActivity).country!!).getPrayerDetails()
 
         setupCompass()
         return rootView

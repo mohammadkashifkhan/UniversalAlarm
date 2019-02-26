@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="@string/customize">
+    <PreferenceCategory android:title="@string/pref_header_customize">
 
         <Preference
             android:defaultValue="content://settings/system/notification_sound"
-            android:key="@string/key_notifications_new_message_ringtone"
+            android:key="@string/prefKeyTitleRingtone"
             android:ringtoneType="notification"
-            android:summary="@string/summary_choose_ringtone"
-            android:title="@string/pref_title_ringtone"
+            android:summary="@string/prefSummaryRingtone"
+            android:title="@string/prefKeyTitleRingtone"
             android:icon="@drawable/ic_ringtone"/>
 
         <SwitchPreference
             android:defaultValue="true"
-            android:key="@string/key_vibrate"
-            android:summary="@string/summary_vibrate"
-            android:title="@string/title_vibrate"
+            android:key="@string/prefKeyTitleVibrate"
+            android:summary="@string/prefSummaryVibrate"
+            android:title="@string/prefKeyTitleVibrate"
             android:icon="@drawable/ic_vibrate"/>
 
         <Preference
-            android:key="@string/location"
+            android:key="@string/prefKeyTitleLocationPrecision"
             android:selectable="true"
             android:summary="Within 100m"
-            android:title="@string/locationPrecision"
+            android:title="@string/prefKeyTitleLocationPrecision"
             android:icon="@drawable/ic_location"/>
 
         <Preference
-            android:title="@string/theme"
-            android:key="@string/theme"
+            android:title="@string/prefKeyTitleTheme"
+            android:key="@string/prefKeyTitleTheme"
             android:selectable="true"
             android:icon="@drawable/ic_theme"/>
 
@@ -36,42 +36,42 @@
     <PreferenceCategory android:title="@string/pref_header_misc">
 
         <Preference
-            android:title="@string/aboutDevTitle"
-            android:key="@string/aboutDev"
+            android:title="@string/prefKeyTitleAbout"
+            android:key="@string/prefKeyTitleAbout"
             android:selectable="true"
             android:icon="@drawable/ic_about_dev"/>
 
         <Preference
-            android:key="@string/title_faq"
-            android:summary="@string/summary_faq"
-            android:title="@string/title_faq"
+            android:key="@string/prefKeyTitleFaq"
+            android:summary="@string/prefSummaryFaq"
+            android:title="@string/prefKeyTitleFaq"
             android:icon="@drawable/ic_faq">
         </Preference>
 
         <Preference
-            android:key="@string/privacy_policy"
-            android:title="@string/privacy_policy">
+            android:key="@string/prefKeyTitlePP"
+            android:title="@string/prefKeyTitlePP">
         </Preference>
 
         <Preference
-            android:key="@string/title_terms"
-            android:title="@string/title_terms">
+            android:key="@string/prefKeyTitleTNC"
+            android:title="@string/prefKeyTitleTNC">
         </Preference>
 
         <Preference
-            android:key="@string/key_send_feedback"
-            android:title="@string/title_send_feedback" />
+            android:key="@string/prefKeyTitleSendFeedback"
+            android:title="@string/prefKeyTitleSendFeedback" />
 
         <Preference
-            android:key="@string/rate"
-            android:title="@string/rate"
+            android:key="@string/prefKeyTitleRate"
+            android:title="@string/prefKeyTitleRate"
             android:selectable="true"
-            android:summary="@string/rateSummary" />
+            android:summary="@string/prefSummaryRate" />
 
         <Preference
-            android:key="@string/share"
+            android:key="@string/prefKeyTitleShare"
             android:selectable="true"
-            android:title="@string/share" />
+            android:title="@string/prefKeyTitleShare" />
 
     </PreferenceCategory>
 

@@ -18,12 +18,13 @@ import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
 import android.view.MenuItem
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.preference.PreferenceFragmentCompat
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.Theme
+import com.afollestad.materialdialogs.customview.customView
+import com.afollestad.materialdialogs.customview.getCustomView
+import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.utils.AppConstants
 import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
@@ -41,6 +42,7 @@ class SettingsActivity : BaseActivity() {
 
     class SettingsFragment : PreferenceFragmentCompat(), androidx.preference.Preference.OnPreferenceClickListener {
         lateinit var toggleTheme: androidx.preference.Preference
+        lateinit var toggleVibrate: androidx.preference.Preference
         private val googlePlayUrl = "http://play.google.com/store/apps/details?id="
         private lateinit var mActivity: SettingsActivity
         private lateinit var mIntent: Intent
@@ -48,48 +50,39 @@ class SettingsActivity : BaseActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.fragment_settings, rootKey)
 
-            findPreference<androidx.preference.Preference>(getString(R.string.aboutDev)).onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.rate)).onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.share)).onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.title_faq)).onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.privacy_policy)).onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.title_terms)).onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.key_send_feedback)).onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.theme)).onPreferenceClickListener = this
-            val toggleAppVersion = findPreference<androidx.preference.Preference>(getString(R.string.keyAppVersion))
-            val toggleVibrate = findPreference<androidx.preference.Preference>(getString(R.string.key_vibrate))
-            toggleTheme = findPreference<androidx.preference.Preference>(getString(R.string.theme))
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleAbout)).onPreferenceClickListener = this
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleRate)).onPreferenceClickListener = this
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleShare)).onPreferenceClickListener = this
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleFaq)).onPreferenceClickListener = this
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitlePP)).onPreferenceClickListener = this
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleTNC)).onPreferenceClickListener = this
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSendFeedback)).onPreferenceClickListener = this
 
-            try {
-                val pInfo = activity!!.packageManager.getPackageInfo(activity!!.packageName, 0)
-                toggleAppVersion.summary = pInfo.versionName
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            toggleTheme = findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleTheme))
+            toggleTheme.onPreferenceClickListener = this
+            toggleTheme.summary = SharedPrefHolder.getInstance(mActivity).theme
 
-            toggleTheme.summary = SharedPrefHolder.getInstance(activity).theme
+            bindPreferenceSummaryToValue(findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleRingtone)))
 
-            bindPreferenceSummaryToValue(findPreference<androidx.preference.Preference>(getString(R.string.key_notifications_new_message_ringtone)))
-
+            toggleVibrate = findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleVibrate))
             toggleVibrate.onPreferenceChangeListener = object : androidx.preference.Preference.OnPreferenceChangeListener {
                 override fun onPreferenceChange(preference: androidx.preference.Preference, o: Any): Boolean {
-                    SharedPrefHolder.getInstance(activity).vibrateStatus = java.lang.Boolean.valueOf(o.toString())
+                    SharedPrefHolder.getInstance(mActivity).vibrateStatus = java.lang.Boolean.valueOf(o.toString())
                     return true
                 }
             }
         }
 
         private fun showAboutDevDialog() {
-            val dialogAboutDev = MaterialDialog.Builder(activity!!)
-                    .theme(Theme.LIGHT)
-                    .cancelable(true)
-                    .title(getString(R.string.aboutDevTitle))
-                    .customView(R.layout.layout_about_dev, false)
-                    .show()
+            val dialogAboutDev = MaterialDialog(mActivity).show {
+                cancelable(true)
+                title(R.string.prefKeyTitleAbout)
+                customView(R.layout.layout_about_dev)
+            }
 
-            val view = dialogAboutDev.customView
+            val view = dialogAboutDev.getCustomView()
 
-            val avatar: CircularImageView = view!!.findViewById(R.id.avatar)
+            val avatar: CircularImageView = view.findViewById(R.id.avatar)
             val bitmap: Bitmap
             val ivDevBlurryImage: ImageView = view.findViewById(R.id.ivDevBlurryImage)
             val ivLinkedIn: ImageView = view.findViewById(R.id.linkedin)
@@ -116,7 +109,7 @@ class SettingsActivity : BaseActivity() {
             }
 
             ivLinkedIn.setOnClickListener {
-                mIntent=Intent(Intent.ACTION_VIEW, Uri.parse("linkedin://add/%@" + "mdkashif2093"))
+                mIntent = Intent(Intent.ACTION_VIEW, Uri.parse("linkedin://add/%@" + "mdkashif2093"))
                 val packageManager = activity!!.packageManager
                 val list = packageManager.queryIntentActivities(mIntent, PackageManager.MATCH_DEFAULT_ONLY)
                 if (list.isEmpty()) {
@@ -146,12 +139,11 @@ class SettingsActivity : BaseActivity() {
             ivGithub.setOnClickListener { mActivity.executeIntent(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/mohammadkashifkhan")), false) }
 
             tvOpenLicenses.setOnClickListener {
-                MaterialDialog.Builder(activity!!)
-                        .theme(Theme.LIGHT)
-                        .cancelable(true)
-                        .title(getString(R.string.openSourceLicenses))
-                        .customView(R.layout.layout_open_source_licenses, true)
-                        .show()
+                MaterialDialog(mActivity).show {
+                    cancelable(true)
+                    title(R.string.openSourceLicenses)
+                    customView(R.layout.layout_open_source_licenses, scrollable = true)
+                }
             }
 
             try {
@@ -182,10 +174,10 @@ class SettingsActivity : BaseActivity() {
 
         override fun onPreferenceClick(preference: androidx.preference.Preference?): Boolean {
             when (preference!!.title) {
-                getString(R.string.aboutDev) ->
+                getString(R.string.prefKeyTitleAbout) ->
                     showAboutDevDialog()
 
-                getString(R.string.rate) -> {
+                getString(R.string.prefKeyTitleRate) -> {
                     val uri = Uri.parse("market://details?id=" + activity!!.packageName)
                     mIntent = Intent(Intent.ACTION_VIEW, uri)
                     mIntent.addFlags((Intent.FLAG_ACTIVITY_NO_HISTORY or
@@ -199,7 +191,7 @@ class SettingsActivity : BaseActivity() {
                     }
                 }
 
-                getString(R.string.share) -> {
+                getString(R.string.prefKeyTitleShare) -> {
                     try {
                         mIntent = Intent(Intent.ACTION_SEND)
                         mIntent.type = "text/plain"
@@ -212,40 +204,37 @@ class SettingsActivity : BaseActivity() {
                     }
                 }
 
-                getString(R.string.title_faq) -> {
+                getString(R.string.prefKeyTitleFaq) -> {
                     mIntent = Intent(activity, WebviewActivity::class.java)
                     mIntent.putExtra("endpoint", AppConstants.FAQ)
                     mActivity.executeIntent(mIntent, false)
                 }
 
-                getString(R.string.privacy_policy) -> {
-                    mIntent= Intent(activity, WebviewActivity::class.java)
+                getString(R.string.prefKeyTitlePP) -> {
+                    mIntent = Intent(activity, WebviewActivity::class.java)
                     mIntent.putExtra("endpoint", AppConstants.PP)
                     mActivity.executeIntent(mIntent, false)
                 }
 
-                getString(R.string.title_terms) -> {
+                getString(R.string.prefKeyTitleTNC) -> {
                     mIntent = Intent(activity, WebviewActivity::class.java)
                     mIntent.putExtra("endpoint", AppConstants.TNC)
                     mActivity.executeIntent(mIntent, false)
                 }
 
-                getString(R.string.key_send_feedback) ->
+                getString(R.string.prefKeyTitleSendFeedback) ->
                     sendFeedback(activity!!)
 
-                getString(R.string.theme) -> {
-                    MaterialDialog.Builder(activity!!)
-                            .title(R.string.dialogChooseThemeBtTitle)
-                            .items(R.array.themes)
-                            .itemsCallbackSingleChoice(-1, object : MaterialDialog.ListCallbackSingleChoice {
-                                override fun onSelection(dialog: MaterialDialog, view: View, which: Int, text: CharSequence): Boolean {
-                                    SharedPrefHolder.getInstance(activity).theme = resources.getStringArray(R.array.themes)[which]
-                                    toggleTheme.summary = resources.getStringArray(R.array.themes)[which]
-                                    return true
-                                }
-                            })
-                            .positiveText(R.string.dialogChooseThemeBtText)
-                            .show()
+                getString(R.string.prefKeyTitleTheme) -> {
+                    MaterialDialog(mActivity).show {
+                        title(R.string.dialogChooseThemeBtTitle)
+                        listItemsSingleChoice(R.array.themes) { dialog, index, text ->
+                            SharedPrefHolder.getInstance(mActivity).theme = resources.getStringArray(R.array.themes)[index]
+                            toggleTheme.summary = resources.getStringArray(R.array.themes)[index]
+                            dialog.dismiss()
+                        }
+                        positiveButton(R.string.dialogChooseThemeBtText)
+                    }
                 }
             }
             return true
@@ -289,12 +278,11 @@ class SettingsActivity : BaseActivity() {
                     } else {
                         val ringtone = RingtoneManager.getRingtone(
                                 preference.getContext(), Uri.parse(stringValue))
-                        SharedPrefHolder.getInstance(preference.getContext()).setRingtoneUri(Uri.parse(stringValue))
+                        SharedPrefHolder.getInstance(preference.getContext()).ringtoneUri = Uri.parse(stringValue).toString()
 
-                        if (ringtone == null) {
-
-                            preference.setSummary(R.string.summary_choose_ringtone)
-                        } else {
+                        if (ringtone == null)
+                            preference.setSummary(R.string.prefSummaryRingtone)
+                         else {
                             val name = ringtone.getTitle(preference.getContext())
                             preference.setSummary(name)
                         }

@@ -13,8 +13,8 @@ class PrayerDataFetchScheduleService : JobService(), PrayerPresenter.PrayerViewC
 
     override fun onStartJob(params: JobParameters): Boolean {
         this.params = params
-        PrayerPresenter(disposable, this, SharedPrefHolder.getInstance(applicationContext).city,
-                SharedPrefHolder.getInstance(applicationContext).country).getPrayerDetails()
+        PrayerPresenter(disposable, this, SharedPrefHolder.getInstance(applicationContext).city!!,
+                SharedPrefHolder.getInstance(applicationContext).country!!).getPrayerDetails()
         return true
     }
 

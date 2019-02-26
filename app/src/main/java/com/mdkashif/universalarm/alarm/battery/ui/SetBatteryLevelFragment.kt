@@ -39,24 +39,24 @@ class SetBatteryLevelFragment : Fragment(), CompoundButton.OnCheckedChangeListen
             temperature.text = connection.temp.toString()
         })
 
-        rootView.swBattery.isChecked = SharedPrefHolder.getInstance(activity).batteryAlarmStatus == true
-        rootView.swTemperature.isChecked = SharedPrefHolder.getInstance(activity).temperatureAlarmStatus == true
-        rootView.swTheft.isChecked = SharedPrefHolder.getInstance(activity).theftAlarmStatus == true
+        rootView.swBattery.isChecked = SharedPrefHolder.getInstance(mActivity).batteryAlarmStatus == true
+        rootView.swTemperature.isChecked = SharedPrefHolder.getInstance(mActivity).temperatureAlarmStatus == true
+        rootView.swTheft.isChecked = SharedPrefHolder.getInstance(mActivity).theftAlarmStatus == true
 
-        if((SharedPrefHolder.getInstance(activity).hbl == 0f) && (SharedPrefHolder.getInstance(activity).lbl == 0f))
+        if((SharedPrefHolder.getInstance(mActivity).hbl == 0f) && (SharedPrefHolder.getInstance(mActivity).lbl == 0f))
             rootView.rbBatteryLevel.setRangePinsByValue(20f,85f)
-        else if (SharedPrefHolder.getInstance(activity).hbl == 0f)
-            rootView.rbBatteryLevel.setRangePinsByValue(SharedPrefHolder.getInstance(activity).lbl,85f)
-        else if (SharedPrefHolder.getInstance(activity).lbl == 0f)
-            rootView.rbBatteryLevel.setRangePinsByValue(20f, SharedPrefHolder.getInstance(activity).hbl)
+        else if (SharedPrefHolder.getInstance(mActivity).hbl == 0f)
+            rootView.rbBatteryLevel.setRangePinsByValue(SharedPrefHolder.getInstance(mActivity).lbl!!,85f)
+        else if (SharedPrefHolder.getInstance(mActivity).lbl == 0f)
+            rootView.rbBatteryLevel.setRangePinsByValue(20f, SharedPrefHolder.getInstance(mActivity).hbl!!)
         else
-            rootView.rbBatteryLevel.setRangePinsByValue(SharedPrefHolder.getInstance(activity).lbl, SharedPrefHolder.getInstance(activity).hbl)
+            rootView.rbBatteryLevel.setRangePinsByValue(SharedPrefHolder.getInstance(mActivity).lbl!!, SharedPrefHolder.getInstance(mActivity).hbl!!)
 
 
-        if(SharedPrefHolder.getInstance(activity).temp == 0f)
+        if(SharedPrefHolder.getInstance(mActivity).temp == 0f)
             rootView.rbTemp.setSeekPinByValue(35f)
         else
-            rootView.rbTemp.setSeekPinByValue(SharedPrefHolder.getInstance(activity).temp)
+            rootView.rbTemp.setSeekPinByValue(SharedPrefHolder.getInstance(mActivity).temp!!)
 
         return rootView
     }
@@ -64,13 +64,13 @@ class SetBatteryLevelFragment : Fragment(), CompoundButton.OnCheckedChangeListen
     override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
         when(p0!!.id){
             R.id.swBattery->{
-                SharedPrefHolder.getInstance(activity).batteryAlarmStatus = p1
+                SharedPrefHolder.getInstance(mActivity).batteryAlarmStatus = p1
             }
             R.id.swTemperature->{
-                SharedPrefHolder.getInstance(activity).temperatureAlarmStatus = p1
+                SharedPrefHolder.getInstance(mActivity).temperatureAlarmStatus = p1
             }
             R.id.swTheft->{
-                SharedPrefHolder.getInstance(activity).theftAlarmStatus = p1
+                SharedPrefHolder.getInstance(mActivity).theftAlarmStatus = p1
             }
         }
     }
@@ -78,14 +78,14 @@ class SetBatteryLevelFragment : Fragment(), CompoundButton.OnCheckedChangeListen
     override fun onRangeChangeListener(rangeBar: RangeBar?, leftPinIndex: Int, rightPinIndex: Int, leftPinValue: String?, rightPinValue: String?) {
         when(rangeBar!!.id){
             R.id.rbBatteryLevel->{
-                if(SharedPrefHolder.getInstance(activity).hbl != rightPinValue!!.toFloat())
-                    SharedPrefHolder.getInstance(activity).hbl = rightPinValue.toFloat()
-                if(SharedPrefHolder.getInstance(activity).lbl != leftPinValue!!.toFloat())
-                    SharedPrefHolder.getInstance(activity).lbl = leftPinValue.toFloat()
+                if(SharedPrefHolder.getInstance(mActivity).hbl != rightPinValue!!.toFloat())
+                    SharedPrefHolder.getInstance(mActivity).hbl = rightPinValue.toFloat()
+                if(SharedPrefHolder.getInstance(mActivity).lbl != leftPinValue!!.toFloat())
+                    SharedPrefHolder.getInstance(mActivity).lbl = leftPinValue.toFloat()
             }
             R.id.rbTemp->{
-                if(SharedPrefHolder.getInstance(activity).temp != rightPinValue!!.toFloat())
-                    SharedPrefHolder.getInstance(activity).temp = rightPinValue.toFloat()
+                if(SharedPrefHolder.getInstance(mActivity).temp != rightPinValue!!.toFloat())
+                    SharedPrefHolder.getInstance(mActivity).temp = rightPinValue.toFloat()
             }
         }
     }

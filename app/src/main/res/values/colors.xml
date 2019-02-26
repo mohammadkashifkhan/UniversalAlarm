@@ -13,7 +13,7 @@
 
     <color name="dayPressed">#F9B39A</color>
     <color name="daySelected">#F9B39A</color>
-    <color name="dayDeselected">#80ffd6c5</color>
+    <color name="dayDeselected">#64000000</color>
 
     ////////////////////////// Light //////////////////////////
     <color name="colorPrimaryDarkOrange">#F9B39A</color>

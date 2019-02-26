@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
 import com.google.android.material.snackbar.Snackbar
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmListAdapter
@@ -44,7 +45,6 @@ open class BaseActivity : AppCompatActivity() {
         parentLayout = findViewById(android.R.id.content)
 
         val location = GetCurrentLocation.instance.findLocation(applicationContext)
-        makeProgressDialog()
         if (location != null) {
             val latitude = location.latitude
             val longitude = location.longitude
@@ -78,15 +78,11 @@ open class BaseActivity : AppCompatActivity() {
             return false
         }
 
-    private fun makeProgressDialog() {
-        progressDialog = MaterialDialog.Builder(this@BaseActivity)
-                .cancelable(false)
-                .backgroundColor(resources.getColor(R.color.translucentBlack))
-                .customView(R.layout.layout_dialog_custom_progress, false).build()
-    }
-
     fun showLoader() {
-        progressDialog.show()
+        progressDialog = MaterialDialog(this).show {
+            cancelable(false)
+            customView(R.layout.layout_dialog_custom_progress)
+        }
     }
 
     fun hideLoader() {

@@ -1,49 +1,46 @@
 <resources>
     <string name="app_name">Universal Alarm</string>
-    <string name="pref_header_about">About</string>
+    <string name="pref_header_customize">Customize</string>
     <string name="pref_header_misc">Miscellaneous</string>
-    <string name="notifications_new_message">notifications_new_message</string>
-    <string name="key_notifications_new_message_ringtone">key_notifications_new_message_ringtone</string>
-    <string name="key_vibrate">key_vibrate</string>
-    <string name="key_send_feedback">key_send_feedback</string>
-    <string name="summary_support">Got any queries?</string>
-    <string name="title_send_feedback">Send Feedback</string>
-    <string name="title_faq">FAQ</string>
+    <string name="prefKeyTitleSendFeedback">Send Feedback</string>
+    <string name="prefKeyTitleFaq">FAQ</string>
     <string name="bot_text">Experiencing any problems, send feedback</string>
-    <string name="summary_faq">View frequently asked questions</string>
-    <string name="privacy_policy">Privacy Policy</string>
-    <string name="title_terms">Terms &amp; Conditions</string>
-    <string name="title_vibrate">Vibrate</string>
-    <string name="summary_vibrate">Vibrate on new notification</string>
-    <string name="pref_title_notifications">Notifications</string>
-    <string name="summary_choose_ringtone">Choose notification sound</string>
+    <string name="prefSummaryFaq">View frequently asked questions</string>
+    <string name="prefKeyTitlePP">Privacy Policy</string>
+    <string name="prefKeyTitleTNC">Terms &amp; Conditions</string>
+    <string name="prefKeyTitleVibrate">Vibrate</string>
+    <string name="prefSummaryVibrate">Vibrate on new notification</string>
+    <string name="prefSummaryRingtone">Choose notification sound</string>
     <string name="pref_ringtone_silent">Silent</string>
     <string name="summary_about">Made with &#9825; by Kashif</string>
-    <string name="rate">Rate</string>
-    <string name="rateSummary">Love this app, let me know by showing some love</string>
-    <string name="share">Share</string>
-    <string name="title_new_notification_sound">New alarm notification</string>
-    <string name="aboutDev">aboutdev</string>
-    <string name="aboutDevTitle">About</string>
-    <string name="title_version">Version</string>
-    <string name="keyAppVersion">AppVersion</string>
-    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="prefKeyTitleRate">Rate</string>
+    <string name="prefSummaryRate">Love this app, let me know by showing some love</string>
+    <string name="prefKeyTitleShare">Share</string>
+    <string name="prefKeyTitleAbout">About</string>
+    <string name="prefKeyTitleRingtone">Ringtone</string>
     <string name="add_Time">Time alarm</string>
     <string name="add_Battery">Battery alarm</string>
     <string name="add_Location">Location alarm</string>
     <string name="add_Prayer">Prayer alarm</string>
     <string name="settings">Settings</string>
-    <string name="customize">Customize</string>
-    <string name="theme">Theme</string>
+    <string name="prefKeyTitleTheme">Theme</string>
     <string name="dialogChooseThemeBtTitle">Select Theme</string>
     <string-array name="themes">
         <item>Auto</item>
         <item>Light</item>
         <item>Dark</item>
     </string-array>
+    <string name="snoozeTitle">Select Snooze Time</string>
+    <string-array name="snoozeTimings">
+        <item>1 minute</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>20 minutes</item>
+        <item>25 minutes</item>
+    </string-array>
     <string name="dialogChooseThemeBtText">Choose</string>
-    <string name="location">Location</string>
-    <string name="locationPrecision">Location Precision</string>
+    <string name="prefKeyTitleLocationPrecision">Location Precision</string>
     <string name="search_hint">Search for any Location..</string>
     <string name="openSourceLicenses">Open Source Licenses</string>
     <string name="aboutDevSummary">Software Er. Cinephile. Autodidact. Full time Nerd. Esurient Foodie</string>
