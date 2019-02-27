@@ -15,6 +15,7 @@
     <string name="summary_about">Made with &#9825; by Kashif</string>
     <string name="prefKeyTitleRate">Rate</string>
     <string name="prefSummaryRate">Love this app, let me know by showing some love</string>
+    <string name="prefKeyTitleSnooze">Snooze Time</string>
     <string name="prefKeyTitleShare">Share</string>
     <string name="prefKeyTitleAbout">About</string>
     <string name="prefKeyTitleRingtone">Ringtone</string>

@@ -23,6 +23,7 @@ import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmListAdapter
 import com.mdkashif.universalarm.alarm.prayer.geocoder.GetCurrentLocation
 import com.mdkashif.universalarm.alarm.prayer.geocoder.GetLocationAddress
+import com.mdkashif.universalarm.alarm.prayer.job.PrayerDataFetchScheduler
 import com.mdkashif.universalarm.custom.SwipeToDeleteCallback
 import com.mdkashif.universalarm.utils.AppConstants
 import com.mdkashif.universalarm.utils.persistence.AppDatabase
@@ -34,7 +35,7 @@ open class BaseActivity : AppCompatActivity() {
     private lateinit var progressDialog: MaterialDialog
     private var parentLayout: View? = null
 
-//    @Inject
+    //    @Inject
     lateinit var appDatabase: AppDatabase
 
 
@@ -51,7 +52,7 @@ open class BaseActivity : AppCompatActivity() {
             GetLocationAddress.getAddressFromLocation(latitude, longitude,
                     applicationContext, GeocodeHandler(applicationContext))
         }
-//        PrayerDataFetchScheduler.scheduleJob(applicationContext)
+        PrayerDataFetchScheduler.scheduleJob(applicationContext)
         appDatabase = AppDatabase.getAppDatabase(applicationContext)
     }
 
@@ -98,10 +99,10 @@ open class BaseActivity : AppCompatActivity() {
                 message, Snackbar.LENGTH_LONG).show()
     }
 
-    fun executeIntent(intent: Intent, doFinish : Boolean) {
+    fun executeIntent(intent: Intent, doFinish: Boolean) {
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-        if(doFinish)
+        if (doFinish)
             finish()
     }
 
@@ -169,7 +170,7 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun returnDbInstance():AppDatabase{
+    fun returnDbInstance(): AppDatabase {
         return appDatabase
     }
 

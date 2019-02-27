@@ -22,8 +22,6 @@
         <item name="colorControlHighlight">@color/colorPrimaryOrange</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-
     ////////////////////////// Light //////////////////////////
     <style name="commonLight" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowActionBar">false</item>

@@ -116,7 +116,28 @@ class SharedPrefHolder(context: Context) {
     var snoozeTimeArrayPosition: Int
         get() = pref.getInt(AppConstants.snoozeTimeArrayPosition, 0)
         set(position) {
-            editor.putInt(AppConstants.snoozeTimeArrayPosition, 0)
+            editor.putInt(AppConstants.snoozeTimeArrayPosition, position)
+            editor.commit()
+        }
+
+    var timezone: String
+        get() = pref.getString(AppConstants.timezone, "")
+        set(timezone) {
+            editor.putString(AppConstants.timezone, timezone)
+            editor.commit()
+        }
+
+    var islamicDate: String
+        get() = pref.getString(AppConstants.islamicDate, "")
+        set(date) {
+            editor.putString(AppConstants.islamicDate, date)
+            editor.commit()
+        }
+
+    var islamicMonth: String
+        get() = pref.getString(AppConstants.islamicMonth, "")
+        set(month) {
+            editor.putString(AppConstants.islamicMonth, month)
             editor.commit()
         }
 

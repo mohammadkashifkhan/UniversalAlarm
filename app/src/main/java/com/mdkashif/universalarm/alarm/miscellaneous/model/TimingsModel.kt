@@ -10,20 +10,18 @@ data class TimingsModel(
         @PrimaryKey(autoGenerate = true)
         var id: Long=0,
 
-        var day: String="",
-
-        var month: String="",
-
-        var year: String="",
-
         var hour: String="",
 
         var minute: String="",
+
+        var note: String="",
 
         @ColumnInfo(name = "type")
         var alarmType: String="",
 
         var repeat: Boolean = false,
+
+        var status: Boolean = false,
 
         @Ignore
         var repeatDays: List<DaysModel>?=null)

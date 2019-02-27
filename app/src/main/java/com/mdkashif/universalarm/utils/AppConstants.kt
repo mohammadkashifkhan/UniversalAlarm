@@ -25,6 +25,9 @@ object AppConstants {
     const val country = "country"
 
     const val snoozeTimeArrayPosition = "snoozeTimeArrayPosition"
+    const val timezone = "timezone"
+    const val islamicDate = "islamicDate"
+    const val islamicMonth = "islamicMonth"
 
     /////// SetBatteryLevelFragment ///////
     const val highBatteryLevel = "hbl"

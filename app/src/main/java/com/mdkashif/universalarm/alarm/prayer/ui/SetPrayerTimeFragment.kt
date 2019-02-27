@@ -82,6 +82,8 @@ class SetPrayerTimeFragment : Fragment(), PrayerPresenter.PrayerViewCallback, Co
 
     override fun onPrayerDetailSuccess(prayerApiResponse: PrayerApiResponse?) {
         mActivity.hideLoader()
+
+        // TODO: remove this and set values from db and sp
         tvTimezone.text = prayerApiResponse!!.data!!.meta!!.timezone
         tvIslamicDate.text = prayerApiResponse.data!!.date!!.hijri!!.date
         tvMonth.text = prayerApiResponse.data.date!!.hijri!!.month!!.en

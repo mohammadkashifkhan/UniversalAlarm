@@ -9,19 +9,17 @@ import com.mdkashif.universalarm.alarm.miscellaneous.model.TimingsModel
 @Dao
 interface RoomAccessDao {
     @Insert
-    fun addNewAlarm(timings: TimingsModel) : Long
+    fun addNewAlarm(timings: TimingsModel): Long
 
     @Insert
-    fun addRepeatDays(days: DaysModel) : Long
+    fun addNewAlarms(vararg timings: TimingsModel): List<Long>
 
-    @Query("Update Timings set day= :day, month=:month, year=:year where id=:alarmId")
-    fun updateAlarm(day: String, month: String, year: String, alarmId: Long)
+    @Insert
+    fun addRepeatDays(days: DaysModel): Long
 
-    @Query("Update Timings set hour=:hour, minute=:minute where id=:alarmId")
-    fun updateAlarm(hour: String, minute: String, alarmId: Long)
-
-    @Query("Update Timings set repeat=:repeat where id=:alarmId")
-    fun updateAlarm(repeat: Boolean, alarmId: Long)
+    // alarmtype isn't included here, because it shouldn't get updated
+    @Query("Update Timings set hour=:hour, minute=:minute, note=:note, repeat=:repeat, status=:status where id=:alarmId")
+    fun updateAlarm(hour: String, minute: String, note: String, repeat: Boolean, status: Boolean, alarmId: Long)
 
     @Query("Delete from Timings where id=:alarmId")
     fun deleteAlarm(alarmId: Long)

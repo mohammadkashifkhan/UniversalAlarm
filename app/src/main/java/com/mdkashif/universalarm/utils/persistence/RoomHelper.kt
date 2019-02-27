@@ -5,13 +5,12 @@ import android.os.AsyncTask
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmOps
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmTypes
 import com.mdkashif.universalarm.alarm.miscellaneous.model.TimingsModel
-import javax.inject.Inject
 
 
-class RoomHelper @Inject constructor(accessDao: RoomAccessDao){
+class RoomHelper  { //@Inject constructor(accessDao: RoomAccessDao)
 
     companion object {
-        var alarmCount=0
+        var alarmCount = 0
 
         fun transactFetchAsync(db: AppDatabase): List<TimingsModel> {
             return getTimingsWithDays(db)
@@ -59,10 +58,8 @@ class RoomHelper @Inject constructor(accessDao: RoomAccessDao){
         }
 
         private fun updateAlarm(db: AppDatabase, timingsModel: TimingsModel, id: Long) {
-            db.accessDao().updateAlarm(timingsModel.day, timingsModel.month, timingsModel.year, id)
-            db.accessDao().updateAlarm(timingsModel.hour, timingsModel.minute, id)
+            db.accessDao().updateAlarm(timingsModel.hour, timingsModel.minute, timingsModel.note, timingsModel.repeat, timingsModel.status, id)
             if (timingsModel.repeat) {
-                db.accessDao().updateAlarm(timingsModel.repeat, id)
                 for (i in timingsModel.repeatDays!!.indices) {
                     timingsModel.repeatDays!![i].fkAlarmId = id
                     db.accessDao().addRepeatDays(timingsModel.repeatDays!![i])
@@ -70,7 +67,7 @@ class RoomHelper @Inject constructor(accessDao: RoomAccessDao){
             }
         }
 
-        private fun countAllAlarms(db: AppDatabase) : Int {
+        private fun countAllAlarms(db: AppDatabase): Int {
             return db.accessDao().countAlarms()
         }
 

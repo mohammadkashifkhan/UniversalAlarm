@@ -57,6 +57,7 @@ class SettingsActivity : BaseActivity() {
             findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitlePP)).onPreferenceClickListener = this
             findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleTNC)).onPreferenceClickListener = this
             findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSendFeedback)).onPreferenceClickListener = this
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze)).onPreferenceClickListener = this
 
             toggleTheme = findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleTheme))
             toggleTheme.onPreferenceClickListener = this
@@ -173,6 +174,15 @@ class SettingsActivity : BaseActivity() {
 
         override fun onPreferenceClick(preference: androidx.preference.Preference?): Boolean {
             when (preference!!.title) {
+                getString(R.string.prefKeyTitleSnooze) -> {
+                    MaterialDialog(mActivity).show {
+                        title(R.string.snoozeTitle)
+                        listItemsSingleChoice(R.array.snoozeTimings) { dialog, index, text ->
+                            SharedPrefHolder.getInstance(mActivity).snoozeTimeArrayPosition = index
+                        }
+                    }
+                }
+
                 getString(R.string.prefKeyTitleAbout) ->
                     showAboutDevDialog()
 
@@ -281,7 +291,7 @@ class SettingsActivity : BaseActivity() {
 
                         if (ringtone == null)
                             preference.setSummary(R.string.prefSummaryRingtone)
-                         else {
+                        else {
                             val name = ringtone.getTitle(preference.getContext())
                             preference.setSummary(name)
                         }

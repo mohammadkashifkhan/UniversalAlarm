@@ -11,6 +11,11 @@
             android:title="@string/prefKeyTitleRingtone"
             android:icon="@drawable/ic_ringtone"/>
 
+        <Preference
+            android:key="@string/prefKeyTitleSnooze"
+            android:title="@string/prefKeyTitleSnooze"
+            android:icon="@drawable/ic_snooze"/>
+
         <SwitchPreference
             android:defaultValue="true"
             android:key="@string/prefKeyTitleVibrate"
