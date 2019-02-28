@@ -2,7 +2,6 @@ package com.mdkashif.universalarm.activities
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -25,7 +24,6 @@ import com.mdkashif.universalarm.alarm.prayer.geocoder.GetCurrentLocation
 import com.mdkashif.universalarm.alarm.prayer.geocoder.GetLocationAddress
 import com.mdkashif.universalarm.alarm.prayer.job.PrayerDataFetchScheduler
 import com.mdkashif.universalarm.custom.SwipeToDeleteCallback
-import com.mdkashif.universalarm.utils.AppConstants
 import com.mdkashif.universalarm.utils.persistence.AppDatabase
 import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
 
@@ -173,17 +171,4 @@ open class BaseActivity : AppCompatActivity() {
     fun returnDbInstance(): AppDatabase {
         return appDatabase
     }
-
-    fun detectThemeAuto(): String {
-        var autoTheme = ""
-        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_NO -> autoTheme = AppConstants.themeLight
-
-            Configuration.UI_MODE_NIGHT_YES -> autoTheme = AppConstants.themeDark
-
-            Configuration.UI_MODE_NIGHT_UNDEFINED -> autoTheme = "undefined"
-        }
-        return autoTheme
-    }
-
 }

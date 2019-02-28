@@ -28,11 +28,14 @@ interface RoomAccessDao {
     fun countAlarms(): Int
 
     @Query("SELECT * FROM Timings")
-    fun getAllAlarms(): List<TimingsModel>
+    fun getAllAlarms(): MutableList<TimingsModel>
 
     @Query("SELECT * FROM Timings where type=:type")
-    fun getSpecificAlarms(type: String): List<TimingsModel>
+    fun getSpecificAlarms(type: String): MutableList<TimingsModel>
+
+    @Query("SELECT * FROM Timings where type!='Time'")
+    fun getPrayerAlarms(): MutableList<TimingsModel>
 
     @Query("SELECT * FROM Days WHERE alarmId =:alarmId")
-    fun getRepeatDays(alarmId: Long): List<DaysModel>
+    fun getRepeatDays(alarmId: Long): MutableList<DaysModel>
 }

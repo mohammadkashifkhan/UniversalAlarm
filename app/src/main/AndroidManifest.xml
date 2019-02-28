@@ -30,17 +30,17 @@
         <activity
             android:name="com.mdkashif.universalarm.activities.BaseActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/commonLight" />
+            android:theme="@style/lightTheme" />
         <activity
             android:name="com.mdkashif.universalarm.activities.ContainerActivity"
-            android:theme="@style/commonLight" />
+            android:theme="@style/lightTheme" />
         <activity
             android:name="com.mdkashif.universalarm.activities.SettingsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/settingsLightTheme" />
         <activity
             android:name="com.mdkashif.universalarm.activities.SplashActivity"
-            android:theme="@style/splash">
+            android:theme="@style/lightTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -55,12 +55,12 @@
         <activity
             android:name="com.mdkashif.universalarm.activities.AppIntroActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/commonLight" />
+            android:theme="@style/lightTheme" />
 
         <activity
             android:name="com.mdkashif.universalarm.security.AntiTheftUnlockActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/commonLight" />
+            android:theme="@style/lightTheme" />
 
         <receiver android:name="com.mdkashif.universalarm.alarm.battery.misc.BatteryInfoReceiver">
             <intent-filter>
@@ -86,7 +86,7 @@
         <activity
             android:name="com.mdkashif.universalarm.activities.WebviewActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/commonLight" />
+            android:theme="@style/lightTheme" />
     </application>
 
 </manifest>

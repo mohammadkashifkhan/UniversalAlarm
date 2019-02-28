@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import ca.antonious.materialdaypicker.MaterialDayPicker
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.activities.ContainerActivity
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmOps
@@ -20,7 +21,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class SetTimeFragment : Fragment(), View.OnClickListener {
+class SetTimeFragment : Fragment(), View.OnClickListener, MaterialDayPicker.DayPressedListener {
 
     private lateinit var mActivity: ContainerActivity
     private lateinit var rootView: View
@@ -36,12 +37,7 @@ class SetTimeFragment : Fragment(), View.OnClickListener {
         rootView = inflater.inflate(R.layout.fragment_set_time, container, false)
         rootView.tvPickTime.setOnClickListener(this)
         rootView.btSaveAlarm.setOnClickListener(this)
-        rootView.dpDays.setDayPressedListener { weekday, isSelected ->
-            if (isSelected)
-                selectedDays.add(weekday!!.toString())
-            else
-                selectedDays.remove(weekday!!.toString())
-        }
+        rootView.dpDays.setDayPressedListener(this)
 
         rootView.tvDubai.text = """Dubai : ${TimePresenter.getDifferentZonedTimes(1)}"""
         rootView.tvNewYork.text = """New York : ${TimePresenter.getDifferentZonedTimes(2)}"""
@@ -79,27 +75,38 @@ class SetTimeFragment : Fragment(), View.OnClickListener {
             R.id.btSaveAlarm -> {
                 when {
                     selectedDays.isEmpty() -> {
-                        timingsModel = if (rootView.etNote.text.toString().isEmpty())
-                            TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, alarmType = AlarmTypes.Time.toString(), status = true)
-                        else
-                            TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, note = rootView.etNote.text.toString(), alarmType = AlarmTypes.Time.toString(), status = true)
-                        doAccordingly()
+                        if (this.selectedMinute.isNotEmpty()) {
+                            timingsModel = if (rootView.etNote.text.toString().isEmpty())
+                                TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, alarmType = AlarmTypes.Time.toString(), status = true)
+                            else
+                                TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, note = rootView.etNote.text.toString(), alarmType = AlarmTypes.Time.toString(), status = true)
+                            doAccordingly()
+                        }
                     }
                     else -> {
-                        for (day in selectedDays) {
-                            val daysModel = DaysModel(repeatDay = day)
-                            daysList.add(daysModel)
-                        }
+                        if (this.selectedMinute.isNotEmpty()) {
+                            for (day in selectedDays) {
+                                val daysModel = DaysModel(repeatDay = day)
+                                daysList.add(daysModel)
+                            }
 
-                        timingsModel = if (rootView.etNote.text.toString().isEmpty())
-                            TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, alarmType = AlarmTypes.Time.toString(), repeat = true, status = true, repeatDays = daysList)
-                        else
-                            TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, note = rootView.etNote.text.toString(), alarmType = AlarmTypes.Time.toString(), repeat = true, status = true, repeatDays = daysList)
-                        doAccordingly()
+                            timingsModel = if (rootView.etNote.text.toString().isEmpty())
+                                TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, alarmType = AlarmTypes.Time.toString(), repeat = true, status = true, repeatDays = daysList)
+                            else
+                                TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, note = rootView.etNote.text.toString(), alarmType = AlarmTypes.Time.toString(), repeat = true, status = true, repeatDays = daysList)
+                            doAccordingly()
+                        }
                     }
                 }
             }
         }
+    }
+
+    override fun onDayPressed(weekday: MaterialDayPicker.Weekday?, isSelected: Boolean) {
+        if (isSelected)
+            selectedDays.add(weekday!!.toString())
+        else
+            selectedDays.remove(weekday!!.toString())
     }
 
     private fun doAccordingly() {

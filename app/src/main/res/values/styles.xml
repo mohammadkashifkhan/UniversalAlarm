@@ -1,29 +1,7 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimaryOrange</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDarkOrange</item>
-        <item name="colorAccent">@color/colorAccentOrange</item>
-        <item name="colorControlNormal">@color/black</item>
-        <item name="colorControlActivated">@color/colorPrimaryDarkOrange</item>
-        <item name="colorControlHighlight">@color/colorPrimaryDarkOrange</item>
-        <item name="colorSwitchThumbNormal">@color/lightColorPrimaryDarkOrange</item>
-        <item name="android:colorForeground">@color/black</item>
-    </style>
-
-    <style name="splash" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="colorPrimary">@color/colorPrimaryOrange</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDarkOrange</item>
-        <item name="colorAccent">@color/colorAccentOrange</item>
-        <item name="colorControlNormal">@color/black</item>
-        <item name="colorControlActivated">@color/colorPrimaryOrange</item>
-        <item name="colorControlHighlight">@color/colorPrimaryOrange</item>
-    </style>
-
     ////////////////////////// Light //////////////////////////
-    <style name="commonLight" parent="Theme.AppCompat.NoActionBar">
+    <style name="lightTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="colorPrimary">@color/colorPrimaryOrange</item>
@@ -36,10 +14,32 @@
         <item name="android:colorForeground">@color/lightestColorPrimaryDarkOrange</item>
     </style>
 
+    <style name="settingsLightTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimaryOrange</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkOrange</item>
+        <item name="colorAccent">@color/colorAccentOrange</item>
+        <item name="colorControlNormal">@color/black</item>
+        <item name="colorControlActivated">@color/colorPrimaryDarkOrange</item>
+        <item name="colorControlHighlight">@color/colorPrimaryDarkOrange</item>
+        <item name="colorSwitchThumbNormal">@color/lightColorPrimaryDarkOrange</item>
+        <item name="android:colorForeground">@color/black</item>
+    </style>
+
     ////////////////////////// Dark //////////////////////////
-    <style name="commonDark" parent="Theme.AppCompat.NoActionBar">
+    <style name="darkTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimaryGrey</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkGrey</item>
+        <item name="colorAccent">@color/colorAccentGrey</item>
+        <item name="colorControlNormal">@color/black</item>
+        <item name="colorControlActivated">@color/colorPrimaryDarkGrey</item>
+        <item name="colorControlHighlight">@color/colorPrimaryDarkGrey</item>
+        <item name="colorSwitchThumbNormal">@color/lightestColorPrimaryDarkGrey</item>
+        <item name="android:colorForeground">@color/lightestColorPrimaryDarkGrey</item>
+    </style>
+
+    <style name="settingsDarkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimaryGrey</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkGrey</item>
         <item name="colorAccent">@color/colorAccentGrey</item>
