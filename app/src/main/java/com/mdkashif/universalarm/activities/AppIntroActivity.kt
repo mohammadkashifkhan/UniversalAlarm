@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import com.mdkashif.universalarm.R
+import com.mdkashif.universalarm.base.BaseActivity
 import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
 import kotlinx.android.synthetic.main.activity_app_intro.*
 

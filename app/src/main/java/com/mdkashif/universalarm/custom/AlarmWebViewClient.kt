@@ -2,7 +2,7 @@ package com.mdkashif.universalarm.custom
 
 import android.graphics.Bitmap
 import android.webkit.WebView
-import com.mdkashif.universalarm.activities.BaseActivity
+import com.mdkashif.universalarm.base.BaseActivity
 
 class AlarmWebViewClient(private val baseActivity: BaseActivity) : android.webkit.WebViewClient() {
     private var isErrorReceived = false

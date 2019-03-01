@@ -1,5 +1,6 @@
 package com.mdkashif.universalarm.utils.persistence
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -12,9 +13,6 @@ interface RoomAccessDao {
     fun addNewAlarm(timings: TimingsModel): Long
 
     @Insert
-    fun addNewAlarms(vararg timings: TimingsModel): List<Long>
-
-    @Insert
     fun addRepeatDays(days: DaysModel): Long
 
     // alarmtype isn't included here, because it shouldn't get updated
@@ -25,7 +23,7 @@ interface RoomAccessDao {
     fun deleteAlarm(alarmId: Long)
 
     @Query("SELECT COUNT(*) from Timings")
-    fun countAlarms(): Int
+    fun countAlarms(): LiveData<Int>
 
     @Query("SELECT * FROM Timings")
     fun getAllAlarms(): MutableList<TimingsModel>

@@ -1,6 +1,5 @@
 package com.mdkashif.universalarm.alarm.prayer.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +7,12 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import android.widget.CompoundButton
-import androidx.fragment.app.Fragment
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.activities.ContainerActivity
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmOps
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmTypes
 import com.mdkashif.universalarm.alarm.miscellaneous.model.TimingsModel
 import com.mdkashif.universalarm.alarm.prayer.misc.Compass
+import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.utils.persistence.RoomHelper
 import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
 import io.reactivex.disposables.CompositeDisposable
@@ -22,9 +20,8 @@ import kotlinx.android.synthetic.main.fragment_set_prayer_time.*
 import kotlinx.android.synthetic.main.fragment_set_prayer_time.view.*
 
 
-class SetPrayerTimeFragment : Fragment(), CompoundButton.OnCheckedChangeListener {
+class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener {
 
-    private lateinit var mActivity: ContainerActivity
     private var timingsList: List<TimingsModel> = ArrayList()
 
     private var compass: Compass? = null
@@ -101,11 +98,6 @@ class SetPrayerTimeFragment : Fragment(), CompoundButton.OnCheckedChangeListener
         }
 
         return rootView
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        this.mActivity = context as ContainerActivity
     }
 
     override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {

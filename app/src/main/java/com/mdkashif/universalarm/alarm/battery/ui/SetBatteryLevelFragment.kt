@@ -1,26 +1,22 @@
 package com.mdkashif.universalarm.alarm.battery.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.appyvet.materialrangebar.RangeBar
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.activities.ContainerActivity
 import com.mdkashif.universalarm.alarm.battery.misc.BatteryLiveData
 import com.mdkashif.universalarm.alarm.battery.misc.BatteryStatsPoJo
+import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
 import kotlinx.android.synthetic.main.fragment_set_battery_level.*
 import kotlinx.android.synthetic.main.fragment_set_battery_level.view.*
 
 
-class SetBatteryLevelFragment : Fragment(), CompoundButton.OnCheckedChangeListener, RangeBar.OnRangeBarChangeListener {
-
-    private lateinit var mActivity: ContainerActivity
+class SetBatteryLevelFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener, RangeBar.OnRangeBarChangeListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -43,20 +39,17 @@ class SetBatteryLevelFragment : Fragment(), CompoundButton.OnCheckedChangeListen
         rootView.swTemperature.isChecked = SharedPrefHolder.getInstance(mActivity).temperatureAlarmStatus == true
         rootView.swTheft.isChecked = SharedPrefHolder.getInstance(mActivity).theftAlarmStatus == true
 
-        if((SharedPrefHolder.getInstance(mActivity).hbl == 0f) && (SharedPrefHolder.getInstance(mActivity).lbl == 0f))
-            rootView.rbBatteryLevel.setRangePinsByValue(20f,85f)
-        else if (SharedPrefHolder.getInstance(mActivity).hbl == 0f)
-            rootView.rbBatteryLevel.setRangePinsByValue(SharedPrefHolder.getInstance(mActivity).lbl!!,85f)
-        else if (SharedPrefHolder.getInstance(mActivity).lbl == 0f)
-            rootView.rbBatteryLevel.setRangePinsByValue(20f, SharedPrefHolder.getInstance(mActivity).hbl!!)
-        else
-            rootView.rbBatteryLevel.setRangePinsByValue(SharedPrefHolder.getInstance(mActivity).lbl!!, SharedPrefHolder.getInstance(mActivity).hbl!!)
+        when {
+            (SharedPrefHolder.getInstance(mActivity).hbl == 0f) && (SharedPrefHolder.getInstance(mActivity).lbl == 0f) -> rootView.rbBatteryLevel.setRangePinsByValue(20f,85f)
+            SharedPrefHolder.getInstance(mActivity).hbl == 0f -> rootView.rbBatteryLevel.setRangePinsByValue(SharedPrefHolder.getInstance(mActivity).lbl!!,85f)
+            SharedPrefHolder.getInstance(mActivity).lbl == 0f -> rootView.rbBatteryLevel.setRangePinsByValue(20f, SharedPrefHolder.getInstance(mActivity).hbl!!)
+            else -> rootView.rbBatteryLevel.setRangePinsByValue(SharedPrefHolder.getInstance(mActivity).lbl!!, SharedPrefHolder.getInstance(mActivity).hbl!!)
+        }
 
-
-        if(SharedPrefHolder.getInstance(mActivity).temp == 0f)
-            rootView.rbTemp.setSeekPinByValue(35f)
-        else
-            rootView.rbTemp.setSeekPinByValue(SharedPrefHolder.getInstance(mActivity).temp!!)
+        when {
+            SharedPrefHolder.getInstance(mActivity).temp == 0f -> rootView.rbTemp.setSeekPinByValue(35f)
+            else -> rootView.rbTemp.setSeekPinByValue(SharedPrefHolder.getInstance(mActivity).temp!!)
+        }
 
         return rootView
     }
@@ -88,11 +81,6 @@ class SetBatteryLevelFragment : Fragment(), CompoundButton.OnCheckedChangeListen
                     SharedPrefHolder.getInstance(mActivity).temp = rightPinValue.toFloat()
             }
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        this.mActivity = context as ContainerActivity
     }
 
 }

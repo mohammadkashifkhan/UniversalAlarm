@@ -1,9 +1,10 @@
-package com.mdkashif.universalarm
+package com.mdkashif.universalarm.base
 
 import android.app.Activity
 import android.app.Application
 import com.facebook.stetho.Stetho
 import com.github.omadahealth.lollipin.lib.managers.LockManager
+import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.security.AntiTheftUnlockActivity
 import dagger.android.DispatchingAndroidInjector
 import javax.inject.Inject

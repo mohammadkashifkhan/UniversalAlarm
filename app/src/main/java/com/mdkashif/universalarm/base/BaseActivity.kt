@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.activities
+package com.mdkashif.universalarm.base
 
 import android.content.Context
 import android.content.Intent
@@ -53,6 +53,10 @@ open class BaseActivity : AppCompatActivity() {
         PrayerDataFetchScheduler.scheduleJob(applicationContext)
         appDatabase = AppDatabase.getAppDatabase(applicationContext)
     }
+
+//    protected fun onApplyThemeResource(theme: Resources.Theme, resid: Int, first: Boolean) {
+//        super.onApplyThemeResource(theme, ThemeHelper.active(applicationContext), first)
+//    }
 
     val isOnline: Boolean
         get() {

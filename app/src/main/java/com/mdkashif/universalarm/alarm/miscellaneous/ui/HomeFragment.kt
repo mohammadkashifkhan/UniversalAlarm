@@ -1,16 +1,13 @@
 package com.mdkashif.universalarm.alarm.miscellaneous.ui
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.activities.ContainerActivity
 import com.mdkashif.universalarm.activities.SettingsActivity
 import com.mdkashif.universalarm.alarm.battery.ui.SetBatteryLevelFragment
 import com.mdkashif.universalarm.alarm.location.ui.SetLocationFragment
@@ -18,14 +15,15 @@ import com.mdkashif.universalarm.alarm.miscellaneous.AlarmListAdapter
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmTypes
 import com.mdkashif.universalarm.alarm.prayer.ui.SetPrayerTimeFragment
 import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment
+import com.mdkashif.universalarm.base.BaseFragment
+import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
-class HomeFragment : Fragment(), View.OnClickListener {
+class HomeFragment : BaseFragment(), View.OnClickListener {
 
     private val alarmType: MutableList<String> = mutableListOf(AlarmTypes.Time.toString(), AlarmTypes.Battery.toString(), AlarmTypes.Asr.toString(), AlarmTypes.Location.toString())
     private lateinit var mLinearLayoutManager: LinearLayoutManager
     private lateinit var rootView: View
-    private lateinit var mActivity: ContainerActivity
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -41,11 +39,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
         setRVAdapter(rootView.rvAlarms)
 
         return rootView
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mActivity = context as ContainerActivity
     }
 
     override fun onClick(p0: View?) {
@@ -64,7 +57,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             }
             R.id.fabSalat -> {
                 rootView.menu.close(true)
-                if (mActivity.isOnline)
+                if (SharedPrefHolder.getInstance(mActivity).islamicDate!="")
                     mActivity.replaceFragment(SetPrayerTimeFragment(), SetPrayerTimeFragment::class.java.simpleName, true)
                 else
                     mActivity.showSnackBar("Please try after some time")

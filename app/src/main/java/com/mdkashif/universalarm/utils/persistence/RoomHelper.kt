@@ -2,6 +2,7 @@ package com.mdkashif.universalarm.utils.persistence
 
 
 import android.os.AsyncTask
+import androidx.lifecycle.LiveData
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmOps
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmTypes
 import com.mdkashif.universalarm.alarm.miscellaneous.model.TimingsModel
@@ -11,7 +12,7 @@ class RoomHelper { //@Inject constructor(accessDao: RoomAccessDao)
 
     companion object {
 
-        fun transactFetchAsync(db: AppDatabase, type: AlarmTypes): Pair<List<TimingsModel>,Int> {
+        fun transactFetchAsync(db: AppDatabase, type: AlarmTypes): Pair<List<TimingsModel>,LiveData<Int>> {
             return if (type == AlarmTypes.Prayer) // instead of specifying each type explicitely, specified prayer to get all of them
                 TransactDbAsync(db, null, 0).execute(AlarmOps.Get.toString()).get()
             else
@@ -25,7 +26,7 @@ class RoomHelper { //@Inject constructor(accessDao: RoomAccessDao)
                 TransactDbAsync(db, timingsModel, id).execute(taskType)
         }
 
-        fun transactCountAsync(db: AppDatabase): Pair<List<TimingsModel>,Int> {
+        fun transactCountAsync(db: AppDatabase): Pair<List<TimingsModel>,LiveData<Int>> {
             return TransactDbAsync(db, null, 0).execute(AlarmOps.Count.toString()).get()
         }
 
@@ -73,24 +74,24 @@ class RoomHelper { //@Inject constructor(accessDao: RoomAccessDao)
             }
         }
 
-        private fun countAllAlarms(db: AppDatabase): Int {
+        private fun countAllAlarms(db: AppDatabase): LiveData<Int> {
             return db.accessDao().countAlarms()
         }
 
-        private class TransactDbAsync(private val db: AppDatabase, private val timingsModel: TimingsModel?, private val alarmId: Long) : AsyncTask<String, Any, Pair<MutableList<TimingsModel>,Int>>() {
+        private class TransactDbAsync(private val db: AppDatabase, private val timingsModel: TimingsModel?, private val alarmId: Long) : AsyncTask<String, Any, Pair<MutableList<TimingsModel>,LiveData<Int>>>() {
             var timingsList: MutableList<TimingsModel> = ArrayList()
 
             override fun onPreExecute() {
                 super.onPreExecute()
                 timingsList.clear()
             }
-            override fun doInBackground(vararg params: String): Pair<MutableList<TimingsModel>,Int>? {
+            override fun doInBackground(vararg params: String): Pair<MutableList<TimingsModel>,LiveData<Int>>? {
                 when (params[0]) {
                     AlarmOps.Get.toString() -> {
                         (return if (alarmId == 0.toLong())
-                            Pair(getPrayerTimings(db),0)
+                            Pair(getPrayerTimings(db),countAllAlarms(db))
                         else
-                            Pair(getTimingsWithDays(db),0))
+                            Pair(getTimingsWithDays(db),countAllAlarms(db)))
                     }
                     AlarmOps.Check.toString() -> {
                         timingsList = getSpecificTimings(db, timingsModel!!)
@@ -98,7 +99,7 @@ class RoomHelper { //@Inject constructor(accessDao: RoomAccessDao)
                         if (timingsList.isNotEmpty())
                             TransactDbAsync(db, timingsModel, timingsList[0].id).execute(AlarmOps.Update.toString()) // update an existing prayer alarm
                         else
-                            TransactDbAsync(db, timingsModel, alarmId).execute(AlarmOps.Add.toString()) // add a prayer alarm
+                            TransactDbAsync(db, timingsModel, alarmId).execute(AlarmOps.Add.toString()) // add the prayer alarm
                     }
                     AlarmOps.Add.toString() -> {
                         if (timingsModel!!.repeat) {

@@ -1,24 +1,20 @@
 package com.mdkashif.universalarm.alarm.miscellaneous.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.activities.ContainerActivity
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmListAdapter
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmTypes
+import com.mdkashif.universalarm.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_show_all_alarms.*
 
-class ShowAllAlarmsFragment : Fragment() {
+class ShowAllAlarmsFragment : BaseFragment() {
     private val alarmType: MutableList<String> = mutableListOf(AlarmTypes.Time.toString(), AlarmTypes.Battery.toString(), AlarmTypes.Fajr.toString(), AlarmTypes.Dhuhr.toString(), AlarmTypes.Isha.toString(), AlarmTypes.Time.toString())
     private var mLinearLayoutManager : LinearLayoutManager?=null
-
-    private lateinit var mActivity: ContainerActivity
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -31,13 +27,8 @@ class ShowAllAlarmsFragment : Fragment() {
         setAdapter()
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mActivity = context as ContainerActivity
-    }
-
     private fun setAdapter() {
-        mLinearLayoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        mLinearLayoutManager = LinearLayoutManager(mActivity, RecyclerView.VERTICAL, false)
         rvAlarms.layoutManager=mLinearLayoutManager
         mActivity.setRVSlideInLeftAnimation(rvAlarms)
         val adapter = AlarmListAdapter(alarmType)

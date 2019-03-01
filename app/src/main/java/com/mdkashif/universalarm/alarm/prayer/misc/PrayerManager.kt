@@ -13,8 +13,8 @@ class PrayerManager(val prayerPresenterCallback: PrayerPresenterCallback) {
     fun getPrayerDetails(disposable: CompositeDisposable, city: String, country: String) {
         val prayerCall = apiInterface.getPrayerDetails(city, country)
 
-        disposable.add(prayerCall.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        disposable.add(prayerCall.subscribeOn(Schedulers.io()) // io thread used for fetching data
+                .observeOn(AndroidSchedulers.mainThread()) // data thrown to main thread
                 .subscribeWith(object : DisposableSingleObserver<PrayerApiResponse>() {
             override fun onSuccess(t: PrayerApiResponse) {
                 prayerPresenterCallback.onGetPrayerDetails(t)

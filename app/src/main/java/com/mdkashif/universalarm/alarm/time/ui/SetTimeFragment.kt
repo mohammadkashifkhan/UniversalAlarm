@@ -1,29 +1,26 @@
 package com.mdkashif.universalarm.alarm.time.ui
 
 import android.app.TimePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import ca.antonious.materialdaypicker.MaterialDayPicker
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.activities.ContainerActivity
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmOps
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmTypes
 import com.mdkashif.universalarm.alarm.miscellaneous.model.DaysModel
 import com.mdkashif.universalarm.alarm.miscellaneous.model.TimingsModel
 import com.mdkashif.universalarm.alarm.time.TimePresenter
+import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.utils.persistence.RoomHelper
 import kotlinx.android.synthetic.main.fragment_set_time.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class SetTimeFragment : Fragment(), View.OnClickListener, MaterialDayPicker.DayPressedListener {
+class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.DayPressedListener {
 
-    private lateinit var mActivity: ContainerActivity
     private lateinit var rootView: View
     private var selectedDays: MutableList<String> = ArrayList()
     private lateinit var timingsModel: TimingsModel
@@ -46,11 +43,6 @@ class SetTimeFragment : Fragment(), View.OnClickListener, MaterialDayPicker.DayP
         rootView.tvBrasilia.text = """Brasilia : ${TimePresenter.getDifferentZonedTimes(5)}"""
         rootView.tvLondon.text = """London : ${TimePresenter.getDifferentZonedTimes(6)}"""
         return rootView
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        this.mActivity = context as ContainerActivity
     }
 
     override fun onClick(p0: View?) {

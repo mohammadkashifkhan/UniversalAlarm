@@ -7,6 +7,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import com.crashlytics.android.Crashlytics
 import com.mdkashif.universalarm.R
+import com.mdkashif.universalarm.base.BaseActivity
 import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
 import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_splash.*

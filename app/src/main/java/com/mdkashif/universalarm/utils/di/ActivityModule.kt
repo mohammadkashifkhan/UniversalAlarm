@@ -1,6 +1,6 @@
 package com.mdkashif.universalarm.utils.di
 
-import com.mdkashif.universalarm.activities.BaseActivity
+import com.mdkashif.universalarm.base.BaseActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

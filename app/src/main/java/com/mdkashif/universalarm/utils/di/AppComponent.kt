@@ -1,7 +1,7 @@
 package com.mdkashif.universalarm.utils.di
 
 import android.app.Application
-import com.mdkashif.universalarm.BaseApplication
+import com.mdkashif.universalarm.base.BaseApplication
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule

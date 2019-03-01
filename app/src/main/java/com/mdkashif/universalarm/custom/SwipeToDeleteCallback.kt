@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.activities.BaseActivity
+import com.mdkashif.universalarm.base.BaseActivity
 
 open class SwipeToDeleteCallback(context: BaseActivity) : ItemTouchHelper.Callback() {
     private val mContext: Context

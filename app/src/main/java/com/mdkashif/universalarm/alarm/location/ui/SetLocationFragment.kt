@@ -2,7 +2,6 @@ package com.mdkashif.universalarm.alarm.location.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.location.Location
@@ -12,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.Fragment
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GooglePlayServicesUtil
 import com.google.android.gms.common.api.GoogleApiClient
@@ -31,9 +29,9 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.activities.ContainerActivity
+import com.mdkashif.universalarm.base.BaseFragment
 
-class SetLocationFragment : Fragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
+class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
 GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private val PLAY_SERVICES_RESOLUTION_REQUEST = 1000
@@ -49,7 +47,6 @@ GoogleApiClient.OnConnectionFailedListener, LocationListener {
     private var mapView : MapView? = null
     private var latitude: Double = 0.toDouble()
     private var longitude:Double = 0.toDouble()
-    private lateinit var mActivity: ContainerActivity
     private lateinit var fgPlaceAutocomplete: PlaceAutocompleteFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -263,10 +260,4 @@ GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
         displayLocation()
     }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        this.mActivity = context as ContainerActivity
-    }
-
 }

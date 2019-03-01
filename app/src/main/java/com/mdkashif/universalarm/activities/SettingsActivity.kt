@@ -26,8 +26,8 @@ import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.mdkashif.universalarm.R
+import com.mdkashif.universalarm.base.BaseActivity
 import com.mdkashif.universalarm.utils.AppConstants
-import com.mdkashif.universalarm.utils.ThemeHelper
 import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
 import com.pkmmte.view.CircularImageView
 import jp.wasabeef.blurry.Blurry
@@ -239,7 +239,7 @@ class SettingsActivity : BaseActivity() {
                     MaterialDialog(mActivity).show {
                         title(R.string.dialogChooseThemeBtTitle)
                         listItemsSingleChoice(R.array.themes) { dialog, index, text ->
-                            ThemeHelper.switchTheme(context, mActivity, resources.getStringArray(R.array.themes)[index])
+//                            ThemeHelper.switchTheme(context, mActivity, resources.getStringArray(R.array.themes)[index])
                             toggleTheme.summary = resources.getStringArray(R.array.themes)[index]
                             dialog.dismiss()
 //                            val theme = R.style.settingsDarkTheme

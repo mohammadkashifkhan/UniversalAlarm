@@ -9,6 +9,7 @@ import com.mdkashif.universalarm.alarm.miscellaneous.ui.BuzzingAlarmFragment
 import com.mdkashif.universalarm.alarm.miscellaneous.ui.HomeFragment
 import com.mdkashif.universalarm.alarm.prayer.ui.SetPrayerTimeFragment
 import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment
+import com.mdkashif.universalarm.base.BaseActivity
 import permissions.dispatcher.*
 
 
