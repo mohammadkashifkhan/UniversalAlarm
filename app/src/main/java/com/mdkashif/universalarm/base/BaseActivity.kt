@@ -19,7 +19,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.google.android.material.snackbar.Snackbar
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.alarm.miscellaneous.AlarmListAdapter
+import com.mdkashif.universalarm.alarm.miscellaneous.AlarmsListAdapter
 import com.mdkashif.universalarm.alarm.prayer.geocoder.GetCurrentLocation
 import com.mdkashif.universalarm.alarm.prayer.geocoder.GetLocationAddress
 import com.mdkashif.universalarm.alarm.prayer.job.PrayerDataFetchScheduler
@@ -136,11 +136,11 @@ open class BaseActivity : AppCompatActivity() {
         view.layoutAnimation = controller
     }
 
-    fun enableSwipeToDeleteAndUndo(mAdapter: AlarmListAdapter, mRecyclerView: RecyclerView) {
+    fun enableSwipeToDeleteAndUndo(mAdapter: AlarmsListAdapter, mRecyclerView: RecyclerView) {
         val swipeToDeleteCallback = object : SwipeToDeleteCallback(this) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
                 val position = viewHolder.adapterPosition
-                val item = mAdapter.data[position]
+                val item = mAdapter.alarmsList[position]
 
                 mAdapter.removeItem(position)
 

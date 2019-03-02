@@ -1,6 +1,5 @@
 package com.mdkashif.universalarm.alarm.miscellaneous.model
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -9,11 +8,12 @@ data class LocationsModel(
         @PrimaryKey(autoGenerate = true)
         var id: Int = 0,
 
-        @ColumnInfo(name = "address")
-        var address: String? = null,
+        var address: String = "",
 
-        @ColumnInfo(name = "latitude")
-        var latitude: Long? = null,
+        var city: String = "",
 
-        @ColumnInfo(name = "longitude")
-        var longitude: Long? = null)
+        var latitude: Long = 0,
+
+        var longitude: Long = 0,
+
+        var status: Boolean = false)

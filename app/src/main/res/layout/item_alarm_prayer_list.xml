@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/powerSwitch1"
+        android:id="@+id/swPrayer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -38,36 +38,33 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/tvPrayerTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="06:56"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPrayerType" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/tvPrayerTimeType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="AM"
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView1"
+        app:layout_constraintStart_toEndOf="@+id/tvPrayerTime"
         app:layout_constraintTop_toBottomOf="@+id/tvPrayerType" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvETA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="ETA: 4 hrs to go"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

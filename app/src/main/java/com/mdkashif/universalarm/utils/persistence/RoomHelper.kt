@@ -12,11 +12,11 @@ class RoomHelper { //@Inject constructor(accessDao: RoomAccessDao)
 
     companion object {
 
-        fun transactFetchAsync(db: AppDatabase, type: AlarmTypes): Pair<List<TimingsModel>,LiveData<Int>> {
-            return if (type == AlarmTypes.Prayer) // instead of specifying each type explicitely, specified prayer to get all of them
-                TransactDbAsync(db, null, 0).execute(AlarmOps.Get.toString()).get()
-            else
-                TransactDbAsync(db, null, 1).execute(AlarmOps.Get.toString()).get() // passed 1 just to differentiate between time and prayer alarm
+        fun transactFetchAsync(db: AppDatabase, type: AlarmTypes): Pair<MutableList<TimingsModel>,LiveData<Int>> {
+            return when (type) {
+                AlarmTypes.Prayer -> TransactDbAsync(db, null, 0).execute(AlarmOps.Get.toString()).get() // instead of specifying each type explicitly, specified prayer to get all of them
+                else -> TransactDbAsync(db, null, 1).execute(AlarmOps.Get.toString()).get() // passed 1 just to differentiate between prayer and all alarms
+            }
         }
 
         fun transactAmendAsync(db: AppDatabase, taskType: String, timingsModel: TimingsModel, id: Long = 0) { //id=0 means we are just inserting
@@ -31,11 +31,11 @@ class RoomHelper { //@Inject constructor(accessDao: RoomAccessDao)
         }
 
         private fun addTimingsWithoutRepeatDays(db: AppDatabase, timingsModel: TimingsModel): Long {
-            return db.accessDao().addNewAlarm(timingsModel)
+            return db.accessDao().addNewTimeAlarm(timingsModel)
         }
 
         private fun addTimingsWithRepeatDays(db: AppDatabase, timingsModel: TimingsModel) {
-            val alarmId = db.accessDao().addNewAlarm(timingsModel)
+            val alarmId = db.accessDao().addNewTimeAlarm(timingsModel)
             for (i in timingsModel.repeatDays!!.indices) {
                 timingsModel.repeatDays!![i].fkAlarmId = alarmId
                 db.accessDao().addRepeatDays(timingsModel.repeatDays!![i])
@@ -91,7 +91,7 @@ class RoomHelper { //@Inject constructor(accessDao: RoomAccessDao)
                         (return if (alarmId == 0.toLong())
                             Pair(getPrayerTimings(db),countAllAlarms(db))
                         else
-                            Pair(getTimingsWithDays(db),countAllAlarms(db)))
+                            Pair(getTimingsWithDays(db),countAllAlarms(db))) //TODO : combine location alarms here as well
                     }
                     AlarmOps.Check.toString() -> {
                         timingsList = getSpecificTimings(db, timingsModel!!)

@@ -16,13 +16,12 @@
     app:layout_constraintStart_toStartOf="parent">
 
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/tvAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="Hyderabad"
         android:textColor="@color/black"
         android:textSize="38sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +30,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/powerSwitch"
+        android:id="@+id/swLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -42,30 +41,28 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/tvCity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="Telangana"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toStartOf="@+id/textView19"
+        app:layout_constraintEnd_toStartOf="@+id/tvDistance"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView21"
+        app:layout_constraintTop_toBottomOf="@+id/tvAddress"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/tvDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="2km away"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView21"
+        app:layout_constraintTop_toBottomOf="@+id/tvAddress"
         app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,15 +5,19 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.mdkashif.universalarm.alarm.miscellaneous.model.DaysModel
+import com.mdkashif.universalarm.alarm.miscellaneous.model.LocationsModel
 import com.mdkashif.universalarm.alarm.miscellaneous.model.TimingsModel
 
 @Dao
 interface RoomAccessDao {
     @Insert
-    fun addNewAlarm(timings: TimingsModel): Long
+    fun addNewTimeAlarm(timing: TimingsModel): Long
 
     @Insert
-    fun addRepeatDays(days: DaysModel): Long
+    fun addRepeatDays(day: DaysModel): Long
+
+    @Insert
+    fun addNewLocationAlarm(location: LocationsModel): Long
 
     // alarmtype isn't included here, because it shouldn't get updated
     @Query("Update Timings set hour=:hour, minute=:minute, note=:note, repeat=:repeat, status=:status where id=:alarmId")
@@ -28,12 +32,15 @@ interface RoomAccessDao {
     @Query("SELECT * FROM Timings")
     fun getAllAlarms(): MutableList<TimingsModel>
 
+    @Query("SELECT * FROM Days WHERE alarmId =:alarmId")
+    fun getRepeatDays(alarmId: Long): MutableList<DaysModel>
+
     @Query("SELECT * FROM Timings where type=:type")
     fun getSpecificAlarms(type: String): MutableList<TimingsModel>
 
     @Query("SELECT * FROM Timings where type!='Time'")
     fun getPrayerAlarms(): MutableList<TimingsModel>
 
-    @Query("SELECT * FROM Days WHERE alarmId =:alarmId")
-    fun getRepeatDays(alarmId: Long): MutableList<DaysModel>
+    @Query("SELECT * FROM Locations")
+    fun getLocationAlarms(): MutableList<LocationsModel>
 }

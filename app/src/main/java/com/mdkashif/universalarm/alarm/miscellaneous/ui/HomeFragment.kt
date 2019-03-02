@@ -11,19 +11,21 @@ import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.activities.SettingsActivity
 import com.mdkashif.universalarm.alarm.battery.ui.SetBatteryLevelFragment
 import com.mdkashif.universalarm.alarm.location.ui.SetLocationFragment
-import com.mdkashif.universalarm.alarm.miscellaneous.AlarmListAdapter
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmTypes
+import com.mdkashif.universalarm.alarm.miscellaneous.AlarmsListAdapter
+import com.mdkashif.universalarm.alarm.miscellaneous.model.TimingsModel
 import com.mdkashif.universalarm.alarm.prayer.ui.SetPrayerTimeFragment
 import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment
 import com.mdkashif.universalarm.base.BaseFragment
+import com.mdkashif.universalarm.utils.persistence.RoomHelper
 import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment : BaseFragment(), View.OnClickListener {
-
-    private val alarmType: MutableList<String> = mutableListOf(AlarmTypes.Time.toString(), AlarmTypes.Battery.toString(), AlarmTypes.Asr.toString(), AlarmTypes.Location.toString())
     private lateinit var mLinearLayoutManager: LinearLayoutManager
     private lateinit var rootView: View
+    private var timingsList: MutableList<TimingsModel> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -35,8 +37,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         rootView.fabSalat.setOnClickListener(this)
         rootView.ivSettings.setOnClickListener(this)
         rootView.tvSeeAll.setOnClickListener(this)
-
-        setRVAdapter(rootView.rvAlarms)
 
         return rootView
     }
@@ -76,13 +76,18 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-    private fun setRVAdapter(view: RecyclerView) {
-        mLinearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        view.rvAlarms.layoutManager = mLinearLayoutManager
-        mActivity.setRVSlideInLeftAnimation(view.rvAlarms)
-        val adapter = AlarmListAdapter(alarmType)
-        view.rvAlarms.adapter = adapter
-        mActivity.enableSwipeToDeleteAndUndo(adapter, view.rvAlarms)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        timingsList = RoomHelper.transactFetchAsync(mActivity.returnDbInstance(), AlarmTypes.Time).first // Pair's first value
+        setRVAdapter(timingsList)
     }
 
+    private fun setRVAdapter(timingsList: MutableList<TimingsModel>) {
+        mLinearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        rvAlarms.layoutManager = mLinearLayoutManager
+        mActivity.setRVSlideInLeftAnimation(rvAlarms)
+        val adapter = AlarmsListAdapter(timingsList, "Home", context!!)
+        rvAlarms.adapter = adapter
+        mActivity.enableSwipeToDeleteAndUndo(adapter, rvAlarms)
+    }
 }
