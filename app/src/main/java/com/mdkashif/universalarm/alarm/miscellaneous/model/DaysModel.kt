@@ -2,11 +2,9 @@ package com.mdkashif.universalarm.alarm.miscellaneous.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Days", foreignKeys =[ForeignKey(entity = TimingsModel::class, parentColumns=["id"], childColumns = ["alarmId"], onUpdate = CASCADE, onDelete=CASCADE)])
+@Entity(tableName = "Days")
 data class DaysModel(
         @PrimaryKey(autoGenerate = true)
         var id: Int=0,

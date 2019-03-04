@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/pitchWhite"
-    tools:context=".activities.ContainerActivity">
+    android:background="@color/pitchWhite">
 
     <ImageView
         android:id="@+id/ivSettings"
@@ -62,7 +59,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
-        android:text="+3 More"
         android:textColor="@color/colorPrimaryDarkOrange"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,13 +1,7 @@
 package com.mdkashif.universalarm.base
 
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Message
 import android.view.View
 import android.view.animation.*
 import android.widget.Toast
@@ -20,12 +14,8 @@ import com.afollestad.materialdialogs.customview.customView
 import com.google.android.material.snackbar.Snackbar
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmsListAdapter
-import com.mdkashif.universalarm.alarm.prayer.geocoder.GetCurrentLocation
-import com.mdkashif.universalarm.alarm.prayer.geocoder.GetLocationAddress
-import com.mdkashif.universalarm.alarm.prayer.job.PrayerDataFetchScheduler
 import com.mdkashif.universalarm.custom.SwipeToDeleteCallback
 import com.mdkashif.universalarm.utils.persistence.AppDatabase
-import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
 
 
 open class BaseActivity : AppCompatActivity() {
@@ -43,43 +33,12 @@ open class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         parentLayout = findViewById(android.R.id.content)
 
-        val location = GetCurrentLocation.instance.findLocation(applicationContext)
-        if (location != null) {
-            val latitude = location.latitude
-            val longitude = location.longitude
-            GetLocationAddress.getAddressFromLocation(latitude, longitude,
-                    applicationContext, GeocodeHandler(applicationContext))
-        }
-        PrayerDataFetchScheduler.scheduleJob(applicationContext)
         appDatabase = AppDatabase.getAppDatabase(applicationContext)
     }
 
 //    protected fun onApplyThemeResource(theme: Resources.Theme, resid: Int, first: Boolean) {
 //        super.onApplyThemeResource(theme, ThemeHelper.active(applicationContext), first)
 //    }
-
-    val isOnline: Boolean
-        get() {
-            val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            if (cm != null) {
-                if (Build.VERSION.SDK_INT < 23) {
-                    val ni = cm.activeNetworkInfo
-
-                    if (ni != null) {
-                        return ni.isConnected && (ni.type == ConnectivityManager.TYPE_WIFI || ni.type == ConnectivityManager.TYPE_MOBILE)
-                    }
-                } else {
-                    val n = cm.activeNetwork
-
-                    if (n != null) {
-                        val nc = cm.getNetworkCapabilities(n)
-
-                        return nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
-                    }
-                }
-            }
-            return false
-        }
 
     fun showLoader() {
         progressDialog = MaterialDialog(this).show {
@@ -160,17 +119,17 @@ open class BaseActivity : AppCompatActivity() {
         itemTouchHelper.attachToRecyclerView(mRecyclerView)
     }
 
-    private class GeocodeHandler(var context: Context) : Handler() {
-        override fun handleMessage(message: Message) {
-            when (message.what) {
-                1 -> {
-                    val bundle = message.data
-                    SharedPrefHolder.getInstance(context).city = bundle.getString("city")
-                    SharedPrefHolder.getInstance(context).country = bundle.getString("country")
-                }
-            }
-        }
-    }
+//    private class GeocodeHandler(var context: Context) : Handler() {
+//        override fun handleMessage(message: Message) {
+//            when (message.what) {
+//                1 -> {
+//                    val bundle = message.data
+//                    SharedPrefHolder.getInstance(context).city = bundle.getString("city")
+//                    SharedPrefHolder.getInstance(context).country = bundle.getString("country")
+//                }
+//            }
+//        }
+//    }
 
     fun returnDbInstance(): AppDatabase {
         return appDatabase

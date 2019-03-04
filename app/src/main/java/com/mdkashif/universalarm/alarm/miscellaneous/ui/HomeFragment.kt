@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mdkashif.universalarm.R
@@ -57,10 +58,10 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             }
             R.id.fabSalat -> {
                 rootView.menu.close(true)
-                if (SharedPrefHolder.getInstance(mActivity).islamicDate!="")
+                if (SharedPrefHolder.getInstance(mActivity).islamicDate != "")
                     mActivity.replaceFragment(SetPrayerTimeFragment(), SetPrayerTimeFragment::class.java.simpleName, true)
                 else
-                    mActivity.showSnackBar("Please try after some time")
+                    mActivity.showSnackBar("Fetching the latest Prayer timings, Please try again later")
             }
             R.id.ivSettings -> {
                 mActivity.executeIntent(Intent(context, SettingsActivity::class.java), false)
@@ -78,8 +79,17 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        timingsList = RoomHelper.transactFetchAsync(mActivity.returnDbInstance(), AlarmTypes.Time).first // Pair's first value
+        val pair = RoomHelper.transactFetchAsync(mActivity.returnDbInstance(), AlarmTypes.Time)
+        timingsList = pair.first // Pair's first value
+        pair.second.observe(this, Observer<Int> {
+            if (SharedPrefHolder.getInstance(mActivity).hbl != 0f)
+                rootView.tvSeeAll.text = "+${it - 3} more" // adding battery count
+            else
+                rootView.tvSeeAll.text = "+${it - 4} more"
+        })
         setRVAdapter(timingsList)
+        if (pair.first.isEmpty())
+            rootView.tvSeeAll.visibility = View.INVISIBLE
     }
 
     private fun setRVAdapter(timingsList: MutableList<TimingsModel>) {
@@ -88,6 +98,5 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         mActivity.setRVSlideInLeftAnimation(rvAlarms)
         val adapter = AlarmsListAdapter(timingsList, "Home", context!!)
         rvAlarms.adapter = adapter
-        mActivity.enableSwipeToDeleteAndUndo(adapter, rvAlarms)
     }
 }
