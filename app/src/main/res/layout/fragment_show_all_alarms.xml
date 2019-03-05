@@ -22,7 +22,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginStart="24dp"/>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.hendraanggrian.recyclerview.widget.ExpandableRecyclerView
             android:layout_marginTop="8dp"
             android:id="@+id/rvAlarms"
             android:layout_width="match_parent"

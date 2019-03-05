@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.activities.SettingsActivity
 import com.mdkashif.universalarm.alarm.battery.ui.SetBatteryLevelFragment
@@ -93,10 +92,10 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun setRVAdapter(timingsList: MutableList<TimingsModel>) {
-        mLinearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        mLinearLayoutManager = LinearLayoutManager(mActivity)
         rvAlarms.layoutManager = mLinearLayoutManager
         mActivity.setRVSlideInLeftAnimation(rvAlarms)
-        val adapter = AlarmsListAdapter(timingsList, "Home", context!!)
+        val adapter = AlarmsListAdapter(timingsList, "Home", context!!, mLinearLayoutManager)
         rvAlarms.adapter = adapter
     }
 }

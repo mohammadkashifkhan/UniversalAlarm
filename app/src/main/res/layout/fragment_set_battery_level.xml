@@ -11,120 +11,114 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:gravity="left"
-            android:orientation="horizontal"
+        <at.grabner.circleprogress.CircleProgressView
+            android:id="@+id/cpBattery"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_marginTop="16dp"
+            app:cpv_autoTextSize="true"
+            app:cpv_barColor="@color/red"
+            app:cpv_barColor1="@color/yellow"
+            app:cpv_barColor2="@color/green"
+            app:cpv_barStrokeCap="Round"
+            app:cpv_barWidth="6dp"
+            app:cpv_innerContourSize="0dp"
+            app:cpv_maxValue="100"
+            app:cpv_outerContourSize="0dp"
+            app:cpv_rimColor="@color/lightestColorPrimaryDarkOrange"
+            app:cpv_rimWidth="3dp"
+            app:cpv_showUnit="true"
+            app:cpv_spinColor="@color/pitchWhite"
+            app:cpv_textColor="@color/black"
+            app:cpv_textScale="1"
+            app:cpv_unit="%"
+            app:cpv_unitColor="@color/black"
+            app:cpv_unitPosition="right_top"
+            app:cpv_unitScale="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <at.grabner.circleprogress.CircleProgressView
-                android:id="@+id/batteryChangeMeter"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:padding="8dp"
-                app:cpv_autoTextSize="true"
-                app:cpv_barColor="@color/red"
-                app:cpv_barColor1="@color/yellow"
-                app:cpv_barColor2="@color/green"
-                app:cpv_barStrokeCap="Round"
-                app:cpv_barWidth="6dp"
-                app:cpv_innerContourSize="0dp"
-                app:cpv_maxValue="100"
-                app:cpv_outerContourSize="0dp"
-                app:cpv_rimColor="@color/lightestColorPrimaryDarkOrange"
-                app:cpv_rimWidth="3dp"
-                app:cpv_showUnit="true"
-                app:cpv_spinColor="@color/pitchWhite"
-                app:cpv_textColor="@color/colorPrimaryDarkOrange"
-                app:cpv_textScale="1"
-                app:cpv_unit="%"
-                app:cpv_unitColor="@color/colorPrimaryDarkOrange"
-                app:cpv_unitPosition="right_top"
-                app:cpv_unitScale="1" />
+        <LinearLayout
+            android:id="@+id/llPhoneStats"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@drawable/item_alarm_list_border"
+            android:weightSum="3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cpBattery">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:weightSum="3">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left|center"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:gravity="left|center"
-                    android:orientation="horizontal"
-                    android:padding="8dp">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_battery" />
 
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_battery" />
+                <TextView
+                    android:text="Discharging"
+                    android:id="@+id/batteryStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/batteryStatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:textColor="@color/black"
-                        android:textSize="22sp" />
+            </LinearLayout>
 
-                </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left|center"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:gravity="left|center"
-                    android:orientation="horizontal"
-                    android:padding="8dp">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_eta" />
 
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_eta" />
+                <TextView
+                    android:id="@+id/eta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="6h 22m left"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/eta"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:text="6h 22m left"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
+            </LinearLayout>
 
-                </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left|center"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:gravity="left|center"
-                    android:orientation="horizontal"
-                    android:padding="8dp">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_thermometer_white" />
 
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_thermometer_white" />
-
-                    <TextView
-                        android:id="@+id/temperature"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/temperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -141,7 +135,7 @@
             android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+            app:layout_constraintTop_toBottomOf="@+id/llPhoneStats">
 
             <TextView
                 android:id="@+id/textView"

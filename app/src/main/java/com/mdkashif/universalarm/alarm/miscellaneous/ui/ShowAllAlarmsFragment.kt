@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmTypes
 import com.mdkashif.universalarm.alarm.miscellaneous.AlarmsListAdapter
@@ -15,12 +14,12 @@ import com.mdkashif.universalarm.utils.persistence.RoomHelper
 import kotlinx.android.synthetic.main.fragment_show_all_alarms.*
 
 class ShowAllAlarmsFragment : BaseFragment() {
-    private var mLinearLayoutManager : LinearLayoutManager?=null
+    private lateinit var mLinearLayoutManager: LinearLayoutManager
     private var timingsList: MutableList<TimingsModel> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        var rootView: View =inflater.inflate(R.layout.fragment_show_all_alarms, container, false)
+        var rootView: View = inflater.inflate(R.layout.fragment_show_all_alarms, container, false)
         return rootView
     }
 
@@ -31,12 +30,11 @@ class ShowAllAlarmsFragment : BaseFragment() {
     }
 
     private fun setRVAdapter(timingsList: MutableList<TimingsModel>) {
-        mLinearLayoutManager = LinearLayoutManager(mActivity, RecyclerView.VERTICAL, false)
-        rvAlarms.layoutManager=mLinearLayoutManager
+        mLinearLayoutManager = LinearLayoutManager(mActivity)
+        rvAlarms.layoutManager = mLinearLayoutManager
         mActivity.setRVSlideInLeftAnimation(rvAlarms)
-        val adapter = AlarmsListAdapter(timingsList, "ShowAll", context!!)
+        val adapter = AlarmsListAdapter(timingsList, "ShowAll", context!!, mLinearLayoutManager)
         rvAlarms.adapter = adapter
-        mActivity.enableSwipeToDeleteAndUndo(adapter, rvAlarms)
     }
 
 }

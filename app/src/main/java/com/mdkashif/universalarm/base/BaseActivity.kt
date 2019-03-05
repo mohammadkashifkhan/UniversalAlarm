@@ -7,14 +7,11 @@ import android.view.animation.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.google.android.material.snackbar.Snackbar
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.alarm.miscellaneous.AlarmsListAdapter
-import com.mdkashif.universalarm.custom.SwipeToDeleteCallback
 import com.mdkashif.universalarm.utils.persistence.AppDatabase
 
 
@@ -94,41 +91,29 @@ open class BaseActivity : AppCompatActivity() {
         val controller = LayoutAnimationController(set, 0.5f)
         view.layoutAnimation = controller
     }
-
-    fun enableSwipeToDeleteAndUndo(mAdapter: AlarmsListAdapter, mRecyclerView: RecyclerView) {
-        val swipeToDeleteCallback = object : SwipeToDeleteCallback(this) {
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
-                val position = viewHolder.adapterPosition
-                val item = mAdapter.alarmsList[position]
-
-                mAdapter.removeItem(position)
-
-                val snackBar = Snackbar
-                        .make(parentLayout!!.findViewById(android.R.id.content),
-                                "Alarm removed", Snackbar.LENGTH_LONG)
-                snackBar.setAction("UNDO") {
-                    mAdapter.restoreItem(item, position)
-                    mRecyclerView.scrollToPosition(position)
-                }
-                snackBar.setActionTextColor(resources.getColor(R.color.gray))
-                snackBar.show()
-            }
-        }
-
-        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
-        itemTouchHelper.attachToRecyclerView(mRecyclerView)
-    }
-
-//    private class GeocodeHandler(var context: Context) : Handler() {
-//        override fun handleMessage(message: Message) {
-//            when (message.what) {
-//                1 -> {
-//                    val bundle = message.data
-//                    SharedPrefHolder.getInstance(context).city = bundle.getString("city")
-//                    SharedPrefHolder.getInstance(context).country = bundle.getString("country")
+//
+//    fun enableSwipeToDeleteAndUndo(mAdapter: AlarmsListAdapter, mRecyclerView: RecyclerView) {
+//        val swipeToDeleteCallback = object : SwipeToDeleteCallback(this) {
+//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
+//                val position = viewHolder.adapterPosition
+//                val item = mAdapter.alarmsList[position]
+//
+//                mAdapter.removeItem(position)
+//
+//                val snackBar = Snackbar
+//                        .make(parentLayout!!.findViewById(android.R.id.content),
+//                                "Alarm removed", Snackbar.LENGTH_LONG)
+//                snackBar.setAction("UNDO") {
+//                    mAdapter.restoreItem(item, position)
+//                    mRecyclerView.scrollToPosition(position)
 //                }
+//                snackBar.setActionTextColor(resources.getColor(R.color.gray))
+//                snackBar.show()
 //            }
 //        }
+//
+//        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
+//        itemTouchHelper.attachToRecyclerView(mRecyclerView)
 //    }
 
     fun returnDbInstance(): AppDatabase {

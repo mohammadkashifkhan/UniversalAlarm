@@ -4,16 +4,18 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.SwitchCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.hendraanggrian.recyclerview.widget.ExpandableRecyclerView
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.miscellaneous.model.TimingsModel
 import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
 
-class AlarmsListAdapter(private val alarms: MutableList<TimingsModel>, private val viewType: String, private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AlarmsListAdapter(private val alarms: MutableList<TimingsModel>, private val viewType: String, private val context: Context, linearLayoutManager: LinearLayoutManager) : ExpandableRecyclerView.Adapter<RecyclerView.ViewHolder>(linearLayoutManager) {
 
     val alarmsList: MutableList<TimingsModel>
         get() = alarms
@@ -23,33 +25,37 @@ class AlarmsListAdapter(private val alarms: MutableList<TimingsModel>, private v
         val tvTimeType: TextView = itemView.findViewById(R.id.tvTimeType)
         val tvRepeatDays: TextView = itemView.findViewById(R.id.tvRepeatDays)
         val tvETA: TextView = itemView.findViewById(R.id.tvETA)
-        val swTime: CompoundButton = itemView.findViewById(R.id.swTime)
+        val swTime: SwitchCompat = itemView.findViewById(R.id.swTime)
     }
 
     internal inner class LocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvAddress: TextView = itemView.findViewById(R.id.tvAddress)
         val tvCity: TextView = itemView.findViewById(R.id.tvCity)
         val tvDistance: TextView = itemView.findViewById(R.id.tvDistance)
-        val swLocation: CompoundButton = itemView.findViewById(R.id.swLocation)
+        val swLocation: SwitchCompat = itemView.findViewById(R.id.swLocation)
     }
 
     internal inner class BatteryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvHbl: TextView = itemView.findViewById(R.id.tvHbl)
         val tvLbl: TextView = itemView.findViewById(R.id.tvLbl)
         val tvTemp: TextView = itemView.findViewById(R.id.tvTemp)
-        val swBattery: CompoundButton = itemView.findViewById(R.id.swBattery)
+        val tvNote: TextView = itemView.findViewById(R.id.tvNote)
+        val swBattery: SwitchCompat = itemView.findViewById(R.id.swBattery)
+        val swTemperature: SwitchCompat = itemView.findViewById(R.id.swTemperature)
     }
 
     internal inner class PrayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvPrayerType: TextView = itemView.findViewById(R.id.tvPrayerType)
         val tvPrayerTime: TextView = itemView.findViewById(R.id.tvPrayerTime)
         val tvPrayerTimeType: TextView = itemView.findViewById(R.id.tvPrayerTimeType)
+        val tvNote: TextView = itemView.findViewById(R.id.tvNote)
         val tvETA: TextView = itemView.findViewById(R.id.tvETA)
-        val swPrayer: CompoundButton = itemView.findViewById(R.id.swPrayer)
+        val swPrayer: SwitchCompat = itemView.findViewById(R.id.swPrayer)
     }
 
     internal inner class EmptyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivPlaceHolder: ImageView = itemView.findViewById(R.id.ivPlaceHolder)
+        val tvNote: TextView = itemView.findViewById(R.id.tvNote)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -57,23 +63,23 @@ class AlarmsListAdapter(private val alarms: MutableList<TimingsModel>, private v
         lateinit var viewHolder: RecyclerView.ViewHolder
         when (viewType) {
             0 -> {
-                view = LayoutInflater.from(context).inflate(R.layout.item_alarm_time_list, parent, false)
+                view = LayoutInflater.from(context).inflate(R.layout.item_alarm_expandable_time, parent, false)
                 viewHolder = TimeViewHolder(view)
             }
             1 -> {
-                view = LayoutInflater.from(context).inflate(R.layout.item_alarm_battery_list, parent, false)
+                view = LayoutInflater.from(context).inflate(R.layout.item_alarm_expandable_battery, parent, false)
                 viewHolder = BatteryViewHolder(view)
             }
             2 -> {
-                view = LayoutInflater.from(context).inflate(R.layout.item_alarm_location_list, parent, false)
+                view = LayoutInflater.from(context).inflate(R.layout.item_alarm_expandable_location, parent, false)
                 viewHolder = LocationViewHolder(view)
             }
             3 -> {
-                view = LayoutInflater.from(context).inflate(R.layout.item_alarm_prayer_list, parent, false)
+                view = LayoutInflater.from(context).inflate(R.layout.item_alarm_expandable_prayer, parent, false)
                 viewHolder = PrayerViewHolder(view)
             }
             -1 -> {
-                view = LayoutInflater.from(context).inflate(R.layout.item_alarm_empty_list, parent, false)
+                view = LayoutInflater.from(context).inflate(R.layout.item_alarm_expandable_empty, parent, false)
                 viewHolder = EmptyViewHolder(view)
             }
         }
@@ -81,6 +87,7 @@ class AlarmsListAdapter(private val alarms: MutableList<TimingsModel>, private v
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        super.onBindViewHolder(holder, position)
         when (holder) {
             is AlarmsListAdapter.TimeViewHolder -> {
                 var builder = StringBuilder()
@@ -111,12 +118,21 @@ class AlarmsListAdapter(private val alarms: MutableList<TimingsModel>, private v
                 holder.tvRepeatDays.text = builder
                 holder.tvETA.text = "ETA: 6 hrs to go"
                 holder.swTime.isChecked = alarmsList[position].status
+                holder.swTime.setOnCheckedChangeListener { p0, p1 ->
+//                    SharedPrefHolder.getInstance(context).batteryAlarmStatus = p1
+                }
             }
             is AlarmsListAdapter.BatteryViewHolder -> {
                 holder.tvHbl.text = SharedPrefHolder.getInstance(context).hbl.toString()
                 holder.tvLbl.text = SharedPrefHolder.getInstance(context).lbl.toString()
                 holder.tvTemp.text = SharedPrefHolder.getInstance(context).temp.toString()
+                holder.tvNote.text = context.getText(R.string.tvItemBatteryExpandableRv)
                 holder.swBattery.isChecked = SharedPrefHolder.getInstance(context).batteryAlarmStatus!!
+                holder.swTemperature.isChecked = SharedPrefHolder.getInstance(context).temperatureAlarmStatus!!
+                holder.swBattery.setOnCheckedChangeListener { p0, p1 ->
+                    SharedPrefHolder.getInstance(context).batteryAlarmStatus = p1 }
+                holder.swTemperature.setOnCheckedChangeListener { p0, p1 ->
+                    SharedPrefHolder.getInstance(context).temperatureAlarmStatus = p1 }
             }
             is AlarmsListAdapter.LocationViewHolder -> {
                 holder.tvAddress.text = "Jumeirah Beach"
@@ -126,6 +142,7 @@ class AlarmsListAdapter(private val alarms: MutableList<TimingsModel>, private v
             }
             is AlarmsListAdapter.PrayerViewHolder -> {
                 holder.tvPrayerType.text = alarmsList[position].alarmType
+                holder.tvNote.text = context.getText(R.string.tvItemPrayerExpandableRv)
                 when {
                     alarmsList[position].hour.toInt() >= 12 -> {
                         val hour = alarmsList[position].hour.toInt()
@@ -143,8 +160,12 @@ class AlarmsListAdapter(private val alarms: MutableList<TimingsModel>, private v
                 }
                 holder.tvETA.text = "ETA: 2 hrs to go"
                 holder.swPrayer.isChecked = alarmsList[position].status
+                holder.swPrayer.setOnCheckedChangeListener { p0, p1 ->
+                    //                    SharedPrefHolder.getInstance(context).batteryAlarmStatus = p1
+                }
             }
             is AlarmsListAdapter.EmptyViewHolder -> {
+                holder.tvNote.text = context.getText(R.string.tvItemEmptyExpandableRv)
                 Glide.with(context)
                         .load(R.raw.no_alarms_placeholder)
                         .into(holder.ivPlaceHolder)
@@ -169,10 +190,14 @@ class AlarmsListAdapter(private val alarms: MutableList<TimingsModel>, private v
                 alarmsList.size + 1
             else
                 alarmsList.size
-            "Home" -> if (alarmsList.size > 0)
-                return 4
-            else if (SharedPrefHolder.getInstance(context).hbl != 0f)
-                return 1
+            "Home" -> when {
+                alarmsList.size > 4 -> return 4
+                alarmsList.size in 1..4 -> return if (SharedPrefHolder.getInstance(context).hbl != 0f)
+                    alarmsList.size + 1
+                else
+                    alarmsList.size
+                SharedPrefHolder.getInstance(context).hbl != 0f -> return 1
+            }
         }
         return 1
     }

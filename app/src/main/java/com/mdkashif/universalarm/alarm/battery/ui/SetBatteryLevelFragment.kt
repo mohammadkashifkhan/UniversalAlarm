@@ -12,7 +12,6 @@ import com.mdkashif.universalarm.alarm.battery.misc.BatteryLiveData
 import com.mdkashif.universalarm.alarm.battery.misc.BatteryStatsPoJo
 import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
-import kotlinx.android.synthetic.main.fragment_set_battery_level.*
 import kotlinx.android.synthetic.main.fragment_set_battery_level.view.*
 
 
@@ -29,10 +28,10 @@ class SetBatteryLevelFragment : BaseFragment(), CompoundButton.OnCheckedChangeLi
         rootView.rbTemp.setOnRangeBarChangeListener(this)
 
         BatteryLiveData(context!!).observe(this, Observer<BatteryStatsPoJo> { connection ->
-            batteryChangeMeter.isShowTextWhileSpinning = true
-            batteryChangeMeter.setValueAnimated(connection!!.level.toFloat())
-            batteryStatus.text = connection.status
-            temperature.text = connection.temp.toString()
+            rootView.cpBattery.isShowTextWhileSpinning = true
+            rootView.cpBattery.setValueAnimated(connection!!.level.toFloat())
+            rootView.batteryStatus.text = connection.status
+            rootView.temperature.text = connection.temp.toString()
         })
 
         rootView.swBattery.isChecked = SharedPrefHolder.getInstance(mActivity).batteryAlarmStatus == true

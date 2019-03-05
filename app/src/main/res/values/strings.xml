@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Universal Alarm</string>
+    <string name="app_name">Timo</string>
     <string name="pref_header_customize">Customize</string>
     <string name="pref_header_misc">Miscellaneous</string>
     <string name="prefKeyTitleSendFeedback">Send Feedback</string>
@@ -45,7 +45,9 @@
     <string name="search_hint">Search for any Location..</string>
     <string name="openSourceLicenses">Open Source Licenses</string>
     <string name="aboutDevSummary">Software Er. Cinephile. Autodidact. Full time Nerd. Esurient Foodie</string>
-
+    <string name="tvItemEmptyExpandableRv">Please tap on + to set one</string>
+    <string name="tvItemBatteryExpandableRv">Change Battery and Temperature levels by going into Battery Settings Screen</string>
+    <string name="tvItemPrayerExpandableRv">For more regarding prayer details, go in the Prayer Settings Screen</string>
     <string name="google_android_map_api_key">AIzaSyA7sGiJNI3y2SlipMaKX_dxB290mImTmlQ</string>
 
     /////////////////////////////
