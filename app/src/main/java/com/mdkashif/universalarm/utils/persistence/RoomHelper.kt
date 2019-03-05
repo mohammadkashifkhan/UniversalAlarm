@@ -19,15 +19,11 @@ class RoomHelper { //@Inject constructor(accessDao: RoomAccessDao)
             }
         }
 
-        fun transactAmendAsync(db: AppDatabase, taskType: String, timingsModel: TimingsModel, id: Long = 0) { //id=0 means we are just inserting
+        fun transactAmendAsync(db: AppDatabase, taskType: String, timingsModel: TimingsModel, id: Long = 0, autoUpdate: Boolean=false) { //id=0 means we are just inserting
             if (timingsModel.alarmType != AlarmTypes.Time.toString())
-                TransactDbAsync(db, timingsModel, id).execute(AlarmOps.Check.toString()) // to check if we have any existing prayer alarm
+                TransactDbAsync(db, timingsModel, id, autoUpdate).execute(AlarmOps.Check.toString()) // to check if we have any existing prayer alarm
             else
                 TransactDbAsync(db, timingsModel, id).execute(taskType)
-        }
-
-        fun transactCountAsync(db: AppDatabase): Pair<List<TimingsModel>,LiveData<Int>> {
-            return TransactDbAsync(db, null, 0).execute(AlarmOps.Count.toString()).get()
         }
 
         private fun addTimingsWithoutRepeatDays(db: AppDatabase, timingsModel: TimingsModel): Long {
@@ -64,8 +60,10 @@ class RoomHelper { //@Inject constructor(accessDao: RoomAccessDao)
             db.accessDao().deleteAlarm(id)
         }
 
-        private fun updateAlarm(db: AppDatabase, timingsModel: TimingsModel, id: Long) {
-            db.accessDao().updateAlarm(timingsModel.hour, timingsModel.minute, timingsModel.note, timingsModel.repeat, timingsModel.status, id)
+        private fun updateAlarm(db: AppDatabase, timingsModel: TimingsModel, id: Long, autoUpdate: Boolean) {
+            try {
+                db.accessDao().updateAlarm(timingsModel.hour, timingsModel.minute, timingsModel.note, timingsModel.repeat, timingsModel.status, id, autoUpdate)
+            }catch (e: Throwable) { println(e.message) }
             if (timingsModel.repeat) {
                 for (i in timingsModel.repeatDays!!.indices) {
                     timingsModel.repeatDays!![i].fkAlarmId = id
@@ -78,7 +76,7 @@ class RoomHelper { //@Inject constructor(accessDao: RoomAccessDao)
             return db.accessDao().countAlarms()
         }
 
-        private class TransactDbAsync(private val db: AppDatabase, private val timingsModel: TimingsModel?, private val alarmId: Long) : AsyncTask<String, Any, Pair<MutableList<TimingsModel>,LiveData<Int>>>() {
+        private class TransactDbAsync(private val db: AppDatabase, private val timingsModel: TimingsModel?, private val alarmId: Long, private val autoUpdate: Boolean= false) : AsyncTask<String, Any, Pair<MutableList<TimingsModel>,LiveData<Int>>>() {
             var timingsList: MutableList<TimingsModel> = ArrayList()
 
             override fun onPreExecute() {
@@ -97,7 +95,7 @@ class RoomHelper { //@Inject constructor(accessDao: RoomAccessDao)
                         timingsList = getSpecificTimings(db, timingsModel!!)
 
                         if (timingsList.isNotEmpty())
-                            TransactDbAsync(db, timingsModel, timingsList[0].id).execute(AlarmOps.Update.toString()) // update an existing prayer alarm
+                            TransactDbAsync(db, timingsModel, timingsList[0].id, autoUpdate).execute(AlarmOps.Update.toString()) // update an existing prayer alarm
                         else
                             TransactDbAsync(db, timingsModel, alarmId).execute(AlarmOps.Add.toString()) // add the prayer alarm
                     }
@@ -110,14 +108,11 @@ class RoomHelper { //@Inject constructor(accessDao: RoomAccessDao)
                     }
                     AlarmOps.Update.toString() -> {
                         if (alarmId > 0)
-                            updateAlarm(db, timingsModel!!, alarmId)
+                            updateAlarm(db, timingsModel!!, alarmId, autoUpdate)
                     }
                     AlarmOps.Delete.toString() -> {
                         if (alarmId > 0)
                             deleteAlarm(db, alarmId)
-                    }
-                    AlarmOps.Count.toString() -> {
-                        return Pair(timingsList,countAllAlarms(db))
                     }
                 }
                 return null

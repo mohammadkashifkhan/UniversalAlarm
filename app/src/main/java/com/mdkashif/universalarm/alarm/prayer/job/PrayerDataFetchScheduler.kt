@@ -12,7 +12,7 @@ class PrayerDataFetchScheduler {
             val serviceComponent = ComponentName(context, PrayerDataFetchScheduleService::class.java)
             val builder = JobInfo.Builder(98937, serviceComponent)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                builder.setMinimumLatency(86400)
+                builder.setMinimumLatency(10000)
             else
                 builder.setPeriodic(86400)
             builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY) // require unmetered network

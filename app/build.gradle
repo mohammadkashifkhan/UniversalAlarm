@@ -21,20 +21,20 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
-        versionName "d_0.86."+getDate()+"_alpha"
+        versionName "0.86."+getDate()+"_alpha"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
             release {
+                versionNameSuffix "_r"
                 minifyEnabled true
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
                 signingConfig signingConfigs.release
             }
             debug {
-                minifyEnabled false
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                versionNameSuffix "_d"
             }
         }
     }

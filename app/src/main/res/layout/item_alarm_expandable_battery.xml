@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.hendraanggrian.recyclerview.widget.ExpandableItem xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <com.hendraanggrian.recyclerview.widget.ExpandableItem
-        android:id="@+id/row"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:duration="500"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/item_alarm_battery_list_border"
-        app:layoutHeader="@layout/item_alarm_expandable_list_parent_battery"
-        app:layoutContent="@layout/item_alarm_expandable_list_child_text_common"/>
-
-</LinearLayout>
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginBottom="4dp"
+    android:background="@drawable/item_alarm_battery_list_border"
+    app:duration="500"
+    app:layoutContent="@layout/item_alarm_expandable_list_child_text_common"
+    app:layoutHeader="@layout/item_alarm_expandable_list_parent_battery" />

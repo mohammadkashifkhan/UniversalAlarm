@@ -20,8 +20,8 @@ interface RoomAccessDao {
     fun addNewLocationAlarm(location: LocationsModel): Long
 
     // alarmtype isn't included here, because it shouldn't get updated
-    @Query("Update Timings set hour=:hour, minute=:minute, note=:note, repeat=:repeat, status=:status where id=:alarmId")
-    fun updateAlarm(hour: String, minute: String, note: String, repeat: Boolean, status: Boolean, alarmId: Long)
+    @Query("Update Timings set hour=:hour, minute=:minute, note=:note, repeat=:repeat, status = CASE WHEN :autoUpdate THEN status ELSE :status END where id=:alarmId")
+    fun updateAlarm(hour: String, minute: String, note: String, repeat: Boolean, status: Boolean= false, alarmId: Long, autoUpdate: Boolean)
 
     @Query("Delete from Timings where id=:alarmId")
     fun deleteAlarm(alarmId: Long)

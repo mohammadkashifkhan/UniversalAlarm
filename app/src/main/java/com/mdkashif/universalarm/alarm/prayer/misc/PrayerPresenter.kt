@@ -41,7 +41,7 @@ class PrayerPresenter(private val disposable: CompositeDisposable, private val p
 
     private fun getAddressObservable(success: Boolean): Observable<Address>? {
         when {
-            success -> {
+            success ->
                 when {
                     ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                             || ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED -> return rxLocation.location().updates(locationRequest!!)
@@ -50,15 +50,14 @@ class PrayerPresenter(private val disposable: CompositeDisposable, private val p
                             .doOnNext { }
                             .flatMap(({ this.getAddressFromLocation(it) }))
                 }
-            }
-            else -> {
+            else ->
                 when {
                     ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                             || ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED -> return rxLocation.location().lastLocation()
                             .doOnSuccess {}
                             .flatMapObservable { this.getAddressFromLocation(it) }
                 }
-            }
+
         }
         return null
     }
