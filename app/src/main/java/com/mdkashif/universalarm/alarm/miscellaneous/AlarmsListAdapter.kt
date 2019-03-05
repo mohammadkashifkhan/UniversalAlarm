@@ -15,10 +15,7 @@ import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.miscellaneous.model.TimingsModel
 import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
 
-class AlarmsListAdapter(private val alarms: MutableList<TimingsModel>, private val viewType: String, private val context: Context, linearLayoutManager: LinearLayoutManager) : ExpandableRecyclerView.Adapter<RecyclerView.ViewHolder>(linearLayoutManager) {
-
-    val alarmsList: MutableList<TimingsModel>
-        get() = alarms
+class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, private val viewType: String, private val context: Context, linearLayoutManager: LinearLayoutManager) : ExpandableRecyclerView.Adapter<RecyclerView.ViewHolder>(linearLayoutManager) {
 
     internal inner class TimeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTime: TextView = itemView.findViewById(R.id.tvTime)
@@ -205,10 +202,5 @@ class AlarmsListAdapter(private val alarms: MutableList<TimingsModel>, private v
     fun removeItem(position: Int) {
         alarmsList.removeAt(position)
         notifyItemRemoved(position)
-    }
-
-    fun restoreItem(item: TimingsModel, position: Int) {
-        alarmsList.add(position, item)
-        notifyItemInserted(position)
     }
 }

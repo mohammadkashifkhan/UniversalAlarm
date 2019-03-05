@@ -4,7 +4,6 @@ import android.app.Application
 import com.facebook.stetho.Stetho
 import com.github.omadahealth.lollipin.lib.managers.LockManager
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.alarm.prayer.job.PrayerDataFetchScheduler
 import com.mdkashif.universalarm.security.AntiTheftUnlockActivity
 
 class BaseApplication : Application() { //, HasActivityInjector
@@ -17,8 +16,6 @@ class BaseApplication : Application() { //, HasActivityInjector
 //        DaggerAppComponent.builder()
 //                .application(this)
 //                .build().inject(this)
-
-        PrayerDataFetchScheduler.scheduleJob(applicationContext)
 
         // TODO: remove at production!
         Stetho.initializeWithDefaults(this)

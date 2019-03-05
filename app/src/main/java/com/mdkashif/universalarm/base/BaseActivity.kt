@@ -91,30 +91,6 @@ open class BaseActivity : AppCompatActivity() {
         val controller = LayoutAnimationController(set, 0.5f)
         view.layoutAnimation = controller
     }
-//
-//    fun enableSwipeToDeleteAndUndo(mAdapter: AlarmsListAdapter, mRecyclerView: RecyclerView) {
-//        val swipeToDeleteCallback = object : SwipeToDeleteCallback(this) {
-//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
-//                val position = viewHolder.adapterPosition
-//                val item = mAdapter.alarmsList[position]
-//
-//                mAdapter.removeItem(position)
-//
-//                val snackBar = Snackbar
-//                        .make(parentLayout!!.findViewById(android.R.id.content),
-//                                "Alarm removed", Snackbar.LENGTH_LONG)
-//                snackBar.setAction("UNDO") {
-//                    mAdapter.restoreItem(item, position)
-//                    mRecyclerView.scrollToPosition(position)
-//                }
-//                snackBar.setActionTextColor(resources.getColor(R.color.gray))
-//                snackBar.show()
-//            }
-//        }
-//
-//        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
-//        itemTouchHelper.attachToRecyclerView(mRecyclerView)
-//    }
 
     fun returnDbInstance(): AppDatabase {
         return appDatabase

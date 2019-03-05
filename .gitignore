@@ -1,6 +1,11 @@
 *.iml
+keystore.properties
+/app/universalAlarm.jks
+/app/release/app.aab
+/app/debug/app.aab
 .gradle
 /local.properties
+/.idea/render.experimental.xml
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml

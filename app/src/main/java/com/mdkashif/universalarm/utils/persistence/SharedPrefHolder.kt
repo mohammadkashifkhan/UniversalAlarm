@@ -51,14 +51,14 @@ class SharedPrefHolder(context: Context) {
         }
 
     var city: String?
-        get() = pref.getString(AppConstants.themeSelected, "")
+        get() = pref.getString(AppConstants.city, "")
         set(city) {
             editor.putString(AppConstants.city, city)
             editor.commit()
         }
 
     var country: String?
-        get() = pref.getString(AppConstants.themeSelected, "")
+        get() = pref.getString(AppConstants.country, "")
         set(country) {
             editor.putString(AppConstants.country, country)
             editor.commit()
@@ -120,21 +120,21 @@ class SharedPrefHolder(context: Context) {
             editor.commit()
         }
 
-    var timezone: String
+    var timezone: String?
         get() = pref.getString(AppConstants.timezone, "")
         set(timezone) {
             editor.putString(AppConstants.timezone, timezone)
             editor.commit()
         }
 
-    var islamicDate: String
+    var islamicDate: String?
         get() = pref.getString(AppConstants.islamicDate, "")
         set(date) {
             editor.putString(AppConstants.islamicDate, date)
             editor.commit()
         }
 
-    var islamicMonth: String
+    var islamicMonth: String?
         get() = pref.getString(AppConstants.islamicMonth, "")
         set(month) {
             editor.putString(AppConstants.islamicMonth, month)

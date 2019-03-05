@@ -1,20 +1,17 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
-
 apply plugin: 'io.fabric'
 
 android {
     signingConfigs {
-        config {
-            keyAlias 'UniversalAlarm'
-            keyPassword 'alarm2093'
-            storeFile file('D:/Alarm-android/Alarm/app/universalAlarm.jks')
-            storePassword 'alarm2093'
+        release {
+            Properties properties = getProperties('D:/Alarm-android/Alarm/keystore.properties')
+            storeFile file(getProperty(properties, 'storeFile'))
+            keyAlias getProperty(properties, 'keyAlias')
+            storePassword getProperty(properties, 'storePassword')
+            keyPassword getProperty(properties, 'keyPassword')
         }
     }
 
@@ -24,7 +21,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
-        versionName "D_0.85.20190305_alpha"
+        versionName "d_0.86."+getDate()+"_alpha"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -33,7 +30,7 @@ android {
             release {
                 minifyEnabled true
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-                signingConfig signingConfigs.config
+                signingConfig signingConfigs.release
             }
             debug {
                 minifyEnabled false
@@ -50,6 +47,23 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+}
+
+def getProperties(String fileName) {
+    final Properties properties = new Properties()
+    def file = file(fileName)
+    if (file.exists()) {
+        file.withInputStream { stream -> properties.load(stream) }
+    }
+    return properties
+}
+
+static def getProperty(Properties properties, String name) {
+    return properties.getProperty(name) ?: "$name missing"
+}
+
+static def getDate() {
+    new Date().format('yyyyMMdd')
 }
 
 dependencies {
@@ -78,7 +92,7 @@ dependencies {
         transitive = true
     }
     implementation 'com.github.bumptech.glide:glide:4.9.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'com.patloew.rxlocation:rxlocation:1.0.5'
     implementation 'com.hendraanggrian.recyclerview:recyclerview-expandable:0.1'
     implementation 'com.facebook.stetho:stetho:1.5.0' // for DB(Room)
@@ -107,7 +121,7 @@ dependencies {
 
     ////////////// Room //////////////
     implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
     ////////////// Dagger //////////////
@@ -122,7 +136,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
     ////////////// Permissions //////////////
-    implementation('com.github.hotchemi:permissionsdispatcher:4.0.0')
-    kapt 'com.github.hotchemi:permissionsdispatcher-processor:4.0.0'
+    implementation "org.permissionsdispatcher:permissionsdispatcher:$permission_dispatcher_version"
+    kapt "org.permissionsdispatcher:permissionsdispatcher-processor:$permission_dispatcher_version"
 }
 apply plugin: 'com.google.gms.google-services'

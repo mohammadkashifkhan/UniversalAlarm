@@ -29,31 +29,35 @@ class PrayerPresenter(private val disposable: CompositeDisposable, private val p
 
         disposable.add(
                 rxLocation.settings().checkAndHandleResolution(locationRequest!!)
-                        .flatMapObservable { this.getAddressObservable(it) }
+                        .flatMapObservable { getAddressObservable(it) }
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(({ t: Address? ->
                             SharedPrefHolder.getInstance(context).city = t!!.locality
                             SharedPrefHolder.getInstance(context).country = t.countryName
-                            prayerManager.getPrayerDetails(disposable, SharedPrefHolder.getInstance(context).city!!, SharedPrefHolder.getInstance(context).country!!)
+                            prayerManager.getPrayerDetails(disposable, context)
                         }), { throwable -> Log.e("PrayerPresenter", "Error fetching location/address updates", throwable) })
         )
     }
 
     private fun getAddressObservable(success: Boolean): Observable<Address>? {
         when {
-            success -> when {
-                ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                        || ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED -> return rxLocation.location().updates(locationRequest!!)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doOnNext { }
-                        .flatMap(({ this.getAddressFromLocation(it) }))
+            success -> {
+                when {
+                    ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                            || ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED -> return rxLocation.location().updates(locationRequest!!)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doOnNext { }
+                            .flatMap(({ this.getAddressFromLocation(it) }))
+                }
             }
-            else -> when {
-                ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                        || ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED -> return rxLocation.location().lastLocation()
-                        .doOnSuccess {}
-                        .flatMapObservable { this.getAddressFromLocation(it) }
+            else -> {
+                when {
+                    ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                            || ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED -> return rxLocation.location().lastLocation()
+                            .doOnSuccess {}
+                            .flatMapObservable { this.getAddressFromLocation(it) }
+                }
             }
         }
         return null
