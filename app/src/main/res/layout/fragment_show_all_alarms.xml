@@ -17,13 +17,13 @@
             android:layout_height="wrap_content"
             android:text="All Alarms"
             android:textStyle="bold"
-            android:textSize="18sp"
+            android:textSize="@dimen/headerTextSize"
             android:textColor="@color/colorPrimaryDarkOrange"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="24dp"/>
+            android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
+            android:layout_marginStart="@dimen/ivHomeMiniHeaderMarginStart"/>
 
         <com.hendraanggrian.recyclerview.widget.ExpandableRecyclerView
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/marginTopEndBottomStart"
             android:id="@+id/rvAlarms"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

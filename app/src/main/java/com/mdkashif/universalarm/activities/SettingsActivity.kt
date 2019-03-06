@@ -73,7 +73,7 @@ class SettingsActivity : BaseActivity() {
         private fun showAboutDevDialog() {
             val dialogAboutDev = MaterialDialog(mActivity).show {
                 cancelable(true)
-                customView(R.layout.layout_about_dev, scrollable = true)
+                customView(R.layout.layout_about_dev)
             }
 
             val view = dialogAboutDev.getCustomView()
@@ -81,11 +81,11 @@ class SettingsActivity : BaseActivity() {
             val avatar: CircularImageView = view.findViewById(R.id.avatar)
             val bitmap: Bitmap
             val ivDevBlurryImage: ImageView = view.findViewById(R.id.ivDevBlurryImage)
-            val ivLinkedIn: ImageView = view.findViewById(R.id.linkedin)
-            val ivGmail: ImageView = view.findViewById(R.id.gmail)
-            val ivGooglePlay: ImageView = view.findViewById(R.id.googleplay)
-            val ivStackOverFlow: ImageView = view.findViewById(R.id.stackOverFlow)
-            val ivGithub: ImageView = view.findViewById(R.id.github)
+            val ivLinkedIn: ImageView = view.findViewById(R.id.ivLinkedIn)
+            val ivGmail: ImageView = view.findViewById(R.id.ivGmail)
+            val ivGooglePlay: ImageView = view.findViewById(R.id.ivGooglePlay)
+            val ivStackOverFlow: ImageView = view.findViewById(R.id.ivStackOverFlow)
+            val ivGithub: ImageView = view.findViewById(R.id.ivGithub)
             val tvMadeWithLove: TextView = view.findViewById(R.id.madeWithLove)
             val tvOpenLicenses: TextView = view.findViewById(R.id.opensource)
             val tvVersion: TextView = view.findViewById(R.id.tvVersion)
@@ -144,7 +144,7 @@ class SettingsActivity : BaseActivity() {
 
             try {
                 val pInfo = activity!!.packageManager.getPackageInfo(activity!!.packageName, 0)
-                tvVersion.text = pInfo.versionName
+                tvVersion.text = "Version: ${pInfo.versionName}"
             } catch (e: Exception) {
                 e.printStackTrace()
             }

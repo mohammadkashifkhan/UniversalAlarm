@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -7,21 +8,21 @@
     <TextView
         android:textColor="@color/black"
         android:gravity="center"
-        android:padding="4dp"
+        android:padding="@dimen/paddingAll"
         android:background="@color/offWhite"
         android:text="Room by Google"
-        android:textSize="16sp"
+        android:textSize="@dimen/mediumTextSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
         android:textColor="@color/black"
         android:gravity="center"
-        android:padding="4dp"
+        android:padding="@dimen/paddingAll"
         android:background="@color/offWhite"
         android:text="Dagger by Google"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp"
+        android:textSize="@dimen/mediumTextSize"
+        android:layout_marginTop="@dimen/marginTopEndBottomStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -29,132 +30,154 @@
     <TextView
         android:textColor="@color/black"
         android:gravity="center"
-        android:padding="4dp"
+        android:padding="@dimen/paddingAll"
         android:background="@color/offWhite"
         android:text="Rx by Square"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp"
+        android:textSize="@dimen/mediumTextSize"
+        android:layout_marginTop="@dimen/marginTopEndBottomStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
         android:textColor="@color/black"
         android:gravity="center"
-        android:padding="4dp"
+        android:padding="@dimen/paddingAll"
         android:background="@color/offWhite"
         android:text="MaterialDialogs by Afollestad"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp"
+        android:textSize="@dimen/mediumTextSize"
+        android:layout_marginTop="@dimen/marginTopEndBottomStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
         android:textColor="@color/black"
         android:gravity="center"
-        android:padding="4dp"
+        android:padding="@dimen/paddingAll"
         android:background="@color/offWhite"
         android:text="CircularImageView by pkmmte"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp"
+        android:textSize="@dimen/mediumTextSize"
+        android:layout_marginTop="@dimen/marginTopEndBottomStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
         android:textColor="@color/black"
         android:gravity="center"
-        android:padding="4dp"
+        android:padding="@dimen/paddingAll"
         android:background="@color/offWhite"
         android:text="Retrofit by Square"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp"
+        android:textSize="@dimen/mediumTextSize"
+        android:layout_marginTop="@dimen/marginTopEndBottomStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
         android:textColor="@color/black"
         android:gravity="center"
-        android:padding="4dp"
+        android:padding="@dimen/paddingAll"
         android:background="@color/offWhite"
         android:text="Stetho by Facebook"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp"
+        android:textSize="@dimen/mediumTextSize"
+        android:layout_marginTop="@dimen/marginTopEndBottomStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
         android:textColor="@color/black"
         android:gravity="center"
-        android:padding="4dp"
+        android:padding="@dimen/paddingAll"
         android:background="@color/offWhite"
         android:text="Crashlytics by Fabric"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp"
+        android:textSize="@dimen/mediumTextSize"
+        android:layout_marginTop="@dimen/marginTopEndBottomStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
         android:textColor="@color/black"
         android:gravity="center"
-        android:padding="4dp"
+        android:padding="@dimen/paddingAll"
         android:background="@color/offWhite"
         android:text="CircleProgressView by Jakob Grabner"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp"
+        android:textSize="@dimen/mediumTextSize"
+        android:layout_marginTop="@dimen/marginTopEndBottomStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
         android:textColor="@color/black"
         android:gravity="center"
-        android:padding="4dp"
+        android:padding="@dimen/paddingAll"
         android:background="@color/offWhite"
         android:text="Blurry by Wasabeef"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp"
+        android:textSize="@dimen/mediumTextSize"
+        android:layout_marginTop="@dimen/marginTopEndBottomStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
         android:textColor="@color/black"
         android:gravity="center"
-        android:padding="4dp"
+        android:padding="@dimen/paddingAll"
         android:background="@color/offWhite"
         android:text="Fab by clans"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp"
+        android:textSize="@dimen/mediumTextSize"
+        android:layout_marginTop="@dimen/marginTopEndBottomStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
         android:textColor="@color/black"
         android:gravity="center"
-        android:padding="4dp"
+        android:padding="@dimen/paddingAll"
         android:background="@color/offWhite"
         android:text="MaterialRangeBar by appyvet"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp"
+        android:textSize="@dimen/mediumTextSize"
+        android:layout_marginTop="@dimen/marginTopEndBottomStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
         android:textColor="@color/black"
         android:gravity="center"
-        android:padding="4dp"
+        android:padding="@dimen/paddingAll"
         android:background="@color/offWhite"
         android:text="MaterialDayPicker by antonious"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp"
+        android:textSize="@dimen/mediumTextSize"
+        android:layout_marginTop="@dimen/marginTopEndBottomStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
         android:textColor="@color/black"
         android:gravity="center"
-        android:padding="4dp"
+        android:padding="@dimen/paddingAll"
         android:background="@color/offWhite"
         android:text="RippleBackground by skyfishjy"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp"
+        android:textSize="@dimen/mediumTextSize"
+        android:layout_marginTop="@dimen/marginTopEndBottomStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:padding="@dimen/paddingAll"
+        android:background="@color/offWhite"
+        android:text="ExpandableRecyclerView by hendraanggrian"
+        android:textSize="@dimen/mediumTextSize"
+        android:layout_marginTop="@dimen/marginTopEndBottomStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:padding="@dimen/paddingAll"
+        android:background="@color/offWhite"
+        android:text="PermissionsDispatcher by hotchemi"
+        android:textSize="@dimen/mediumTextSize"
+        android:layout_marginTop="@dimen/marginTopEndBottomStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

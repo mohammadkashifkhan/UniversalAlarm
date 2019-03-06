@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/ivSplash"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_width="@dimen/ivSplashWidthHeight"
+        android:layout_height="@dimen/ivSplashWidthHeight"
         android:src="@drawable/ic_alarm_clock"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

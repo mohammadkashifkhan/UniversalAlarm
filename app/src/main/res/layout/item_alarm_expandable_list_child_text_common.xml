@@ -5,7 +5,7 @@
 
     <TextView
         android:textColor="@color/gray"
-        android:padding="16dp"
+        android:padding="@dimen/tvItemAlarmExpandableListChildPadding"
         android:id="@+id/tvNote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

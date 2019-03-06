@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="standard_55">55dp</dimen>
-    <dimen name="standard_100">100dp</dimen>
-    <dimen name="standard_145">145dp</dimen>
-    <dimen name="d_20dp">20dp</dimen>
-    <dimen name="searchBar_margin">8dp</dimen>
-
-    ////////////////
-    <dimen name="margin_start">8dp</dimen>
-    <dimen name="margin_end">8dp</dimen>
-    <dimen name="margin_top">8dp</dimen>
-    <dimen name="margin_bottom">8dp</dimen>
+    <dimen name="marginTopEndBottomStart">8dp</dimen>
+    <dimen name="marginTopEndBottomStartLarge">16dp</dimen>
+    <dimen name="marginTopVeryLarge">32dp</dimen>
+    <dimen name="normalTextSize">14sp</dimen>
+    <dimen name="mediumTextSize">16sp</dimen>
+    <dimen name="headerTextSize">20sp</dimen>
+    <dimen name="paddingAll">8dp</dimen>
+    <dimen name="separatorHeight">0.5dp</dimen>
+    <dimen name="btWidth">100dp</dimen>
+    <dimen name="btHeight">40dp</dimen>
+    <dimen name="ivSplashWidthHeight">200dp</dimen>
+    <dimen name="ivAboutWidthHeight">100dp</dimen>
+    <dimen name="ivAboutIconsWidthHeight">30dp</dimen>
+    <dimen name="ivHomeHeaderMarginTop">104dp</dimen>
+    <dimen name="ivHomeMiniHeaderMarginStart">24dp</dimen>
+    <dimen name="cpSetBatteryFragmentWidthHeight">220dp</dimen>
+    <dimen name="llStatsSetBatteryFragmentHeight">65dp</dimen>
+    <dimen name="ivAssistantWidthHeight">45dp</dimen>
+    <dimen name="ivCompassSetPrayerTimeFragmentWidthHeight">200dp</dimen>
+    <dimen name="ivCompassHandsSetPrayerTimeFragmentWidth">10dp</dimen>
+    <dimen name="ivCompassHandsSetPrayerTimeFragmentWidthHeight">90dp</dimen>
+    <dimen name="tvSetPrayerTimeFragmentMarginEnd">32dp</dimen>
+    <dimen name="tvSetTimeFragmentHeaderTextSize">40sp</dimen>
+    <dimen name="pbLoaderWidthHeight">50dp</dimen>
+    <dimen name="tvItemAlarmExpandableListChildPadding">16dp</dimen>
+    <dimen name="tvItemAlarmExpandableListTextSize">38sp</dimen>
+    <dimen name="tvItemAlarmExpandableListBatteryMarginTopStart">12dp</dimen>
+    <dimen name="tvItemAlarmExpandableListBatteryMarginTopStartNextRow">20dp</dimen>
+    <dimen name="ivItemAlarmExpandableListEmptyWidthHeight">220dp</dimen>
+    <dimen name="swItemAlarmExpandableListMarginTop">12dp</dimen>
 </resources>

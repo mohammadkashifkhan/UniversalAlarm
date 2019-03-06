@@ -6,8 +6,8 @@
     android:layout_height="wrap_content">
 
     <com.wang.avi.AVLoadingIndicatorView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/pbLoaderWidthHeight"
+        android:layout_height="@dimen/pbLoaderWidthHeight"
         app:indicatorColor="@color/colorPrimaryDarkOrange"
         android:layout_centerInParent="true"
         app:indicatorName="BallScaleMultipleIndicator" />

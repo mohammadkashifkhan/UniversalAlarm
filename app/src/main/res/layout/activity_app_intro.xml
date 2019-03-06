@@ -8,52 +8,54 @@
     tools:context=".activities.AppIntroActivity">
 
     <LinearLayout
-        android:gravity="center"
-        android:background="@color/colorPrimaryDarkOrange"
+        android:id="@+id/linearLayout2"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDarkOrange"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:padding="8dp"
-            android:textColor="@color/pitchWhite"
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginTopEndBottomStart"
+            android:gravity="center"
+            android:padding="@dimen/paddingAll"
             android:text="Welcome to Universal Alarm"
-            android:gravity="center"/>
+            android:textColor="@color/pitchWhite"
+            android:textSize="@dimen/headerTextSize"
+            android:textStyle="bold" />
 
         <TextView
-            android:textSize="14sp"
-            android:padding="8dp"
-            android:textColor="@color/pitchWhite"
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/paddingAll"
             android:text="Get notified about new stuff, or turn notifications off"
-            android:gravity="center"/>
+            android:textColor="@color/pitchWhite"
+            android:textSize="@dimen/normalTextSize" />
 
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivPreview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="@dimen/marginTopVeryLarge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         app:srcCompat="@drawable/intro_sneak_peak" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
-        android:layout_height="190dp"
+        android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDarkOrange"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -62,93 +64,95 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-            android:padding="8dp"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginTopEndBottomStart"
+            android:gravity="center"
             android:orientation="horizontal"
-            tools:layout_editor_absoluteX="203dp"
-            tools:layout_editor_absoluteY="420dp">
+            android:paddingLeft="@dimen/paddingAll"
+            android:paddingRight="@dimen/paddingAll">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_tick"/>
+                app:srcCompat="@drawable/ic_tick" />
 
             <TextView
-                android:padding="8dp"
-                android:textColor="@color/white"
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="See the latest ROMs, kernels, apps articles, themes and more curated just for your device" />
+                android:padding="@dimen/paddingAll"
+                android:text="See the latest ROMs"
+                android:textColor="@color/white"
+                android:textSize="@dimen/normalTextSize" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginTopEndBottomStart"
+            android:gravity="center"
             android:orientation="horizontal"
-            tools:layout_editor_absoluteX="203dp"
-            tools:layout_editor_absoluteY="420dp">
+            android:paddingLeft="@dimen/paddingAll"
+            android:paddingRight="@dimen/paddingAll">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_tick"/>
+                app:srcCompat="@drawable/ic_tick" />
 
             <TextView
-                android:padding="8dp"
-                android:textColor="@color/white"
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Full Material Design, ad free and fat(af)" />
+                android:padding="@dimen/paddingAll"
+                android:text="Full Material Design, ad free and fat(af)"
+                android:textColor="@color/white"
+                android:textSize="@dimen/normalTextSize" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginTopEndBottomStart"
+            android:gravity="center"
             android:orientation="horizontal"
-            tools:layout_editor_absoluteX="203dp"
-            tools:layout_editor_absoluteY="420dp">
+            android:paddingLeft="@dimen/paddingAll"
+            android:paddingRight="@dimen/paddingAll">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_tick"/>
+                app:srcCompat="@drawable/ic_tick" />
 
             <TextView
-                android:padding="8dp"
-                android:textColor="@color/white"
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Get notified about new stuff, or turn notifications off" />
+                android:padding="@dimen/paddingAll"
+                android:text="Get notified about new stuff, or turn notifications off"
+                android:textColor="@color/white"
+                android:textSize="@dimen/normalTextSize" />
 
         </LinearLayout>
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/btGotIt"
+            android:layout_width="@dimen/btWidth"
+            android:layout_height="@dimen/btHeight"
+            android:layout_gravity="center"
+            android:textSize="@dimen/normalTextSize"
+            android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
+            android:layout_marginBottom="@dimen/marginTopEndBottomStart"
+            android:background="@drawable/button_white_border"
+            android:text="Got It"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/btGotIt"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/button_white_border"
-        android:text="Got It"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,22 +1,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:background="@color/pitchWhite"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:gravity="center"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <ImageView
+            android:layout_width="@dimen/ivAboutWidthHeight"
+            android:layout_height="@dimen/ivAboutWidthHeight"
             android:layout_gravity="left"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@mipmap/ic_launcher" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,74 +24,60 @@
             android:orientation="vertical">
 
             <TextView
-                android:textColor="@color/colorPrimaryDarkOrange"
-                android:gravity="left"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:layout_width="match_parent"
+                android:id="@+id/tvVersion"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/app_name"/>
+                android:layout_marginTop="@dimen/marginTopEndBottomStart"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/normalTextSize" />
 
             <TextView
-                android:id="@+id/tvVersion"
-                android:textColor="@color/black"
-                android:drawableTint="@color/gray"
-                android:drawablePadding="8dp"
-                android:gravity="center"
-                android:drawableStart="@drawable/ic_version"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:id="@+id/opensource"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="left"
+                android:text="Open Source Licenses"
+                android:textColor="@color/colorAccentOrange"
+                android:textSize="@dimen/mediumTextSize" />
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <TextView
-        android:foreground="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:id="@+id/opensource"
-        android:padding="@dimen/d_20dp"
-        android:gravity="left"
-        android:textColor="@color/colorPrimaryDarkOrange"
-        android:textSize="16sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Open Source Licenses"/>
-
     <View
-        android:layout_marginRight="@dimen/d_20dp"
-        android:layout_marginLeft="@dimen/d_20dp"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/separatorHeight"
         android:background="@color/gray"/>
 
     <TextView
-        android:padding="@dimen/d_20dp"
         android:id="@+id/madeWithLove"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:textColor="@color/black"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/paddingAll"
+        android:textColor="@color/black"
+        android:textSize="@dimen/normalTextSize" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:scaleType="centerCrop"
             android:id="@+id/ivDevBlurryImage"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
 
         <com.pkmmte.view.CircularImageView
-            android:layout_margin="30dp"
-            android:layout_gravity="center"
             android:id="@+id/avatar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/ivAboutWidthHeight"
+            android:layout_height="@dimen/ivAboutWidthHeight"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/marginTopVeryLarge"
             android:scaleType="center"
             android:src="@drawable/ic_kashif"
             app:border="true"
@@ -99,69 +85,58 @@
 
     </FrameLayout>
 
-    <TextView
-        android:layout_marginLeft="@dimen/d_20dp"
-        android:layout_marginRight="@dimen/d_20dp"
-        android:layout_marginTop="16sp"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/aboutDevSummary"/>
-
     <LinearLayout
-        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="1"
+        android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <ImageView
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:id="@+id/linkedin"
+            android:id="@+id/ivLinkedIn"
+            android:layout_width="@dimen/ivAboutIconsWidthHeight"
+            android:layout_height="@dimen/ivAboutIconsWidthHeight"
             android:layout_weight=".1"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_linkedin"/>
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_linkedin" />
 
         <ImageView
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:id="@+id/gmail"
+            android:id="@+id/ivGmail"
+            android:layout_width="@dimen/ivAboutIconsWidthHeight"
+            android:layout_height="@dimen/ivAboutIconsWidthHeight"
             android:layout_weight=".1"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_gmail"/>
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_gmail" />
 
         <ImageView
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:id="@+id/googleplay"
+            android:id="@+id/ivGooglePlay"
+            android:layout_width="@dimen/ivAboutIconsWidthHeight"
+            android:layout_height="@dimen/ivAboutIconsWidthHeight"
             android:layout_weight=".1"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_googleplay"/>
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_googleplay" />
 
         <ImageView
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:id="@+id/stackOverFlow"
+            android:id="@+id/ivStackOverFlow"
+            android:layout_width="@dimen/ivAboutIconsWidthHeight"
+            android:layout_height="@dimen/ivAboutIconsWidthHeight"
             android:layout_weight=".1"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_stack_overflow"/>
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_stack_overflow" />
 
         <ImageView
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:id="@+id/github"
+            android:id="@+id/ivGithub"
+            android:layout_width="@dimen/ivAboutIconsWidthHeight"
+            android:layout_height="@dimen/ivAboutIconsWidthHeight"
             android:layout_weight=".1"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_github"/>
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_github" />
     </LinearLayout>
 
 </LinearLayout>

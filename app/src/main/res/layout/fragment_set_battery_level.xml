@@ -13,9 +13,9 @@
 
         <at.grabner.circleprogress.CircleProgressView
             android:id="@+id/cpBattery"
-            android:layout_width="220dp"
-            android:layout_height="220dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="@dimen/cpSetBatteryFragmentWidthHeight"
+            android:layout_height="@dimen/cpSetBatteryFragmentWidthHeight"
+            android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
             app:cpv_autoTextSize="true"
             app:cpv_barColor="@color/red"
             app:cpv_barColor1="@color/yellow"
@@ -42,10 +42,10 @@
         <LinearLayout
             android:id="@+id/llPhoneStats"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_height="@dimen/llStatsSetBatteryFragmentHeight"
+            android:layout_marginStart="@dimen/marginTopEndBottomStartLarge"
+            android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
+            android:layout_marginEnd="@dimen/marginTopEndBottomStartLarge"
             android:gravity="center"
             android:orientation="horizontal"
             android:background="@drawable/item_alarm_list_border"
@@ -58,22 +58,21 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="left|center"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/ivAboutIconsWidthHeight"
+                    android:layout_height="@dimen/ivAboutIconsWidthHeight"
                     android:src="@drawable/ic_battery" />
 
                 <TextView
-                    android:text="Discharging"
                     android:id="@+id/batteryStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="@dimen/marginTopEndBottomStart"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/normalTextSize" />
 
             </LinearLayout>
 
@@ -81,22 +80,22 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="left|center"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/ivAboutIconsWidthHeight"
+                    android:layout_height="@dimen/ivAboutIconsWidthHeight"
                     android:src="@drawable/ic_eta" />
 
                 <TextView
                     android:id="@+id/eta"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="@dimen/marginTopEndBottomStart"
                     android:text="6h 22m left"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/normalTextSize" />
 
             </LinearLayout>
 
@@ -104,21 +103,21 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="left|center"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/ivAboutIconsWidthHeight"
+                    android:layout_height="@dimen/ivAboutIconsWidthHeight"
                     android:src="@drawable/ic_thermometer_white" />
 
                 <TextView
                     android:id="@+id/temperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="@dimen/marginTopEndBottomStart"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/normalTextSize" />
 
             </LinearLayout>
 
@@ -128,11 +127,11 @@
             android:id="@+id/cl1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="@dimen/marginTopEndBottomStartLarge"
+            android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
+            android:layout_marginRight="@dimen/marginTopEndBottomStartLarge"
             android:background="@drawable/item_alarm_list_border"
-            android:padding="8dp"
+            android:padding="@dimen/paddingAll"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/llPhoneStats">
@@ -143,6 +142,7 @@
                 android:layout_height="wrap_content"
                 android:text="Low (Left) &amp; High (Right) Battery Percentage"
                 android:textColor="@color/black"
+                android:textSize="@dimen/normalTextSize"
                 app:layout_constraintEnd_toStartOf="@+id/swBattery"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -182,11 +182,11 @@
             android:id="@+id/cl2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="@dimen/marginTopEndBottomStartLarge"
+            android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
+            android:layout_marginRight="@dimen/marginTopEndBottomStartLarge"
             android:background="@drawable/item_alarm_list_border"
-            android:padding="8dp"
+            android:padding="@dimen/paddingAll"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -198,6 +198,7 @@
                 android:layout_height="wrap_content"
                 android:text="Set Temperature (celsius)"
                 android:textColor="@color/black"
+                android:textSize="@dimen/normalTextSize"
                 app:layout_constraintEnd_toStartOf="@+id/swTemperature"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -237,11 +238,11 @@
             android:id="@+id/cl3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="@dimen/marginTopEndBottomStartLarge"
+            android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
+            android:layout_marginRight="@dimen/marginTopEndBottomStartLarge"
             android:background="@drawable/item_alarm_list_border"
-            android:padding="8dp"
+            android:padding="@dimen/paddingAll"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -253,6 +254,7 @@
                 android:layout_height="wrap_content"
                 android:text="Theft Alarm"
                 android:textColor="@color/black"
+                android:textSize="@dimen/normalTextSize"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -260,7 +262,7 @@
                 android:id="@+id/swTheft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="@dimen/marginTopEndBottomStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/textView9"
@@ -270,10 +272,11 @@
                 android:id="@+id/textView18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/marginTopEndBottomStart"
                 android:gravity="left"
                 android:text="While charging, the alarm will buzz off, if anyone unplugs your device"
                 android:textColor="@color/gray"
+                android:textSize="@dimen/normalTextSize"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -286,8 +289,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
+            android:layout_marginBottom="@dimen/marginTopEndBottomStart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -298,10 +301,9 @@
                 android:id="@+id/tvAssistantPH"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_margin="@dimen/marginTopEndBottomStartLarge"
                 android:fontFamily="sans-serif-smallcaps"
                 android:gravity="left"
-                android:padding="16dp"
                 android:text="Alarm Assistant"
                 android:textColor="@color/black"
                 android:textStyle="bold"
@@ -312,10 +314,11 @@
 
             <ImageView
                 android:id="@+id/imageView3"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="@dimen/ivAssistantWidthHeight"
+                android:layout_height="@dimen/ivAssistantWidthHeight"
+                android:layout_marginStart="@dimen/marginTopEndBottomStartLarge"
                 android:src="@drawable/ic_support"
+                android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvAssistantPH"
@@ -324,11 +327,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="@dimen/marginTopEndBottomStart"
                 android:background="@drawable/ic_speech_bubble"
                 android:fontFamily="sans-serif-smallcaps"
                 android:gravity="left"
-                android:padding="16dp"
+                android:padding="@dimen/marginTopEndBottomStartLarge"
+                android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:text="@string/bot_text"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
