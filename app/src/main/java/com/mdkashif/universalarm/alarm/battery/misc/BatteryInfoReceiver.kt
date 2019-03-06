@@ -9,7 +9,7 @@ import android.os.BatteryManager
 import android.util.Log
 
 import com.mdkashif.universalarm.notifications.NotificationService
-import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
+import com.mdkashif.universalarm.persistence.AppPreferences
 
 class BatteryInfoReceiver : BroadcastReceiver() {
 
@@ -22,9 +22,9 @@ class BatteryInfoReceiver : BroadcastReceiver() {
     private lateinit var mAudioManager: AudioManager
 
     override fun onReceive(context: Context, intent: Intent) {
-        highBatteryPercentage = SharedPrefHolder.getInstance(context).hbl
-        lowBatteryPercentage = SharedPrefHolder.getInstance(context).lbl
-        tempLevel = SharedPrefHolder.getInstance(context).temp
+        highBatteryPercentage = AppPreferences.hbl
+        lowBatteryPercentage = AppPreferences.lbl
+        tempLevel = AppPreferences.temp
 
         currentBatteryLevel = intent.getIntExtra(
                 BatteryManager.EXTRA_LEVEL, -1).toFloat()
@@ -34,19 +34,19 @@ class BatteryInfoReceiver : BroadcastReceiver() {
 
         mAudioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
 
-        if (currentBatteryPercentage!! >= highBatteryPercentage!! && SharedPrefHolder.getInstance(context).batteryAlarmStatus!!)
+        if (currentBatteryPercentage!! >= highBatteryPercentage!! && AppPreferences.batteryAlarmStatus!!)
             if (isConnectedToCharge(context))
                 startAlarm("Unplug your Charger", "Your mobile is already $highBatteryPercentage% charged", context)
 
-        if (currentBatteryPercentage!! <= lowBatteryPercentage!! && SharedPrefHolder.getInstance(context).batteryAlarmStatus!!)
+        if (currentBatteryPercentage!! <= lowBatteryPercentage!! && AppPreferences.batteryAlarmStatus!!)
             if (!isConnectedToCharge(context))
                 startAlarm("Plugin your Charger", "Battery has less than $lowBatteryPercentage% charge left", context)
 
-        if (SharedPrefHolder.getInstance(context).theftAlarmStatus!!)
+        if (AppPreferences.theftAlarmStatus!!)
             if (!isConnectedToCharge(context))
                 startAlarm("Theft Alarm", "Someone just might be unplugging your phone!", context)
 
-        if (getCurrentBatteryTemperature(context) > tempLevel!! && SharedPrefHolder.getInstance(context).temperatureAlarmStatus!!)
+        if (getCurrentBatteryTemperature(context) > tempLevel!! && AppPreferences.temperatureAlarmStatus!!)
             startAlarm("Your Phone is getting too warm", "Either switch it off or unplug it", context)
 
         Log.d("Check12345678", "$highBatteryPercentage-$lowBatteryPercentage-$tempLevel-$currentBatteryPercentage")

@@ -69,7 +69,7 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="com.mdkashif.universalarm.alarm.miscellaneous.AlarmSoundService" />
+        <service android:name="com.mdkashif.universalarm.alarm.misc.AlarmSoundService" />
 
         <service android:name="com.mdkashif.universalarm.notifications.NotificationService" />
 

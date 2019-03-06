@@ -4,7 +4,7 @@ class ThemeHelper {
 //    companion object {
 //        // Use this to set theme through settings
 //        fun switchTheme(context: Context, mActivity: BaseActivity, theme: String): Boolean {
-//            SharedPrefHolder.getInstance(mActivity).theme = theme
+//            AppPreferences.theme = theme
 //            when (theme) {
 //                "Auto" -> {
 //                    detectThemeAuto(mActivity)

@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.alarm.miscellaneous
+package com.mdkashif.universalarm.alarm.misc
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hendraanggrian.recyclerview.widget.ExpandableRecyclerView
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.alarm.miscellaneous.model.TimingsModel
-import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
+import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
+import com.mdkashif.universalarm.persistence.AppPreferences
 
 class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, private val viewType: String, private val context: Context, linearLayoutManager: LinearLayoutManager) : ExpandableRecyclerView.Adapter<RecyclerView.ViewHolder>(linearLayoutManager) {
 
@@ -116,20 +116,20 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                 holder.tvETA.text = "ETA: 6 hrs to go"
                 holder.swTime.isChecked = alarmsList[position].status
                 holder.swTime.setOnCheckedChangeListener { p0, p1 ->
-//                    SharedPrefHolder.getInstance(context).batteryAlarmStatus = p1
+//                    AppPreferences.batteryAlarmStatus = p1
                 }
             }
             is AlarmsListAdapter.BatteryViewHolder -> {
-                holder.tvHbl.text = SharedPrefHolder.getInstance(context).hbl.toString()
-                holder.tvLbl.text = SharedPrefHolder.getInstance(context).lbl.toString()
-                holder.tvTemp.text = SharedPrefHolder.getInstance(context).temp.toString()
+                holder.tvHbl.text = AppPreferences.hbl.toString()
+                holder.tvLbl.text = AppPreferences.lbl.toString()
+                holder.tvTemp.text = AppPreferences.temp.toString()
                 holder.tvNote.text = context.getText(R.string.tvItemBatteryExpandableRv)
-                holder.swBattery.isChecked = SharedPrefHolder.getInstance(context).batteryAlarmStatus!!
-                holder.swTemperature.isChecked = SharedPrefHolder.getInstance(context).temperatureAlarmStatus!!
+                holder.swBattery.isChecked = AppPreferences.batteryAlarmStatus!!
+                holder.swTemperature.isChecked = AppPreferences.temperatureAlarmStatus!!
                 holder.swBattery.setOnCheckedChangeListener { p0, p1 ->
-                    SharedPrefHolder.getInstance(context).batteryAlarmStatus = p1 }
+                    AppPreferences.batteryAlarmStatus = p1 }
                 holder.swTemperature.setOnCheckedChangeListener { p0, p1 ->
-                    SharedPrefHolder.getInstance(context).temperatureAlarmStatus = p1 }
+                    AppPreferences.temperatureAlarmStatus = p1 }
             }
             is AlarmsListAdapter.LocationViewHolder -> {
                 holder.tvAddress.text = "Jumeirah Beach"
@@ -158,7 +158,7 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                 holder.tvETA.text = "ETA: 2 hrs to go"
                 holder.swPrayer.isChecked = alarmsList[position].status
                 holder.swPrayer.setOnCheckedChangeListener { p0, p1 ->
-                    //                    SharedPrefHolder.getInstance(context).batteryAlarmStatus = p1
+                    //                    AppPreferences.batteryAlarmStatus = p1
                 }
             }
             is AlarmsListAdapter.EmptyViewHolder -> {
@@ -176,24 +176,24 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
         return when {
             position < alarmsList.size -> if (AlarmTypes.Time.toString() == alarmsList[position].alarmType) 0
             else 3
-            position - alarmsList.size < 2 && SharedPrefHolder.getInstance(context).hbl != 0f -> 1
+            position - alarmsList.size < 2 && AppPreferences.hbl != 0f -> 1
             else -> -1
         }
     }
 
     override fun getItemCount(): Int {
         when (viewType) {
-            "ShowAll" -> return if (SharedPrefHolder.getInstance(context).hbl != 0f)
+            "ShowAll" -> return if (AppPreferences.hbl != 0f)
                 alarmsList.size + 1
             else
                 alarmsList.size
             "Home" -> when {
                 alarmsList.size > 4 -> return 4
-                alarmsList.size in 1..4 -> return if (SharedPrefHolder.getInstance(context).hbl != 0f)
+                alarmsList.size in 1..4 -> return if (AppPreferences.hbl != 0f)
                     alarmsList.size + 1
                 else
                     alarmsList.size
-                SharedPrefHolder.getInstance(context).hbl != 0f -> return 1
+                AppPreferences.hbl != 0f -> return 1
             }
         }
         return 1

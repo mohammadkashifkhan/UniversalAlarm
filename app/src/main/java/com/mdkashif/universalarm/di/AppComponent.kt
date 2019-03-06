@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.utils.di
+package com.mdkashif.universalarm.di
 
 import android.app.Application
 import com.mdkashif.universalarm.base.BaseApplication

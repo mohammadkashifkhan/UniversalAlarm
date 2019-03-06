@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.webkit.WebSettings
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.base.BaseActivity
-import com.mdkashif.universalarm.custom.AlarmWebViewClient
+import com.mdkashif.universalarm.utils.AlarmWebViewClient
 import kotlinx.android.synthetic.main.activity_webview.*
 
 class WebviewActivity : BaseActivity() {

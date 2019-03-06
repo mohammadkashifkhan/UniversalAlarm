@@ -11,7 +11,7 @@ import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.battery.misc.BatteryLiveData
 import com.mdkashif.universalarm.alarm.battery.misc.BatteryStatsPoJo
 import com.mdkashif.universalarm.base.BaseFragment
-import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
+import com.mdkashif.universalarm.persistence.AppPreferences
 import kotlinx.android.synthetic.main.fragment_set_battery_level.view.*
 
 
@@ -34,20 +34,20 @@ class SetBatteryLevelFragment : BaseFragment(), CompoundButton.OnCheckedChangeLi
             rootView.temperature.text = connection.temp.toString()
         })
 
-        rootView.swBattery.isChecked = SharedPrefHolder.getInstance(mActivity).batteryAlarmStatus == true
-        rootView.swTemperature.isChecked = SharedPrefHolder.getInstance(mActivity).temperatureAlarmStatus == true
-        rootView.swTheft.isChecked = SharedPrefHolder.getInstance(mActivity).theftAlarmStatus == true
+        rootView.swBattery.isChecked = AppPreferences.batteryAlarmStatus == true
+        rootView.swTemperature.isChecked = AppPreferences.temperatureAlarmStatus == true
+        rootView.swTheft.isChecked = AppPreferences.theftAlarmStatus == true
 
         when {
-            (SharedPrefHolder.getInstance(mActivity).hbl == 0f) && (SharedPrefHolder.getInstance(mActivity).lbl == 0f) -> rootView.rbBatteryLevel.setRangePinsByValue(20f,85f)
-            SharedPrefHolder.getInstance(mActivity).hbl == 0f -> rootView.rbBatteryLevel.setRangePinsByValue(SharedPrefHolder.getInstance(mActivity).lbl!!,85f)
-            SharedPrefHolder.getInstance(mActivity).lbl == 0f -> rootView.rbBatteryLevel.setRangePinsByValue(20f, SharedPrefHolder.getInstance(mActivity).hbl!!)
-            else -> rootView.rbBatteryLevel.setRangePinsByValue(SharedPrefHolder.getInstance(mActivity).lbl!!, SharedPrefHolder.getInstance(mActivity).hbl!!)
+            (AppPreferences.hbl == 0f) && (AppPreferences.lbl == 0f) -> rootView.rbBatteryLevel.setRangePinsByValue(20f,85f)
+            AppPreferences.hbl == 0f -> rootView.rbBatteryLevel.setRangePinsByValue(AppPreferences.lbl!!,85f)
+            AppPreferences.lbl == 0f -> rootView.rbBatteryLevel.setRangePinsByValue(20f, AppPreferences.hbl!!)
+            else -> rootView.rbBatteryLevel.setRangePinsByValue(AppPreferences.lbl!!, AppPreferences.hbl!!)
         }
 
         when {
-            SharedPrefHolder.getInstance(mActivity).temp == 0f -> rootView.rbTemp.setSeekPinByValue(35f)
-            else -> rootView.rbTemp.setSeekPinByValue(SharedPrefHolder.getInstance(mActivity).temp!!)
+            AppPreferences.temp == 0f -> rootView.rbTemp.setSeekPinByValue(35f)
+            else -> rootView.rbTemp.setSeekPinByValue(AppPreferences.temp!!)
         }
 
         return rootView
@@ -56,13 +56,13 @@ class SetBatteryLevelFragment : BaseFragment(), CompoundButton.OnCheckedChangeLi
     override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
         when(p0!!.id){
             R.id.swBattery->{
-                SharedPrefHolder.getInstance(mActivity).batteryAlarmStatus = p1
+                AppPreferences.batteryAlarmStatus = p1
             }
             R.id.swTemperature->{
-                SharedPrefHolder.getInstance(mActivity).temperatureAlarmStatus = p1
+                AppPreferences.temperatureAlarmStatus = p1
             }
             R.id.swTheft->{
-                SharedPrefHolder.getInstance(mActivity).theftAlarmStatus = p1
+                AppPreferences.theftAlarmStatus = p1
             }
         }
     }
@@ -70,14 +70,14 @@ class SetBatteryLevelFragment : BaseFragment(), CompoundButton.OnCheckedChangeLi
     override fun onRangeChangeListener(rangeBar: RangeBar?, leftPinIndex: Int, rightPinIndex: Int, leftPinValue: String?, rightPinValue: String?) {
         when(rangeBar!!.id){
             R.id.rbBatteryLevel->{
-                if(SharedPrefHolder.getInstance(mActivity).hbl != rightPinValue!!.toFloat())
-                    SharedPrefHolder.getInstance(mActivity).hbl = rightPinValue.toFloat()
-                if(SharedPrefHolder.getInstance(mActivity).lbl != leftPinValue!!.toFloat())
-                    SharedPrefHolder.getInstance(mActivity).lbl = leftPinValue.toFloat()
+                if(AppPreferences.hbl != rightPinValue!!.toFloat())
+                    AppPreferences.hbl = rightPinValue.toFloat()
+                if(AppPreferences.lbl != leftPinValue!!.toFloat())
+                    AppPreferences.lbl = leftPinValue.toFloat()
             }
             R.id.rbTemp->{
-                if(SharedPrefHolder.getInstance(mActivity).temp != rightPinValue!!.toFloat())
-                    SharedPrefHolder.getInstance(mActivity).temp = rightPinValue.toFloat()
+                if(AppPreferences.temp != rightPinValue!!.toFloat())
+                    AppPreferences.temp = rightPinValue.toFloat()
             }
         }
     }

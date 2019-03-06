@@ -1,9 +1,9 @@
-package com.mdkashif.universalarm.utils.di
+package com.mdkashif.universalarm.di
 
 import android.app.Application
 import androidx.room.Room
-import com.mdkashif.universalarm.utils.persistence.AppDatabase
-import com.mdkashif.universalarm.utils.persistence.RoomAccessDao
+import com.mdkashif.universalarm.persistence.AppDatabase
+import com.mdkashif.universalarm.persistence.RoomAccessDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

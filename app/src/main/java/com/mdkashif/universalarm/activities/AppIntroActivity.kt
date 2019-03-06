@@ -8,7 +8,7 @@ import android.view.View
 import android.view.WindowManager
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.base.BaseActivity
-import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
+import com.mdkashif.universalarm.persistence.AppPreferences
 import kotlinx.android.synthetic.main.activity_app_intro.*
 
 class AppIntroActivity : BaseActivity() {
@@ -28,7 +28,7 @@ class AppIntroActivity : BaseActivity() {
     }
 
     private fun goToHomeFragment() {
-        SharedPrefHolder.getInstance(this).isFirstTimeLaunch = false
+        AppPreferences.isFirstTimeLaunch = false
         executeIntent(Intent(this@AppIntroActivity, ContainerActivity::class.java), true)
     }
 

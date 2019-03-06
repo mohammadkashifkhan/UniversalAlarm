@@ -12,7 +12,8 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.google.android.material.snackbar.Snackbar
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.utils.persistence.AppDatabase
+import com.mdkashif.universalarm.persistence.AppDatabase
+import com.mdkashif.universalarm.persistence.AppPreferences
 
 
 open class BaseActivity : AppCompatActivity() {
@@ -29,7 +30,7 @@ open class BaseActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         parentLayout = findViewById(android.R.id.content)
-
+        AppPreferences.init(applicationContext)
         appDatabase = AppDatabase.getAppDatabase(applicationContext)
     }
 

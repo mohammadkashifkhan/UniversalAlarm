@@ -8,7 +8,7 @@ import android.view.animation.AnimationUtils
 import com.crashlytics.android.Crashlytics
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.base.BaseActivity
-import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
+import com.mdkashif.universalarm.persistence.AppPreferences
 import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_splash.*
 
@@ -25,7 +25,7 @@ class SplashActivity : BaseActivity() {
 
         val splashTimeOut = applicationContext.resources.getInteger(R.integer.splash_Time_Out)
         Handler().postDelayed({
-            mIntent = if (!SharedPrefHolder.getInstance(this).isFirstTimeLaunch)
+            mIntent = if (!AppPreferences.isFirstTimeLaunch)
                 Intent(this@SplashActivity, ContainerActivity::class.java)
             else
                 Intent(this@SplashActivity, AppIntroActivity::class.java)

@@ -30,12 +30,6 @@
             android:title="@string/prefKeyTitleLocationPrecision"
             android:icon="@drawable/ic_location"/>
 
-        <Preference
-            android:title="@string/prefKeyTitleTheme"
-            android:key="@string/prefKeyTitleTheme"
-            android:selectable="true"
-            android:icon="@drawable/ic_theme"/>
-
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_header_misc">

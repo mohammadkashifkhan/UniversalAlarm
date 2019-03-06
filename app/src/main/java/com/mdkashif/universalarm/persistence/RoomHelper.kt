@@ -1,11 +1,11 @@
-package com.mdkashif.universalarm.utils.persistence
+package com.mdkashif.universalarm.persistence
 
 
 import android.os.AsyncTask
 import androidx.lifecycle.LiveData
-import com.mdkashif.universalarm.alarm.miscellaneous.AlarmOps
-import com.mdkashif.universalarm.alarm.miscellaneous.AlarmTypes
-import com.mdkashif.universalarm.alarm.miscellaneous.model.TimingsModel
+import com.mdkashif.universalarm.alarm.misc.AlarmOps
+import com.mdkashif.universalarm.alarm.misc.AlarmTypes
+import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 
 
 class RoomHelper { //@Inject constructor(accessDao: RoomAccessDao)
@@ -87,9 +87,9 @@ class RoomHelper { //@Inject constructor(accessDao: RoomAccessDao)
                 when (params[0]) {
                     AlarmOps.Get.toString() -> {
                         (return if (alarmId == 0.toLong())
-                            Pair(getPrayerTimings(db),countAllAlarms(db))
+                            Pair(getPrayerTimings(db), countAllAlarms(db))
                         else
-                            Pair(getTimingsWithDays(db),countAllAlarms(db))) //TODO : combine location alarms here as well
+                            Pair(getTimingsWithDays(db), countAllAlarms(db))) //TODO : combine location alarms here as well
                     }
                     AlarmOps.Check.toString() -> {
                         timingsList = getSpecificTimings(db, timingsModel!!)

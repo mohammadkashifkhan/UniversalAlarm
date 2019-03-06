@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.custom
+package com.mdkashif.universalarm.utils
 
 import android.graphics.Bitmap
 import android.webkit.WebView

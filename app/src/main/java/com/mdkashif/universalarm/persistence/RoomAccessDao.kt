@@ -1,12 +1,12 @@
-package com.mdkashif.universalarm.utils.persistence
+package com.mdkashif.universalarm.persistence
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.mdkashif.universalarm.alarm.miscellaneous.model.DaysModel
-import com.mdkashif.universalarm.alarm.miscellaneous.model.LocationsModel
-import com.mdkashif.universalarm.alarm.miscellaneous.model.TimingsModel
+import com.mdkashif.universalarm.alarm.misc.model.DaysModel
+import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
+import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 
 @Dao
 interface RoomAccessDao {

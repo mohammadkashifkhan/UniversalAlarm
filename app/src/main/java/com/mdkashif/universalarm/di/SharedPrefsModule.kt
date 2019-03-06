@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.utils.di
+package com.mdkashif.universalarm.di
 
 import android.content.Context
 import android.content.SharedPreferences

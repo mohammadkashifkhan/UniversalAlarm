@@ -1,6 +1,4 @@
-package com.mdkashif.universalarm.connectivity
-
-import com.mdkashif.universalarm.utils.AppConstants
+package com.mdkashif.universalarm.utils
 
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -11,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  * Retrofit Service Generator
  */
 
-object ServiceGenerator {
+object RestClient {
 
     private var retrofit: Retrofit? = null
 

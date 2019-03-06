@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.alarm.miscellaneous
+package com.mdkashif.universalarm.alarm.misc
 
 import android.app.Service
 import android.content.Context
@@ -8,7 +8,7 @@ import android.media.MediaPlayer
 import android.net.Uri
 import android.os.IBinder
 import android.os.Vibrator
-import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
+import com.mdkashif.universalarm.persistence.AppPreferences
 import java.io.IOException
 
 
@@ -22,10 +22,10 @@ class AlarmSoundService : Service() {
                 .setUsage(AudioAttributes.USAGE_ALARM)
                 .build())
         try {
-            if (SharedPrefHolder.getInstance(applicationContext).ringtoneUri != "")
-                mediaPlayer.setDataSource(this, Uri.parse(SharedPrefHolder.getInstance(applicationContext).ringtoneUri))
+            if (AppPreferences.ringtoneUri != "")
+                mediaPlayer.setDataSource(this, Uri.parse(AppPreferences.ringtoneUri))
 
-            if (SharedPrefHolder.getInstance(applicationContext).vibrateStatus)
+            if (AppPreferences.vibrateStatus)
                 vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
             mediaPlayer.prepare()
@@ -46,7 +46,7 @@ class AlarmSoundService : Service() {
             mediaPlayer.release()
         }
 
-        if (SharedPrefHolder.getInstance(applicationContext).vibrateStatus)
+        if (AppPreferences.vibrateStatus)
             vibrator!!.cancel()
     }
 

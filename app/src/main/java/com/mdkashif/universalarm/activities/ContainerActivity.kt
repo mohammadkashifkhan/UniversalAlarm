@@ -6,8 +6,8 @@ import android.os.Bundle
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.battery.ui.SetBatteryLevelFragment
 import com.mdkashif.universalarm.alarm.location.ui.SetLocationFragment
-import com.mdkashif.universalarm.alarm.miscellaneous.ui.BuzzingAlarmFragment
-import com.mdkashif.universalarm.alarm.miscellaneous.ui.HomeFragment
+import com.mdkashif.universalarm.alarm.misc.ui.BuzzingAlarmFragment
+import com.mdkashif.universalarm.alarm.misc.ui.HomeFragment
 import com.mdkashif.universalarm.alarm.prayer.job.PrayerDataFetchScheduler
 import com.mdkashif.universalarm.alarm.prayer.ui.SetPrayerTimeFragment
 import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment

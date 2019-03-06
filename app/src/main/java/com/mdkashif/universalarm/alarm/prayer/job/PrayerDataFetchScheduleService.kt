@@ -2,14 +2,14 @@ package com.mdkashif.universalarm.alarm.prayer.job
 
 import android.app.job.JobParameters
 import android.app.job.JobService
-import com.mdkashif.universalarm.alarm.miscellaneous.AlarmOps
-import com.mdkashif.universalarm.alarm.miscellaneous.AlarmTypes
-import com.mdkashif.universalarm.alarm.miscellaneous.model.TimingsModel
+import com.mdkashif.universalarm.alarm.misc.AlarmOps
+import com.mdkashif.universalarm.alarm.misc.AlarmTypes
+import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import com.mdkashif.universalarm.alarm.prayer.misc.PrayerPresenter
 import com.mdkashif.universalarm.alarm.prayer.model.PrayerApiResponse
-import com.mdkashif.universalarm.utils.persistence.AppDatabase
-import com.mdkashif.universalarm.utils.persistence.RoomHelper
-import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
+import com.mdkashif.universalarm.persistence.AppDatabase
+import com.mdkashif.universalarm.persistence.AppPreferences
+import com.mdkashif.universalarm.persistence.RoomHelper
 import io.reactivex.disposables.CompositeDisposable
 
 class PrayerDataFetchScheduleService : JobService(), PrayerPresenter.PrayerViewCallback {
@@ -30,9 +30,9 @@ class PrayerDataFetchScheduleService : JobService(), PrayerPresenter.PrayerViewC
     override fun onPrayerDetailSuccess(prayerApiResponse: PrayerApiResponse?) {
         jobFinished(params, false)
 
-        SharedPrefHolder.getInstance(applicationContext).timezone = prayerApiResponse!!.data!!.meta!!.timezone!!
-        SharedPrefHolder.getInstance(applicationContext).islamicDate = prayerApiResponse.data!!.date!!.hijri!!.date!!
-        SharedPrefHolder.getInstance(applicationContext).islamicMonth = prayerApiResponse.data.date!!.hijri!!.month!!.en!!
+        AppPreferences.timezone = prayerApiResponse!!.data!!.meta!!.timezone!!
+        AppPreferences.islamicDate = prayerApiResponse.data!!.date!!.hijri!!.date!!
+        AppPreferences.islamicMonth = prayerApiResponse.data.date!!.hijri!!.month!!.en!!
 
         val sunsetTiming = prayerApiResponse.data.timings!!.sunset!!.split(":")
         val sunsetTimingsModel = TimingsModel(hour = sunsetTiming[0], minute = sunsetTiming[1], alarmType = AlarmTypes.Sunset.toString(), status = false)

@@ -8,7 +8,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.activities.ContainerActivity
-import com.mdkashif.universalarm.alarm.miscellaneous.AlarmSoundService
+import com.mdkashif.universalarm.alarm.misc.AlarmSoundService
 import com.mdkashif.universalarm.utils.AppConstants
 
 class NotificationService : IntentService("NotificationService") {

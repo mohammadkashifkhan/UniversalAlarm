@@ -8,7 +8,7 @@ import android.util.Log
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.LocationRequest
 import com.mdkashif.universalarm.alarm.prayer.model.PrayerApiResponse
-import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
+import com.mdkashif.universalarm.persistence.AppPreferences
 import com.patloew.rxlocation.RxLocation
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -32,8 +32,8 @@ class PrayerPresenter(private val disposable: CompositeDisposable, private val p
                         .flatMapObservable { getAddressObservable(it) }
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(({ t: Address? ->
-                            SharedPrefHolder.getInstance(context).city = t!!.locality
-                            SharedPrefHolder.getInstance(context).country = t.countryName
+                            AppPreferences.city = t!!.locality
+                            AppPreferences.country = t.countryName
                             prayerManager.getPrayerDetails(disposable, context)
                         }), { throwable -> Log.e("PrayerPresenter", "Error fetching location/address updates", throwable) })
         )

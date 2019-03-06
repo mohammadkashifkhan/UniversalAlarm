@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.alarm.miscellaneous.ui
+package com.mdkashif.universalarm.alarm.misc.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,14 +11,14 @@ import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.activities.SettingsActivity
 import com.mdkashif.universalarm.alarm.battery.ui.SetBatteryLevelFragment
 import com.mdkashif.universalarm.alarm.location.ui.SetLocationFragment
-import com.mdkashif.universalarm.alarm.miscellaneous.AlarmTypes
-import com.mdkashif.universalarm.alarm.miscellaneous.AlarmsListAdapter
-import com.mdkashif.universalarm.alarm.miscellaneous.model.TimingsModel
+import com.mdkashif.universalarm.alarm.misc.AlarmTypes
+import com.mdkashif.universalarm.alarm.misc.AlarmsListAdapter
+import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import com.mdkashif.universalarm.alarm.prayer.ui.SetPrayerTimeFragment
 import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment
 import com.mdkashif.universalarm.base.BaseFragment
-import com.mdkashif.universalarm.utils.persistence.RoomHelper
-import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
+import com.mdkashif.universalarm.persistence.AppPreferences
+import com.mdkashif.universalarm.persistence.RoomHelper
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
@@ -57,7 +57,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             }
             R.id.fabSalat -> {
                 rootView.menu.close(true)
-                if (SharedPrefHolder.getInstance(mActivity).islamicDate != "")
+                if (AppPreferences.islamicDate != "")
                     mActivity.replaceFragment(SetPrayerTimeFragment(), SetPrayerTimeFragment::class.java.simpleName, true)
                 else
                     mActivity.showSnackBar("Fetching the latest Prayer timings, Please try again later")
@@ -81,7 +81,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         val pair = RoomHelper.transactFetchAsync(mActivity.returnDbInstance(), AlarmTypes.Time)
         timingsList = pair.first // Pair's first value
         pair.second.observe(this, Observer<Int> {
-            if (SharedPrefHolder.getInstance(mActivity).hbl != 0f)
+            if (AppPreferences.hbl != 0f)
                 rootView.tvSeeAll.text = "+${it - 3} more" // adding battery count
             else
                 rootView.tvSeeAll.text = "+${it - 4} more"

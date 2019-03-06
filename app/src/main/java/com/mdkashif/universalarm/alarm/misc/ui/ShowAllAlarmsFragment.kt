@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.alarm.miscellaneous.ui
+package com.mdkashif.universalarm.alarm.misc.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.alarm.miscellaneous.AlarmTypes
-import com.mdkashif.universalarm.alarm.miscellaneous.AlarmsListAdapter
-import com.mdkashif.universalarm.alarm.miscellaneous.model.TimingsModel
+import com.mdkashif.universalarm.alarm.misc.AlarmTypes
+import com.mdkashif.universalarm.alarm.misc.AlarmsListAdapter
+import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import com.mdkashif.universalarm.base.BaseFragment
-import com.mdkashif.universalarm.utils.persistence.RoomHelper
+import com.mdkashif.universalarm.persistence.RoomHelper
 import kotlinx.android.synthetic.main.fragment_show_all_alarms.*
 
 class ShowAllAlarmsFragment : BaseFragment() {

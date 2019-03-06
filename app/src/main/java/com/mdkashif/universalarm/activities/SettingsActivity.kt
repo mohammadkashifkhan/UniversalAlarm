@@ -27,8 +27,8 @@ import com.afollestad.materialdialogs.customview.getCustomView
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.base.BaseActivity
+import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.utils.AppConstants
-import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
 import com.pkmmte.view.CircularImageView
 import jp.wasabeef.blurry.Blurry
 
@@ -42,8 +42,7 @@ class SettingsActivity : BaseActivity() {
     }
 
     class SettingsFragment : PreferenceFragmentCompat(), androidx.preference.Preference.OnPreferenceClickListener {
-        lateinit var toggleTheme: androidx.preference.Preference
-        lateinit var toggleVibrate: androidx.preference.Preference
+        private lateinit var toggleVibrate: androidx.preference.Preference
         private val googlePlayUrl = "http://play.google.com/store/apps/details?id="
         private lateinit var mActivity: SettingsActivity
         private lateinit var mIntent: Intent
@@ -60,16 +59,12 @@ class SettingsActivity : BaseActivity() {
             findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSendFeedback)).onPreferenceClickListener = this
             findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze)).onPreferenceClickListener = this
 
-            toggleTheme = findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleTheme))
-            toggleTheme.onPreferenceClickListener = this
-            toggleTheme.summary = SharedPrefHolder.getInstance(mActivity).theme
-
             bindPreferenceSummaryToValue(findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleRingtone)))
 
             toggleVibrate = findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleVibrate))
             toggleVibrate.onPreferenceChangeListener = object : androidx.preference.Preference.OnPreferenceChangeListener {
                 override fun onPreferenceChange(preference: androidx.preference.Preference, o: Any): Boolean {
-                    SharedPrefHolder.getInstance(mActivity).vibrateStatus = java.lang.Boolean.valueOf(o.toString())
+                    AppPreferences.vibrateStatus = java.lang.Boolean.valueOf(o.toString())
                     return true
                 }
             }
@@ -179,7 +174,7 @@ class SettingsActivity : BaseActivity() {
                     MaterialDialog(mActivity).show {
                         title(R.string.snoozeTitle)
                         listItemsSingleChoice(R.array.snoozeTimings) { dialog, index, text ->
-                            SharedPrefHolder.getInstance(mActivity).snoozeTimeArrayPosition = index
+                            AppPreferences.snoozeTimeArrayPosition = index
                         }
                     }
                 }
@@ -234,21 +229,6 @@ class SettingsActivity : BaseActivity() {
 
                 getString(R.string.prefKeyTitleSendFeedback) ->
                     sendFeedback(activity!!)
-
-                getString(R.string.prefKeyTitleTheme) -> {
-                    MaterialDialog(mActivity).show {
-                        title(R.string.dialogChooseThemeBtTitle)
-                        listItemsSingleChoice(R.array.themes) { dialog, index, text ->
-//                            ThemeHelper.switchTheme(context, mActivity, resources.getStringArray(R.array.themes)[index])
-                            toggleTheme.summary = resources.getStringArray(R.array.themes)[index]
-                            dialog.dismiss()
-//                            val theme = R.style.settingsDarkTheme
-//                            mActivity.setTheme(theme)
-//                            mActivity.recreate()
-                        }
-                        positiveButton(R.string.dialogChooseThemeBtText)
-                    }
-                }
             }
             return true
         }
@@ -291,7 +271,7 @@ class SettingsActivity : BaseActivity() {
                     } else {
                         val ringtone = RingtoneManager.getRingtone(
                                 preference.getContext(), Uri.parse(stringValue))
-                        SharedPrefHolder.getInstance(preference.getContext()).ringtoneUri = Uri.parse(stringValue).toString()
+                        AppPreferences.ringtoneUri = Uri.parse(stringValue).toString()
 
                         if (ringtone == null)
                             preference.setSummary(R.string.prefSummaryRingtone)

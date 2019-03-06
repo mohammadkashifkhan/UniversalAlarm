@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.utils.di
+package com.mdkashif.universalarm.di
 
 import com.mdkashif.universalarm.base.BaseActivity
 import dagger.Module

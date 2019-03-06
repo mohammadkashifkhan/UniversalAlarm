@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.alarm.miscellaneous
+package com.mdkashif.universalarm.alarm.misc
 
 class AlarmHelper {
 

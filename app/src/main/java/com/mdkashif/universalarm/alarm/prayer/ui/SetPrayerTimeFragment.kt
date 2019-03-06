@@ -8,13 +8,13 @@ import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import android.widget.CompoundButton
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.alarm.miscellaneous.AlarmOps
-import com.mdkashif.universalarm.alarm.miscellaneous.AlarmTypes
-import com.mdkashif.universalarm.alarm.miscellaneous.model.TimingsModel
+import com.mdkashif.universalarm.alarm.misc.AlarmOps
+import com.mdkashif.universalarm.alarm.misc.AlarmTypes
+import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import com.mdkashif.universalarm.alarm.prayer.misc.Compass
 import com.mdkashif.universalarm.base.BaseFragment
-import com.mdkashif.universalarm.utils.persistence.RoomHelper
-import com.mdkashif.universalarm.utils.persistence.SharedPrefHolder
+import com.mdkashif.universalarm.persistence.AppPreferences
+import com.mdkashif.universalarm.persistence.RoomHelper
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_set_prayer_time.*
 import kotlinx.android.synthetic.main.fragment_set_prayer_time.view.*
@@ -43,9 +43,9 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
         rootView.swImsak.setOnCheckedChangeListener(this)
         rootView.swMidnight.setOnCheckedChangeListener(this)
 
-        rootView.tvTimezone.text = SharedPrefHolder.getInstance(mActivity).timezone
-        rootView.tvIslamicDate.text = SharedPrefHolder.getInstance(mActivity).islamicDate
-        rootView.tvMonth.text = SharedPrefHolder.getInstance(mActivity).islamicMonth
+        rootView.tvTimezone.text = AppPreferences.timezone
+        rootView.tvIslamicDate.text = AppPreferences.islamicDate
+        rootView.tvMonth.text = AppPreferences.islamicMonth
         timingsList = RoomHelper.transactFetchAsync(mActivity.returnDbInstance(), AlarmTypes.Prayer).first // Pair's first value
 
         for (i in timingsList.indices) {
