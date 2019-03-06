@@ -19,7 +19,6 @@ object AppConstants {
 
     const val themeLight = "Light"
     const val themeDark = "Dark"
-    const val themeSelected = "theme"
 
     const val city = "city"
     const val country = "country"

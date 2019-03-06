@@ -579,7 +579,7 @@
                 android:gravity="left"
                 android:padding="@dimen/marginTopEndBottomStartLarge"
                 android:text="@string/bot_text"
-                android:textColor="@color/white"
+                android:textColor="@color/pitchWhite"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"

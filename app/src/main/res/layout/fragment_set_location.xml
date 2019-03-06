@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".alarm.location.ui.SetLocationFragment"
-    android:background="@color/white">
+    android:background="@color/pitchWhite">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -71,7 +71,7 @@
                     <!--android:layout_height="wrap_content"-->
                     <!--android:gravity="center"-->
                     <!--android:text="Set Date &amp; Time"-->
-                    <!--android:textColor="@color/colorPrimaryDarkOrange"-->
+                    <!--android:textColor="@color/colorPrimaryDark"-->
                     <!--android:textSize="18sp" />-->
 
                 <!--<Button-->
@@ -92,9 +92,9 @@
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
             <!--app:layout_anchor="@+id/bottom_sheet"-->
-            <!--app:fab_colorNormal="@color/colorPrimaryDarkOrange"-->
+            <!--app:fab_colorNormal="@color/colorPrimaryDark"-->
             <!--app:fab_colorRipple="@color/pitchWhite"-->
-            <!--app:fab_colorPressed="@color/lightColorPrimaryDarkOrange"-->
+            <!--app:fab_colorPressed="@color/lightColorPrimaryDark"-->
             <!--android:src="@drawable/ic_fab_add_white"-->
             <!--app:layout_anchorGravity="top|center"/>-->
 

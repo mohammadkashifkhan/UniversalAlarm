@@ -3,7 +3,6 @@ package com.mdkashif.universalarm.notifications
 import android.app.*
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.mdkashif.universalarm.R
@@ -36,7 +35,7 @@ class NotificationService : IntentService("NotificationService") {
             notificationChannel.setShowBadge(true)
             notificationChannel.description = AppConstants.notificationDescription
             notificationChannel.enableLights(true)
-            notificationChannel.lightColor = Color.RED
+            notificationChannel.lightColor = applicationContext.getColor(R.color.red)
             notificationChannel.vibrationPattern = longArrayOf(0, 1000, 500, 1000)
             notificationChannel.enableVibration(true)
             notificationChannel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC

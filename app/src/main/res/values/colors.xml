@@ -1,33 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorOverlay">#a97664</color>
-    <color name="black">#000000</color>
-    <color name="white">#F1F8FF</color>
-    <color name="pitchWhite">#ffffff</color>
-    <color name="offWhite">#f1f1f1</color>
-    <color name="green">#32CD32</color>
-    <color name="yellow">#FFFF00</color>
-    <color name="red">#B71C1C</color>
-    <color name="gray">#acacac</color>
-    <color name="translucentBlack">#64000000</color>
+    ////////////////////////// Light //////////////////////////
+    <color name="colorPrimaryDark">#F9B39A</color>
+    <color name="colorPrimary">#ffc4ab</color>
+    <color name="colorAccent">#F9B39A</color>
+    <color name="lightColorPrimaryDark">#ffcdb8</color>
+    <color name="lightestColorPrimaryDark">#ffd6c5</color>
+    <color name="bg">#ffffff</color>
+    <color name="batteryItemBg">#80ffd6c5</color>
 
     <color name="dayPressed">#F9B39A</color>
     <color name="daySelected">#F9B39A</color>
     <color name="dayDeselected">#64000000</color>
 
-    ////////////////////////// Light //////////////////////////
-    <color name="colorPrimaryDarkOrange">#F9B39A</color>
-    <color name="colorPrimaryOrange">#ffc4ab</color>
-    <color name="colorAccentOrange">#F9B39A</color>
-    <color name="lightColorPrimaryDarkOrange">#ffcdb8</color>
-    <color name="lightestColorPrimaryDarkOrange">#ffd6c5</color>
-    <color name="lightCvBgOverlay">#80ffd6c5</color>
+    <color name="red">#B71C1C</color>
+    <color name="gray">#acacac</color>
+    <color name="pitchWhite">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="offWhite">#f1f1f1</color>
+    <color name="green">#32CD32</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="translucentBlack">#64000000</color>
 
-    ////////////////////////// Dark //////////////////////////
-    <color name="colorPrimaryDarkGrey">#595a5c</color>
-    <color name="colorPrimaryGrey">#6d6e70</color>
-    <color name="colorAccentGrey">#595a5c</color>
-    <color name="lightColorPrimaryDarkGrey">#787a7c</color>
-    <color name="lightestColorPrimaryDarkGrey">#838587</color>
-    <color name="darkCvBgOverlay">#80838587</color>
+    <color name="appIntroBg">#a97664</color>
 </resources>

@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.persistence.AppDatabase
 import com.mdkashif.universalarm.persistence.AppPreferences
+import com.mdkashif.universalarm.utils.ThemeHelper
 
 
 open class BaseActivity : AppCompatActivity() {
@@ -32,9 +33,11 @@ open class BaseActivity : AppCompatActivity() {
         parentLayout = findViewById(android.R.id.content)
         AppPreferences.init(applicationContext)
         appDatabase = AppDatabase.getAppDatabase(applicationContext)
+
+        showToast( ThemeHelper.detectThemeAuto(this))
     }
 
-//    protected fun onApplyThemeResource(theme: Resources.Theme, resid: Int, first: Boolean) {
+//    override fun onApplyThemeResource(theme: Resources.Theme, resid: Int, first: Boolean) {
 //        super.onApplyThemeResource(theme, ThemeHelper.active(applicationContext), first)
 //    }
 

@@ -18,7 +18,7 @@
             android:text="All Alarms"
             android:textStyle="bold"
             android:textSize="@dimen/headerTextSize"
-            android:textColor="@color/colorPrimaryDarkOrange"
+            android:textColor="@color/colorPrimaryDark"
             android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
             android:layout_marginStart="@dimen/ivHomeMiniHeaderMarginStart"/>
 

@@ -8,7 +8,7 @@
     <com.wang.avi.AVLoadingIndicatorView
         android:layout_width="@dimen/pbLoaderWidthHeight"
         android:layout_height="@dimen/pbLoaderWidthHeight"
-        app:indicatorColor="@color/colorPrimaryDarkOrange"
+        app:indicatorColor="@color/colorPrimaryDark"
         android:layout_centerInParent="true"
         app:indicatorName="BallScaleMultipleIndicator" />
 

@@ -41,7 +41,7 @@
                 android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="left"
                 android:text="Open Source Licenses"
-                android:textColor="@color/colorAccentOrange"
+                android:textColor="@color/colorAccent"
                 android:textSize="@dimen/mediumTextSize" />
 
         </LinearLayout>

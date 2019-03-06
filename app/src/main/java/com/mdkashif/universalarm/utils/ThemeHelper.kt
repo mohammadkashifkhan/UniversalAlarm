@@ -1,50 +1,43 @@
 package com.mdkashif.universalarm.utils
 
-class ThemeHelper {
-//    companion object {
-//        // Use this to set theme through settings
-//        fun switchTheme(context: Context, mActivity: BaseActivity, theme: String): Boolean {
-//            AppPreferences.theme = theme
-//            when (theme) {
-//                "Auto" -> {
-//                    detectThemeAuto(mActivity)
-//                    setTheme()
-//                }
-//                "Light" -> {
-//                    setTheme()
-//                }
-//                "Dark" -> {
-//                    setTheme()
-//                }
+import android.content.res.Configuration
+import com.mdkashif.universalarm.base.BaseActivity
+
+
+object ThemeHelper {
+
+    fun detectThemeAuto(mActivity: BaseActivity): String {
+        lateinit var autoTheme: String
+        when (mActivity.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> autoTheme = AppConstants.themeLight
+
+            Configuration.UI_MODE_NIGHT_YES -> autoTheme = AppConstants.themeDark
+
+            Configuration.UI_MODE_NIGHT_UNDEFINED -> autoTheme = "undefined"
+        }
+        return autoTheme
+    }
+
+
+//    fun setTheme(context: Context) : Context {
+//        val res = context.resources
+//        var mode = res.configuration.uiMode
+//        when (context.theme) {
+//            DARK -> {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//                mode = Configuration.UI_MODE_NIGHT_YES
 //            }
-//        }
-//
-//        private fun detectThemeAuto(mActivity: BaseActivity): String {
-//            lateinit var autoTheme: String
-//            when (mActivity.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-//                Configuration.UI_MODE_NIGHT_NO -> autoTheme = AppConstants.themeLight
-//
-//                Configuration.UI_MODE_NIGHT_YES -> autoTheme = AppConstants.themeDark
-//
-//                Configuration.UI_MODE_NIGHT_UNDEFINED -> autoTheme = "undefined"
+//            LIGHT -> {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//                mode = Configuration.UI_MODE_NIGHT_NO
 //            }
-//            return autoTheme
+//            else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO)
 //        }
 //
-//        // Use this to set it when activity and Fragment starts
-//        fun setTheme(context: Context, mActivity: BaseActivity, theme: Int) {
-//            val intent = mActivity.intent
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-//            mActivity.finish()
-//            mActivity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-//            mActivity.startActivity(intent)
-//
-//            TaskStackBuilder.create(mActivity.applicationContext)
-//                    .addNextIntent(Intent(mActivity, BaseActivity::class.java))
-//                    .addNextIntent(mActivity.intent)
-//                    .startActivities()
-//
-//            context.setTheme(ThemeHelper.active(context))
-//        }
+//        val config = Configuration(res.configuration)
+//        config.uiMode = mode
+//        context = context.createConfigurationContext(config)
+//        return context
 //    }
+
 }

@@ -6,7 +6,7 @@
     android:layout_margin="@dimen/marginTopEndBottomStart">
 
     <TextView
-        android:textColor="@color/lightColorPrimaryDarkOrange"
+        android:textColor="@color/colorAccent"
         android:gravity="center"
         android:padding="@dimen/paddingAll"
         android:id="@+id/time_slot"
