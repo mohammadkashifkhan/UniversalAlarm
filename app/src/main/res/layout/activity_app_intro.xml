@@ -11,7 +11,7 @@
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/appIntroPanelsColor"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +26,7 @@
             android:gravity="center"
             android:padding="@dimen/paddingAll"
             android:text="Welcome to Universal Alarm"
-            android:textColor="@color/pitchWhite"
+            android:textColor="@color/primaryTextColor"
             android:textSize="@dimen/headerTextSize"
             android:textStyle="bold" />
 
@@ -37,7 +37,7 @@
             android:gravity="center"
             android:padding="@dimen/paddingAll"
             android:text="Get notified about new stuff, or turn notifications off"
-            android:textColor="@color/pitchWhite"
+            android:textColor="@color/secondaryTextColor"
             android:textSize="@dimen/normalTextSize" />
 
     </LinearLayout>
@@ -46,7 +46,6 @@
         android:id="@+id/ivPreview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
@@ -56,7 +55,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/appIntroPanelsColor"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/paddingAll"
                 android:text="See the latest ROMs"
-                android:textColor="@color/pitchWhite"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/normalTextSize" />
 
         </LinearLayout>
@@ -108,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/paddingAll"
                 android:text="Full Material Design, ad free and fat(af)"
-                android:textColor="@color/pitchWhite"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/normalTextSize" />
 
         </LinearLayout>
@@ -133,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/paddingAll"
                 android:text="Get notified about new stuff, or turn notifications off"
-                android:textColor="@color/pitchWhite"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/normalTextSize" />
 
         </LinearLayout>
@@ -146,9 +145,9 @@
             android:textSize="@dimen/normalTextSize"
             android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
             android:layout_marginBottom="@dimen/marginTopEndBottomStart"
-            android:background="@drawable/button_white_border"
+            android:background="@drawable/button_border"
             android:text="Got It"
-            android:textColor="@color/pitchWhite"
+            android:textColor="@color/primaryTextColor"
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

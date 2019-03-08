@@ -36,12 +36,12 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
         rootView.btSaveAlarm.setOnClickListener(this)
         rootView.dpDays.setDayPressedListener(this)
 
-        rootView.tvDubai.text = """Dubai : ${TimePresenter.getDifferentZonedTimes(1)}"""
-        rootView.tvNewYork.text = """New York : ${TimePresenter.getDifferentZonedTimes(2)}"""
-        rootView.tvSydney.text = """Sydney : ${TimePresenter.getDifferentZonedTimes(3)}"""
-        rootView.tvMoscow.text = """Moscow : ${TimePresenter.getDifferentZonedTimes(4)}"""
-        rootView.tvBrasilia.text = """Brasilia : ${TimePresenter.getDifferentZonedTimes(5)}"""
-        rootView.tvLondon.text = """London : ${TimePresenter.getDifferentZonedTimes(6)}"""
+        rootView.tvDubai.text = "Dubai : ${TimePresenter.getDifferentZonedTimes(1)}"
+        rootView.tvNewYork.text = "New York : ${TimePresenter.getDifferentZonedTimes(2)}"
+        rootView.tvSydney.text = "Sydney : ${TimePresenter.getDifferentZonedTimes(3)}"
+        rootView.tvMoscow.text = "Moscow : ${TimePresenter.getDifferentZonedTimes(4)}"
+        rootView.tvBrasilia.text = "Brasilia : ${TimePresenter.getDifferentZonedTimes(5)}"
+        rootView.tvLondon.text = "London : ${TimePresenter.getDifferentZonedTimes(6)}"
         return rootView
     }
 

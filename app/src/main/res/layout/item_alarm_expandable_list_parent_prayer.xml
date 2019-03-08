@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginTopEndBottomStart"
         android:fontFamily="sans-serif-smallcaps"
-        android:textColor="@color/black"
+        android:textColor="@color/primaryTextColor"
         android:textSize="@dimen/tvItemAlarmExpandableListTextSize"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginTopEndBottomStart"
         android:layout_marginTop="@dimen/marginTopEndBottomStart"
-        android:textColor="@color/black"
+        android:textColor="@color/secondaryTextColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPrayerType" />
 
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginTopEndBottomStart"
         android:layout_marginTop="@dimen/marginTopEndBottomStart"
-        android:textColor="@color/black"
+        android:textColor="@color/secondaryTextColor"
         android:textSize="@dimen/normalTextSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvPrayerTime"
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/marginTopEndBottomStart"
         android:layout_marginEnd="@dimen/marginTopEndBottomStart"
-        android:textColor="@color/black"
+        android:textColor="@color/secondaryTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPrayerType" />

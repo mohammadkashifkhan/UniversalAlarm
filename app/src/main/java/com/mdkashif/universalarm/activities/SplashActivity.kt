@@ -19,7 +19,7 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         Fabric.with(this, Crashlytics())
         setContentView(R.layout.activity_splash)
-
+//        delegate.setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         var wiggle: Animation = AnimationUtils.loadAnimation(this, R.anim.splash_wiggle)
         ivSplash.startAnimation(wiggle)
 

@@ -2,8 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/pitchWhite">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -58,7 +57,7 @@
                 android:layout_marginTop="@dimen/marginTopEndBottomStart"
                 android:layout_marginEnd="@dimen/marginTopEndBottomStart"
                 android:text="Timezone"
-                android:textColor="@color/black"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -72,7 +71,7 @@
                 android:layout_marginStart="@dimen/marginTopEndBottomStart"
                 android:layout_marginTop="@dimen/marginTopEndBottomStart"
                 android:layout_marginEnd="@dimen/marginTopEndBottomStart"
-                android:textColor="@color/gray"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="@dimen/normalTextSize"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -87,7 +86,7 @@
                 android:layout_marginTop="@dimen/marginTopEndBottomStart"
                 android:layout_marginEnd="@dimen/marginTopEndBottomStart"
                 android:text="Islamic Date"
-                android:textColor="@color/black"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -101,7 +100,7 @@
                 android:layout_marginStart="@dimen/marginTopEndBottomStart"
                 android:layout_marginTop="@dimen/marginTopEndBottomStart"
                 android:layout_marginEnd="@dimen/marginTopEndBottomStart"
-                android:textColor="@color/gray"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="@dimen/normalTextSize"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -116,7 +115,7 @@
                 android:layout_marginTop="@dimen/marginTopEndBottomStart"
                 android:layout_marginEnd="@dimen/marginTopEndBottomStart"
                 android:text="Month"
-                android:textColor="@color/black"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -130,7 +129,7 @@
                 android:layout_marginStart="@dimen/marginTopEndBottomStart"
                 android:layout_marginTop="@dimen/marginTopEndBottomStart"
                 android:layout_marginEnd="@dimen/marginTopEndBottomStart"
-                android:textColor="@color/gray"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="@dimen/normalTextSize"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -161,7 +160,7 @@
                 android:layout_marginStart="@dimen/marginTopEndBottomStart"
                 android:layout_marginTop="@dimen/marginTopEndBottomStart"
                 android:text="Fajr"
-                android:textColor="@color/black"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -172,7 +171,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopEndBottomStart"
                 android:layout_marginEnd="@dimen/tvSetPrayerTimeFragmentMarginEnd"
-                android:textColor="@color/gray"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintEnd_toStartOf="@+id/swFajr"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -204,7 +203,7 @@
                 android:layout_marginStart="@dimen/marginTopEndBottomStart"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:text="Sunrise"
-                android:textColor="@color/black"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/separator1" />
@@ -215,7 +214,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:layout_marginEnd="@dimen/tvSetPrayerTimeFragmentMarginEnd"
-                android:textColor="@color/gray"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintEnd_toStartOf="@+id/swSunrise"
                 app:layout_constraintTop_toBottomOf="@+id/separator1" />
@@ -247,7 +246,7 @@
                 android:layout_marginStart="@dimen/marginTopEndBottomStart"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:text="Dhuhr"
-                android:textColor="@color/black"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/separator2" />
@@ -258,7 +257,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:layout_marginEnd="@dimen/tvSetPrayerTimeFragmentMarginEnd"
-                android:textColor="@color/gray"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintEnd_toStartOf="@+id/swDhuhr"
                 app:layout_constraintTop_toBottomOf="@+id/separator2" />
@@ -290,7 +289,7 @@
                 android:layout_marginStart="@dimen/marginTopEndBottomStart"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:text="Asr"
-                android:textColor="@color/black"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/separator3" />
@@ -301,7 +300,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:layout_marginEnd="@dimen/tvSetPrayerTimeFragmentMarginEnd"
-                android:textColor="@color/gray"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintEnd_toStartOf="@+id/swAsr"
                 app:layout_constraintTop_toBottomOf="@+id/separator3" />
@@ -333,7 +332,7 @@
                 android:layout_marginStart="@dimen/marginTopEndBottomStart"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:text="Sunset"
-                android:textColor="@color/black"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/separator4" />
@@ -344,7 +343,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:layout_marginEnd="@dimen/tvSetPrayerTimeFragmentMarginEnd"
-                android:textColor="@color/gray"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintEnd_toStartOf="@+id/swSunset"
                 app:layout_constraintTop_toBottomOf="@+id/separator4" />
@@ -376,7 +375,7 @@
                 android:layout_marginStart="@dimen/marginTopEndBottomStart"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:text="Maghrib"
-                android:textColor="@color/black"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/separator5" />
@@ -387,7 +386,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:layout_marginEnd="@dimen/tvSetPrayerTimeFragmentMarginEnd"
-                android:textColor="@color/gray"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintEnd_toStartOf="@+id/swMaghrib"
                 app:layout_constraintTop_toBottomOf="@+id/separator5" />
@@ -419,7 +418,7 @@
                 android:layout_marginStart="@dimen/marginTopEndBottomStart"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:text="Isha"
-                android:textColor="@color/black"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/separator6" />
@@ -430,7 +429,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:layout_marginEnd="@dimen/tvSetPrayerTimeFragmentMarginEnd"
-                android:textColor="@color/gray"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintEnd_toStartOf="@+id/swIsha"
                 app:layout_constraintTop_toBottomOf="@+id/separator6" />
@@ -462,7 +461,7 @@
                 android:layout_marginStart="@dimen/marginTopEndBottomStart"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:text="Imsak"
-                android:textColor="@color/black"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/separator7" />
@@ -473,7 +472,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:layout_marginEnd="@dimen/tvSetPrayerTimeFragmentMarginEnd"
-                android:textColor="@color/gray"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintEnd_toStartOf="@+id/swImsak"
                 app:layout_constraintTop_toBottomOf="@+id/separator7" />
@@ -504,7 +503,7 @@
                 android:layout_marginStart="@dimen/marginTopEndBottomStart"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:text="Midnight"
-                android:textColor="@color/black"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/separator8" />
@@ -515,7 +514,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:layout_marginEnd="@dimen/tvSetPrayerTimeFragmentMarginEnd"
-                android:textColor="@color/gray"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintEnd_toStartOf="@+id/swMidnight"
                 app:layout_constraintTop_toBottomOf="@+id/separator8" />
@@ -550,7 +549,7 @@
                 android:fontFamily="sans-serif-smallcaps"
                 android:gravity="left"
                 android:text="Alarm Assistant"
-                android:textColor="@color/black"
+                android:textColor="@color/primaryTextColor"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -579,7 +578,7 @@
                 android:gravity="left"
                 android:padding="@dimen/marginTopEndBottomStartLarge"
                 android:text="@string/bot_text"
-                android:textColor="@color/pitchWhite"
+                android:textColor="@color/secondaryTextColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"

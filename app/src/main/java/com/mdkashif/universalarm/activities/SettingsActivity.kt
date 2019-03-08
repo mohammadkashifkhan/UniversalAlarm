@@ -36,6 +36,7 @@ class SettingsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        delegate.setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.title = resources.getString(R.string.settings)
         supportFragmentManager.beginTransaction().replace(android.R.id.content, SettingsFragment()).commit()

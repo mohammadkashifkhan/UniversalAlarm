@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     ////////////////////////// Dark //////////////////////////
-    <color name="colorPrimaryDark">#595a5c</color>
-    <color name="colorPrimary">#6d6e70</color>
-    <!--<color name="colorAccent">#2B2B2B</color>-->
-    <color name="bg">#2B2B2B</color>
-    <!--<color name="lightestColorPrimaryDark">#838587</color>-->
-
-    <color name="batteryItemBg">#80838587</color>
-
-    <!--<color name="dayPressed">#595a5c</color>-->
-    <!--<color name="daySelected">#595a5c</color>-->
-
-    <color name="appIntroBg">#404040</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorPrimary">#212121</color>
+    <color name="colorAccent">#F9B39A</color>
+    <color name="bg">#303030</color>
+    <color name="itemAlarmExpandableListParentBatteryBg">#424242</color>
+    <color name="appIntroPanelsColor">#212121</color>
+    <color name="appIntroBg">#303030</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#70ffffff</color>
 </resources>

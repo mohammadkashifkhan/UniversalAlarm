@@ -29,8 +29,7 @@
 
         <activity
             android:name="com.mdkashif.universalarm.base.BaseActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/commonTheme" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.mdkashif.universalarm.activities.ContainerActivity"
             android:theme="@style/commonTheme" />

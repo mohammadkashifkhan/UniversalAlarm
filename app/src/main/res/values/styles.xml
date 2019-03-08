@@ -12,8 +12,9 @@
         <item name="colorControlActivated">@color/colorPrimaryDark</item>
         <item name="colorControlHighlight">@color/colorPrimaryDark</item>
         <item name="colorSwitchThumbNormal">@color/lightestColorPrimaryDark</item>
-        <item name="android:colorForeground">@color/lightestColorPrimaryDark</item>
-        <item name="android:colorBackground">@color/bg</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textColorHint">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/bg</item>
     </style>
 
     <style name="settingsTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
@@ -24,8 +25,8 @@
         <item name="colorControlActivated">@color/colorPrimaryDark</item>
         <item name="colorControlHighlight">@color/colorPrimaryDark</item>
         <item name="colorSwitchThumbNormal">@color/lightColorPrimaryDark</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:colorBackground">@color/bg</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:windowBackground">@color/bg</item>
     </style>
 
 </resources>

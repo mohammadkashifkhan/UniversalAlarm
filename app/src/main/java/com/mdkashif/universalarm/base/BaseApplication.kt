@@ -1,6 +1,7 @@
 package com.mdkashif.universalarm.base
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
 import com.facebook.stetho.Stetho
 import com.github.omadahealth.lollipin.lib.managers.LockManager
 import com.mdkashif.universalarm.R
@@ -16,7 +17,7 @@ class BaseApplication : Application() { //, HasActivityInjector
 //        DaggerAppComponent.builder()
 //                .application(this)
 //                .build().inject(this)
-
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO)
         // TODO: remove at production!
         Stetho.initializeWithDefaults(this)
         val lockManager = LockManager.getInstance()

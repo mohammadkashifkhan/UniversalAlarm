@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color = "@color/batteryItemBg"/>
+    <solid android:color = "@color/itemAlarmExpandableListParentBatteryBg"/>
     <size android:width="400dp"
         android:height="70dp"/>
     <stroke android:width="0.5dp"

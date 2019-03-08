@@ -2,8 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/pitchWhite">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/ivSettings"
@@ -23,7 +22,7 @@
         android:layout_marginTop="@dimen/ivHomeHeaderMarginTop"
         android:fontFamily="sans-serif-smallcaps"
         android:text="@string/app_name"
-        android:textColor="@color/black"
+        android:textColor="@color/primaryTextColor"
         android:textSize="56sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +35,7 @@
         android:layout_marginStart="@dimen/ivHomeMiniHeaderMarginStart"
         android:layout_marginTop="@dimen/marginTopVeryLarge"
         android:text="Upcoming"
-        android:textColor="@color/black"
+        android:textColor="@color/secondaryTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,8 +55,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="@dimen/normalTextSize"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/mediumTextSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,26 +72,26 @@
         android:layout_marginBottom="@dimen/marginTopEndBottomStartLarge"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:menu_colorNormal="@color/pitchWhite"
-        app:menu_colorPressed="@color/pitchWhite"
-        app:menu_colorRipple="@color/pitchWhite"
+        app:menu_colorNormal="@color/bg"
+        app:menu_colorPressed="@color/bg"
+        app:menu_colorRipple="@color/bg"
         app:menu_fab_hide_animation="@anim/hide_to_bottom"
         app:menu_fab_show_animation="@anim/show_from_bottom"
         app:menu_fab_size="normal"
-        app:menu_icon="@drawable/ic_fab_add_blue"
-        app:menu_labels_colorNormal="@color/pitchWhite"
-        app:menu_labels_colorPressed="@color/pitchWhite"
-        app:menu_labels_colorRipple="@color/colorPrimaryDark"
-        app:menu_labels_textColor="@color/black">
+        app:menu_icon="@drawable/ic_fab_add"
+        app:menu_labels_colorNormal="@color/bg"
+        app:menu_labels_colorPressed="@color/bg"
+        app:menu_labels_colorRipple="@color/bg"
+        app:menu_labels_textColor="@color/secondaryTextColor">
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fabSalat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_fab_salat"
-            app:fab_colorNormal="@color/pitchWhite"
-            app:fab_colorPressed="@color/pitchWhite"
-            app:fab_colorRipple="@color/colorPrimaryDark"
+            app:fab_colorNormal="@color/bg"
+            app:fab_colorPressed="@color/bg"
+            app:fab_colorRipple="@color/bg"
             app:fab_label="@string/add_Prayer"
             app:fab_size="mini" />
 
@@ -101,9 +100,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_fab_location"
-            app:fab_colorNormal="@color/pitchWhite"
-            app:fab_colorPressed="@color/pitchWhite"
-            app:fab_colorRipple="@color/colorPrimaryDark"
+            app:fab_colorNormal="@color/bg"
+            app:fab_colorPressed="@color/bg"
+            app:fab_colorRipple="@color/bg"
             app:fab_label="@string/add_Location"
             app:fab_size="mini" />
 
@@ -113,9 +112,9 @@
             android:layout_height="wrap_content"
             android:foregroundTint="@color/colorPrimaryDark"
             android:src="@drawable/ic_fab_battery"
-            app:fab_colorNormal="@color/pitchWhite"
-            app:fab_colorPressed="@color/pitchWhite"
-            app:fab_colorRipple="@color/colorPrimaryDark"
+            app:fab_colorNormal="@color/bg"
+            app:fab_colorPressed="@color/bg"
+            app:fab_colorRipple="@color/bg"
             app:fab_label="@string/add_Battery"
             app:fab_size="mini" />
 
@@ -124,9 +123,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_fab_time"
-            app:fab_colorNormal="@color/pitchWhite"
-            app:fab_colorPressed="@color/pitchWhite"
-            app:fab_colorRipple="@color/colorPrimaryDark"
+            app:fab_colorNormal="@color/bg"
+            app:fab_colorPressed="@color/bg"
+            app:fab_colorRipple="@color/bg"
             app:fab_label="@string/add_Time"
             app:fab_size="mini" />
 

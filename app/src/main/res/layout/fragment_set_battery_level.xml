@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/pitchWhite"
     tools:context=".alarm.battery.ui.SetBatteryLevelFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,11 +27,11 @@
             app:cpv_rimColor="@color/lightestColorPrimaryDark"
             app:cpv_rimWidth="3dp"
             app:cpv_showUnit="true"
-            app:cpv_spinColor="@color/pitchWhite"
-            app:cpv_textColor="@color/black"
+            app:cpv_spinColor="@color/secondaryTextColor"
+            app:cpv_textColor="@color/primaryTextColor"
             app:cpv_textScale="1"
             app:cpv_unit="%"
-            app:cpv_unitColor="@color/black"
+            app:cpv_unitColor="@color/primaryTextColor"
             app:cpv_unitPosition="right_top"
             app:cpv_unitScale="1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/marginTopEndBottomStart"
-                    android:textColor="@color/black"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="@dimen/normalTextSize" />
 
             </LinearLayout>
@@ -94,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/marginTopEndBottomStart"
                     android:text="6h 22m left"
-                    android:textColor="@color/black"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="@dimen/normalTextSize" />
 
             </LinearLayout>
@@ -109,14 +108,14 @@
                 <ImageView
                     android:layout_width="@dimen/ivAboutIconsWidthHeight"
                     android:layout_height="@dimen/ivAboutIconsWidthHeight"
-                    android:src="@drawable/ic_thermometer_white" />
+                    android:src="@drawable/ic_thermometer" />
 
                 <TextView
                     android:id="@+id/temperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/marginTopEndBottomStart"
-                    android:textColor="@color/black"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="@dimen/normalTextSize" />
 
             </LinearLayout>
@@ -141,7 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Low (Left) &amp; High (Right) Battery Percentage"
-                android:textColor="@color/black"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/normalTextSize"
                 app:layout_constraintEnd_toStartOf="@+id/swBattery"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -166,7 +165,7 @@
                 app:mrb_connectingLineColor="@color/gray"
                 app:mrb_pinColor="@color/lightColorPrimaryDark"
                 app:mrb_pinMaxFont="12sp"
-                app:mrb_pinTextColor="@color/pitchWhite"
+                app:mrb_pinTextColor="@color/primaryTextColor"
                 app:mrb_rangeBar="true"
                 app:mrb_rangeBarColor="@color/lightestColorPrimaryDark"
                 app:mrb_selectorColor="@color/lightColorPrimaryDark"
@@ -197,7 +196,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Set Temperature (celsius)"
-                android:textColor="@color/black"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/normalTextSize"
                 app:layout_constraintEnd_toStartOf="@+id/swTemperature"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -222,7 +221,7 @@
                 app:mrb_connectingLineColor="@color/gray"
                 app:mrb_pinColor="@color/lightColorPrimaryDark"
                 app:mrb_pinMaxFont="12sp"
-                app:mrb_pinTextColor="@color/pitchWhite"
+                app:mrb_pinTextColor="@color/primaryTextColor"
                 app:mrb_rangeBar="false"
                 app:mrb_rangeBarColor="@color/lightestColorPrimaryDark"
                 app:mrb_selectorColor="@color/lightColorPrimaryDark"
@@ -253,7 +252,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Theft Alarm"
-                android:textColor="@color/black"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/normalTextSize"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -275,7 +274,7 @@
                 android:layout_marginTop="@dimen/marginTopEndBottomStart"
                 android:gravity="left"
                 android:text="While charging, the alarm will buzz off, if anyone unplugs your device"
-                android:textColor="@color/gray"
+                android:textColor="@color/secondaryTextColor"
                 android:textSize="@dimen/normalTextSize"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -305,7 +304,7 @@
                 android:fontFamily="sans-serif-smallcaps"
                 android:gravity="left"
                 android:text="Alarm Assistant"
-                android:textColor="@color/black"
+                android:textColor="@color/primaryTextColor"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -334,7 +333,7 @@
                 android:padding="@dimen/marginTopEndBottomStartLarge"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:text="@string/bot_text"
-                android:textColor="@color/pitchWhite"
+                android:textColor="@color/secondaryTextColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"

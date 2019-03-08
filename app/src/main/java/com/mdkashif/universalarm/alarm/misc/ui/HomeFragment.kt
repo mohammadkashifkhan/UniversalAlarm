@@ -25,11 +25,10 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 class HomeFragment : BaseFragment(), View.OnClickListener {
     private lateinit var mLinearLayoutManager: LinearLayoutManager
     private lateinit var rootView: View
-    private var timingsList: MutableList<TimingsModel> = ArrayList()
+    private lateinit var timingsList: MutableList<TimingsModel>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-
         rootView = inflater.inflate(R.layout.fragment_home, container, false)
         rootView.fabTime.setOnClickListener(this)
         rootView.fabBattery.setOnClickListener(this)

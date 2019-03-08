@@ -6,21 +6,23 @@
     <color name="colorAccent">#F9B39A</color>
     <color name="lightColorPrimaryDark">#ffcdb8</color>
     <color name="lightestColorPrimaryDark">#ffd6c5</color>
+    <color name="appIntroPanelsColor">#F9B39A</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#70000000</color>
     <color name="bg">#ffffff</color>
-    <color name="batteryItemBg">#80ffd6c5</color>
-
+    <color name="itemAlarmExpandableListParentBatteryBg">#80ffd6c5</color>
+    <color name="appIntroBg">#a97664</color>
     <color name="dayPressed">#F9B39A</color>
     <color name="daySelected">#F9B39A</color>
     <color name="dayDeselected">#64000000</color>
 
     <color name="red">#B71C1C</color>
     <color name="gray">#acacac</color>
-    <color name="pitchWhite">#ffffff</color>
+    <color name="pitchWhite">#ffffff</color>--remove if not in use
     <color name="black">#000000</color>
     <color name="offWhite">#f1f1f1</color>
     <color name="green">#32CD32</color>
     <color name="yellow">#FFFF00</color>
     <color name="translucentBlack">#64000000</color>
 
-    <color name="appIntroBg">#a97664</color>
 </resources>

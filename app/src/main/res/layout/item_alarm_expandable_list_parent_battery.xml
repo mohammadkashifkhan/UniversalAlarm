@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginTopEndBottomStart"
         android:layout_marginTop="@dimen/tvItemAlarmExpandableListBatteryMarginTopStart"
-        android:textColor="@color/black"
+        android:textColor="@color/secondaryTextColor"
         android:textSize="@dimen/normalTextSize"
         android:text="Battery Levels"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginTopEndBottomStart"
-        android:textColor="@color/black"
+        android:textColor="@color/primaryTextColor"
         android:textSize="@dimen/tvItemAlarmExpandableListTextSize"
         app:layout_constraintStart_toEndOf="@+id/ivHbl"
         app:layout_constraintTop_toTopOf="parent"
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:text="%"
         android:textSize="@dimen/normalTextSize"
-        android:textColor="@color/black"
+        android:textColor="@color/primaryTextColor"
         app:layout_constraintStart_toEndOf="@+id/tvHbl"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginTopEndBottomStart"
-        android:textColor="@color/black"
+        android:textColor="@color/primaryTextColor"
         android:textSize="@dimen/tvItemAlarmExpandableListTextSize"
         app:layout_constraintStart_toEndOf="@+id/ivLbl"
         app:layout_constraintTop_toTopOf="parent"
@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:text="%"
         android:textSize="@dimen/normalTextSize"
-        android:textColor="@color/black"
+        android:textColor="@color/primaryTextColor"
         app:layout_constraintStart_toEndOf="@+id/tvLbl"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -91,7 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginTopEndBottomStart"
         android:layout_marginTop="@dimen/tvItemAlarmExpandableListBatteryMarginTopStartNextRow"
-        android:textColor="@color/black"
+        android:textColor="@color/secondaryTextColor"
         android:textSize="@dimen/normalTextSize"
         android:text="Temperature "
         app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +103,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/tvItemAlarmExpandableListBatteryMarginTopStart"
         android:layout_marginTop="@dimen/tvItemAlarmExpandableListBatteryMarginTopStartNextRow"
-        android:src="@drawable/ic_thermometer_blue"
+        android:src="@drawable/ic_thermometer"
         app:layout_constraintStart_toEndOf="@+id/tvHeader2"
         app:layout_constraintTop_toBottomOf="@+id/tvHbl"  />
 
@@ -113,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginTopEndBottomStart"
         android:layout_marginTop="@dimen/marginTopEndBottomStart"
-        android:textColor="@color/black"
+        android:textColor="@color/primaryTextColor"
         android:textSize="@dimen/tvItemAlarmExpandableListTextSize"
         app:layout_constraintStart_toEndOf="@+id/ivTemp"
         app:layout_constraintTop_toBottomOf="@+id/tvHbl" />

@@ -25,7 +25,7 @@
         android:layout_marginEnd="@dimen/marginTopEndBottomStart"
         android:fontFamily="sans-serif-smallcaps"
         android:text="Bummer, no alarms set yet!"
-        android:textColor="@color/black"
+        android:textColor="@color/primaryTextColor"
         android:textSize="@dimen/headerTextSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

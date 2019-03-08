@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".alarm.misc.ui.ShowAllAlarmsFragment"
-    android:background="@color/pitchWhite">
+    tools:context=".alarm.misc.ui.ShowAllAlarmsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +17,7 @@
             android:text="All Alarms"
             android:textStyle="bold"
             android:textSize="@dimen/headerTextSize"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/primaryTextColor"
             android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
             android:layout_marginStart="@dimen/ivHomeMiniHeaderMarginStart"/>
 

@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.hendraanggrian.recyclerview.widget.ExpandableRecyclerView
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
+import com.mdkashif.universalarm.alarm.time.TimePresenter
 import com.mdkashif.universalarm.persistence.AppPreferences
 
 class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, private val viewType: String, private val context: Context, linearLayoutManager: LinearLayoutManager) : ExpandableRecyclerView.Adapter<RecyclerView.ViewHolder>(linearLayoutManager) {
@@ -113,7 +114,7 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                     }
                 }
                 holder.tvRepeatDays.text = builder
-                holder.tvETA.text = "ETA: 6 hrs to go"
+                holder.tvETA.text = "ETA: ${TimePresenter.calculateTimeFromNow(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt())} from now"
                 holder.swTime.isChecked = alarmsList[position].status
                 holder.swTime.setOnCheckedChangeListener { p0, p1 ->
 //                    AppPreferences.batteryAlarmStatus = p1
@@ -155,7 +156,7 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                         holder.tvPrayerTimeType.text = "AM"
                     }
                 }
-                holder.tvETA.text = "ETA: 2 hrs to go"
+                holder.tvETA.text = "ETA: ${TimePresenter.calculateTimeFromNow(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt())} from now"
                 holder.swPrayer.isChecked = alarmsList[position].status
                 holder.swPrayer.setOnCheckedChangeListener { p0, p1 ->
                     //                    AppPreferences.batteryAlarmStatus = p1
