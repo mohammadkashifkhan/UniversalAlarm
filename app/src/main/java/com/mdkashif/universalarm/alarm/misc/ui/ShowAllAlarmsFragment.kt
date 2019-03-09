@@ -11,16 +11,17 @@ import com.mdkashif.universalarm.alarm.misc.AlarmsListAdapter
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.persistence.RoomHelper
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_show_all_alarms.*
 
 class ShowAllAlarmsFragment : BaseFragment() {
     private lateinit var mLinearLayoutManager: LinearLayoutManager
     private var timingsList: MutableList<TimingsModel> = ArrayList()
+    private val disposable = CompositeDisposable()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        var rootView: View = inflater.inflate(R.layout.fragment_show_all_alarms, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_show_all_alarms, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,8 +34,12 @@ class ShowAllAlarmsFragment : BaseFragment() {
         mLinearLayoutManager = LinearLayoutManager(mActivity)
         rvAlarms.layoutManager = mLinearLayoutManager
         mActivity.setRVSlideInLeftAnimation(rvAlarms)
-        val adapter = AlarmsListAdapter(timingsList, "ShowAll", context!!, mLinearLayoutManager)
+        val adapter = AlarmsListAdapter(timingsList, "ShowAll", mActivity, mLinearLayoutManager, disposable)
         rvAlarms.adapter = adapter
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.clear()
+    }
 }

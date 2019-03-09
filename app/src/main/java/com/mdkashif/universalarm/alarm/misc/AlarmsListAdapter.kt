@@ -1,9 +1,9 @@
 package com.mdkashif.universalarm.alarm.misc
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
@@ -12,11 +12,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hendraanggrian.recyclerview.widget.ExpandableRecyclerView
 import com.mdkashif.universalarm.R
+import com.mdkashif.universalarm.activities.ContainerActivity
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
-import com.mdkashif.universalarm.alarm.time.TimePresenter
+import com.mdkashif.universalarm.alarm.time.TimeHelper
 import com.mdkashif.universalarm.persistence.AppPreferences
+import com.mdkashif.universalarm.persistence.RoomHelper
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.observers.DisposableObserver
+import io.reactivex.schedulers.Schedulers
 
-class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, private val viewType: String, private val context: Context, linearLayoutManager: LinearLayoutManager) : ExpandableRecyclerView.Adapter<RecyclerView.ViewHolder>(linearLayoutManager) {
+class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, private val viewType: String, private val context: ContainerActivity, linearLayoutManager: LinearLayoutManager, private val disposable: CompositeDisposable) : ExpandableRecyclerView.Adapter<RecyclerView.ViewHolder>(linearLayoutManager) {
 
     internal inner class TimeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTime: TextView = itemView.findViewById(R.id.tvTime)
@@ -24,6 +30,8 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
         val tvRepeatDays: TextView = itemView.findViewById(R.id.tvRepeatDays)
         val tvETA: TextView = itemView.findViewById(R.id.tvETA)
         val swTime: SwitchCompat = itemView.findViewById(R.id.swTime)
+        val ibDelete: ImageButton = itemView.findViewById(R.id.ibDelete)
+        val ibEdit: ImageButton = itemView.findViewById(R.id.ibEdit)
     }
 
     internal inner class LocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -114,10 +122,31 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                     }
                 }
                 holder.tvRepeatDays.text = builder
-                holder.tvETA.text = "ETA: ${TimePresenter.calculateTimeFromNow(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt())} from now"
+                disposable.add(TimeHelper.getTimeFromNow(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(object : DisposableObserver<String>() {
+                    override fun onError(e: Throwable) {
+                        // do nothing
+                    }
+
+                    override fun onComplete() {
+                        // do nothing
+                    }
+
+                    override fun onNext(t: String) {
+                        holder.tvETA.text = "$t from now"
+                    }
+                }))
                 holder.swTime.isChecked = alarmsList[position].status
                 holder.swTime.setOnCheckedChangeListener { p0, p1 ->
-//                    AppPreferences.batteryAlarmStatus = p1
+                    alarmsList[position].status = p1
+                    RoomHelper.transactAmendAsync(context.returnDbInstance(), AlarmOps.Update.toString(), alarmsList[position], alarmsList[position].id)
+                }
+                holder.ibEdit.setOnClickListener {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+                holder.ibDelete.setOnClickListener {
+                    RoomHelper.transactAmendAsync(context.returnDbInstance(), AlarmOps.Delete.toString(), alarmsList[position], alarmsList[position].id)
+                    alarmsList.removeAt(position)
+                    notifyItemRemoved(position)
                 }
             }
             is AlarmsListAdapter.BatteryViewHolder -> {
@@ -128,9 +157,11 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                 holder.swBattery.isChecked = AppPreferences.batteryAlarmStatus!!
                 holder.swTemperature.isChecked = AppPreferences.temperatureAlarmStatus!!
                 holder.swBattery.setOnCheckedChangeListener { p0, p1 ->
-                    AppPreferences.batteryAlarmStatus = p1 }
+                    AppPreferences.batteryAlarmStatus = p1
+                }
                 holder.swTemperature.setOnCheckedChangeListener { p0, p1 ->
-                    AppPreferences.temperatureAlarmStatus = p1 }
+                    AppPreferences.temperatureAlarmStatus = p1
+                }
             }
             is AlarmsListAdapter.LocationViewHolder -> {
                 holder.tvAddress.text = "Jumeirah Beach"
@@ -156,10 +187,23 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                         holder.tvPrayerTimeType.text = "AM"
                     }
                 }
-                holder.tvETA.text = "ETA: ${TimePresenter.calculateTimeFromNow(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt())} from now"
+                disposable.add(TimeHelper.getTimeFromNow(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(object : DisposableObserver<String>() {
+                    override fun onError(e: Throwable) {
+                        // do nothing
+                    }
+
+                    override fun onComplete() {
+                        // do nothing
+                    }
+
+                    override fun onNext(t: String) {
+                        holder.tvETA.text = "$t from now"
+                    }
+                }))
                 holder.swPrayer.isChecked = alarmsList[position].status
                 holder.swPrayer.setOnCheckedChangeListener { p0, p1 ->
-                    //                    AppPreferences.batteryAlarmStatus = p1
+                    alarmsList[position].status = p1
+                    RoomHelper.transactAmendAsync(context.returnDbInstance(), AlarmOps.Add.toString(), alarmsList[position])
                 }
             }
             is AlarmsListAdapter.EmptyViewHolder -> {
@@ -198,10 +242,5 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
             }
         }
         return 1
-    }
-
-    fun removeItem(position: Int) {
-        alarmsList.removeAt(position)
-        notifyItemRemoved(position)
     }
 }

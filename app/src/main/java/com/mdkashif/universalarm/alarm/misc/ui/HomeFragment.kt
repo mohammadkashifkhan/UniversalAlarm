@@ -19,6 +19,7 @@ import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment
 import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.persistence.RoomHelper
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
@@ -26,6 +27,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     private lateinit var mLinearLayoutManager: LinearLayoutManager
     private lateinit var rootView: View
     private lateinit var timingsList: MutableList<TimingsModel>
+    private val disposable = CompositeDisposable()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -94,7 +96,12 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         mLinearLayoutManager = LinearLayoutManager(mActivity)
         rvAlarms.layoutManager = mLinearLayoutManager
         mActivity.setRVSlideInLeftAnimation(rvAlarms)
-        val adapter = AlarmsListAdapter(timingsList, "Home", context!!, mLinearLayoutManager)
+        val adapter = AlarmsListAdapter(timingsList, "Home", mActivity, mLinearLayoutManager, disposable)
         rvAlarms.adapter = adapter
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.clear()
     }
 }

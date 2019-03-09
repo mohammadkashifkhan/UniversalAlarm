@@ -19,8 +19,8 @@ class RoomHelper { //@Inject constructor(accessDao: RoomAccessDao)
             }
         }
 
-        fun transactAmendAsync(db: AppDatabase, taskType: String, timingsModel: TimingsModel, id: Long = 0, autoUpdate: Boolean=false) { //id=0 means we are just inserting
-            if (timingsModel.alarmType != AlarmTypes.Time.toString())
+        fun transactAmendAsync(db: AppDatabase, taskType: String, timingsModel: TimingsModel?, id: Long = 0, autoUpdate: Boolean=false) { //id=0 means we are just inserting
+            if (timingsModel!!.alarmType != AlarmTypes.Time.toString())
                 TransactDbAsync(db, timingsModel, id, autoUpdate).execute(AlarmOps.Check.toString()) // to check if we have any existing prayer alarm
             else
                 TransactDbAsync(db, timingsModel, id).execute(taskType)
@@ -61,9 +61,7 @@ class RoomHelper { //@Inject constructor(accessDao: RoomAccessDao)
         }
 
         private fun updateAlarm(db: AppDatabase, timingsModel: TimingsModel, id: Long, autoUpdate: Boolean) {
-            try {
-                db.accessDao().updateAlarm(timingsModel.hour, timingsModel.minute, timingsModel.note, timingsModel.repeat, timingsModel.status, id, autoUpdate)
-            }catch (e: Throwable) { println(e.message) }
+            db.accessDao().updateAlarm(timingsModel.hour, timingsModel.minute, timingsModel.note, timingsModel.repeat, timingsModel.status, id, autoUpdate)
             if (timingsModel.repeat) {
                 for (i in timingsModel.repeatDays!!.indices) {
                     timingsModel.repeatDays!![i].fkAlarmId = id

@@ -3,6 +3,7 @@ package com.mdkashif.universalarm.persistence
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.mdkashif.universalarm.alarm.misc.model.DaysModel
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
@@ -13,7 +14,7 @@ interface RoomAccessDao {
     @Insert
     fun addNewTimeAlarm(timing: TimingsModel): Long
 
-    @Insert
+    @Insert (onConflict = OnConflictStrategy.REPLACE)
     fun addRepeatDays(day: DaysModel): Long
 
     @Insert

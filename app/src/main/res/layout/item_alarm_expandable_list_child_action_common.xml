@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/ivEdit"
+        android:id="@+id/ibEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
@@ -23,13 +23,13 @@
         android:background="@color/bg"
         android:src="@drawable/ic_edit"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ivDelete"
+        app:layout_constraintEnd_toStartOf="@+id/ibDelete"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/separator1" />
 
     <ImageButton
-        android:id="@+id/ivDelete"
+        android:id="@+id/ibDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"

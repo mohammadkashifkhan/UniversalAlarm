@@ -11,9 +11,13 @@ import com.mdkashif.universalarm.alarm.misc.AlarmOps
 import com.mdkashif.universalarm.alarm.misc.AlarmTypes
 import com.mdkashif.universalarm.alarm.misc.model.DaysModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
-import com.mdkashif.universalarm.alarm.time.TimePresenter
+import com.mdkashif.universalarm.alarm.time.TimeHelper
 import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.persistence.RoomHelper
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.observers.DisposableObserver
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_set_time.view.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -28,6 +32,7 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
     private lateinit var selectedMinute: String
     private var daysList: MutableList<DaysModel> = ArrayList()
     private lateinit var timeLeftFromNow: String
+    private val disposable = CompositeDisposable()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -36,12 +41,12 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
         rootView.btSaveAlarm.setOnClickListener(this)
         rootView.dpDays.setDayPressedListener(this)
 
-        rootView.tvDubai.text = "Dubai : ${TimePresenter.getDifferentZonedTimes(1)}"
-        rootView.tvNewYork.text = "New York : ${TimePresenter.getDifferentZonedTimes(2)}"
-        rootView.tvSydney.text = "Sydney : ${TimePresenter.getDifferentZonedTimes(3)}"
-        rootView.tvMoscow.text = "Moscow : ${TimePresenter.getDifferentZonedTimes(4)}"
-        rootView.tvBrasilia.text = "Brasilia : ${TimePresenter.getDifferentZonedTimes(5)}"
-        rootView.tvLondon.text = "London : ${TimePresenter.getDifferentZonedTimes(6)}"
+        rootView.tvDubai.text = "Dubai : ${TimeHelper.getDifferentZonedTimes(1)}"
+        rootView.tvNewYork.text = "New York : ${TimeHelper.getDifferentZonedTimes(2)}"
+        rootView.tvSydney.text = "Sydney : ${TimeHelper.getDifferentZonedTimes(3)}"
+        rootView.tvMoscow.text = "Moscow : ${TimeHelper.getDifferentZonedTimes(4)}"
+        rootView.tvBrasilia.text = "Brasilia : ${TimeHelper.getDifferentZonedTimes(5)}"
+        rootView.tvLondon.text = "London : ${TimeHelper.getDifferentZonedTimes(6)}"
         return rootView
     }
 
@@ -57,8 +62,22 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
                     this.selectedHour = selectedHour.toString()
                     this.selectedMinute = selectedMinute.toString()
                     rootView.tvPickTime.text = """${this.selectedHour}:${this.selectedMinute}"""
-                    timeLeftFromNow = TimePresenter.calculateTimeFromNow(selectedHour, selectedMinute)
-                    rootView.tvTime.text = timeLeftFromNow
+
+                    disposable.add(TimeHelper.getTimeFromNow(selectedHour, selectedMinute).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(object : DisposableObserver<String>() {
+                        override fun onError(e: Throwable) {
+                            // do nothing
+                        }
+
+                        override fun onComplete() {
+                            // do nothing
+                        }
+
+                        override fun onNext(t: String) {
+                            timeLeftFromNow = t
+                            rootView.tvTime.text = t
+                        }
+                    }))
+
                 }, hour, minute, false)
                 mTimePicker.setTitle("Select Time")
                 mTimePicker.show()
@@ -105,5 +124,10 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
         RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsModel)
         mActivity.showToast("Alarm set for $timeLeftFromNow from now")
         mActivity.onBackPressed()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.clear()
     }
 }

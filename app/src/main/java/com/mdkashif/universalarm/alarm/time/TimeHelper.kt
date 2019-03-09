@@ -1,12 +1,14 @@
 package com.mdkashif.universalarm.alarm.time
 
+import io.reactivex.Observable
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 
-object TimePresenter {
+object TimeHelper {
 
-    fun calculateTimeFromNow(selectedHour: Int, selectedMinute: Int): String {
+    private fun calculateTimeFromNow(selectedHour: Int, selectedMinute: Int): Observable<String> {
         val format = SimpleDateFormat("HH:mm")
         val cal = Calendar.getInstance()
 
@@ -23,7 +25,13 @@ object TimePresenter {
 
         if (hours < 0)
             hours += 24
-        return """${Math.abs(hours)}h ${Math.abs(minutes)}m"""
+
+        return Observable.just("${Math.abs(hours)}h ${Math.abs(minutes)}m")
+    }
+
+    fun getTimeFromNow(selectedHour: Int, selectedMinute: Int): Observable<String> {
+        return Observable.interval(0, 10, TimeUnit.SECONDS)
+                .flatMap<String> { TimeHelper.calculateTimeFromNow(selectedHour, selectedMinute) }
     }
 
     fun getDifferentZonedTimes(id: Int): String {
@@ -41,5 +49,4 @@ object TimePresenter {
         cal.add(Calendar.DATE, 0)
         return dateFormat.format(cal.time)
     }
-
 }
