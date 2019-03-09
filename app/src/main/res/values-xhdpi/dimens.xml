@@ -30,4 +30,5 @@
     <dimen name="tvItemAlarmExpandableListBatteryMarginTopStartNextRow">18dp</dimen>
     <dimen name="ivItemAlarmExpandableListEmptyWidthHeight">180dp</dimen>
     <dimen name="swItemAlarmExpandableListMarginTop">12dp</dimen>
+    <dimen name="rbBuzzingAlarmFragmentMarginTop">250dp</dimen>
 </resources>

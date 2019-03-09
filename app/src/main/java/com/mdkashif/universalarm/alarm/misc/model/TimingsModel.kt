@@ -24,4 +24,6 @@ data class TimingsModel(
         var status: Boolean = false,
 
         @Ignore
-        var repeatDays: List<DaysModel>?=null)
+        var repeatDays: List<DaysModel>?=null,
+
+        var pIntentId: Long=0)

@@ -37,7 +37,7 @@ class PrayerDataFetchScheduleService : JobService(), PrayerPresenter.PrayerViewC
         val sunsetTiming = prayerApiResponse.data.timings!!.sunset!!.split(":")
         val sunsetTimingsModel = TimingsModel(hour = sunsetTiming[0], minute = sunsetTiming[1], alarmType = AlarmTypes.Sunset.toString(), status = false)
         RoomHelper.transactAmendAsync(AppDatabase.getAppDatabase(applicationContext), AlarmOps.Add.toString(), sunsetTimingsModel, autoUpdate = true)
-
+        // TODO : create pending intent using ALarmHelper and store its id in db along with alarms
         val asrTiming = prayerApiResponse.data.timings.asr!!.split(":")
         val asrTimingsModel = TimingsModel(hour = asrTiming[0], minute = asrTiming[1], alarmType = AlarmTypes.Asr.toString(), status = false)
         RoomHelper.transactAmendAsync(AppDatabase.getAppDatabase(applicationContext), AlarmOps.Add.toString(), asrTimingsModel, autoUpdate = true)

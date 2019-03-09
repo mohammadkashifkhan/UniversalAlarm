@@ -20,10 +20,12 @@ class BuzzingAlarmFragment : BaseFragment() {
 
         rootView.rippleBackground.startRippleAnimation()
 
-        rootView.cancel.setOnClickListener{
+        rootView.fbCancel.setOnClickListener{
             mActivity.stopService(Intent(context, AlarmSoundService::class.java))
             rootView.rippleBackground.stopRippleAnimation()
             mActivity.finish()
+
+            // TODO : use- alarmManager.cancel(pendingIntent);
         }
         return inflater.inflate(R.layout.fragment_buzzing_alarm, container, false)
     }

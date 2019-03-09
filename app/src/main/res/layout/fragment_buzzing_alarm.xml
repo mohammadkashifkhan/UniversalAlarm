@@ -1,96 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.ShowBuzzingAlarmActivity"
-    android:background="@color/pitchWhite">
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView26"
+        android:id="@+id/tvNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="@dimen/ivHomeHeaderMarginTop"
         android:text="Break Time"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="@dimen/mediumTextSize"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView27"
+        android:id="@+id/tvDateTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="@dimen/marginTopVeryLarge"
         android:text="Apr 30, 2018 5:45 PM"
-        android:textColor="@color/colorAccent"
-        android:textSize="18sp"
+        android:textColor="@color/secondaryTextColor"
+        android:textSize="@dimen/normalTextSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+        app:layout_constraintTop_toBottomOf="@+id/tvNote" />
 
     <com.skyfishjy.library.RippleBackground
         android:id="@+id/rippleBackground"
-        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="@dimen/rbBuzzingAlarmFragmentMarginTop"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rb_color="@color/colorPrimaryDark"
+        app:rb_color="@color/colorAccent"
         app:rb_duration="3000"
         app:rb_radius="32dp"
         app:rb_rippleAmount="4"
         app:rb_scale="6">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/pitchWhite"
-            android:clickable="true"
-            app:fab_size="normal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_fab_alarm" />
+        <ImageView
+            android:layout_width="@dimen/ivAboutWidthHeight"
+            android:layout_height="@dimen/ivAboutWidthHeight"
+            android:src="@mipmap/ic_launcher" />
 
     </com.skyfishjy.library.RippleBackground>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/snooze"
+        android:id="@+id/fbSnooze"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorAccent"
-        android:clickable="true"
         app:fab_size="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.974"
-        app:srcCompat="@drawable/ic_fab_snooze" />
+        app:layout_constraintVertical_bias="0.97"
+        app:srcCompat="@drawable/ic_snooze"
+        app:tint="@color/bg" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:tint="@color/pitchWhite"
-        android:id="@+id/cancel"
+        android:id="@+id/fbCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/red"
-        android:clickable="true"
         app:fab_size="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.956"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.97"
+        app:layout_constraintStart_toEndOf="@+id/fbSnooze"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.974"
+        app:layout_constraintVertical_bias="0.97"
         app:srcCompat="@drawable/ic_fab_cancel_alarm" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
