@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import com.mdkashif.universalarm.R
+import com.mdkashif.universalarm.alarm.battery.job.BatteryInfoScheduler
 import com.mdkashif.universalarm.alarm.battery.ui.SetBatteryLevelFragment
 import com.mdkashif.universalarm.alarm.location.ui.SetLocationFragment
 import com.mdkashif.universalarm.alarm.misc.ui.BuzzingAlarmFragment
@@ -46,6 +47,7 @@ class ContainerActivity : BaseActivity() {
         if (grantResults.isNotEmpty()
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
             PrayerDataFetchScheduler.scheduleJob(applicationContext)
+        BatteryInfoScheduler.scheduleJob(applicationContext) // scheduled it here just for the sake of starting them simultaneously
     }
 
     @OnShowRationale(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)

@@ -6,8 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.media.AudioManager
 import android.os.BatteryManager
-import android.util.Log
-
+import com.mdkashif.universalarm.alarm.misc.AlarmTypes
 import com.mdkashif.universalarm.notifications.NotificationService
 import com.mdkashif.universalarm.persistence.AppPreferences
 
@@ -48,8 +47,6 @@ class BatteryInfoReceiver : BroadcastReceiver() {
 
         if (getCurrentBatteryTemperature(context) > tempLevel!! && AppPreferences.temperatureAlarmStatus!!)
             startAlarm("Your Phone is getting too warm", "Either switch it off or unplug it", context)
-
-        Log.d("Check12345678", "$highBatteryPercentage-$lowBatteryPercentage-$tempLevel-$currentBatteryPercentage")
     }
 
     private fun getCurrentBatteryTemperature(context: Context): Float {
@@ -67,6 +64,7 @@ class BatteryInfoReceiver : BroadcastReceiver() {
         val alarmIntent = Intent(context, NotificationService::class.java)
         alarmIntent.putExtra("notificationTitle", title)
         alarmIntent.putExtra("notificationMessage", message)
+        alarmIntent.putExtra("alarmType", AlarmTypes.Battery.toString())
         context.startService(alarmIntent)
     }
 

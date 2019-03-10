@@ -12,7 +12,6 @@ class AntiTheftUnlockActivity : AppLockActivity() {
                 message(R.string.activity_dialog_content)
                 positiveButton(R.string.activity_dialog_accept) {  }
                 negativeButton(R.string.activity_dialog_decline) {  }
-
         }
     }
 

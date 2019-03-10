@@ -13,9 +13,9 @@ class BatteryInfoScheduler {
             val serviceComponent = ComponentName(context, BatteryScheduleService::class.java)
             val builder = JobInfo.Builder(57586, serviceComponent)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                builder.setMinimumLatency(36000) // 1 min somehow
+                builder.setMinimumLatency(36000)
             else
-                builder.setPeriodic(36000) // 1 min somehow
+                builder.setPeriodic(36000)
             builder.setPersisted(true)
             val jobScheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
             jobScheduler.schedule(builder.build())

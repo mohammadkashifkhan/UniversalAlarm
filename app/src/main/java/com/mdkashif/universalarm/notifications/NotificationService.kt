@@ -5,23 +5,38 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.github.omadahealth.lollipin.lib.managers.AppLock
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.activities.ContainerActivity
 import com.mdkashif.universalarm.alarm.misc.AlarmSoundService
+import com.mdkashif.universalarm.security.AntiTheftUnlockActivity
 import com.mdkashif.universalarm.utils.AppConstants
 
 class NotificationService : IntentService("NotificationService") {
     private var bundleNotificationId = AppConstants.notificationId
+    private lateinit var mIntent : Intent
 
     public override fun onHandleIntent(intent: Intent?) {
-        val mIntent = Intent(this, ContainerActivity::class.java)
+
         val notificationTitle = intent!!.getStringExtra("notificationTitle")
         val notificationMessage = intent.getStringExtra("notificationMessage")
-        mIntent.putExtra("hour", intent.getStringExtra("hour"))
-        mIntent.putExtra("minute", intent.getStringExtra("minute"))
-        mIntent.putExtra("note", notificationMessage)
-        mIntent.putExtra("param1", "BuzzAlarm")
-        mIntent.putExtra("param2", intent.getStringExtra("requestCode"))
+        when (intent.getStringExtra("alarmType")) {
+            "Time" -> {
+                mIntent = Intent(this, ContainerActivity::class.java)
+                mIntent.putExtra("hour", intent.getStringExtra("hour"))
+                mIntent.putExtra("minute", intent.getStringExtra("minute"))
+                mIntent.putExtra("note", notificationMessage)
+                mIntent.putExtra("param1", "BuzzAlarmFragment")
+                mIntent.putExtra("param2", intent.getStringExtra("requestCode"))
+            }
+            "Battery"->{
+                mIntent = Intent(this, AntiTheftUnlockActivity::class.java)
+                // TODO : stop alarm and what not everything basically in that activity,
+                // TODO : also dont have to show the pin directly only in case of theft, so choose the putextras wisely
+                mIntent.putExtra(AppLock.EXTRA_TYPE, AppLock.UNLOCK_PIN)
+                mIntent.putExtra("param1", "BuzzAlarmFragment")
+            }
+        }
         bundleNotificationId = +100
         val groupNotificationId = AppConstants.notificationChannelId + bundleNotificationId
 

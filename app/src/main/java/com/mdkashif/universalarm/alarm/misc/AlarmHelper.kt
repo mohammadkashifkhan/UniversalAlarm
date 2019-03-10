@@ -80,6 +80,7 @@ object AlarmHelper {
         mIntent.putExtra("requestCode", requestCode)
         mIntent.putExtra("hour", hour)
         mIntent.putExtra("minute", minute)
+        mIntent.putExtra("alarmType", AlarmTypes.Time) // Its time alarm basically even if its subtype is prayer
         val pIntent = PendingIntent.getBroadcast(context, requestCode, mIntent, PendingIntent.FLAG_ONE_SHOT)
 
         if (Build.VERSION.SDK_INT >= 23) {

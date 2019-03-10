@@ -10,7 +10,7 @@ class BatteryScheduleService : JobService() {
     override fun onStartJob(p0: JobParameters?): Boolean {
         registerReceiver(BatteryInfoReceiver.instance, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
         jobFinished(p0, false )
-        BatteryInfoScheduler.scheduleJob(applicationContext)
+        BatteryInfoScheduler.scheduleJob(applicationContext) // TODO: not sure about registering it again and again
         return true
     }
 

@@ -68,11 +68,6 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             }
             R.id.tvSeeAll -> {
                 mActivity.replaceFragment(ShowAllAlarmsFragment(), ShowAllAlarmsFragment::class.java.simpleName, true)
-
-                // TODO: Implement this somewhere ;)
-//            val intent = Intent(activity, AntiTheftUnlockActivity::class.java)
-//            intent.putExtra(AppLock.EXTRA_TYPE, AppLock.UNLOCK_PIN)
-//            startActivity(intent)
             }
         }
     }
