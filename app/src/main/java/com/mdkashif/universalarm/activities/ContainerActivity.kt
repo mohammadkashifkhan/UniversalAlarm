@@ -1,6 +1,7 @@
 package com.mdkashif.universalarm.activities
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import com.mdkashif.universalarm.R
@@ -26,7 +27,7 @@ class ContainerActivity : BaseActivity() {
         getPermissionsWithPermissionCheck()
 
         when {
-            "BuzzAlarm" == intent.getStringExtra("param")-> replaceFragment(BuzzingAlarmFragment(), BuzzingAlarmFragment::class.java.simpleName,false)
+            "BuzzAlarm" == intent.getStringExtra("param1")-> replaceFragment(BuzzingAlarmFragment(), BuzzingAlarmFragment::class.java.simpleName,false, Intent().getStringExtra("param2").toInt())
             "com.mdkashif.universalarm.activities.time" == intent.action -> replaceFragment(SetTimeFragment(), SetTimeFragment::class.java.simpleName,false)
             "com.mdkashif.universalarm.activities.battery" == intent.action -> replaceFragment(SetBatteryLevelFragment(), SetBatteryLevelFragment::class.java.simpleName,false)
             "com.mdkashif.universalarm.activities.location" == intent.action -> replaceFragment(SetLocationFragment(), SetLocationFragment::class.java.simpleName,false)

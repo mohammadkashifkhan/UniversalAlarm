@@ -26,4 +26,5 @@ data class TimingsModel(
         @Ignore
         var repeatDays: List<DaysModel>?=null,
 
-        var pIntentId: Long=0)
+        @ColumnInfo(name = "pid")
+        var pIntentRequestCode: Long=0)

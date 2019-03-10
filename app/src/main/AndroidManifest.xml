@@ -81,7 +81,6 @@
             android:name="com.mdkashif.universalarm.alarm.battery.job.BatteryScheduleService"
             android:label="Battery Info change Service"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-        <service android:name=".alarm.misc.job.AlarmScheduleService" />
 
         <activity
             android:name="com.mdkashif.universalarm.activities.WebviewActivity"

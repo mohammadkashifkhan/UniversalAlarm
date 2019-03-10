@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import ca.antonious.materialdaypicker.MaterialDayPicker
 import com.mdkashif.universalarm.R
+import com.mdkashif.universalarm.alarm.misc.AlarmHelper
 import com.mdkashif.universalarm.alarm.misc.AlarmOps
 import com.mdkashif.universalarm.alarm.misc.AlarmTypes
 import com.mdkashif.universalarm.alarm.misc.model.DaysModel
@@ -18,7 +19,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_set_time.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -33,6 +33,7 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
     private var daysList: MutableList<DaysModel> = ArrayList()
     private lateinit var timeLeftFromNow: String
     private val disposable = CompositeDisposable()
+    private var requestCode: Long = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -87,10 +88,11 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
                 when {
                     selectedDays.isEmpty() -> {
                         if (this.selectedMinute.isNotEmpty()) {
+                            requestCode = AlarmHelper.returnPendingIntentUniqueRequestCode(mActivity).toLong()
                             timingsModel = if (rootView.etNote.text.toString().isEmpty())
-                                TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, alarmType = AlarmTypes.Time.toString(), status = true)
+                                TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, alarmType = AlarmTypes.Time.toString(), status = true, pIntentRequestCode = requestCode)
                             else
-                                TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, note = rootView.etNote.text.toString(), alarmType = AlarmTypes.Time.toString(), status = true)
+                                TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, note = rootView.etNote.text.toString(), alarmType = AlarmTypes.Time.toString(), status = true, pIntentRequestCode = requestCode)
                             doAccordingly()
                         }
                     }
@@ -100,11 +102,11 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
                                 val daysModel = DaysModel(repeatDay = day)
                                 daysList.add(daysModel)
                             }
-
+                            requestCode = AlarmHelper.returnPendingIntentUniqueRequestCode(mActivity).toLong()
                             timingsModel = if (rootView.etNote.text.toString().isEmpty())
-                                TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, alarmType = AlarmTypes.Time.toString(), repeat = true, status = true, repeatDays = daysList)
+                                TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, alarmType = AlarmTypes.Time.toString(), repeat = true, status = true, repeatDays = daysList, pIntentRequestCode = requestCode)
                             else
-                                TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, note = rootView.etNote.text.toString(), alarmType = AlarmTypes.Time.toString(), repeat = true, status = true, repeatDays = daysList)
+                                TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, note = rootView.etNote.text.toString(), alarmType = AlarmTypes.Time.toString(), repeat = true, status = true, repeatDays = daysList, pIntentRequestCode = requestCode)
                             doAccordingly()
                         }
                     }
@@ -122,6 +124,7 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
 
     private fun doAccordingly() {
         RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsModel)
+        AlarmHelper.setAlarm(timingsModel.hour.toInt(), timingsModel.minute.toInt(), requestCode.toInt(), mActivity)
         mActivity.showToast("Alarm set for $timeLeftFromNow from now")
         mActivity.onBackPressed()
     }

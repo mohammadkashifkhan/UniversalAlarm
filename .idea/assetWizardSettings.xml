@@ -33,9 +33,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="f9b39a" />
-                            <entry key="outputName" value="ic_edit" />
-                            <entry key="sourceFile" value="D:\Alarm-android\chat.svg" />
+                            <entry key="outputName" value="ic_speech_bubble" />
+                            <entry key="sourceFile" value="D:\Alarm-android\assets\conversation.svg" />
                           </map>
                         </option>
                       </PersistentState>

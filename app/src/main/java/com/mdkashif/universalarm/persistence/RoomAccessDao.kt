@@ -30,7 +30,7 @@ interface RoomAccessDao {
     @Query("SELECT COUNT(*) from Timings")
     fun countAlarms(): LiveData<Int>
 
-    @Query("SELECT * FROM Timings")
+    @Query("SELECT * FROM Timings order by hour asc")
     fun getAllAlarms(): MutableList<TimingsModel>
 
     @Query("SELECT * FROM Days WHERE alarmId =:alarmId")

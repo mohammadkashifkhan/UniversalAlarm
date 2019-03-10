@@ -139,6 +139,10 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                 holder.swTime.setOnCheckedChangeListener { p0, p1 ->
                     alarmsList[position].status = p1
                     RoomHelper.transactAmendAsync(context.returnDbInstance(), AlarmOps.Update.toString(), alarmsList[position], alarmsList[position].id)
+                    if(p1)
+                        AlarmHelper.setAlarm(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt(), alarmsList[position].pIntentRequestCode.toInt(), context)
+                    else
+                        AlarmHelper.stopAlarm(alarmsList[position].pIntentRequestCode.toInt(), context)
                 }
                 holder.ibEdit.setOnClickListener {
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -204,6 +208,10 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                 holder.swPrayer.setOnCheckedChangeListener { p0, p1 ->
                     alarmsList[position].status = p1
                     RoomHelper.transactAmendAsync(context.returnDbInstance(), AlarmOps.Add.toString(), alarmsList[position])
+                    if(p1)
+                        AlarmHelper.setAlarm(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt(), alarmsList[position].pIntentRequestCode.toInt(), context)
+                    else
+                        AlarmHelper.stopAlarm(alarmsList[position].pIntentRequestCode.toInt(), context)
                 }
             }
             is AlarmsListAdapter.EmptyViewHolder -> {

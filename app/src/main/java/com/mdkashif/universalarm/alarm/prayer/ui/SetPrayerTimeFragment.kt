@@ -8,6 +8,7 @@ import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import android.widget.CompoundButton
 import com.mdkashif.universalarm.R
+import com.mdkashif.universalarm.alarm.misc.AlarmHelper
 import com.mdkashif.universalarm.alarm.misc.AlarmOps
 import com.mdkashif.universalarm.alarm.misc.AlarmTypes
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
@@ -16,8 +17,6 @@ import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.persistence.RoomHelper
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.fragment_set_prayer_time.*
-import kotlinx.android.synthetic.main.fragment_set_prayer_time.view.*
 
 
 class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener {
@@ -115,8 +114,14 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
     }
 
     private fun switchPrayerStatus(type: AlarmTypes, status: Boolean) {
-        timingsList[returnPrayerIndex(type)].status = status
-        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsList[returnPrayerIndex(type)])
+        val index=returnPrayerIndex(type)
+        timingsList[index].status = status
+        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsList[index])
+
+        if(status)
+            AlarmHelper.setAlarm(timingsList[index].hour.toInt(), timingsList[index].minute.toInt(), timingsList[index].pIntentRequestCode.toInt(), mActivity)
+        else
+            AlarmHelper.stopAlarm(timingsList[index].pIntentRequestCode.toInt(), mActivity)
     }
 
     private fun returnPrayerIndex(type: AlarmTypes): Int {

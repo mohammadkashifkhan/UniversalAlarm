@@ -17,8 +17,8 @@ class NotificationService : IntentService("NotificationService") {
         val mIntent = Intent(this, ContainerActivity::class.java)
         val notificationTitle = intent!!.getStringExtra("notificationTitle")
         val notificationMessage = intent.getStringExtra("notificationMessage")
-        mIntent.putExtra("param", "BuzzAlarm")
-
+        mIntent.putExtra("param1", "BuzzAlarm")
+        mIntent.putExtra("param2", intent.getStringExtra("requestCode"))
         bundleNotificationId = +100
         val groupNotificationId = AppConstants.notificationChannelId + bundleNotificationId
 

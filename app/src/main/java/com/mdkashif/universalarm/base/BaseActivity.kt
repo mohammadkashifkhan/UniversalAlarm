@@ -61,9 +61,14 @@ open class BaseActivity : AppCompatActivity() {
             finish()
     }
 
-    fun replaceFragment(fragment: Fragment, tag: String, isAddToBackStack: Boolean) {
+    fun replaceFragment(fragment: Fragment, tag: String, isAddToBackStack: Boolean, param: Int = 0) {
         val fm = supportFragmentManager
         val ft = fm.beginTransaction()
+        if (param != 0) {
+            val bundle = Bundle()
+            bundle.putString("requestCode", param.toString())
+            fragment.arguments = bundle
+        }
         ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out, android.R.animator.fade_in,
                 android.R.animator.fade_out)
         ft.replace(R.id.flContainer, fragment, tag)
