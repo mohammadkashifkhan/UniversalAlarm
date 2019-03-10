@@ -9,6 +9,7 @@ import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.misc.AlarmHelper
 import com.mdkashif.universalarm.alarm.misc.AlarmSoundService
 import com.mdkashif.universalarm.base.BaseFragment
+import kotlinx.android.synthetic.main.fragment_buzzing_alarm.view.*
 
 class BuzzingAlarmFragment : BaseFragment() {
     private lateinit var rootView: View
@@ -20,15 +21,15 @@ class BuzzingAlarmFragment : BaseFragment() {
 
         rootView.rippleBackground.startRippleAnimation()
 
-        val requestCode = this.arguments!!["requestCode"].toString()
+        val requestCode = this.arguments!!["param2"].toString()
+        rootView.tvNote.text = this.arguments!!["note"].toString()
+        rootView.tvDateTime.text = "${this.arguments!!["hour"]}:${this.arguments!!["minute"]}"
 
         rootView.fbCancel.setOnClickListener {
             mActivity.stopService(Intent(context, AlarmSoundService::class.java))
             rootView.rippleBackground.stopRippleAnimation()
             AlarmHelper.stopAlarm(requestCode.toInt(), mActivity)
             mActivity.finish()
-
-            // TODO : use- alarmManager.cancel(pendingIntent);
         }
         return inflater.inflate(R.layout.fragment_buzzing_alarm, container, false)
     }

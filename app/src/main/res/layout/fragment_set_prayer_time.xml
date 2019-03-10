@@ -27,7 +27,7 @@
                 android:src="@drawable/compass_light" />
 
             <ImageView
-                android:id="@+id/compass_hands"
+                android:id="@+id/ivCompassHands"
                 android:layout_width="@dimen/ivCompassHandsSetPrayerTimeFragmentWidth"
                 android:layout_height="@dimen/ivCompassHandsSetPrayerTimeFragmentWidthHeight"
                 android:layout_centerInParent="true"

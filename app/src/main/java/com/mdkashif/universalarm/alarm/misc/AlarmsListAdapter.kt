@@ -96,7 +96,7 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
         super.onBindViewHolder(holder, position)
         when (holder) {
             is AlarmsListAdapter.TimeViewHolder -> {
-                var builder = StringBuilder()
+                val builder = StringBuilder()
                 when {
                     alarmsList[position].hour.toInt() >= 12 -> {
                         val hour = alarmsList[position].hour.toInt()
@@ -140,7 +140,7 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                     alarmsList[position].status = p1
                     RoomHelper.transactAmendAsync(context.returnDbInstance(), AlarmOps.Update.toString(), alarmsList[position], alarmsList[position].id)
                     if(p1)
-                        AlarmHelper.setAlarm(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt(), alarmsList[position].pIntentRequestCode.toInt(), context)
+                        AlarmHelper.setAlarm(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt(), alarmsList[position].pIntentRequestCode.toInt(), context, AlarmTypes.Time, alarmsList[position].note)
                     else
                         AlarmHelper.stopAlarm(alarmsList[position].pIntentRequestCode.toInt(), context)
                 }
@@ -209,7 +209,7 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                     alarmsList[position].status = p1
                     RoomHelper.transactAmendAsync(context.returnDbInstance(), AlarmOps.Add.toString(), alarmsList[position])
                     if(p1)
-                        AlarmHelper.setAlarm(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt(), alarmsList[position].pIntentRequestCode.toInt(), context)
+                        AlarmHelper.setAlarm(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt(), alarmsList[position].pIntentRequestCode.toInt(), context, AlarmTypes.valueOf(alarmsList[position].alarmType))
                     else
                         AlarmHelper.stopAlarm(alarmsList[position].pIntentRequestCode.toInt(), context)
                 }

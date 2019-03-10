@@ -17,6 +17,8 @@ import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.persistence.RoomHelper
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.android.synthetic.main.fragment_set_prayer_time.*
+import kotlinx.android.synthetic.main.fragment_set_prayer_time.view.*
 
 
 class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener {
@@ -119,7 +121,7 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
         RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsList[index])
 
         if(status)
-            AlarmHelper.setAlarm(timingsList[index].hour.toInt(), timingsList[index].minute.toInt(), timingsList[index].pIntentRequestCode.toInt(), mActivity)
+            AlarmHelper.setAlarm(timingsList[index].hour.toInt(), timingsList[index].minute.toInt(), timingsList[index].pIntentRequestCode.toInt(), mActivity, type)
         else
             AlarmHelper.stopAlarm(timingsList[index].pIntentRequestCode.toInt(), mActivity)
     }
@@ -148,7 +150,7 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
         an.repeatCount = 0
         an.fillAfter = true
 
-        compass_hands.startAnimation(an)
+        ivCompassHands.startAnimation(an)
     }
 
     private fun getCompassListener(): Compass.CompassListener {

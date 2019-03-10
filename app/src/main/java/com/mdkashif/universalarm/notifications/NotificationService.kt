@@ -17,12 +17,15 @@ class NotificationService : IntentService("NotificationService") {
         val mIntent = Intent(this, ContainerActivity::class.java)
         val notificationTitle = intent!!.getStringExtra("notificationTitle")
         val notificationMessage = intent.getStringExtra("notificationMessage")
+        mIntent.putExtra("hour", intent.getStringExtra("hour"))
+        mIntent.putExtra("minute", intent.getStringExtra("minute"))
+        mIntent.putExtra("note", notificationMessage)
         mIntent.putExtra("param1", "BuzzAlarm")
         mIntent.putExtra("param2", intent.getStringExtra("requestCode"))
         bundleNotificationId = +100
         val groupNotificationId = AppConstants.notificationChannelId + bundleNotificationId
 
-        val pendingIntent = PendingIntent.getActivity(baseContext, bundleNotificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getActivity(baseContext, bundleNotificationId, mIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         sendNotificationAlert(notificationTitle, notificationMessage, pendingIntent, groupNotificationId, bundleNotificationId)
     }
