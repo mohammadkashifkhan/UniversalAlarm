@@ -8,13 +8,12 @@ import androidx.core.app.NotificationCompat
 import com.github.omadahealth.lollipin.lib.managers.AppLock
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.activities.ContainerActivity
-import com.mdkashif.universalarm.alarm.misc.AlarmSoundService
 import com.mdkashif.universalarm.security.AntiTheftUnlockActivity
 import com.mdkashif.universalarm.utils.AppConstants
 
 class NotificationService : IntentService("NotificationService") {
     private var bundleNotificationId = AppConstants.notificationId
-    private lateinit var mIntent : Intent
+    private var mIntent = Intent()
 
     public override fun onHandleIntent(intent: Intent?) {
 
@@ -84,6 +83,6 @@ class NotificationService : IntentService("NotificationService") {
 
         notificationManager.notify(bundleNotificationId, notification)
 
-        applicationContext.startService(Intent(applicationContext, AlarmSoundService::class.java))
+//        applicationContext.startService(Intent(applicationContext, AlarmSoundService::class.java))
     }
 }

@@ -9,7 +9,6 @@ import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.media.RingtoneManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.preference.RingtonePreference
@@ -151,24 +150,6 @@ class SettingsActivity : BaseActivity() {
             }
         }
 
-        private fun sendFeedback(context: Context) {
-            var body: String? = null
-            try {
-                body = context.packageManager.getPackageInfo(context.packageName, 0).versionName
-                body = ("\n\n-----------------------------\nPlease don't remove this information\n Device OS: Android \n Device OS version: " +
-                        Build.VERSION.RELEASE + "\n App Version: " + body + "\n Device Brand: " + Build.BRAND +
-                        "\n Device Model: " + Build.MODEL + "\n Device Manufacturer: " + Build.MANUFACTURER)
-            } catch (e: PackageManager.NameNotFoundException) {
-            }
-
-            val addresses = "mohammadkshf2093@gmail.com"
-            val uri = Uri.parse("mailto:$addresses").buildUpon().build()
-            mIntent = Intent(Intent.ACTION_SENDTO, uri)
-            mIntent.putExtra(Intent.EXTRA_SUBJECT, "Query from Universal Alarm app")
-            mIntent.putExtra(Intent.EXTRA_TEXT, body)
-            mActivity.executeIntent(mIntent, false)
-        }
-
         override fun onPreferenceClick(preference: androidx.preference.Preference?): Boolean {
             when (preference!!.title) {
                 getString(R.string.prefKeyTitleSnooze) -> {
@@ -229,7 +210,7 @@ class SettingsActivity : BaseActivity() {
                 }
 
                 getString(R.string.prefKeyTitleSendFeedback) ->
-                    sendFeedback(activity!!)
+                    mActivity.sendFeedback()
             }
             return true
         }

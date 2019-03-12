@@ -15,17 +15,18 @@ import com.mdkashif.universalarm.persistence.AppPreferences
 import kotlinx.android.synthetic.main.fragment_set_battery_level.view.*
 
 
-class SetBatteryLevelFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener, RangeBar.OnRangeBarChangeListener {
+class SetBatteryLevelFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener, RangeBar.OnRangeBarChangeListener, View.OnClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        var rootView : View =inflater.inflate(R.layout.fragment_set_battery_level, container, false)
+        var rootView: View = inflater.inflate(R.layout.fragment_set_battery_level, container, false)
 
         rootView.swBattery.setOnCheckedChangeListener(this)
         rootView.swTemperature.setOnCheckedChangeListener(this)
         rootView.swTheft.setOnCheckedChangeListener(this)
         rootView.rbBatteryLevel.setOnRangeBarChangeListener(this)
         rootView.rbTemp.setOnRangeBarChangeListener(this)
+        rootView.clSendFeedback.setOnClickListener(this)
 
         BatteryLiveData(context!!).observe(this, Observer<BatteryStatsPoJo> { connection ->
             rootView.cpBattery.isShowTextWhileSpinning = true
@@ -39,8 +40,8 @@ class SetBatteryLevelFragment : BaseFragment(), CompoundButton.OnCheckedChangeLi
         rootView.swTheft.isChecked = AppPreferences.theftAlarmStatus == true
 
         when {
-            (AppPreferences.hbl == 0f) && (AppPreferences.lbl == 0f) -> rootView.rbBatteryLevel.setRangePinsByValue(20f,85f)
-            AppPreferences.hbl == 0f -> rootView.rbBatteryLevel.setRangePinsByValue(AppPreferences.lbl!!,85f)
+            (AppPreferences.hbl == 0f) && (AppPreferences.lbl == 0f) -> rootView.rbBatteryLevel.setRangePinsByValue(20f, 85f)
+            AppPreferences.hbl == 0f -> rootView.rbBatteryLevel.setRangePinsByValue(AppPreferences.lbl!!, 85f)
             AppPreferences.lbl == 0f -> rootView.rbBatteryLevel.setRangePinsByValue(20f, AppPreferences.hbl!!)
             else -> rootView.rbBatteryLevel.setRangePinsByValue(AppPreferences.lbl!!, AppPreferences.hbl!!)
         }
@@ -54,29 +55,35 @@ class SetBatteryLevelFragment : BaseFragment(), CompoundButton.OnCheckedChangeLi
     }
 
     override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
-        when(p0!!.id){
-            R.id.swBattery->{
+        when (p0!!.id) {
+            R.id.swBattery -> {
                 AppPreferences.batteryAlarmStatus = p1
             }
-            R.id.swTemperature->{
+            R.id.swTemperature -> {
                 AppPreferences.temperatureAlarmStatus = p1
             }
-            R.id.swTheft->{
+            R.id.swTheft -> {
                 AppPreferences.theftAlarmStatus = p1
             }
         }
     }
 
+    override fun onClick(v: View?) {
+        when (v!!.id) {
+            R.id.clSendFeedback -> mActivity.sendFeedback()
+        }
+    }
+
     override fun onRangeChangeListener(rangeBar: RangeBar?, leftPinIndex: Int, rightPinIndex: Int, leftPinValue: String?, rightPinValue: String?) {
-        when(rangeBar!!.id){
-            R.id.rbBatteryLevel->{
-                if(AppPreferences.hbl != rightPinValue!!.toFloat())
+        when (rangeBar!!.id) {
+            R.id.rbBatteryLevel -> {
+                if (AppPreferences.hbl != rightPinValue!!.toFloat())
                     AppPreferences.hbl = rightPinValue.toFloat()
-                if(AppPreferences.lbl != leftPinValue!!.toFloat())
+                if (AppPreferences.lbl != leftPinValue!!.toFloat())
                     AppPreferences.lbl = leftPinValue.toFloat()
             }
-            R.id.rbTemp->{
-                if(AppPreferences.temp != rightPinValue!!.toFloat())
+            R.id.rbTemp -> {
+                if (AppPreferences.temp != rightPinValue!!.toFloat())
                     AppPreferences.temp = rightPinValue.toFloat()
             }
         }

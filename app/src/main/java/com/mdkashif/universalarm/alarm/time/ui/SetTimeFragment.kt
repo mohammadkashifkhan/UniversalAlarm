@@ -35,6 +35,7 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
     private lateinit var timeLeftFromNow: String
     private val disposable = CompositeDisposable()
     private var requestCode: Long = 0
+    private lateinit var mTimePicker: TimePickerDialog
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -42,6 +43,7 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
         rootView.tvPickTime.setOnClickListener(this)
         rootView.btSaveAlarm.setOnClickListener(this)
         rootView.dpDays.setDayPressedListener(this)
+        rootView.clSendFeedback.setOnClickListener(this)
 
         rootView.tvDubai.text = "Dubai : ${TimeHelper.getDifferentZonedTimes(1)}"
         rootView.tvNewYork.text = "New York : ${TimeHelper.getDifferentZonedTimes(2)}"
@@ -59,8 +61,7 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
                 val mCurrentTime = Calendar.getInstance()
                 val hour = mCurrentTime.get(Calendar.HOUR_OF_DAY)
                 val minute = mCurrentTime.get(Calendar.MINUTE)
-                val mTimePicker: TimePickerDialog
-                mTimePicker = TimePickerDialog(mActivity, TimePickerDialog.OnTimeSetListener { _, selectedHour, selectedMinute ->
+                mTimePicker = TimePickerDialog(activity, TimePickerDialog.OnTimeSetListener { _, selectedHour, selectedMinute ->
                     this.selectedHour = selectedHour.toString()
                     this.selectedMinute = selectedMinute.toString()
                     rootView.tvPickTime.text = """${this.selectedHour}:${this.selectedMinute}"""
@@ -113,6 +114,8 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
                     }
                 }
             }
+
+            R.id.clSendFeedback -> mActivity.sendFeedback()
         }
     }
 
@@ -132,6 +135,8 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
 
     override fun onDestroy() {
         super.onDestroy()
+//        if (mTimePicker.isShowing)
+//            mTimePicker.dismiss()
         disposable.clear()
     }
 }

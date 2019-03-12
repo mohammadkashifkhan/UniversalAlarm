@@ -21,8 +21,7 @@ import kotlinx.android.synthetic.main.fragment_set_prayer_time.*
 import kotlinx.android.synthetic.main.fragment_set_prayer_time.view.*
 
 
-class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener {
-
+class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener, View.OnClickListener {
     private var timingsList: List<TimingsModel> = ArrayList()
 
     private var compass: Compass? = null
@@ -43,6 +42,7 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
         rootView.swIsha.setOnCheckedChangeListener(this)
         rootView.swImsak.setOnCheckedChangeListener(this)
         rootView.swMidnight.setOnCheckedChangeListener(this)
+        rootView.clSendFeedback.setOnClickListener(this)
 
         rootView.tvTimezone.text = AppPreferences.timezone
         rootView.tvIslamicDate.text = AppPreferences.islamicDate
@@ -115,12 +115,19 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
         }
     }
 
+    override fun onClick(v: View?) {
+        when (v!!.id) {
+            R.id.clSendFeedback -> mActivity.sendFeedback()
+        }
+    }
+
+
     private fun switchPrayerStatus(type: AlarmTypes, status: Boolean) {
-        val index=returnPrayerIndex(type)
+        val index = returnPrayerIndex(type)
         timingsList[index].status = status
         RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsList[index])
 
-        if(status)
+        if (status)
             AlarmHelper.setAlarm(timingsList[index].hour.toInt(), timingsList[index].minute.toInt(), timingsList[index].pIntentRequestCode.toInt(), mActivity, type)
         else
             AlarmHelper.stopAlarm(timingsList[index].pIntentRequestCode.toInt(), mActivity)

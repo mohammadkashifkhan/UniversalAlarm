@@ -61,13 +61,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/commonTheme" />
 
-        <receiver android:name="com.mdkashif.universalarm.alarm.battery.misc.BatteryInfoReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BATTERY_CHANGED" />
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
         <service android:name="com.mdkashif.universalarm.alarm.misc.AlarmSoundService" />
 
         <service android:name="com.mdkashif.universalarm.notifications.NotificationService" />

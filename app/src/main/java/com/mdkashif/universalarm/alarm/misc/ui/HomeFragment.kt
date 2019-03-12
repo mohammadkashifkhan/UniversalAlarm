@@ -77,11 +77,20 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         val pair = RoomHelper.transactFetchAsync(mActivity.returnDbInstance(), AlarmTypes.Time)
         timingsList = pair.first // Pair's first value
         pair.second.observe(this, Observer<Int> {
-            if (AppPreferences.hbl != 0f)
-                rootView.tvSeeAll.text = "+${it - 3} more" // adding battery count
-            else
-                rootView.tvSeeAll.text = "+${it - 4} more"
-        })
+            if (it > 4) {
+                if (AppPreferences.hbl != 0f)
+                    rootView.tvSeeAll.text = "+${it - 3} more" // adding battery count
+                else
+                    rootView.tvSeeAll.text = "+${it - 4} more"
+            } else if (it == 4) {
+                if (AppPreferences.hbl != 0f)
+                    rootView.tvSeeAll.text = "+${it - 3} more" // adding battery count
+                else
+                    rootView.tvSeeAll.visibility = View.INVISIBLE
+            } else
+                rootView.tvSeeAll.visibility = View.INVISIBLE
+        }
+        )
         setRVAdapter(timingsList)
         if (pair.first.isEmpty())
             rootView.tvSeeAll.visibility = View.INVISIBLE

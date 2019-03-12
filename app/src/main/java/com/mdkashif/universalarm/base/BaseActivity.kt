@@ -1,6 +1,9 @@
 package com.mdkashif.universalarm.base
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.animation.*
@@ -13,7 +16,6 @@ import com.afollestad.materialdialogs.customview.customView
 import com.google.android.material.snackbar.Snackbar
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.persistence.AppDatabase
-import com.mdkashif.universalarm.persistence.AppPreferences
 
 
 open class BaseActivity : AppCompatActivity() {
@@ -30,7 +32,6 @@ open class BaseActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         parentLayout = findViewById(android.R.id.content)
-        AppPreferences.init(applicationContext)
         appDatabase = AppDatabase.getAppDatabase(applicationContext)
     }
 
@@ -92,6 +93,24 @@ open class BaseActivity : AppCompatActivity() {
 
         val controller = LayoutAnimationController(set, 0.5f)
         view.layoutAnimation = controller
+    }
+
+    fun sendFeedback() {
+        var body: String? = null
+        try {
+            body = packageManager.getPackageInfo(packageName, 0).versionName
+            body = ("\n\n-----------------------------\nPlease don't remove this information\n Device OS: Android \n Device OS version: " +
+                    Build.VERSION.RELEASE + "\n App Version: " + body + "\n Device Brand: " + Build.BRAND +
+                    "\n Device Model: " + Build.MODEL + "\n Device Manufacturer: " + Build.MANUFACTURER)
+        } catch (e: PackageManager.NameNotFoundException) {
+        }
+
+        val addresses = "mohammadkshf2093@gmail.com"
+        val uri = Uri.parse("mailto:$addresses").buildUpon().build()
+        val mIntent = Intent(Intent.ACTION_SENDTO, uri)
+        mIntent.putExtra(Intent.EXTRA_SUBJECT, "Query from Universal Alarm app")
+        mIntent.putExtra(Intent.EXTRA_TEXT, body)
+        executeIntent(mIntent, false)
     }
 
     fun returnDbInstance(): AppDatabase {
