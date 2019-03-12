@@ -15,6 +15,7 @@ import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.activities.ContainerActivity
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import com.mdkashif.universalarm.alarm.time.TimeHelper
+import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.persistence.RoomHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -145,7 +146,7 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                         AlarmHelper.stopAlarm(alarmsList[position].pIntentRequestCode.toInt(), context)
                 }
                 holder.ibEdit.setOnClickListener {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    context.replaceFragment(SetTimeFragment(), SetTimeFragment::class.java.simpleName,false, dao = alarmsList[position])
                 }
                 holder.ibDelete.setOnClickListener {
                     RoomHelper.transactAmendAsync(context.returnDbInstance(), AlarmOps.Delete.toString(), alarmsList[position], alarmsList[position].id)

@@ -19,6 +19,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_buzzing_alarm.view.*
 import kotlinx.android.synthetic.main.fragment_set_time.view.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -51,6 +52,34 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
         rootView.tvMoscow.text = "Moscow : ${TimeHelper.getDifferentZonedTimes(4)}"
         rootView.tvBrasilia.text = "Brasilia : ${TimeHelper.getDifferentZonedTimes(5)}"
         rootView.tvLondon.text = "London : ${TimeHelper.getDifferentZonedTimes(6)}"
+
+        when {
+            arguments != null -> {
+                timingsModel = arguments!!.getParcelable("editableData") as TimingsModel
+                rootView.tvPickTime.text = "${timingsModel.hour}:${timingsModel.minute}"
+
+                disposable.add(TimeHelper.getTimeFromNow(timingsModel.hour.toInt(), timingsModel.minute.toInt()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(object : DisposableObserver<String>() {
+                    override fun onError(e: Throwable) {
+                        // do nothing
+                    }
+
+                    override fun onComplete() {
+                        // do nothing
+                    }
+
+                    override fun onNext(t: String) {
+                        timeLeftFromNow = t
+                        rootView.tvTime.text = t
+                    }
+                }))
+                if (timingsModel.repeat) {
+                    for (i in timingsModel.repeatDays!!.indices) {
+                        rootView.dpDays.setSelectedDays(MaterialDayPicker.Weekday.valueOf(timingsModel.repeatDays!![i].repeatDay))
+                    }
+                }
+                rootView.tvNote.text = timingsModel.note
+            }
+        }
         return rootView
     }
 
@@ -64,7 +93,7 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
                 mTimePicker = TimePickerDialog(activity, TimePickerDialog.OnTimeSetListener { _, selectedHour, selectedMinute ->
                     this.selectedHour = selectedHour.toString()
                     this.selectedMinute = selectedMinute.toString()
-                    rootView.tvPickTime.text = """${this.selectedHour}:${this.selectedMinute}"""
+                    rootView.tvPickTime.text = "${this.selectedHour}:${this.selectedMinute}"
 
                     disposable.add(TimeHelper.getTimeFromNow(selectedHour, selectedMinute).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(object : DisposableObserver<String>() {
                         override fun onError(e: Throwable) {
@@ -135,8 +164,6 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
 
     override fun onDestroy() {
         super.onDestroy()
-//        if (mTimePicker.isShowing)
-//            mTimePicker.dismiss()
         disposable.clear()
     }
 }

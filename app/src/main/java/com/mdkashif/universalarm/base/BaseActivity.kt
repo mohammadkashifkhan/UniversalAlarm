@@ -15,6 +15,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.google.android.material.snackbar.Snackbar
 import com.mdkashif.universalarm.R
+import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import com.mdkashif.universalarm.persistence.AppDatabase
 
 
@@ -62,12 +63,17 @@ open class BaseActivity : AppCompatActivity() {
             finish()
     }
 
-    fun replaceFragment(fragment: Fragment, tag: String, isAddToBackStack: Boolean, param: Int = 0) {
+    fun replaceFragment(fragment: Fragment, tag: String, isAddToBackStack: Boolean, param: Int = 0, dao: TimingsModel? = null) {
         val fm = supportFragmentManager
         val ft = fm.beginTransaction()
-        if (param != 0) {
+        if (param != 0) { // for buzzingAlarmFragment
             val bundle = Bundle()
             bundle.putString("requestCode", param.toString())
+            fragment.arguments = bundle
+        }
+        if (dao != null) { // for sending data to setTimeFragment
+            val bundle = Bundle()
+            bundle.putParcelable("editableData", dao)
             fragment.arguments = bundle
         }
         ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out, android.R.animator.fade_in,

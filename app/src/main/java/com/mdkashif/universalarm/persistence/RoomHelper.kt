@@ -12,14 +12,19 @@ class RoomHelper { //@Inject constructor(accessDao: RoomAccessDao)
 
     companion object {
 
-        fun transactFetchAsync(db: AppDatabase, type: AlarmTypes): Pair<MutableList<TimingsModel>,LiveData<Int>> {
+        fun transactFetchAsync(db: AppDatabase, type: AlarmTypes, status: Boolean = false): Pair<MutableList<TimingsModel>, LiveData<Int>> {
             return when (type) {
                 AlarmTypes.Prayer -> TransactDbAsync(db, null, 0).execute(AlarmOps.Get.toString()).get() // instead of specifying each type explicitly, specified prayer to get all of them
-                else -> TransactDbAsync(db, null, 1).execute(AlarmOps.Get.toString()).get() // passed 1 just to differentiate between prayer and all alarms
+                else -> {
+                    when {
+                        status -> TransactDbAsync(db, null, 1).execute(AlarmOps.Get.toString()).get() // passed 1 just to show only live alarms
+                        else -> TransactDbAsync(db, null, 2).execute(AlarmOps.Get.toString()).get() // passed 2 just to show all alarms
+                    }
+                }
             }
         }
 
-        fun transactAmendAsync(db: AppDatabase, taskType: String, timingsModel: TimingsModel?, id: Long = 0, autoUpdate: Boolean=false) { //id=0 means we are just inserting
+        fun transactAmendAsync(db: AppDatabase, taskType: String, timingsModel: TimingsModel?, id: Long = 0, autoUpdate: Boolean = false) { //id=0 means we are just inserting
             if (timingsModel!!.alarmType != AlarmTypes.Time.toString())
                 TransactDbAsync(db, timingsModel, id, autoUpdate).execute(AlarmOps.Check.toString()) // to check if we have any existing prayer alarm
             else
@@ -46,8 +51,11 @@ class RoomHelper { //@Inject constructor(accessDao: RoomAccessDao)
             return db.accessDao().getPrayerAlarms()
         }
 
-        private fun getTimingsWithDays(db: AppDatabase): MutableList<TimingsModel> {
-            val timings = db.accessDao().getAllAlarms()
+        private fun getTimingsWithDays(db: AppDatabase, status: Boolean = false): MutableList<TimingsModel> {
+            val timings: MutableList<TimingsModel> = if (status)
+                db.accessDao().getOnlyLiveAlarms()
+            else
+                db.accessDao().getAllAlarms()
             for (i in timings.indices) {
                 if (db.accessDao().getRepeatDays(timings[i].id).isNotEmpty()) {
                     timings[i].repeatDays = db.accessDao().getRepeatDays(timings[i].id)
@@ -74,20 +82,22 @@ class RoomHelper { //@Inject constructor(accessDao: RoomAccessDao)
             return db.accessDao().countAlarms()
         }
 
-        private class TransactDbAsync(private val db: AppDatabase, private val timingsModel: TimingsModel?, private val alarmId: Long, private val autoUpdate: Boolean= false) : AsyncTask<String, Any, Pair<MutableList<TimingsModel>,LiveData<Int>>>() {
+        private class TransactDbAsync(private val db: AppDatabase, private val timingsModel: TimingsModel?, private val alarmId: Long, private val autoUpdate: Boolean = false) : AsyncTask<String, Any, Pair<MutableList<TimingsModel>, LiveData<Int>>>() {
             var timingsList: MutableList<TimingsModel> = ArrayList()
 
             override fun onPreExecute() {
                 super.onPreExecute()
                 timingsList.clear()
             }
-            override fun doInBackground(vararg params: String): Pair<MutableList<TimingsModel>,LiveData<Int>>? {
+
+            override fun doInBackground(vararg params: String): Pair<MutableList<TimingsModel>, LiveData<Int>>? {
                 when (params[0]) {
                     AlarmOps.Get.toString() -> {
-                        (return if (alarmId == 0.toLong())
-                            Pair(getPrayerTimings(db), countAllAlarms(db))
-                        else
-                            Pair(getTimingsWithDays(db), countAllAlarms(db))) //TODO : combine location alarms here as well
+                        (return when (alarmId) {
+                            0.toLong() -> Pair(getPrayerTimings(db), countAllAlarms(db))
+                            1.toLong() -> Pair(getTimingsWithDays(db, true), countAllAlarms(db))
+                            else -> Pair(getTimingsWithDays(db), countAllAlarms(db))
+                        }) //TODO : combine location alarms here as well
                     }
                     AlarmOps.Check.toString() -> {
                         timingsList = getSpecificTimings(db, timingsModel!!)

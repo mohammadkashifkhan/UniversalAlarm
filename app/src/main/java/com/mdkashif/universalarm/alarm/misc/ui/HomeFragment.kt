@@ -74,17 +74,17 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pair = RoomHelper.transactFetchAsync(mActivity.returnDbInstance(), AlarmTypes.Time)
+        val pair = RoomHelper.transactFetchAsync(mActivity.returnDbInstance(), AlarmTypes.Time, true)
         timingsList = pair.first // Pair's first value
         pair.second.observe(this, Observer<Int> {
             if (it > 4) {
                 if (AppPreferences.hbl != 0f)
-                    rootView.tvSeeAll.text = "+${it - 3} more" // adding battery count
+                    rootView.tvSeeAll.text = "+${it - 3} more" // TODO: sort this, only live ones come now
                 else
                     rootView.tvSeeAll.text = "+${it - 4} more"
             } else if (it == 4) {
                 if (AppPreferences.hbl != 0f)
-                    rootView.tvSeeAll.text = "+${it - 3} more" // adding battery count
+                    rootView.tvSeeAll.text = "+${it - 3} more"
                 else
                     rootView.tvSeeAll.visibility = View.INVISIBLE
             } else

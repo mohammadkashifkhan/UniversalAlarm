@@ -33,6 +33,9 @@ interface RoomAccessDao {
     @Query("SELECT * FROM Timings order by hour asc")
     fun getAllAlarms(): MutableList<TimingsModel>
 
+    @Query("SELECT * FROM Timings where status='1' order by hour asc")
+    fun getOnlyLiveAlarms(): MutableList<TimingsModel>
+
     @Query("SELECT * FROM Days WHERE alarmId =:alarmId")
     fun getRepeatDays(alarmId: Long): MutableList<DaysModel>
 
