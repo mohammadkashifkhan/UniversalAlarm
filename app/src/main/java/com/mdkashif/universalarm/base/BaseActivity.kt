@@ -1,7 +1,10 @@
 package com.mdkashif.universalarm.base
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -35,6 +38,24 @@ open class BaseActivity : AppCompatActivity() {
         parentLayout = findViewById(android.R.id.content)
         appDatabase = AppDatabase.getAppDatabase(applicationContext)
     }
+
+    val isOnline: Boolean
+        get() {
+            val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            if (Build.VERSION.SDK_INT < 23) {
+                val ni = cm.activeNetworkInfo
+                if (ni != null) {
+                    return (ni.isConnected && (ni.type == ConnectivityManager.TYPE_WIFI || ni.type == ConnectivityManager.TYPE_MOBILE))
+                }
+            } else {
+                val n = cm.activeNetwork
+                if (n != null) {
+                    val nc = cm.getNetworkCapabilities(n)
+                    return (nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI))
+                }
+            }
+            return false
+        }
 
     fun showLoader() {
         progressDialog = MaterialDialog(this).show {

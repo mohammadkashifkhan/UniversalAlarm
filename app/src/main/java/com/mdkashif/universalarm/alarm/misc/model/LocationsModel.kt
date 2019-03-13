@@ -12,8 +12,8 @@ data class LocationsModel(
 
         var city: String = "",
 
-        var latitude: Long = 0,
+        var latitude: Double = 0.0,
 
-        var longitude: Long = 0,
+        var longitude: Double = 0.0,
 
         var status: Boolean = false)

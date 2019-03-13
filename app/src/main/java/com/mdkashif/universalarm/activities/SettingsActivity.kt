@@ -58,6 +58,7 @@ class SettingsActivity : BaseActivity() {
             findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleTNC)).onPreferenceClickListener = this
             findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSendFeedback)).onPreferenceClickListener = this
             findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze)).onPreferenceClickListener = this
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision)).onPreferenceClickListener = this
 
             bindPreferenceSummaryToValue(findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleRingtone)))
 
@@ -157,6 +158,15 @@ class SettingsActivity : BaseActivity() {
                         title(R.string.snoozeTitle)
                         listItemsSingleChoice(R.array.snoozeTimings) { dialog, index, text ->
                             AppPreferences.snoozeTimeArrayPosition = index
+                        }
+                    }
+                }
+
+                getString(R.string.prefKeyTitleLocationPrecision) -> {
+                    MaterialDialog(mActivity).show {
+                        title(R.string.locationPrecisionTitle)
+                        listItemsSingleChoice(R.array.locationPrecision) { dialog, index, text ->
+                            AppPreferences.locationPrecisionArrayPosition = index
                         }
                     }
                 }

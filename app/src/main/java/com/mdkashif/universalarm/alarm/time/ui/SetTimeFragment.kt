@@ -42,7 +42,7 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
                               savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.fragment_set_time, container, false)
         rootView.tvPickTime.setOnClickListener(this)
-        rootView.btSaveAlarm.setOnClickListener(this)
+        rootView.btSetAlarm.setOnClickListener(this)
         rootView.dpDays.setDayPressedListener(this)
         rootView.clSendFeedback.setOnClickListener(this)
 
@@ -115,7 +115,7 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
                 mTimePicker.show()
             }
 
-            R.id.btSaveAlarm -> {
+            R.id.btSetAlarm -> {
                 when {
                     selectedDays.isEmpty() -> {
                         if (this.selectedMinute.isNotEmpty()) {
@@ -156,7 +156,7 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
     }
 
     private fun doAccordingly() {
-        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsModel)
+        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsModel, null)
         AlarmHelper.setAlarm(timingsModel.hour.toInt(), timingsModel.minute.toInt(), requestCode.toInt(), mActivity, AlarmTypes.Time, timingsModel.note)
         mActivity.showToast("Alarm set for $timeLeftFromNow from now")
         mActivity.onBackPressed()

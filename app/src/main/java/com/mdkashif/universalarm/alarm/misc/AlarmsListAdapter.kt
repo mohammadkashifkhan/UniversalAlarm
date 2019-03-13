@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.hendraanggrian.recyclerview.widget.ExpandableRecyclerView
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.activities.ContainerActivity
+import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import com.mdkashif.universalarm.alarm.time.TimeHelper
 import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment
@@ -23,7 +24,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 
-class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, private val viewType: String, private val context: ContainerActivity, linearLayoutManager: LinearLayoutManager, private val disposable: CompositeDisposable) : ExpandableRecyclerView.Adapter<RecyclerView.ViewHolder>(linearLayoutManager) {
+class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, private val locationsList: MutableList<LocationsModel>, private val viewType: String, private val context: ContainerActivity, linearLayoutManager: LinearLayoutManager, private val disposable: CompositeDisposable) : ExpandableRecyclerView.Adapter<RecyclerView.ViewHolder>(linearLayoutManager) {
 
     internal inner class TimeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTime: TextView = itemView.findViewById(R.id.tvTime)
@@ -139,17 +140,17 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                 holder.swTime.isChecked = alarmsList[position].status
                 holder.swTime.setOnCheckedChangeListener { p0, p1 ->
                     alarmsList[position].status = p1
-                    RoomHelper.transactAmendAsync(context.returnDbInstance(), AlarmOps.Update.toString(), alarmsList[position], alarmsList[position].id)
-                    if(p1)
+                    RoomHelper.transactAmendAsync(context.returnDbInstance(), AlarmOps.Update.toString(), alarmsList[position], null, alarmsList[position].id)
+                    if (p1)
                         AlarmHelper.setAlarm(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt(), alarmsList[position].pIntentRequestCode.toInt(), context, AlarmTypes.Time, alarmsList[position].note)
                     else
                         AlarmHelper.stopAlarm(alarmsList[position].pIntentRequestCode.toInt(), context)
                 }
                 holder.ibEdit.setOnClickListener {
-                    context.replaceFragment(SetTimeFragment(), SetTimeFragment::class.java.simpleName,false, dao = alarmsList[position])
+                    context.replaceFragment(SetTimeFragment(), SetTimeFragment::class.java.simpleName, false, dao = alarmsList[position])
                 }
                 holder.ibDelete.setOnClickListener {
-                    RoomHelper.transactAmendAsync(context.returnDbInstance(), AlarmOps.Delete.toString(), alarmsList[position], alarmsList[position].id)
+                    RoomHelper.transactAmendAsync(context.returnDbInstance(), AlarmOps.Delete.toString(), alarmsList[position], null, alarmsList[position].id)
                     alarmsList.removeAt(position)
                     notifyItemRemoved(position)
                 }
@@ -169,10 +170,10 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                 }
             }
             is AlarmsListAdapter.LocationViewHolder -> {
-                holder.tvAddress.text = "Jumeirah Beach"
-                holder.tvCity.text = "Dubai"
+                holder.tvAddress.text = locationsList[position].address
+                holder.tvCity.text = locationsList[position].city
                 holder.tvDistance.text = "3km away"
-                holder.swLocation.isChecked = false
+                holder.swLocation.isChecked = locationsList[position].status
             }
             is AlarmsListAdapter.PrayerViewHolder -> {
                 holder.tvPrayerType.text = alarmsList[position].alarmType
@@ -208,8 +209,8 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                 holder.swPrayer.isChecked = alarmsList[position].status
                 holder.swPrayer.setOnCheckedChangeListener { p0, p1 ->
                     alarmsList[position].status = p1
-                    RoomHelper.transactAmendAsync(context.returnDbInstance(), AlarmOps.Add.toString(), alarmsList[position])
-                    if(p1)
+                    RoomHelper.transactAmendAsync(context.returnDbInstance(), AlarmOps.Add.toString(), alarmsList[position], null)
+                    if (p1)
                         AlarmHelper.setAlarm(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt(), alarmsList[position].pIntentRequestCode.toInt(), context, AlarmTypes.valueOf(alarmsList[position].alarmType))
                     else
                         AlarmHelper.stopAlarm(alarmsList[position].pIntentRequestCode.toInt(), context)

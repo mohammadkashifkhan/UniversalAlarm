@@ -17,13 +17,16 @@ object AppConstants {
     const val ringtoneUri = "ringtone_uri"
     const val vibrateStatus = "vibrate_status"
 
-    const val themeLight = "Light"
-    const val themeDark = "Dark"
+    const val playServicesResolutionRequest = 1000
+    const val updateInterval = 10000
+    const val fastestInterval = 1000
+    const val displacement = 1000
 
     const val city = "city"
     const val country = "country"
 
     const val snoozeTimeArrayPosition = "snoozeTimeArrayPosition"
+    const val locationPrecisionArrayPosition = "locationPrecisionArrayPosition"
     const val timezone = "timezone"
     const val islamicDate = "islamicDate"
     const val islamicMonth = "islamicMonth"

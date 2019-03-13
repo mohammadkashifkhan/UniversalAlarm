@@ -35,8 +35,8 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="f9b39a" />
-                            <entry key="outputName" value="ic_speech_bubble" />
-                            <entry key="sourceFile" value="D:\Alarm-android\assets\conversation.svg" />
+                            <entry key="outputName" value="ic_marker" />
+                            <entry key="sourceFile" value="D:\Alarm-android\assets\map-marker.svg" />
                           </map>
                         </option>
                       </PersistentState>

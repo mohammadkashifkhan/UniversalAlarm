@@ -125,7 +125,7 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
     private fun switchPrayerStatus(type: AlarmTypes, status: Boolean) {
         val index = returnPrayerIndex(type)
         timingsList[index].status = status
-        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsList[index])
+        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsList[index], null)
 
         if (status)
             AlarmHelper.setAlarm(timingsList[index].hour.toInt(), timingsList[index].minute.toInt(), timingsList[index].pIntentRequestCode.toInt(), mActivity, type)

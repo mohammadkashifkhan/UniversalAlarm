@@ -104,6 +104,13 @@ object AppPreferences {
                 it.putInt(AppConstants.snoozeTimeArrayPosition, position)
             }
 
+    var locationPrecisionArrayPosition: Int
+        get() = preferences.getInt(AppConstants.locationPrecisionArrayPosition, 0)
+        set(position) =
+            preferences.edit {
+                it.putInt(AppConstants.locationPrecisionArrayPosition, position)
+            }
+
     var timezone: String?
         get() = preferences.getString(AppConstants.timezone, "")
         set(timezone) =

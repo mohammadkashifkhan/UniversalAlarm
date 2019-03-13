@@ -13,6 +13,7 @@ import com.mdkashif.universalarm.alarm.battery.ui.SetBatteryLevelFragment
 import com.mdkashif.universalarm.alarm.location.ui.SetLocationFragment
 import com.mdkashif.universalarm.alarm.misc.AlarmTypes
 import com.mdkashif.universalarm.alarm.misc.AlarmsListAdapter
+import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import com.mdkashif.universalarm.alarm.prayer.ui.SetPrayerTimeFragment
 import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment
@@ -27,6 +28,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
     private lateinit var mLinearLayoutManager: LinearLayoutManager
     private lateinit var rootView: View
     private lateinit var timingsList: MutableList<TimingsModel>
+    private lateinit var locationsList: MutableList<LocationsModel>
     private val disposable = CompositeDisposable()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +56,10 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             }
             R.id.fabLocation -> {
                 rootView.menu.close(true)
-                mActivity.replaceFragment(SetLocationFragment(), SetLocationFragment::class.java.simpleName, true)
+                if (mActivity.isOnline)
+                    mActivity.replaceFragment(SetLocationFragment(), SetLocationFragment::class.java.simpleName, true)
+                else
+                    mActivity.showSnackBar("Experiencing Network Problems, Please check your Internet or try again later")
             }
             R.id.fabSalat -> {
                 rootView.menu.close(true)
@@ -74,8 +79,9 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        locationsList = RoomHelper.transactFetchAsync(mActivity.returnDbInstance(), AlarmTypes.Time).first // Pair's first value
         val pair = RoomHelper.transactFetchAsync(mActivity.returnDbInstance(), AlarmTypes.Time, true)
-        timingsList = pair.first // Pair's first value
+        timingsList = pair.first
         pair.second.observe(this, Observer<Int> {
             if (it > 4) {
                 if (AppPreferences.hbl != 0f)
@@ -100,7 +106,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         mLinearLayoutManager = LinearLayoutManager(mActivity)
         rvAlarms.layoutManager = mLinearLayoutManager
         mActivity.setRVSlideInLeftAnimation(rvAlarms)
-        val adapter = AlarmsListAdapter(timingsList, "Home", mActivity, mLinearLayoutManager, disposable)
+        val adapter = AlarmsListAdapter(timingsList, locationsList, "Home", mActivity, mLinearLayoutManager, disposable)
         rvAlarms.adapter = adapter
     }
 

@@ -1,103 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".alarm.location.ui.SetLocationFragment"
-    android:background="@color/pitchWhite">
+    android:background="@color/pitchWhite"
+    tools:context=".alarm.location.ui.SetLocationFragment">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" />
 
-        <FrameLayout
-            android:id="@+id/flMap"
+    <FrameLayout
+        android:layout_gravity="bottom"
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/paddingAll">
 
-            <com.google.android.gms.maps.MapView
-                android:id="@+id/map"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+            <ProgressBar
+                android:id="@+id/pbAddress"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="@dimen/marginTopEndBottomStart"
+                android:layout_marginTop="@dimen/marginTopEndBottomStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <!--<com.arlib.floatingsearchview.FloatingSearchView-->
-                <!--android:id="@+id/svMap"-->
-                <!--app:floatingSearch_searchHint="@string/search_hint"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--app:floatingSearch_searchBarMarginLeft="8dp"-->
-                <!--app:floatingSearch_searchBarMarginTop="8dp"-->
-                <!--app:floatingSearch_searchBarMarginRight="8dp"-->
-                <!--app:floatingSearch_suggestionsListAnimDuration="250"-->
-                <!--app:floatingSearch_showSearchKey="false"-->
-                <!--app:floatingSearch_leftActionMode="showSearch"-->
-                <!--app:floatingSearch_showMenuAction="false"-->
-                <!--app:floatingSearch_close_search_on_keyboard_dismiss="true"/>-->
-
-            <fragment
-                android:id="@+id/fgPlaceAutocomplete"
+            <TextView
+                android:id="@+id/tvAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment" />
+                android:layout_marginStart="@dimen/marginTopEndBottomStart"
+                android:layout_marginTop="@dimen/marginTopEndBottomStart"
+                android:layout_marginEnd="@dimen/marginTopEndBottomStart"
+                android:maxLines="2"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="@dimen/mediumTextSize"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/ivCurrentLocation"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_marker"/>
+            <TextView
+                android:id="@+id/tvDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
+                android:layout_marginEnd="@dimen/marginTopEndBottomStart"
+                android:layout_marginBottom="@dimen/marginTopEndBottomStart"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="@dimen/mediumTextSize"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/btSetAlarm"
+                app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
 
-        </FrameLayout>
+            <Button
+                android:enabled="false"
+                android:id="@+id/btSetAlarm"
+                android:layout_width="@dimen/btWidth"
+                android:layout_height="@dimen/btHeight"
+                android:layout_marginStart="@dimen/marginTopEndBottomStart"
+                android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
+                android:layout_marginBottom="@dimen/marginTopEndBottomStart"
+                android:background="@drawable/button_border"
+                android:text="Set Alarm"
+                android:textAllCaps="false"
+                android:textColor="@color/primaryTextColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAddress"
+                app:layout_constraintVertical_bias="1.0" />
 
-        <!--<FrameLayout-->
-            <!--android:id="@+id/bottom_sheet"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--app:behavior_hideable="false"-->
-            <!--app:behavior_peekHeight="40dp"-->
-            <!--android:background="@color/pitchWhite"-->
-            <!--app:layout_behavior="android.support.design.widget.BottomSheetBehavior">-->
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!--<LinearLayout-->
-                <!--android:paddingTop="35dp"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="vertical"-->
-                <!--android:layout_margin="8dp">-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/start"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:gravity="center"-->
-                    <!--android:text="Set Date &amp; Time"-->
-                    <!--android:textColor="@color/colorPrimaryDark"-->
-                    <!--android:textSize="18sp" />-->
-
-                <!--<Button-->
-                    <!--android:layout_marginTop="@dimen/d_20dp"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:gravity="center"-->
-                    <!--android:layout_width="200dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="Set Alarm"-->
-                    <!--android:background="@drawable/button_bg"/>-->
-
-            <!--</LinearLayout>-->
-
-        <!--</FrameLayout>-->
-
-        <!--<com.github.clans.fab.FloatingActionButton-->
-            <!--android:id="@+id/fab_add_location_alarm"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--app:layout_anchor="@+id/bottom_sheet"-->
-            <!--app:fab_colorNormal="@color/colorPrimaryDark"-->
-            <!--app:fab_colorRipple="@color/pitchWhite"-->
-            <!--app:fab_colorPressed="@color/lightColorPrimaryDark"-->
-            <!--android:src="@drawable/ic_fab_add_white"-->
-            <!--app:layout_anchorGravity="top|center"/>-->
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </FrameLayout>
 
 </FrameLayout>
