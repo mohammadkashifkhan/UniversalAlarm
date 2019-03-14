@@ -14,7 +14,7 @@ import com.mdkashif.universalarm.alarm.misc.model.DaysModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import com.mdkashif.universalarm.alarm.time.TimeHelper
 import com.mdkashif.universalarm.base.BaseFragment
-import com.mdkashif.universalarm.persistence.RoomHelper
+import com.mdkashif.universalarm.persistence.RoomRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
@@ -156,7 +156,7 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
     }
 
     private fun doAccordingly() {
-        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsModel, null)
+        RoomRepository.amendTimingsAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsModel)
         AlarmHelper.setAlarm(timingsModel.hour.toInt(), timingsModel.minute.toInt(), requestCode.toInt(), mActivity, AlarmTypes.Time, timingsModel.note)
         mActivity.showToast("Alarm set for $timeLeftFromNow from now")
         mActivity.onBackPressed()

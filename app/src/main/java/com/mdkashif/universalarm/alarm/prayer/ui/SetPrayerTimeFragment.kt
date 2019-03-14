@@ -15,7 +15,7 @@ import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import com.mdkashif.universalarm.alarm.prayer.misc.Compass
 import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.persistence.AppPreferences
-import com.mdkashif.universalarm.persistence.RoomHelper
+import com.mdkashif.universalarm.persistence.RoomRepository
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_set_prayer_time.*
 import kotlinx.android.synthetic.main.fragment_set_prayer_time.view.*
@@ -47,7 +47,7 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
         rootView.tvTimezone.text = AppPreferences.timezone
         rootView.tvIslamicDate.text = AppPreferences.islamicDate
         rootView.tvMonth.text = AppPreferences.islamicMonth
-        timingsList = RoomHelper.transactFetchAsync(mActivity.returnDbInstance(), AlarmTypes.Prayer).first // Pair's first value
+        timingsList = RoomRepository.fetchDataAsync(mActivity.returnDbInstance(), AlarmTypes.Prayer).first!! // Pair's first value
 
         for (i in timingsList.indices) {
             when (timingsList[i].alarmType) {
@@ -121,11 +121,10 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
         }
     }
 
-
     private fun switchPrayerStatus(type: AlarmTypes, status: Boolean) {
         val index = returnPrayerIndex(type)
         timingsList[index].status = status
-        RoomHelper.transactAmendAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsList[index], null)
+        RoomRepository.amendTimingsAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsList[index])
 
         if (status)
             AlarmHelper.setAlarm(timingsList[index].hour.toInt(), timingsList[index].minute.toInt(), timingsList[index].pIntentRequestCode.toInt(), mActivity, type)

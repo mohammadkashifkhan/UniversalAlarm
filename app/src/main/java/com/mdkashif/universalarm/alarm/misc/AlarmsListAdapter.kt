@@ -18,13 +18,15 @@ import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import com.mdkashif.universalarm.alarm.time.TimeHelper
 import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment
 import com.mdkashif.universalarm.persistence.AppPreferences
-import com.mdkashif.universalarm.persistence.RoomHelper
+import com.mdkashif.universalarm.persistence.RoomRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 
 class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, private val locationsList: MutableList<LocationsModel>, private val viewType: String, private val context: ContainerActivity, linearLayoutManager: LinearLayoutManager, private val disposable: CompositeDisposable) : ExpandableRecyclerView.Adapter<RecyclerView.ViewHolder>(linearLayoutManager) {
+
+    private var alarmListExhausted: Boolean = false
 
     internal inner class TimeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTime: TextView = itemView.findViewById(R.id.tvTime)
@@ -140,7 +142,7 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                 holder.swTime.isChecked = alarmsList[position].status
                 holder.swTime.setOnCheckedChangeListener { p0, p1 ->
                     alarmsList[position].status = p1
-                    RoomHelper.transactAmendAsync(context.returnDbInstance(), AlarmOps.Update.toString(), alarmsList[position], null, alarmsList[position].id)
+                    RoomRepository.amendTimingsAsync(context.returnDbInstance(), AlarmOps.Update.toString(), alarmsList[position], alarmsList[position].id)
                     if (p1)
                         AlarmHelper.setAlarm(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt(), alarmsList[position].pIntentRequestCode.toInt(), context, AlarmTypes.Time, alarmsList[position].note)
                     else
@@ -150,7 +152,7 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                     context.replaceFragment(SetTimeFragment(), SetTimeFragment::class.java.simpleName, false, dao = alarmsList[position])
                 }
                 holder.ibDelete.setOnClickListener {
-                    RoomHelper.transactAmendAsync(context.returnDbInstance(), AlarmOps.Delete.toString(), alarmsList[position], null, alarmsList[position].id)
+                    RoomRepository.amendTimingsAsync(context.returnDbInstance(), AlarmOps.Delete.toString(), alarmsList[position], alarmsList[position].id)
                     alarmsList.removeAt(position)
                     notifyItemRemoved(position)
                 }
@@ -170,10 +172,14 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                 }
             }
             is AlarmsListAdapter.LocationViewHolder -> {
-                holder.tvAddress.text = locationsList[position].address
-                holder.tvCity.text = locationsList[position].city
-                holder.tvDistance.text = "3km away"
-                holder.swLocation.isChecked = locationsList[position].status
+                val index= if (alarmsList.size==0)
+                    position
+                else
+                    position-alarmsList.size
+                holder.tvAddress.text = locationsList[index].address
+                holder.tvCity.text = locationsList[index].city
+                holder.tvDistance.text = "3km away" // TODO: make this dynamic
+                holder.swLocation.isChecked = locationsList[index].status
             }
             is AlarmsListAdapter.PrayerViewHolder -> {
                 holder.tvPrayerType.text = alarmsList[position].alarmType
@@ -209,7 +215,7 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                 holder.swPrayer.isChecked = alarmsList[position].status
                 holder.swPrayer.setOnCheckedChangeListener { p0, p1 ->
                     alarmsList[position].status = p1
-                    RoomHelper.transactAmendAsync(context.returnDbInstance(), AlarmOps.Add.toString(), alarmsList[position], null)
+                    RoomRepository.amendTimingsAsync(context.returnDbInstance(), AlarmOps.Add.toString(), alarmsList[position]) // sending add instead of update because its handled in the repository
                     if (p1)
                         AlarmHelper.setAlarm(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt(), alarmsList[position].pIntentRequestCode.toInt(), context, AlarmTypes.valueOf(alarmsList[position].alarmType))
                     else
@@ -226,12 +232,18 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
     }
 
     override fun getItemViewType(position: Int): Int {
-//        if (AlarmTypes.Location.toString() == alarmsList[position].alarmType)
-//            return 2
         return when {
-            position < alarmsList.size -> if (AlarmTypes.Time.toString() == alarmsList[position].alarmType) 0
-            else 3
-            position - alarmsList.size < 2 && AppPreferences.hbl != 0f -> 1
+            position < (alarmsList.size + locationsList.size) -> when {
+                !alarmListExhausted -> {
+                    if (position == alarmsList.size - 1) alarmListExhausted = true
+                    when {
+                        AlarmTypes.Time.toString() == alarmsList[position].alarmType -> 0
+                        else -> 3
+                    }
+                }
+                else -> 2
+            }
+            (position - (alarmsList.size + locationsList.size) == 1) && (AppPreferences.hbl != 0f) -> 1
             else -> -1
         }
     }
@@ -239,15 +251,15 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
     override fun getItemCount(): Int {
         when (viewType) {
             "ShowAll" -> return if (AppPreferences.hbl != 0f)
-                alarmsList.size + 1
+                alarmsList.size + locationsList.size + 1
             else
-                alarmsList.size
+                alarmsList.size + locationsList.size
             "Home" -> when {
-                alarmsList.size > 4 -> return 4
-                alarmsList.size in 1..4 -> return if (AppPreferences.hbl != 0f)
-                    alarmsList.size + 1
+                (alarmsList.size + locationsList.size) > 4 -> return 4
+                (alarmsList.size + locationsList.size) in 1..4 -> return if (AppPreferences.hbl != 0f)
+                    alarmsList.size + locationsList.size + 1
                 else
-                    alarmsList.size
+                    alarmsList.size + locationsList.size
                 AppPreferences.hbl != 0f -> return 1
             }
         }

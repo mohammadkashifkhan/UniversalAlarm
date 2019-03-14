@@ -51,6 +51,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <TextView
+        android:text="Show More"
         android:id="@+id/tvSeeAll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

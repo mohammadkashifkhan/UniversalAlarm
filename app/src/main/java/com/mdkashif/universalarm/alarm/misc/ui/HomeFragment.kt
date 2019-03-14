@@ -5,13 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.activities.SettingsActivity
 import com.mdkashif.universalarm.alarm.battery.ui.SetBatteryLevelFragment
 import com.mdkashif.universalarm.alarm.location.ui.SetLocationFragment
-import com.mdkashif.universalarm.alarm.misc.AlarmTypes
 import com.mdkashif.universalarm.alarm.misc.AlarmsListAdapter
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
@@ -19,7 +17,7 @@ import com.mdkashif.universalarm.alarm.prayer.ui.SetPrayerTimeFragment
 import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment
 import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.persistence.AppPreferences
-import com.mdkashif.universalarm.persistence.RoomHelper
+import com.mdkashif.universalarm.persistence.RoomRepository
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
@@ -79,34 +77,17 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        locationsList = RoomHelper.transactFetchAsync(mActivity.returnDbInstance(), AlarmTypes.Time).first // Pair's first value
-        val pair = RoomHelper.transactFetchAsync(mActivity.returnDbInstance(), AlarmTypes.Time, true)
-        timingsList = pair.first
-        pair.second.observe(this, Observer<Int> {
-            if (it > 4) {
-                if (AppPreferences.hbl != 0f)
-                    rootView.tvSeeAll.text = "+${it - 3} more" // TODO: sort this, only live ones come now
-                else
-                    rootView.tvSeeAll.text = "+${it - 4} more"
-            } else if (it == 4) {
-                if (AppPreferences.hbl != 0f)
-                    rootView.tvSeeAll.text = "+${it - 3} more"
-                else
-                    rootView.tvSeeAll.visibility = View.INVISIBLE
-            } else
-                rootView.tvSeeAll.visibility = View.INVISIBLE
-        }
-        )
-        setRVAdapter(timingsList)
-        if (pair.first.isEmpty())
+        val pair = RoomRepository.fetchDataAsync(mActivity.returnDbInstance(), alarmStatus = true)
+        setRVAdapter(pair)
+        if (pair.first!!.isEmpty() && pair.second!!.isEmpty() || ((pair.first!!.size+ pair.second!!.size)<5))
             rootView.tvSeeAll.visibility = View.INVISIBLE
     }
 
-    private fun setRVAdapter(timingsList: MutableList<TimingsModel>) {
+    private fun setRVAdapter(pair: Pair<MutableList<TimingsModel>?, MutableList<LocationsModel>?>) {
         mLinearLayoutManager = LinearLayoutManager(mActivity)
         rvAlarms.layoutManager = mLinearLayoutManager
         mActivity.setRVSlideInLeftAnimation(rvAlarms)
-        val adapter = AlarmsListAdapter(timingsList, locationsList, "Home", mActivity, mLinearLayoutManager, disposable)
+        val adapter = AlarmsListAdapter(pair.first!!, pair.second!!, "Home", mActivity, mLinearLayoutManager, disposable)
         rvAlarms.adapter = adapter
     }
 

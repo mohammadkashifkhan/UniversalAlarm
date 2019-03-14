@@ -17,12 +17,11 @@ import com.mdkashif.universalarm.activities.ContainerActivity
 import com.mdkashif.universalarm.alarm.misc.AlarmOps
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.persistence.AppPreferences
-import com.mdkashif.universalarm.persistence.RoomHelper
+import com.mdkashif.universalarm.persistence.RoomRepository
 import com.mdkashif.universalarm.utils.AppConstants
 import io.reactivex.Observable
 import java.text.DecimalFormat
 import java.util.*
-
 
 
 object LocationHelper {
@@ -73,7 +72,7 @@ object LocationHelper {
         try {
             val addresses = mGeocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
             if (addresses != null) {
-                address = capitalizeFirstLettersOnly(addresses[0].getAddressLine(0).substring(0, addresses[0].getAddressLine(0).indexOf(addresses[0].locality)-2))
+                address = capitalizeFirstLettersOnly(addresses[0].getAddressLine(0).substring(0, addresses[0].getAddressLine(0).indexOf(addresses[0].locality) - 2))
                 city = addresses[0].locality
                 destinationLatitude = latLng.latitude
                 destinationLongitude = latLng.longitude
@@ -108,7 +107,7 @@ object LocationHelper {
     }
 
     fun setAlarm(context: ContainerActivity) {
-        RoomHelper.transactAmendAsync(context.returnDbInstance(), AlarmOps.Add.toString(), null, LocationsModel(address = address, city = city, latitude = destinationLatitude, longitude = destinationLongitude, status = true))
+        RoomRepository.amendLocationsAsync(context.returnDbInstance(), AlarmOps.Add.toString(), LocationsModel(address = address, city = city, latitude = destinationLatitude, longitude = destinationLongitude, status = true))
         context.showToast("All set!, You are $distance, we will notify you, once you reach within the ${context.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition]} destination radius")
         context.onBackPressed()
     }

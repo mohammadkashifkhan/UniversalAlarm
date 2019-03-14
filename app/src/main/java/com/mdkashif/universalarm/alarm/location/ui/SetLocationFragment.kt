@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.location.Location
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,9 +39,10 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
     private lateinit var mGoogleApiClient: GoogleApiClient
 
     private lateinit var mapView: MapView
+    private lateinit var rootView: View
+
     private val disposable = CompositeDisposable()
 
-    private lateinit var rootView: View
     private var latitude: Double = 0.toDouble()
     private var longitude: Double = 0.toDouble()
 
@@ -126,9 +128,10 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
         } catch (e: Resources.NotFoundException) {
         }
 
-
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 18f))
-        reactAccordingly(pos)
+        Handler().postDelayed({
+            reactAccordingly(pos)
+        }, 1500)
 
         mGoogleMap.setOnMapClickListener {
 

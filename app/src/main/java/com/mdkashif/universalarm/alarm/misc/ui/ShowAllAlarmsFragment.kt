@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.alarm.misc.AlarmTypes
 import com.mdkashif.universalarm.alarm.misc.AlarmsListAdapter
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import com.mdkashif.universalarm.base.BaseFragment
-import com.mdkashif.universalarm.persistence.RoomHelper
+import com.mdkashif.universalarm.persistence.RoomRepository
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_show_all_alarms.*
 
@@ -28,12 +27,13 @@ class ShowAllAlarmsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        timingsList = RoomHelper.transactFetchAsync(mActivity.returnDbInstance(), AlarmTypes.Time).first // Pair's first value
-        locationsList = RoomHelper.transactFetchAsync(mActivity.returnDbInstance(), AlarmTypes.Time).first
-        setRVAdapter(timingsList)
+        val pair = RoomRepository.fetchDataAsync(mActivity.returnDbInstance())
+        timingsList = pair.first!!
+        locationsList = pair.second!!
+        setRVAdapter(timingsList, locationsList)
     }
 
-    private fun setRVAdapter(timingsList: MutableList<TimingsModel>) {
+    private fun setRVAdapter(timingsList: MutableList<TimingsModel>, locationsList: MutableList<LocationsModel>) {
         mLinearLayoutManager = LinearLayoutManager(mActivity)
         rvAlarms.layoutManager = mLinearLayoutManager
         mActivity.setRVSlideInLeftAnimation(rvAlarms)

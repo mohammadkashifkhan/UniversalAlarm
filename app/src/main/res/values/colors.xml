@@ -18,11 +18,8 @@
 
     <color name="red">#B71C1C</color>
     <color name="gray">#acacac</color>
-    <color name="pitchWhite">#ffffff</color>--remove if not in use
-    <color name="black">#000000</color>
     <color name="offWhite">#f1f1f1</color>
     <color name="green">#32CD32</color>
     <color name="yellow">#FFFF00</color>
-    <color name="translucentBlack">#64000000</color>
 
 </resources>
