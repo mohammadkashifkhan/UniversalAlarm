@@ -25,8 +25,6 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 class HomeFragment : BaseFragment(), View.OnClickListener {
     private lateinit var mLinearLayoutManager: LinearLayoutManager
     private lateinit var rootView: View
-    private lateinit var timingsList: MutableList<TimingsModel>
-    private lateinit var locationsList: MutableList<LocationsModel>
     private val disposable = CompositeDisposable()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

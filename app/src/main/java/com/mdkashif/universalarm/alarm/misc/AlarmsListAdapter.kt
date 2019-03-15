@@ -43,6 +43,8 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
         val tvCity: TextView = itemView.findViewById(R.id.tvCity)
         val tvDistance: TextView = itemView.findViewById(R.id.tvDistance)
         val swLocation: SwitchCompat = itemView.findViewById(R.id.swLocation)
+        val ibDelete: ImageButton = itemView.findViewById(R.id.ibDelete)
+        val ibEdit: ImageButton = itemView.findViewById(R.id.ibEdit)
     }
 
     internal inner class BatteryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -172,14 +174,16 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                 }
             }
             is AlarmsListAdapter.LocationViewHolder -> {
-                val index= if (alarmsList.size==0)
+                val index = if (alarmsList.size == 0)
                     position
                 else
-                    position-alarmsList.size
+                    position - alarmsList.size
                 holder.tvAddress.text = locationsList[index].address
                 holder.tvCity.text = locationsList[index].city
                 holder.tvDistance.text = "3km away" // TODO: make this dynamic
                 holder.swLocation.isChecked = locationsList[index].status
+                holder.ibEdit.setOnClickListener {}
+                holder.ibDelete.setOnClickListener {}
             }
             is AlarmsListAdapter.PrayerViewHolder -> {
                 holder.tvPrayerType.text = alarmsList[position].alarmType
@@ -233,33 +237,28 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
 
     override fun getItemViewType(position: Int): Int {
         return when {
-            position < (alarmsList.size + locationsList.size) -> when {
-                !alarmListExhausted -> {
-                    if (position == alarmsList.size - 1) alarmListExhausted = true
-                    when {
-                        AlarmTypes.Time.toString() == alarmsList[position].alarmType -> 0
-                        else -> 3
-                    }
-                }
-                else -> 2
+            position < alarmsList.size -> when {
+                AlarmTypes.Time.toString() == alarmsList[position].alarmType -> 0
+                else -> 3
             }
-            (position - (alarmsList.size + locationsList.size) == 1) && (AppPreferences.hbl != 0f) -> 1
+            (position - alarmsList.size) < locationsList.size -> 2
+            (position - (alarmsList.size + locationsList.size) < 1) && (AppPreferences.hbl != 0f) -> 1
             else -> -1
         }
     }
 
     override fun getItemCount(): Int {
         when (viewType) {
-            "ShowAll" -> return if (AppPreferences.hbl != 0f)
-                alarmsList.size + locationsList.size + 1
-            else
-                alarmsList.size + locationsList.size
+            "ShowAll" -> return when {
+                AppPreferences.hbl != 0f -> alarmsList.size + locationsList.size + 1
+                else -> alarmsList.size + locationsList.size
+            }
             "Home" -> when {
                 (alarmsList.size + locationsList.size) > 4 -> return 4
-                (alarmsList.size + locationsList.size) in 1..4 -> return if (AppPreferences.hbl != 0f)
-                    alarmsList.size + locationsList.size + 1
-                else
-                    alarmsList.size + locationsList.size
+                (alarmsList.size + locationsList.size) in 1..4 -> return when {
+                    AppPreferences.hbl != 0f -> alarmsList.size + locationsList.size + 1
+                    else -> alarmsList.size + locationsList.size
+                }
                 AppPreferences.hbl != 0f -> return 1
             }
         }

@@ -14,7 +14,12 @@ object RoomRepository {
                 alarmStatus -> TransactRoomAsync(db, null, null, 1).execute(AlarmOps.Get.toString()).get() // passed 1 to get only live alarms
                 else -> TransactRoomAsync(db, null, null, 2).execute(AlarmOps.Get.toString()).get() // passed 2 to get all Time alarms
             }
-            else -> TransactRoomAsync(db, null, null, 3).execute(AlarmOps.Get.toString()).get() // passed 3 to get all alarms
+            else -> {
+                when {
+                    alarmStatus -> TransactRoomAsync(db, null, null, 3).execute(AlarmOps.Get.toString()).get() // passed 3 to get all live alarms
+                    else -> TransactRoomAsync(db, null, null, 4).execute(AlarmOps.Get.toString()).get() // passed 3 to get all alarms}
+                }
+            }
         }
     }
 
@@ -110,6 +115,7 @@ object RoomRepository {
                         0.toLong() -> Pair(getPrayerTimings(db), null)
                         1.toLong() -> Pair(getTimingsWithRepeatDays(db, true), null)
                         2.toLong() -> Pair(getTimingsWithRepeatDays(db), null)
+                        3.toLong() -> Pair(getTimingsWithRepeatDays(db, true), getLocations(db, true))
                         else -> Pair(getTimingsWithRepeatDays(db), getLocations(db))
                     })
                 }

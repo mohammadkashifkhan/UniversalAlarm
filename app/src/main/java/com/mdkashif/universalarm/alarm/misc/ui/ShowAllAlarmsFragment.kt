@@ -16,8 +16,6 @@ import kotlinx.android.synthetic.main.fragment_show_all_alarms.*
 
 class ShowAllAlarmsFragment : BaseFragment() {
     private lateinit var mLinearLayoutManager: LinearLayoutManager
-    private lateinit var timingsList: MutableList<TimingsModel>
-    private lateinit var locationsList: MutableList<LocationsModel>
     private val disposable = CompositeDisposable()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -28,16 +26,14 @@ class ShowAllAlarmsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val pair = RoomRepository.fetchDataAsync(mActivity.returnDbInstance())
-        timingsList = pair.first!!
-        locationsList = pair.second!!
-        setRVAdapter(timingsList, locationsList)
+        setRVAdapter(pair)
     }
 
-    private fun setRVAdapter(timingsList: MutableList<TimingsModel>, locationsList: MutableList<LocationsModel>) {
+    private fun setRVAdapter(pair: Pair<MutableList<TimingsModel>?, MutableList<LocationsModel>?>) {
         mLinearLayoutManager = LinearLayoutManager(mActivity)
         rvAlarms.layoutManager = mLinearLayoutManager
         mActivity.setRVSlideInLeftAnimation(rvAlarms)
-        val adapter = AlarmsListAdapter(timingsList, locationsList, "ShowAll", mActivity, mLinearLayoutManager, disposable)
+        val adapter = AlarmsListAdapter(pair.first!!, pair.second!!, "ShowAll", mActivity, mLinearLayoutManager, disposable)
         rvAlarms.adapter = adapter
     }
 
