@@ -28,6 +28,7 @@ import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.base.BaseActivity
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.utils.AppConstants
+import com.mdkashif.universalarm.utils.Utils
 import com.pkmmte.view.CircularImageView
 import jp.wasabeef.blurry.Blurry
 
@@ -220,7 +221,7 @@ class SettingsActivity : BaseActivity() {
                 }
 
                 getString(R.string.prefKeyTitleSendFeedback) ->
-                    mActivity.sendFeedback()
+                    Utils.sendFeedback(mActivity)
             }
             return true
         }

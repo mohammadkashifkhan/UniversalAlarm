@@ -49,6 +49,11 @@
     <string name="tvItemPrayerExpandableRv">For more regarding prayer details, go in the Prayer Settings Screen</string>
     <string name="google_android_map_api_key">AIzaSyA7sGiJNI3y2SlipMaKX_dxB290mImTmlQ</string>
 
+    <string name="geofence_unknown_error">Unknown error: the Geofence service is not available now.</string>
+    <string name="geofence_not_available">Geofence service is not available now. Go to Settings>Location>Mode and choose High accuracy.</string>
+    <string name="geofence_too_many_geofences">Your app has registered too many geofences.</string>
+    <string name="geofence_too_many_pending_intents">You have provided too many PendingIntents to the addGeofences() call.</string>
+
     /////////////////////////////
     <string name="activity_dialog_title">Forgot your Pin-Code?</string>
     <string name="activity_dialog_accept">OK</string>

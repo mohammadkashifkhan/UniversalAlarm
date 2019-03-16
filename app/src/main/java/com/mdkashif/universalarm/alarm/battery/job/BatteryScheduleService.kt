@@ -7,8 +7,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
 import com.mdkashif.universalarm.alarm.misc.AlarmTypes
-import com.mdkashif.universalarm.notifications.NotificationService
 import com.mdkashif.universalarm.persistence.AppPreferences
+import com.mdkashif.universalarm.services.TimeIntentService
 
 class BatteryScheduleService : JobService() {
     private var highBatteryPercentage: Float = 0f
@@ -68,7 +68,7 @@ class BatteryScheduleService : JobService() {
     }
 
     private fun startAlarm(title: String, message: String, context: Context) {
-        val alarmIntent = Intent(context, NotificationService::class.java)
+        val alarmIntent = Intent(context, TimeIntentService::class.java)
         alarmIntent.putExtra("notificationTitle", title)
         alarmIntent.putExtra("notificationMessage", message)
         alarmIntent.putExtra("alarmType", AlarmTypes.Battery.toString())

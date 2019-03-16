@@ -7,17 +7,18 @@ import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 
 object RoomRepository {
-    fun fetchDataAsync(db: AppDatabase, type: AlarmTypes = AlarmTypes.All, alarmStatus: Boolean = false): Pair<MutableList<TimingsModel>?, MutableList<LocationsModel>?> {
+    fun fetchDataAsync(db: AppDatabase, type: AlarmTypes = AlarmTypes.All, alarmStatus: Boolean = false, locationRequestId: Long = 0): Pair<MutableList<TimingsModel>?, MutableList<LocationsModel>?> {
         return when (type) {
             AlarmTypes.Prayer -> TransactRoomAsync(db, null, null, 0).execute(AlarmOps.Get.toString()).get() // passed 0 to get Prayer alarms
             AlarmTypes.Time -> when {
                 alarmStatus -> TransactRoomAsync(db, null, null, 1).execute(AlarmOps.Get.toString()).get() // passed 1 to get only live alarms
                 else -> TransactRoomAsync(db, null, null, 2).execute(AlarmOps.Get.toString()).get() // passed 2 to get all Time alarms
             }
+            AlarmTypes.Location -> TransactRoomAsync(db, null, null, locationRequestId).execute(AlarmOps.Get.toString()).get() // passed locationRequestID to get specific Location alarm
             else -> {
                 when {
                     alarmStatus -> TransactRoomAsync(db, null, null, 3).execute(AlarmOps.Get.toString()).get() // passed 3 to get all live alarms
-                    else -> TransactRoomAsync(db, null, null, 4).execute(AlarmOps.Get.toString()).get() // passed 3 to get all alarms}
+                    else -> TransactRoomAsync(db, null, null, 4).execute(AlarmOps.Get.toString()).get() // passed 4 to get all alarms}
                 }
             }
         }
@@ -63,6 +64,10 @@ object RoomRepository {
             db.accessDao().getOnlyLiveLocationAlarms()
         else
             db.accessDao().getLocationAlarms()
+    }
+
+    private fun getSpecificLocation(db: AppDatabase, id: Long): MutableList<LocationsModel> {
+        return db.accessDao().getSpecificLocationAlarm(id)
     }
 
     private fun getTimingsWithRepeatDays(db: AppDatabase, status: Boolean = false): MutableList<TimingsModel> {
@@ -115,8 +120,9 @@ object RoomRepository {
                         0.toLong() -> Pair(getPrayerTimings(db), null)
                         1.toLong() -> Pair(getTimingsWithRepeatDays(db, true), null)
                         2.toLong() -> Pair(getTimingsWithRepeatDays(db), null)
-                        3.toLong() -> Pair(getTimingsWithRepeatDays(db, true), getLocations(db, true))
-                        else -> Pair(getTimingsWithRepeatDays(db), getLocations(db))
+                        4.toLong() -> Pair(getTimingsWithRepeatDays(db, true), getLocations(db, true))
+                        5.toLong() -> Pair(getTimingsWithRepeatDays(db), getLocations(db))
+                        else -> Pair(null, getSpecificLocation(db, alarmId)) // TODO
                     })
                 }
                 AlarmOps.Check.toString() -> {

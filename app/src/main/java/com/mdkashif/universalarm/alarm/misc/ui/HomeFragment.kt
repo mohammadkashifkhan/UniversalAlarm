@@ -18,6 +18,7 @@ import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment
 import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.persistence.RoomRepository
+import com.mdkashif.universalarm.utils.Utils
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
@@ -52,17 +53,17 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             }
             R.id.fabLocation -> {
                 rootView.menu.close(true)
-                if (mActivity.isOnline)
+                if (Utils.isOnline(mActivity))
                     mActivity.replaceFragment(SetLocationFragment(), SetLocationFragment::class.java.simpleName, true)
                 else
-                    mActivity.showSnackBar("Experiencing Network Problems, Please check your Internet or try again later")
+                    Utils.showSnackBar("Experiencing Network Problems, Please check your Internet or try again later", rootView)
             }
             R.id.fabSalat -> {
                 rootView.menu.close(true)
                 if (AppPreferences.islamicDate != "")
                     mActivity.replaceFragment(SetPrayerTimeFragment(), SetPrayerTimeFragment::class.java.simpleName, true)
                 else
-                    mActivity.showSnackBar("Fetching the latest Prayer timings, Please try again later")
+                    Utils.showSnackBar("Fetching the latest Prayer timings, Please try again later", rootView)
             }
             R.id.ivSettings -> {
                 mActivity.executeIntent(Intent(context, SettingsActivity::class.java), false)
@@ -77,14 +78,14 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         val pair = RoomRepository.fetchDataAsync(mActivity.returnDbInstance(), alarmStatus = true)
         setRVAdapter(pair)
-        if (pair.first!!.isEmpty() && pair.second!!.isEmpty() || ((pair.first!!.size+ pair.second!!.size)<5))
+        if (pair.first!!.isEmpty() && pair.second!!.isEmpty())
             rootView.tvSeeAll.visibility = View.INVISIBLE
     }
 
     private fun setRVAdapter(pair: Pair<MutableList<TimingsModel>?, MutableList<LocationsModel>?>) {
         mLinearLayoutManager = LinearLayoutManager(mActivity)
         rvAlarms.layoutManager = mLinearLayoutManager
-        mActivity.setRVSlideInLeftAnimation(rvAlarms)
+        Utils.setRVSlideInLeftAnimation(rvAlarms)
         val adapter = AlarmsListAdapter(pair.first!!, pair.second!!, "Home", mActivity, mLinearLayoutManager, disposable)
         rvAlarms.adapter = adapter
     }

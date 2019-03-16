@@ -1,24 +1,31 @@
-package com.mdkashif.universalarm.alarm.location
+package com.mdkashif.universalarm.alarm.location.misc
 
+import android.Manifest
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.location.Geocoder
 import androidx.core.content.ContextCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GooglePlayServicesUtil
-import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.SphericalUtil
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.activities.ContainerActivity
+import com.mdkashif.universalarm.alarm.misc.AlarmHelper
 import com.mdkashif.universalarm.alarm.misc.AlarmOps
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.persistence.RoomRepository
+import com.mdkashif.universalarm.services.GeofenceTransitionsIntentService
 import com.mdkashif.universalarm.utils.AppConstants
+import com.mdkashif.universalarm.utils.Utils
 import io.reactivex.Observable
 import java.text.DecimalFormat
 import java.util.*
@@ -30,8 +37,12 @@ object LocationHelper {
     private var distance: String = ""
     private var address: String = ""
     private var city: String = ""
+    private var note: String = ""
     private var destinationLatitude: Double = 0.0
     private var destinationLongitude: Double = 0.0
+
+
+    private lateinit var geofencingClient: GeofencingClient
 
     fun createLocationRequest() {
         mLocationRequest = LocationRequest()
@@ -49,7 +60,7 @@ object LocationHelper {
                 GooglePlayServicesUtil.getErrorDialog(resultCode, context,
                         AppConstants.playServicesResolutionRequest).show()
             } else {
-                context.showToast("This device is not supported!!")
+                Utils.showToast("This device is not supported!!", context)
                 context.onBackPressed()
             }
             return false
@@ -106,9 +117,76 @@ object LocationHelper {
         return distance
     }
 
-    fun setAlarm(context: ContainerActivity) {
-        RoomRepository.amendLocationsAsync(context.returnDbInstance(), AlarmOps.Add.toString(), LocationsModel(address = address, city = city, latitude = destinationLatitude, longitude = destinationLongitude, status = true))
-        context.showToast("All set!, You are $distance, we will notify you, once you reach within the ${context.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition]} destination radius")
+    fun setAlarm(context: ContainerActivity,
+                 success: () -> Unit,
+                 failure: (error: String) -> Unit) {
+        val pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode()
+        // TODO: add NOTE editext on UI to insert in db
+        RoomRepository.amendLocationsAsync(context.returnDbInstance(), AlarmOps.Add.toString(), LocationsModel(address = address, city = city, latitude = destinationLatitude, longitude = destinationLongitude, note = note, pIntentRequestCode = pIntentRequestCode.toLong(), status = true))
+        Utils.showToast("All set!, You are $distance, we will notify you, once you reach within the ${context.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition]} destination radius", context)
+        val geofence = buildGeofence(destinationLatitude, destinationLongitude, context, pIntentRequestCode.toString())
+        if (geofence != null
+                && ContextCompat.checkSelfPermission(
+                        context,
+                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            geofencingClient = LocationServices.getGeofencingClient(context)
+
+            val geofencePendingIntent: PendingIntent by lazy {
+                val intent = Intent(context, GeofenceTransitionsIntentService::class.java)
+                intent.putExtra("latitude", destinationLatitude)
+                intent.putExtra("longitude", destinationLongitude)
+                intent.putExtra("note", note)
+                PendingIntent.getService(
+                        context,
+                        0,
+                        intent,
+                        PendingIntent.FLAG_UPDATE_CURRENT)
+            }
+            geofencingClient
+                    .addGeofences(buildGeofencingRequest(geofence), geofencePendingIntent)
+                    .addOnSuccessListener {
+                        success()
+                    }
+                    .addOnFailureListener {
+                        failure(GeofenceErrorMessages.getErrorString(context, it))
+                    }
+        }
         context.onBackPressed()
+    }
+
+    private fun buildGeofence(latitude: Double, longitude: Double, context: Context, pIntentRequestCode: String): Geofence? {
+        val radius = context.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition].toFloat()
+
+        return Geofence.Builder()
+                .setRequestId(pIntentRequestCode)
+                .setCircularRegion(
+                        latitude,
+                        longitude,
+                        radius
+                )
+                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
+                .setExpirationDuration(Geofence.NEVER_EXPIRE)
+                .build()
+    }
+
+    private fun buildGeofencingRequest(geofence: Geofence): GeofencingRequest {
+        return GeofencingRequest.Builder()
+                .setInitialTrigger(0)
+                .addGeofences(listOf(geofence))
+                .build()
+    }
+
+    fun removeAlarm(id: String,
+                    success: () -> Unit,
+                    failure: (error: String) -> Unit, context: Context) {
+        geofencingClient
+                .removeGeofences(listOf(id))
+                .addOnSuccessListener {
+                    // TODO: remove location from db
+                    success()
+                }
+                .addOnFailureListener {
+                    failure(GeofenceErrorMessages.getErrorString(context, it))
+                }
     }
 }

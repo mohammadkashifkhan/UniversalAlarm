@@ -12,6 +12,7 @@ import com.mdkashif.universalarm.alarm.battery.misc.BatteryLiveData
 import com.mdkashif.universalarm.alarm.battery.misc.BatteryStatsPoJo
 import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.persistence.AppPreferences
+import com.mdkashif.universalarm.utils.Utils
 import kotlinx.android.synthetic.main.fragment_set_battery_level.view.*
 
 
@@ -70,7 +71,7 @@ class SetBatteryLevelFragment : BaseFragment(), CompoundButton.OnCheckedChangeLi
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.clSendFeedback -> mActivity.sendFeedback()
+            R.id.clSendFeedback -> Utils.sendFeedback(mActivity)
         }
     }
 

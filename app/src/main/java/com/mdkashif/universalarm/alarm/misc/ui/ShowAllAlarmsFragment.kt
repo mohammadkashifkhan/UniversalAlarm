@@ -11,6 +11,7 @@ import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.persistence.RoomRepository
+import com.mdkashif.universalarm.utils.Utils
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_show_all_alarms.*
 
@@ -32,7 +33,7 @@ class ShowAllAlarmsFragment : BaseFragment() {
     private fun setRVAdapter(pair: Pair<MutableList<TimingsModel>?, MutableList<LocationsModel>?>) {
         mLinearLayoutManager = LinearLayoutManager(mActivity)
         rvAlarms.layoutManager = mLinearLayoutManager
-        mActivity.setRVSlideInLeftAnimation(rvAlarms)
+        Utils.setRVSlideInLeftAnimation(rvAlarms)
         val adapter = AlarmsListAdapter(pair.first!!, pair.second!!, "ShowAll", mActivity, mLinearLayoutManager, disposable)
         rvAlarms.adapter = adapter
     }

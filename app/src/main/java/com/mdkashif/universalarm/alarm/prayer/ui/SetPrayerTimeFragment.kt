@@ -16,6 +16,7 @@ import com.mdkashif.universalarm.alarm.prayer.misc.Compass
 import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.persistence.RoomRepository
+import com.mdkashif.universalarm.utils.Utils
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_set_prayer_time.*
 import kotlinx.android.synthetic.main.fragment_set_prayer_time.view.*
@@ -117,7 +118,7 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.clSendFeedback -> mActivity.sendFeedback()
+            R.id.clSendFeedback -> Utils.sendFeedback(mActivity)
         }
     }
 

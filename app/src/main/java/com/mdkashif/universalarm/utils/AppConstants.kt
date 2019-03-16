@@ -1,5 +1,7 @@
 package com.mdkashif.universalarm.utils
 
+import com.mdkashif.universalarm.BuildConfig
+
 /**
  * Created by Kashif on 16-Apr-18.
  */
@@ -42,6 +44,6 @@ object AppConstants {
     /////// Notification ///////
     const val notificationId = 786
     const val notificationChannelName = "Miscellaneous"
-    const val notificationChannelId = "com.mdkashif.alarm.notifs"
+    const val notificationChannelId = BuildConfig.APPLICATION_ID + ".notifs"
     const val notificationDescription = "Alarms"
 }

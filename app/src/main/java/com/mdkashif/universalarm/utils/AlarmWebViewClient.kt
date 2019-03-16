@@ -20,15 +20,15 @@ class AlarmWebViewClient(private val baseActivity: BaseActivity) : android.webki
 
     override fun onPageStarted(view: WebView, url: String, favicon: Bitmap?) {
         super.onPageStarted(view, url, favicon)
-        baseActivity.showLoader()
+        Utils.showLoader(baseActivity)
     }
 
     override fun onPageFinished(view: WebView, url: String) {
         if (isWebViewLoadedCompletely && !isErrorReceived) {
-            baseActivity.hideLoader()
+            Utils.hideLoader()
         } else {
-            baseActivity.hideLoader()
-            baseActivity.showToast("Sorry for the Inconvenience, Please try again later")
+            Utils.hideLoader()
+            Utils.showToast("Sorry for the Inconvenience, Please try again later", baseActivity)
         }
     }
 }

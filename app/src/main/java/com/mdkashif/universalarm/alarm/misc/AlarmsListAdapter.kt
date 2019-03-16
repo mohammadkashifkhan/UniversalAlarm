@@ -26,8 +26,6 @@ import io.reactivex.schedulers.Schedulers
 
 class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, private val locationsList: MutableList<LocationsModel>, private val viewType: String, private val context: ContainerActivity, linearLayoutManager: LinearLayoutManager, private val disposable: CompositeDisposable) : ExpandableRecyclerView.Adapter<RecyclerView.ViewHolder>(linearLayoutManager) {
 
-    private var alarmListExhausted: Boolean = false
-
     internal inner class TimeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTime: TextView = itemView.findViewById(R.id.tvTime)
         val tvTimeType: TextView = itemView.findViewById(R.id.tvTimeType)
@@ -182,8 +180,17 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                 holder.tvCity.text = locationsList[index].city
                 holder.tvDistance.text = "3km away" // TODO: make this dynamic
                 holder.swLocation.isChecked = locationsList[index].status
+                holder.swLocation.setOnCheckedChangeListener { p0, p1 ->
+                    locationsList[position].status = p1
+                    RoomRepository.amendLocationsAsync(context.returnDbInstance(), AlarmOps.Update.toString(), locationsList[index], locationsList[index].id.toLong())
+                }
                 holder.ibEdit.setOnClickListener {}
-                holder.ibDelete.setOnClickListener {}
+                holder.ibDelete.setOnClickListener {
+                    // TODO: use Location Helper remoce method instead
+                    RoomRepository.amendLocationsAsync(context.returnDbInstance(), AlarmOps.Delete.toString(), locationsList[index], locationsList[index].id.toLong())
+                    locationsList.removeAt(index)
+                    notifyItemRemoved(position)
+                }
             }
             is AlarmsListAdapter.PrayerViewHolder -> {
                 holder.tvPrayerType.text = alarmsList[position].alarmType
