@@ -86,7 +86,7 @@
             android:layout_marginEnd="@dimen/marginTopEndBottomStartLarge"
             android:background="@drawable/item_alarm_list_border"
             android:gravity="top|left"
-            android:hint="Take a Note (Optional)"
+            android:hint="@string/etNoteHint"
             android:padding="@dimen/paddingAll"
             android:textSize="@dimen/headerTextSize"
             app:layout_constraintEnd_toEndOf="parent"

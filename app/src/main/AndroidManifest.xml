@@ -63,7 +63,7 @@
 
         <service android:name="com.mdkashif.universalarm.alarm.misc.AlarmSoundService" />
 
-        <service android:name="com.mdkashif.universalarm.services.TimeIntentService" />
+        <service android:name="com.mdkashif.universalarm.alarm.misc.services.TimeIntentService" />
 
         <service
             android:name="com.mdkashif.universalarm.alarm.prayer.job.PrayerDataFetchScheduleService"
@@ -74,7 +74,7 @@
             android:name="com.mdkashif.universalarm.alarm.battery.job.BatteryScheduleService"
             android:label="Battery Info change Service"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-        <service android:name=".services.GeofenceTransitionsIntentService" />
+        <service android:name=".alarm.misc.services.GeofenceTransitionsIntentService" />
 
         <activity
             android:name="com.mdkashif.universalarm.activities.WebviewActivity"

@@ -5,7 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import com.mdkashif.universalarm.services.TimeIntentService
+import com.mdkashif.universalarm.alarm.misc.services.TimeIntentService
 import java.util.*
 
 object AlarmHelper {

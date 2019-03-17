@@ -48,6 +48,8 @@
     <string name="tvItemBatteryExpandableRv">Change Battery and Temperature levels by going into Battery Settings Screen</string>
     <string name="tvItemPrayerExpandableRv">For more regarding prayer details, go in the Prayer Settings Screen</string>
     <string name="google_android_map_api_key">AIzaSyA7sGiJNI3y2SlipMaKX_dxB290mImTmlQ</string>
+    <string name="etNoteHint">Take a Note (Optional)</string>
+    <string name="tvMapInstruction">Where do you want to be reminded? Drag the map to set the location</string>
 
     <string name="geofence_unknown_error">Unknown error: the Geofence service is not available now.</string>
     <string name="geofence_not_available">Geofence service is not available now. Go to Settings>Location>Mode and choose High accuracy.</string>

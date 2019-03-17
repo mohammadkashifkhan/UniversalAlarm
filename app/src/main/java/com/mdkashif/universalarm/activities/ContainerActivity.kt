@@ -27,7 +27,9 @@ class ContainerActivity : BaseActivity() {
         getPermissionsWithPermissionCheck()
 
         when {
-            "BuzzAlarm" == intent.getStringExtra("param1")-> replaceFragment(BuzzingAlarmFragment(), BuzzingAlarmFragment::class.java.simpleName,false, Intent().getStringExtra("param2").toInt())
+            "BuzzTimeAlarm" == intent.getStringExtra("param1")-> replaceFragment(BuzzingAlarmFragment(), BuzzingAlarmFragment::class.java.simpleName,false, Intent().getStringExtra("param2").toInt())
+            "BuzzBatteryAlarm" == intent.getStringExtra("param1")-> replaceFragment(BuzzingAlarmFragment(), BuzzingAlarmFragment::class.java.simpleName,false, Intent().getStringExtra("param2").toInt())
+            "BuzzLocationAlarm" == intent.getStringExtra("param1")-> replaceFragment(BuzzingAlarmFragment(), BuzzingAlarmFragment::class.java.simpleName,false, Intent().getStringExtra("param2").toInt())
             "com.mdkashif.universalarm.activities.time" == intent.action -> replaceFragment(SetTimeFragment(), SetTimeFragment::class.java.simpleName,false)
             "com.mdkashif.universalarm.activities.battery" == intent.action -> replaceFragment(SetBatteryLevelFragment(), SetBatteryLevelFragment::class.java.simpleName,false)
             "com.mdkashif.universalarm.activities.location" == intent.action -> replaceFragment(SetLocationFragment(), SetLocationFragment::class.java.simpleName,false)

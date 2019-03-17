@@ -11,11 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <ImageView
+        android:id="@+id/marker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/ic_marker" />
+
     <FrameLayout
-        android:layout_gravity="bottom"
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:background="@color/bg">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,6 +30,21 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/paddingAll">
+
+            <TextView
+                android:id="@+id/tvInstruction1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/normalTextSize"
+                android:textColor="@color/secondaryTextColor"
+                android:layout_marginStart="@dimen/marginTopEndBottomStart"
+                android:layout_marginTop="@dimen/marginTopEndBottomStart"
+                android:layout_marginEnd="@dimen/marginTopEndBottomStart"
+                android:text="@string/tvMapInstruction"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <ProgressBar
                 android:id="@+id/pbAddress"
@@ -33,7 +55,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/tvInstruction1" />
 
             <TextView
                 android:id="@+id/tvAddress"
@@ -46,9 +68,40 @@
                 android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/mediumTextSize"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/tvInstruction1"/>
+
+            <TextView
+                android:id="@+id/tvInstruction2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/normalTextSize"
+                android:textColor="@color/secondaryTextColor"
+                android:layout_marginStart="@dimen/marginTopEndBottomStart"
+                android:layout_marginTop="@dimen/marginTopEndBottomStart"
+                android:layout_marginEnd="@dimen/marginTopEndBottomStart"
+                android:text="You can change the Location Precision by going into the settings"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAddress"/>
+
+            <EditText
+                android:id="@+id/etNote"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
+                android:layout_marginStart="@dimen/marginTopEndBottomStart"
+                android:layout_marginEnd="@dimen/marginTopEndBottomStart"
+                android:background="@drawable/item_alarm_list_border"
+                android:gravity="top|left"
+                android:textColor="@color/primaryTextColor"
+                android:hint="@string/etNoteHint"
+                android:padding="@dimen/paddingAll"
+                android:textSize="@dimen/mediumTextSize"
+                android:imeOptions="actionDone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvInstruction2" />
 
             <TextView
                 android:id="@+id/tvDistance"
@@ -63,10 +116,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/btSetAlarm"
-                app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
+                app:layout_constraintTop_toBottomOf="@+id/etNote" />
 
             <Button
-                android:enabled="false"
                 android:id="@+id/btSetAlarm"
                 android:layout_width="@dimen/btWidth"
                 android:layout_height="@dimen/btHeight"
@@ -74,12 +126,31 @@
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:layout_marginBottom="@dimen/marginTopEndBottomStart"
                 android:background="@drawable/button_border"
+                android:enabled="false"
                 android:text="Set Alarm"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryTextColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvAddress"
+                app:layout_constraintTop_toBottomOf="@+id/etNote"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <Button
+                android:visibility="gone"
+                android:id="@+id/btStopAlarm"
+                android:layout_width="@dimen/btWidth"
+                android:layout_height="@dimen/btHeight"
+                android:layout_marginStart="@dimen/marginTopEndBottomStart"
+                android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
+                android:layout_marginBottom="@dimen/marginTopEndBottomStart"
+                android:background="@drawable/button_border"
+                android:enabled="false"
+                android:text="Stop Alarm"
+                android:textAllCaps="false"
+                android:textColor="@color/primaryTextColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etNote"
                 app:layout_constraintVertical_bias="1.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,6 +14,7 @@ object RoomRepository {
                 alarmStatus -> TransactRoomAsync(db, null, null, 1).execute(AlarmOps.Get.toString()).get() // passed 1 to get only live alarms
                 else -> TransactRoomAsync(db, null, null, 2).execute(AlarmOps.Get.toString()).get() // passed 2 to get all Time alarms
             }
+            // Todo: not sure if we require this
             AlarmTypes.Location -> TransactRoomAsync(db, null, null, locationRequestId).execute(AlarmOps.Get.toString()).get() // passed locationRequestID to get specific Location alarm
             else -> {
                 when {
@@ -120,9 +121,9 @@ object RoomRepository {
                         0.toLong() -> Pair(getPrayerTimings(db), null)
                         1.toLong() -> Pair(getTimingsWithRepeatDays(db, true), null)
                         2.toLong() -> Pair(getTimingsWithRepeatDays(db), null)
-                        4.toLong() -> Pair(getTimingsWithRepeatDays(db, true), getLocations(db, true))
-                        5.toLong() -> Pair(getTimingsWithRepeatDays(db), getLocations(db))
-                        else -> Pair(null, getSpecificLocation(db, alarmId)) // TODO
+                        3.toLong() -> Pair(getTimingsWithRepeatDays(db, true), getLocations(db, true))
+                        4.toLong() -> Pair(getTimingsWithRepeatDays(db), getLocations(db))
+                        else -> Pair(null, getSpecificLocation(db, alarmId)) // Todo: not sure if we require this
                     })
                 }
                 AlarmOps.Check.toString() -> {

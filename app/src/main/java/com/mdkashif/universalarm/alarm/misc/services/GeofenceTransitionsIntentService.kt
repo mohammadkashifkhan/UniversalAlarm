@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.services
+package com.mdkashif.universalarm.alarm.misc.services
 
 import android.app.IntentService
 import android.app.PendingIntent
@@ -23,16 +23,17 @@ class GeofenceTransitionsIntentService : IntentService("GeofenceTransitionIntent
             return
         }
         mIntent = Intent(this, ContainerActivity::class.java)
-        val notificationTitle="We arrived! :]"
+        val notificationTitle = "We arrived! :]"
         val notificationMessage = intent!!.getStringExtra("note")
-        val latitude = intent.getStringExtra("latitude")
-        val longitude = intent.getStringExtra("longitude")
+
+        mIntent.putExtra("param1", "BuzzLocationAlarm")
+        mIntent.putExtra("latitude", intent.getStringExtra("latitude"))
+        mIntent.putExtra("longitude", intent.getStringExtra("longitude"))
 
         bundleNotificationId = +100
         val groupNotificationId = AppConstants.notificationChannelId + bundleNotificationId
 
         val pendingIntent = PendingIntent.getActivity(baseContext, bundleNotificationId, mIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         Utils.sendNotificationAlert(applicationContext, notificationTitle, notificationMessage, pendingIntent, groupNotificationId, bundleNotificationId)
-
     }
 }

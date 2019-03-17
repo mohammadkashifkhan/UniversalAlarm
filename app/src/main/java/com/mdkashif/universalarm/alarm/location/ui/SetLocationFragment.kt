@@ -7,11 +7,11 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.location.Location
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationListener
@@ -20,27 +20,30 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.android.gms.maps.model.MarkerOptions
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.location.misc.LocationHelper
 import com.mdkashif.universalarm.base.BaseFragment
+import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.utils.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_set_location.*
 import kotlinx.android.synthetic.main.fragment_set_location.view.*
 
 class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, LocationListener {
+        GoogleApiClient.OnConnectionFailedListener, LocationListener, View.OnClickListener {
     private lateinit var mGoogleMap: GoogleMap
     private lateinit var mLastLocation: Location
     private lateinit var mGoogleApiClient: GoogleApiClient
 
     private lateinit var mapView: MapView
     private lateinit var rootView: View
+    lateinit var pos : LatLng
 
     private val disposable = CompositeDisposable()
 
@@ -52,16 +55,27 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
         rootView = inflater.inflate(R.layout.fragment_set_location, container, false)
         mapView = rootView.findViewById(R.id.map)
 
-        rootView.btSetAlarm.setOnClickListener {
-            LocationHelper.setAlarm(mActivity,
-                    success = {
-                    },
-                    failure = {
-                        Utils.showToast(it, mActivity)
-                    })
-        }
+        rootView.btSetAlarm.setOnClickListener (this)
+        rootView.btStopAlarm.setOnClickListener (this)
 
         return rootView
+    }
+
+    override fun onClick(v: View?) {
+        when(v!!.id){
+            R.id.btSetAlarm->{
+                LocationHelper.setAlarm(mActivity, etNote.text.toString(),
+                        success = {
+                            mActivity.onBackPressed()
+                        },
+                        failure = {
+                            Utils.showToast(it, mActivity)
+                        })
+            }
+            R.id.btStopAlarm->{
+                //todo
+            }
+        }
     }
 
 //    fun showReminderInMap(context: Context,
@@ -143,7 +157,7 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
         mGoogleMap.isMyLocationEnabled = true
         mGoogleMap.uiSettings.isMyLocationButtonEnabled = false
 
-        val pos = LatLng(latitude, longitude)
+        pos = LatLng(latitude, longitude)
 
         try {
             val success = mGoogleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(activity, R.raw.map_style))
@@ -153,19 +167,9 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
         }
 
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 18f))
-        Handler().postDelayed({
-            reactAccordingly(pos)
-        }, 1500)
 
-        mGoogleMap.setOnMapClickListener {
-
-            mGoogleMap.clear()
-            mGoogleMap.addMarker(MarkerOptions().position(it)).setIcon(LocationHelper.getBitmapDescriptorFromVector(mActivity, R.drawable.ic_marker))
-            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 18f))
-            rootView.pbAddress.visibility = View.VISIBLE
-            rootView.btSetAlarm.isEnabled = false
-            reactAccordingly(it)
-            rootView.tvDistance.text = LocationHelper.getDistance(it, pos)
+        mGoogleMap.setOnCameraIdleListener {
+            reactAccordingly(mGoogleMap.cameraPosition.target)
         }
     }
 
@@ -176,9 +180,19 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
             }
 
             override fun onNext(t: String) {
+                mGoogleMap.clear()
                 rootView.pbAddress.visibility = View.GONE
                 rootView.tvAddress.text = t
+                rootView.tvDistance.text = LocationHelper.getDistance(mGoogleMap.cameraPosition.target, pos)
                 rootView.btSetAlarm.isEnabled = true
+
+                val radius=context!!.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition].split(" ")[0]
+
+                mGoogleMap.addCircle(CircleOptions()
+                        .center(mGoogleMap.cameraPosition.target)
+                        .radius(radius.toDouble())
+                        .strokeColor(ContextCompat.getColor(mActivity, R.color.colorAccent))
+                        .fillColor(ContextCompat.getColor(mActivity, R.color.dayDeselected)))
             }
 
             override fun onError(e: Throwable) {

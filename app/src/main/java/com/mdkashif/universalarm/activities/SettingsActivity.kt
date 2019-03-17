@@ -61,6 +61,9 @@ class SettingsActivity : BaseActivity() {
             findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze)).onPreferenceClickListener = this
             findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision)).onPreferenceClickListener = this
 
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze)).summary = context!!.resources.getStringArray(R.array.snoozeTimings)[AppPreferences.snoozeTimeArrayPosition]
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision)).summary = "within ${context!!.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition]}"
+
             bindPreferenceSummaryToValue(findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleRingtone)))
 
             toggleVibrate = findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleVibrate))

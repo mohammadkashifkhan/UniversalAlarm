@@ -5,15 +5,11 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.location.Geocoder
 import androidx.core.content.ContextCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GooglePlayServicesUtil
 import com.google.android.gms.location.*
-import com.google.android.gms.maps.model.BitmapDescriptor
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.SphericalUtil
 import com.mdkashif.universalarm.R
@@ -21,9 +17,9 @@ import com.mdkashif.universalarm.activities.ContainerActivity
 import com.mdkashif.universalarm.alarm.misc.AlarmHelper
 import com.mdkashif.universalarm.alarm.misc.AlarmOps
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
+import com.mdkashif.universalarm.alarm.misc.services.GeofenceTransitionsIntentService
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.persistence.RoomRepository
-import com.mdkashif.universalarm.services.GeofenceTransitionsIntentService
 import com.mdkashif.universalarm.utils.AppConstants
 import com.mdkashif.universalarm.utils.Utils
 import io.reactivex.Observable
@@ -68,15 +64,6 @@ object LocationHelper {
         return true
     }
 
-    fun getBitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor {
-        val vectorDrawable = ContextCompat.getDrawable(context, vectorResId)
-        vectorDrawable!!.setBounds(0, 0, vectorDrawable.intrinsicWidth, vectorDrawable.intrinsicHeight)
-        val bitmap = Bitmap.createBitmap(vectorDrawable.intrinsicWidth, vectorDrawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap)
-        vectorDrawable.draw(canvas)
-        return BitmapDescriptorFactory.fromBitmap(bitmap)
-    }
-
     fun getAddress(latLng: LatLng, context: ContainerActivity): Observable<String> {
         val mGeocoder = Geocoder(context, Locale.getDefault())
 
@@ -117,13 +104,14 @@ object LocationHelper {
         return distance
     }
 
-    fun setAlarm(context: ContainerActivity,
+    fun setAlarm(context: ContainerActivity, note: String,
                  success: () -> Unit,
                  failure: (error: String) -> Unit) {
+        this.note = note
         val pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode()
-        // TODO: add NOTE editext on UI to insert in db
         RoomRepository.amendLocationsAsync(context.returnDbInstance(), AlarmOps.Add.toString(), LocationsModel(address = address, city = city, latitude = destinationLatitude, longitude = destinationLongitude, note = note, pIntentRequestCode = pIntentRequestCode.toLong(), status = true))
         Utils.showToast("All set!, You are $distance, we will notify you, once you reach within the ${context.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition]} destination radius", context)
+
         val geofence = buildGeofence(destinationLatitude, destinationLongitude, context, pIntentRequestCode.toString())
         if (geofence != null
                 && ContextCompat.checkSelfPermission(
@@ -151,18 +139,17 @@ object LocationHelper {
                         failure(GeofenceErrorMessages.getErrorString(context, it))
                     }
         }
-        context.onBackPressed()
     }
 
     private fun buildGeofence(latitude: Double, longitude: Double, context: Context, pIntentRequestCode: String): Geofence? {
-        val radius = context.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition].toFloat()
+        val radius = context.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition].split(" ")[0]
 
         return Geofence.Builder()
                 .setRequestId(pIntentRequestCode)
                 .setCircularRegion(
                         latitude,
                         longitude,
-                        radius
+                        radius.toFloat()
                 )
                 .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER)
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
@@ -182,7 +169,6 @@ object LocationHelper {
         geofencingClient
                 .removeGeofences(listOf(id))
                 .addOnSuccessListener {
-                    // TODO: remove location from db
                     success()
                 }
                 .addOnFailureListener {

@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.hendraanggrian.recyclerview.widget.ExpandableRecyclerView
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.activities.ContainerActivity
+import com.mdkashif.universalarm.alarm.location.misc.LocationHelper
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import com.mdkashif.universalarm.alarm.time.TimeHelper
@@ -186,10 +187,13 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                 }
                 holder.ibEdit.setOnClickListener {}
                 holder.ibDelete.setOnClickListener {
-                    // TODO: use Location Helper remoce method instead
-                    RoomRepository.amendLocationsAsync(context.returnDbInstance(), AlarmOps.Delete.toString(), locationsList[index], locationsList[index].id.toLong())
-                    locationsList.removeAt(index)
-                    notifyItemRemoved(position)
+                    LocationHelper.removeAlarm(locationsList[index].pIntentRequestCode.toString(), success = {
+                        RoomRepository.amendLocationsAsync(context.returnDbInstance(), AlarmOps.Delete.toString(), locationsList[index], locationsList[index].id.toLong())
+                        locationsList.removeAt(index)
+                        notifyItemRemoved(position)
+                    }, failure = {
+
+                    }, context = context)
                 }
             }
             is AlarmsListAdapter.PrayerViewHolder -> {

@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.services
+package com.mdkashif.universalarm.alarm.misc.services
 
 import android.app.IntentService
 import android.app.PendingIntent
@@ -23,15 +23,14 @@ class TimeIntentService : IntentService("TimeIntentService") {
                 mIntent.putExtra("hour", intent.getStringExtra("hour"))
                 mIntent.putExtra("minute", intent.getStringExtra("minute"))
                 mIntent.putExtra("note", notificationMessage)
-                mIntent.putExtra("param1", "BuzzAlarmFragment")
+                mIntent.putExtra("param1", "BuzzTimeAlarm")
                 mIntent.putExtra("param2", intent.getStringExtra("requestCode"))
             }
             "Battery"->{
                 mIntent = Intent(this, AntiTheftUnlockActivity::class.java)
-                // TODO : stop alarm and what not everything basically in that activity,
-                // TODO : also dont have to show the pin directly only in case of theft, so choose the putextras wisely
+                // TODO : stop alarm and what not everything basically in that activity, also dont have to show the pin directly only in case of theft, so choose the putextras wisely
                 mIntent.putExtra(AppLock.EXTRA_TYPE, AppLock.UNLOCK_PIN)
-                mIntent.putExtra("param1", "BuzzAlarmFragment")
+                mIntent.putExtra("param1", "BuzzBatteryAlarm")
             }
         }
         bundleNotificationId = +100

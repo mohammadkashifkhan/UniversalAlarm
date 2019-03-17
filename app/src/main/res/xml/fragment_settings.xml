@@ -26,7 +26,6 @@
         <Preference
             android:key="@string/prefKeyTitleLocationPrecision"
             android:selectable="true"
-            android:summary="Within 100m"
             android:title="@string/prefKeyTitleLocationPrecision"
             android:icon="@drawable/ic_location"/>
 

@@ -7,8 +7,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
 import com.mdkashif.universalarm.alarm.misc.AlarmTypes
+import com.mdkashif.universalarm.alarm.misc.services.TimeIntentService
 import com.mdkashif.universalarm.persistence.AppPreferences
-import com.mdkashif.universalarm.services.TimeIntentService
 
 class BatteryScheduleService : JobService() {
     private var highBatteryPercentage: Float = 0f
