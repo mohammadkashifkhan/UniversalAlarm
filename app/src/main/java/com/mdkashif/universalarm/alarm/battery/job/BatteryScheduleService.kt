@@ -42,7 +42,7 @@ class BatteryScheduleService : JobService() {
 
         if (AppPreferences.theftAlarmStatus!!)
             if (!isConnectedToCharge(applicationContext))
-                startAlarm("Theft Alarm", "Someone just might be unplugging your phone!", applicationContext)
+                startAlarm("Theft Alarm", "Someone just might be unplugging your phone!", applicationContext, true)
 
         if (getCurrentBatteryTemperature(applicationContext) > tempLevel && AppPreferences.temperatureAlarmStatus!!)
             startAlarm("Your Phone is getting too warm", "Either switch it off or unplug it", applicationContext)
@@ -67,11 +67,14 @@ class BatteryScheduleService : JobService() {
         return plugged == BatteryManager.BATTERY_PLUGGED_AC || plugged == BatteryManager.BATTERY_PLUGGED_USB
     }
 
-    private fun startAlarm(title: String, message: String, context: Context) {
+    private fun startAlarm(title: String, message: String, context: Context, theft: Boolean = false) {
         val alarmIntent = Intent(context, TimeIntentService::class.java)
         alarmIntent.putExtra("notificationTitle", title)
         alarmIntent.putExtra("notificationMessage", message)
-        alarmIntent.putExtra("alarmType", AlarmTypes.Battery.toString())
+        if (theft)
+            alarmIntent.putExtra("alarmType", AlarmTypes.Theft.toString())
+        else
+            alarmIntent.putExtra("alarmType", AlarmTypes.Battery.toString())
         context.startService(alarmIntent)
     }
 }

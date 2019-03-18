@@ -52,7 +52,4 @@ interface RoomAccessDao {
 
     @Query("SELECT * FROM Locations where status='1'")
     fun getOnlyLiveLocationAlarms(): MutableList<LocationsModel>
-
-    @Query("SELECT * FROM Locations where pid=:pid")
-    fun getSpecificLocationAlarm(pid: Long): MutableList<LocationsModel> // Todo: not sure if we require this
 }

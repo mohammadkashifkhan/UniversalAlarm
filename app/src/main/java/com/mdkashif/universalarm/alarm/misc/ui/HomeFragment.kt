@@ -1,10 +1,13 @@
 package com.mdkashif.universalarm.alarm.misc.ui
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.activities.SettingsActivity
@@ -53,6 +56,10 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             }
             R.id.fabLocation -> {
                 rootView.menu.close(true)
+                if (ActivityCompat.checkSelfPermission(this.context!!, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.context!!, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    Utils.showSnackBar("You have not granted the Location Permissions, please do so by going into the app permissions", rootView)
+                    return
+                }
                 if (Utils.isOnline(mActivity))
                     mActivity.replaceFragment(SetLocationFragment(), SetLocationFragment::class.java.simpleName, true)
                 else
@@ -60,6 +67,10 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
             }
             R.id.fabSalat -> {
                 rootView.menu.close(true)
+                if (ActivityCompat.checkSelfPermission(this.context!!, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.context!!, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    Utils.showSnackBar("You have not granted the Location Permissions, please do so by going into the app permissions", rootView)
+                    return
+                }
                 if (AppPreferences.islamicDate != "")
                     mActivity.replaceFragment(SetPrayerTimeFragment(), SetPrayerTimeFragment::class.java.simpleName, true)
                 else

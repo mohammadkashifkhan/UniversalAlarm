@@ -109,7 +109,8 @@ object LocationHelper {
                  failure: (error: String) -> Unit) {
         this.note = note
         val pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode()
-        RoomRepository.amendLocationsAsync(context.returnDbInstance(), AlarmOps.Add.toString(), LocationsModel(address = address, city = city, latitude = destinationLatitude, longitude = destinationLongitude, note = note, pIntentRequestCode = pIntentRequestCode.toLong(), status = true))
+        val dao=LocationsModel(address = address, city = city, latitude = destinationLatitude, longitude = destinationLongitude, note = note, pIntentRequestCode = pIntentRequestCode.toLong(), status = true)
+        RoomRepository.amendLocationsAsync(context.returnDbInstance(), AlarmOps.Add.toString(), dao)
         Utils.showToast("All set!, You are $distance, we will notify you, once you reach within the ${context.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition]} destination radius", context)
 
         val geofence = buildGeofence(destinationLatitude, destinationLongitude, context, pIntentRequestCode.toString())
@@ -121,9 +122,7 @@ object LocationHelper {
 
             val geofencePendingIntent: PendingIntent by lazy {
                 val intent = Intent(context, GeofenceTransitionsIntentService::class.java)
-                intent.putExtra("latitude", destinationLatitude)
-                intent.putExtra("longitude", destinationLongitude)
-                intent.putExtra("note", note)
+                intent.putExtra("locationDao", dao)
                 PendingIntent.getService(
                         context,
                         0,

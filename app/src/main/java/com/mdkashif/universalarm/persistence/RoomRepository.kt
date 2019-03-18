@@ -14,8 +14,6 @@ object RoomRepository {
                 alarmStatus -> TransactRoomAsync(db, null, null, 1).execute(AlarmOps.Get.toString()).get() // passed 1 to get only live alarms
                 else -> TransactRoomAsync(db, null, null, 2).execute(AlarmOps.Get.toString()).get() // passed 2 to get all Time alarms
             }
-            // Todo: not sure if we require this
-            AlarmTypes.Location -> TransactRoomAsync(db, null, null, locationRequestId).execute(AlarmOps.Get.toString()).get() // passed locationRequestID to get specific Location alarm
             else -> {
                 when {
                     alarmStatus -> TransactRoomAsync(db, null, null, 3).execute(AlarmOps.Get.toString()).get() // passed 3 to get all live alarms
@@ -65,10 +63,6 @@ object RoomRepository {
             db.accessDao().getOnlyLiveLocationAlarms()
         else
             db.accessDao().getLocationAlarms()
-    }
-
-    private fun getSpecificLocation(db: AppDatabase, id: Long): MutableList<LocationsModel> {
-        return db.accessDao().getSpecificLocationAlarm(id)
     }
 
     private fun getTimingsWithRepeatDays(db: AppDatabase, status: Boolean = false): MutableList<TimingsModel> {
@@ -122,8 +116,7 @@ object RoomRepository {
                         1.toLong() -> Pair(getTimingsWithRepeatDays(db, true), null)
                         2.toLong() -> Pair(getTimingsWithRepeatDays(db), null)
                         3.toLong() -> Pair(getTimingsWithRepeatDays(db, true), getLocations(db, true))
-                        4.toLong() -> Pair(getTimingsWithRepeatDays(db), getLocations(db))
-                        else -> Pair(null, getSpecificLocation(db, alarmId)) // Todo: not sure if we require this
+                        else -> Pair(getTimingsWithRepeatDays(db), getLocations(db))
                     })
                 }
                 AlarmOps.Check.toString() -> {

@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.location.misc.LocationHelper
+import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.utils.Utils
@@ -43,7 +44,9 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
 
     private lateinit var mapView: MapView
     private lateinit var rootView: View
-    lateinit var pos : LatLng
+    lateinit var pos: LatLng
+
+    private lateinit var locationModel: LocationsModel
 
     private val disposable = CompositeDisposable()
 
@@ -55,25 +58,39 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
         rootView = inflater.inflate(R.layout.fragment_set_location, container, false)
         mapView = rootView.findViewById(R.id.map)
 
-        rootView.btSetAlarm.setOnClickListener (this)
-        rootView.btStopAlarm.setOnClickListener (this)
+        rootView.btSetAlarm.setOnClickListener(this)
+        rootView.btStopAlarm.setOnClickListener(this)
+
+        when {
+            arguments != null -> {
+                locationModel = arguments!!.getParcelable("editableData") as LocationsModel
+                rootView.btSetAlarm.text="Update Alarm"
+                rootView.btStopAlarm.visibility = View.VISIBLE
+            }
+        }
 
         return rootView
     }
 
     override fun onClick(v: View?) {
-        when(v!!.id){
-            R.id.btSetAlarm->{
-                LocationHelper.setAlarm(mActivity, etNote.text.toString(),
-                        success = {
-                            mActivity.onBackPressed()
-                        },
-                        failure = {
-                            Utils.showToast(it, mActivity)
-                        })
+        when (v!!.id) {
+            R.id.btSetAlarm -> {
+                when {
+                    rootView.btSetAlarm.text!="Update Alarm" -> LocationHelper.setAlarm(mActivity, etNote.text.toString(),
+                            success = {
+                                mActivity.onBackPressed()
+                            },
+                            failure = {
+                                Utils.showToast(it, mActivity)
+                            })
+                    else -> {
+//                        showReminderInMap()
+                        //todo: update alarm
+                    }
+                }
             }
-            R.id.btStopAlarm->{
-                //todo
+            R.id.btStopAlarm -> {
+                //todo: stop alarm, dont delete it, just update the status using the received requestCode
             }
         }
     }
@@ -186,7 +203,7 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
                 rootView.tvDistance.text = LocationHelper.getDistance(mGoogleMap.cameraPosition.target, pos)
                 rootView.btSetAlarm.isEnabled = true
 
-                val radius=context!!.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition].split(" ")[0]
+                val radius = context!!.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition].split(" ")[0]
 
                 mGoogleMap.addCircle(CircleOptions()
                         .center(mGoogleMap.cameraPosition.target)
@@ -196,7 +213,8 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
             }
 
             override fun onError(e: Throwable) {
-                // do nothing
+                Utils.showSnackBar("It should not take this long, please check your Internet or try again later", rootView)
+                return
             }
         }))
     }

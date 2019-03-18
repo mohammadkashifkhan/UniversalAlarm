@@ -26,7 +26,7 @@ import com.mdkashif.universalarm.base.BaseActivity
 object Utils {
     private lateinit var progressDialog: MaterialDialog
 
-    fun sendNotificationAlert(context: Context,title: String, message: String, pendingIntent: PendingIntent, groupNotificationId: String, bundleNotificationId: Int) {
+    fun sendNotificationAlert(context: Context, title: String, message: String, pendingIntent: PendingIntent, groupNotificationId: String, bundleNotificationId: Int, theftAlarm: Boolean = false) {
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -55,9 +55,10 @@ object Utils {
                 .setAutoCancel(false)
 
         val notification: Notification = notificationBuilder.build()
-        notification.flags = notification.flags or Notification.FLAG_ONGOING_EVENT // non cancellable until tapped, should be only for theft alarms
-        notification.flags = notification.flags or Notification.FLAG_INSISTENT // repeat unless tapped and cancelled
-
+        if (theftAlarm) {
+            notification.flags = notification.flags or Notification.FLAG_ONGOING_EVENT // non cancellable until tapped, should be only for theft alarms
+            notification.flags = notification.flags or Notification.FLAG_INSISTENT // repeat unless tapped and cancelled
+        }
         notificationManager.notify(bundleNotificationId, notification)
 
         context.startService(Intent(context, AlarmSoundService::class.java))

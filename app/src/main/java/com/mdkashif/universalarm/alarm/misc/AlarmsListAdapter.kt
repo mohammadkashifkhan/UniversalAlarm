@@ -14,6 +14,7 @@ import com.hendraanggrian.recyclerview.widget.ExpandableRecyclerView
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.activities.ContainerActivity
 import com.mdkashif.universalarm.alarm.location.misc.LocationHelper
+import com.mdkashif.universalarm.alarm.location.ui.SetLocationFragment
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import com.mdkashif.universalarm.alarm.time.TimeHelper
@@ -150,7 +151,7 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                         AlarmHelper.stopAlarm(alarmsList[position].pIntentRequestCode.toInt(), context)
                 }
                 holder.ibEdit.setOnClickListener {
-                    context.replaceFragment(SetTimeFragment(), SetTimeFragment::class.java.simpleName, false, dao = alarmsList[position])
+                    context.replaceFragment(SetTimeFragment(), SetTimeFragment::class.java.simpleName, false, timingDao = alarmsList[position])
                 }
                 holder.ibDelete.setOnClickListener {
                     RoomRepository.amendTimingsAsync(context.returnDbInstance(), AlarmOps.Delete.toString(), alarmsList[position], alarmsList[position].id)
@@ -185,7 +186,9 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                     locationsList[position].status = p1
                     RoomRepository.amendLocationsAsync(context.returnDbInstance(), AlarmOps.Update.toString(), locationsList[index], locationsList[index].id.toLong())
                 }
-                holder.ibEdit.setOnClickListener {}
+                holder.ibEdit.setOnClickListener {
+                    context.replaceFragment(SetLocationFragment(), SetLocationFragment::class.java.simpleName, false, locationDao = locationsList[index])
+                }
                 holder.ibDelete.setOnClickListener {
                     LocationHelper.removeAlarm(locationsList[index].pIntentRequestCode.toString(), success = {
                         RoomRepository.amendLocationsAsync(context.returnDbInstance(), AlarmOps.Delete.toString(), locationsList[index], locationsList[index].id.toLong())

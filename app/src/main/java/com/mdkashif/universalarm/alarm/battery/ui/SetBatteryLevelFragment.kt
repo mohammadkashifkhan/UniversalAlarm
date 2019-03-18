@@ -1,5 +1,6 @@
 package com.mdkashif.universalarm.alarm.battery.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import com.mdkashif.universalarm.alarm.battery.misc.BatteryLiveData
 import com.mdkashif.universalarm.alarm.battery.misc.BatteryStatsPoJo
 import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.persistence.AppPreferences
+import com.mdkashif.universalarm.security.AntiTheftUnlockActivity
 import com.mdkashif.universalarm.utils.Utils
 import kotlinx.android.synthetic.main.fragment_set_battery_level.view.*
 
@@ -64,7 +66,9 @@ class SetBatteryLevelFragment : BaseFragment(), CompoundButton.OnCheckedChangeLi
                 AppPreferences.temperatureAlarmStatus = p1
             }
             R.id.swTheft -> {
-                AppPreferences.theftAlarmStatus = p1
+                if(p1)
+                    mActivity.executeIntent(Intent(mActivity, AntiTheftUnlockActivity::class.java), true, param = true, type = "AntiTheftFirstTimeEnable")
+                //todo: send him the first time to set the pin
             }
         }
     }

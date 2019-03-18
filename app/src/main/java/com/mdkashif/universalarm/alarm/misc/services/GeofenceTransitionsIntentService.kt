@@ -27,8 +27,7 @@ class GeofenceTransitionsIntentService : IntentService("GeofenceTransitionIntent
         val notificationMessage = intent!!.getStringExtra("note")
 
         mIntent.putExtra("param1", "BuzzLocationAlarm")
-        mIntent.putExtra("latitude", intent.getStringExtra("latitude"))
-        mIntent.putExtra("longitude", intent.getStringExtra("longitude"))
+        mIntent.putExtra("locationDao", intent.getStringExtra("locationDao"))
 
         bundleNotificationId = +100
         val groupNotificationId = AppConstants.notificationChannelId + bundleNotificationId
