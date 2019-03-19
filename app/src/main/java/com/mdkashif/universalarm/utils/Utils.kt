@@ -13,6 +13,7 @@ import android.net.Uri
 import android.os.Build
 import android.view.View
 import android.view.animation.*
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -97,7 +98,11 @@ object Utils {
     }
 
     fun showSnackBar(message: String, view: View) {
-        Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
+        val sBar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
+        val sBarView = sBar.view
+        val textView = sBarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
+        textView.setTextColor(view.context.resources.getColor(R.color.bg))
+        sBar.show()
     }
 
     fun setRVSlideInLeftAnimation(view: RecyclerView) {

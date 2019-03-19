@@ -32,6 +32,7 @@ object AppConstants {
     const val timezone = "timezone"
     const val islamicDate = "islamicDate"
     const val islamicMonth = "islamicMonth"
+    const val REQUEST_CODE_ENABLE_THEFT_ALARM = 121
 
     /////// SetBatteryLevelFragment ///////
     const val highBatteryLevel = "hbl"
@@ -40,6 +41,7 @@ object AppConstants {
     const val batteryAlarmStatus = "batteryAlarmStatus"
     const val temperatureAlarmStatus = "temperatureAlarmStatus"
     const val theftAlarmStatus = "theftAlarmStatus"
+    const val theftPinEnabled = "theftPinEnabled"
 
     /////// Notification ///////
     const val notificationId = 786

@@ -121,10 +121,10 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
                     selectedDays.isEmpty() -> {
                         if (this.selectedMinute.isNotEmpty()) {
                             requestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong()
-                            timingsModel = if (rootView.etNote.text.toString().isEmpty())
-                                TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, alarmType = AlarmTypes.Time.toString(), status = true, pIntentRequestCode = requestCode)
-                            else
-                                TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, note = rootView.etNote.text.toString(), alarmType = AlarmTypes.Time.toString(), status = true, pIntentRequestCode = requestCode)
+                            timingsModel = when {
+                                rootView.etNote.text.toString().isEmpty() -> TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, alarmType = AlarmTypes.Time.toString(), status = true, pIntentRequestCode = requestCode)
+                                else -> TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, note = rootView.etNote.text.toString(), alarmType = AlarmTypes.Time.toString(), status = true, pIntentRequestCode = requestCode)
+                            }
                             doAccordingly()
                         }
                     }
@@ -135,10 +135,10 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
                                 daysList.add(daysModel)
                             }
                             requestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong()
-                            timingsModel = if (rootView.etNote.text.toString().isEmpty())
-                                TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, alarmType = AlarmTypes.Time.toString(), repeat = true, status = true, repeatDays = daysList, pIntentRequestCode = requestCode)
-                            else
-                                TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, note = rootView.etNote.text.toString(), alarmType = AlarmTypes.Time.toString(), repeat = true, status = true, repeatDays = daysList, pIntentRequestCode = requestCode)
+                            timingsModel = when {
+                                rootView.etNote.text.toString().isEmpty() -> TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, alarmType = AlarmTypes.Time.toString(), repeat = true, status = true, repeatDays = daysList, pIntentRequestCode = requestCode)
+                                else -> TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, note = rootView.etNote.text.toString(), alarmType = AlarmTypes.Time.toString(), repeat = true, status = true, repeatDays = daysList, pIntentRequestCode = requestCode)
+                            }
                             doAccordingly()
                         }
                     }
@@ -150,15 +150,18 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
     }
 
     override fun onDayPressed(weekday: MaterialDayPicker.Weekday?, isSelected: Boolean) {
-        if (isSelected)
-            selectedDays.add(weekday!!.toString())
-        else
-            selectedDays.remove(weekday!!.toString())
+        when {
+            isSelected -> selectedDays.add(weekday!!.toString())
+            else -> selectedDays.remove(weekday!!.toString())
+        }
     }
 
     private fun doAccordingly() {
         RoomRepository.amendTimingsAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsModel)
-        AlarmHelper.setAlarm(timingsModel.hour.toInt(), timingsModel.minute.toInt(), requestCode.toInt(), mActivity, AlarmTypes.Time, timingsModel.note)
+        when {
+            daysList.isNotEmpty() -> AlarmHelper.setAlarm(timingsModel.hour.toInt(), timingsModel.minute.toInt(), requestCode.toInt(), mActivity, AlarmTypes.Time, timingsModel.note, repeat = true, repeatDays = daysList)
+            else -> AlarmHelper.setAlarm(timingsModel.hour.toInt(), timingsModel.minute.toInt(), requestCode.toInt(), mActivity, AlarmTypes.Time, timingsModel.note, repeatDays = null)
+        }
         Utils.showToast("Alarm set for $timeLeftFromNow from now", mActivity)
         mActivity.onBackPressed()
     }

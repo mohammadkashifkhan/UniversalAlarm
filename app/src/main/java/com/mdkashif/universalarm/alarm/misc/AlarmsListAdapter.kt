@@ -1,5 +1,6 @@
 package com.mdkashif.universalarm.alarm.misc
 
+import android.location.Location
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.gms.maps.model.LatLng
 import com.hendraanggrian.recyclerview.widget.ExpandableRecyclerView
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.activities.ContainerActivity
@@ -17,6 +19,7 @@ import com.mdkashif.universalarm.alarm.location.misc.LocationHelper
 import com.mdkashif.universalarm.alarm.location.ui.SetLocationFragment
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
+import com.mdkashif.universalarm.alarm.prayer.misc.PrayerPresenter
 import com.mdkashif.universalarm.alarm.time.TimeHelper
 import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment
 import com.mdkashif.universalarm.persistence.AppPreferences
@@ -145,9 +148,12 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                 holder.swTime.setOnCheckedChangeListener { p0, p1 ->
                     alarmsList[position].status = p1
                     RoomRepository.amendTimingsAsync(context.returnDbInstance(), AlarmOps.Update.toString(), alarmsList[position], alarmsList[position].id)
-                    if (p1)
-                        AlarmHelper.setAlarm(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt(), alarmsList[position].pIntentRequestCode.toInt(), context, AlarmTypes.Time, alarmsList[position].note)
-                    else
+                    if (p1) {
+                        if (alarmsList[position].repeat)
+                            AlarmHelper.setAlarm(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt(), alarmsList[position].pIntentRequestCode.toInt(), context, AlarmTypes.Time, alarmsList[position].note, repeat = true, repeatDays = alarmsList[position].repeatDays)
+                        else
+                            AlarmHelper.setAlarm(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt(), alarmsList[position].pIntentRequestCode.toInt(), context, AlarmTypes.Time, alarmsList[position].note, repeatDays = null)
+                    } else
                         AlarmHelper.stopAlarm(alarmsList[position].pIntentRequestCode.toInt(), context)
                 }
                 holder.ibEdit.setOnClickListener {
@@ -180,7 +186,21 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                     position - alarmsList.size
                 holder.tvAddress.text = locationsList[index].address
                 holder.tvCity.text = locationsList[index].city
-                holder.tvDistance.text = "3km away" // TODO: make this dynamic
+
+                disposable.add(PrayerPresenter.getLocationContinuously().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(object : DisposableObserver<Location>() {
+                    override fun onNext(t: Location) {
+                        holder.tvDistance.text = LocationHelper.getDistance(LatLng(locationsList[index].latitude, locationsList[index].longitude), LatLng(t.latitude, t.longitude))
+                    }
+
+                    override fun onError(e: Throwable) {
+                        // do nothing
+                    }
+
+                    override fun onComplete() {
+                        // do nothing
+                    }
+                }))
+
                 holder.swLocation.isChecked = locationsList[index].status
                 holder.swLocation.setOnCheckedChangeListener { p0, p1 ->
                     locationsList[position].status = p1
@@ -235,7 +255,7 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                     alarmsList[position].status = p1
                     RoomRepository.amendTimingsAsync(context.returnDbInstance(), AlarmOps.Add.toString(), alarmsList[position]) // sending add instead of update because its handled in the repository
                     if (p1)
-                        AlarmHelper.setAlarm(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt(), alarmsList[position].pIntentRequestCode.toInt(), context, AlarmTypes.valueOf(alarmsList[position].alarmType))
+                        AlarmHelper.setAlarm(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt(), alarmsList[position].pIntentRequestCode.toInt(), context, AlarmTypes.valueOf(alarmsList[position].alarmType), repeatDays = null)
                     else
                         AlarmHelper.stopAlarm(alarmsList[position].pIntentRequestCode.toInt(), context)
                 }

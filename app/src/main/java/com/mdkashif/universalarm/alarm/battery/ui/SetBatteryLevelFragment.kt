@@ -38,6 +38,9 @@ class SetBatteryLevelFragment : BaseFragment(), CompoundButton.OnCheckedChangeLi
             rootView.temperature.text = connection.temp.toString()
         })
 
+        if(AppPreferences.theftPinEnabled!!)
+            rootView.btChangePin.visibility=View.VISIBLE
+
         rootView.swBattery.isChecked = AppPreferences.batteryAlarmStatus == true
         rootView.swTemperature.isChecked = AppPreferences.temperatureAlarmStatus == true
         rootView.swTheft.isChecked = AppPreferences.theftAlarmStatus == true
@@ -66,9 +69,10 @@ class SetBatteryLevelFragment : BaseFragment(), CompoundButton.OnCheckedChangeLi
                 AppPreferences.temperatureAlarmStatus = p1
             }
             R.id.swTheft -> {
-                if(p1)
-                    mActivity.executeIntent(Intent(mActivity, AntiTheftUnlockActivity::class.java), true, param = true, type = "AntiTheftFirstTimeEnable")
-                //todo: send him the first time to set the pin
+                if (!AppPreferences.theftPinEnabled!!)
+                    mActivity.executeIntent(Intent(mActivity, AntiTheftUnlockActivity::class.java), false, param = true, type = "AntiTheftFirstTimeEnable")
+                else
+                    AppPreferences.theftAlarmStatus = p1
             }
         }
     }
@@ -76,6 +80,8 @@ class SetBatteryLevelFragment : BaseFragment(), CompoundButton.OnCheckedChangeLi
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.clSendFeedback -> Utils.sendFeedback(mActivity)
+
+            R.id.btChangePin -> mActivity.executeIntent(Intent(mActivity, AntiTheftUnlockActivity::class.java), false, param = true, type = "AntiTheftPinChange")
         }
     }
 

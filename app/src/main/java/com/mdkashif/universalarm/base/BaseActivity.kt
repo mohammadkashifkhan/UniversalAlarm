@@ -10,6 +10,7 @@ import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import com.mdkashif.universalarm.persistence.AppDatabase
+import com.mdkashif.universalarm.utils.AppConstants
 
 
 open class BaseActivity : AppCompatActivity() {
@@ -29,11 +30,19 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun executeIntent(intent: Intent, doFinish: Boolean, param: Boolean = false, type: String = "") {
-        if (type == "AntiTheftFirstTimeEnable") {
-            intent.putExtra("param", param)
-            intent.putExtra(AppLock.EXTRA_TYPE, AppLock.ENABLE_PINLOCK)
+        when (type) {
+            "AntiTheftFirstTimeEnable" -> {
+                intent.putExtra("param", param)
+                intent.putExtra(AppLock.EXTRA_TYPE, AppLock.ENABLE_PINLOCK)
+                startActivityForResult(intent, AppConstants.REQUEST_CODE_ENABLE_THEFT_ALARM)
+            }
+            "AntiTheftPinChange" -> {
+                intent.putExtra("param", param)
+                intent.putExtra(AppLock.EXTRA_TYPE, AppLock.CHANGE_PIN)
+                startActivity(intent)
+            }
+            else -> startActivity(intent)
         }
-        startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         if (doFinish)
             finish()

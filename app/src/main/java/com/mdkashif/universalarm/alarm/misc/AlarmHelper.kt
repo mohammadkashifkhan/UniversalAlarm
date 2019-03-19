@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import com.mdkashif.universalarm.alarm.misc.model.DaysModel
 import com.mdkashif.universalarm.alarm.misc.services.TimeIntentService
 import java.util.*
 
@@ -15,7 +16,7 @@ object AlarmHelper {
         return r.nextInt(999999999 + 1) + 1
     }
 
-    fun setAlarm(hour: Int, minute: Int, requestCode: Int, context: Context, types: AlarmTypes, note: String = "") {
+    fun setAlarm(hour: Int, minute: Int, requestCode: Int, context: Context, types: AlarmTypes, note: String = "", repeat: Boolean = false, repeatDays: List<DaysModel>?) {
         val dateNow = Date()
         val calAlarm = Calendar.getInstance()
         val calNow = Calendar.getInstance()
@@ -40,39 +41,39 @@ object AlarmHelper {
             }
             AlarmTypes.Fajr -> {
                 notificationTitle.append(types.toString())
-                notificationMessage = ""
+                notificationMessage = "For a face that shines and illuminates, Get up and Pray!"
             }
             AlarmTypes.Dhuhr -> {
                 notificationTitle.append(types.toString())
-                notificationMessage = ""
+                notificationMessage = "For Blessed Wealth, Get up and Pray!"
             }
             AlarmTypes.Asr -> {
                 notificationTitle.append(types.toString())
-                notificationMessage = ""
+                notificationMessage = "For a Healthy, Strong body, Get up and Pray!"
             }
             AlarmTypes.Maghrib -> {
                 notificationTitle.append(types.toString())
-                notificationMessage = ""
+                notificationMessage = "For successful children, Get up and Pray!"
             }
             AlarmTypes.Isha -> {
                 notificationTitle.append(types.toString())
-                notificationMessage = ""
+                notificationMessage = "For Restful sleep, Get up and Pray!"
             }
             AlarmTypes.Sunrise -> {
                 notificationTitle.append(types.toString())
-                notificationMessage = ""
+                notificationMessage = "Just a friendly reminder!"
             }
             AlarmTypes.Sunset -> {
                 notificationTitle.append(types.toString())
-                notificationMessage = ""
+                notificationMessage = "Just a friendly reminder!"
             }
             AlarmTypes.Imsak -> {
                 notificationTitle.append(types.toString())
-                notificationMessage = ""
+                notificationMessage = "Just a friendly reminder!"
             }
             AlarmTypes.Midnight -> {
                 notificationTitle.append(types.toString())
-                notificationMessage = ""
+                notificationMessage = "Just a friendly reminder!"
             }
         }
         mIntent.putExtra("notificationTitle", notificationTitle.toString())
@@ -83,10 +84,46 @@ object AlarmHelper {
         mIntent.putExtra("alarmType", AlarmTypes.Time.toString()) // Its time alarm basically even if its subtype is prayer
         val pIntent = PendingIntent.getService(context, requestCode, mIntent, PendingIntent.FLAG_ONE_SHOT)
 
-        if (Build.VERSION.SDK_INT >= 23) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calAlarm.timeInMillis, pIntent)
-        } else if (Build.VERSION.SDK_INT >= 21) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calAlarm.timeInMillis, pIntent)
+        if (repeat) {
+            for (i in repeatDays!!.indices) {
+                if (repeatDays[i].repeatDay == "Monday") {
+                    calAlarm.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calAlarm.timeInMillis, AlarmManager.INTERVAL_DAY * 7, pIntent)
+                }
+                if (repeatDays[i].repeatDay == "Tuesday") {
+                    calAlarm.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY)
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calAlarm.timeInMillis, AlarmManager.INTERVAL_DAY * 7, pIntent)
+                }
+                if (repeatDays[i].repeatDay == "Wednesday") {
+                    calAlarm.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY)
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calAlarm.timeInMillis, AlarmManager.INTERVAL_DAY * 7, pIntent)
+                }
+                if (repeatDays[i].repeatDay == "Thursday") {
+                    calAlarm.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY)
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calAlarm.timeInMillis, AlarmManager.INTERVAL_DAY * 7, pIntent)
+                }
+                if (repeatDays[i].repeatDay == "Friday") {
+                    calAlarm.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY)
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calAlarm.timeInMillis, AlarmManager.INTERVAL_DAY * 7, pIntent)
+                }
+                if (repeatDays[i].repeatDay == "Saturday") {
+                    calAlarm.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY)
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calAlarm.timeInMillis, AlarmManager.INTERVAL_DAY * 7, pIntent)
+                }
+                if (repeatDays[i].repeatDay == "Sunday") {
+                    calAlarm.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calAlarm.timeInMillis, AlarmManager.INTERVAL_DAY * 7, pIntent)
+                }
+            }
+        } else {
+            if (types == AlarmTypes.Time) {
+                if (Build.VERSION.SDK_INT >= 23) {
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calAlarm.timeInMillis, pIntent)
+                } else if (Build.VERSION.SDK_INT >= 21) {
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, calAlarm.timeInMillis, pIntent)
+                }
+            } else
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calAlarm.timeInMillis, AlarmManager.INTERVAL_DAY, pIntent)
         }
     }
 

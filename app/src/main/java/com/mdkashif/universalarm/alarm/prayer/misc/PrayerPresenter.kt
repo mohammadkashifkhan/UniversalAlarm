@@ -14,6 +14,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 
 class PrayerPresenter(private val disposable: CompositeDisposable, private val prayerViewCallback: PrayerViewCallback, private val context: Context) : PrayerManager.PrayerPresenterCallback {
@@ -47,19 +48,27 @@ class PrayerPresenter(private val disposable: CompositeDisposable, private val p
                             || ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED -> return rxLocation.location().updates(locationRequest!!)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
-                            .doOnNext { }
+                            .doOnNext { location = it }
                             .flatMap(({ this.getAddressFromLocation(it) }))
                 }
             else ->
                 when {
                     ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                             || ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED -> return rxLocation.location().lastLocation()
-                            .doOnSuccess {}
+                            .doOnSuccess { location = it }
                             .flatMapObservable { this.getAddressFromLocation(it) }
                 }
 
         }
         return null
+    }
+
+    companion object {
+        private lateinit var location: Location
+        fun getLocationContinuously(): Observable<Location> { // For Location Alarms
+            return Observable.interval(0, 10, TimeUnit.SECONDS)
+                    .flatMap<Location> { Observable.just(location) }
+        }
     }
 
     private fun getAddressFromLocation(location: Location): Observable<Address> {

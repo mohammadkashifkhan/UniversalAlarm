@@ -1,19 +1,23 @@
 package com.mdkashif.universalarm.security
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import com.afollestad.materialdialogs.MaterialDialog
 import com.github.omadahealth.lollipin.lib.managers.AppLockActivity
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.persistence.AppPreferences
+import com.mdkashif.universalarm.utils.AppConstants
+
 
 class AntiTheftUnlockActivity : AppLockActivity() {
+
     var theftAlarmStatus: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
 
-        if(intent!=null)
+        if (intent != null)
             theftAlarmStatus = intent.getBooleanExtra("param", false)
     }
 
@@ -34,5 +38,13 @@ class AntiTheftUnlockActivity : AppLockActivity() {
         AppPreferences.theftAlarmStatus = theftAlarmStatus
 
         finish()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+            AppConstants.REQUEST_CODE_ENABLE_THEFT_ALARM -> AppPreferences.theftPinEnabled = true
+        }
     }
 }

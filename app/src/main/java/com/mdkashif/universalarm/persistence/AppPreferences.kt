@@ -97,6 +97,13 @@ object AppPreferences {
                 it.putBoolean(AppConstants.theftAlarmStatus, status!!)
             }
 
+    var theftPinEnabled: Boolean?
+        get() = preferences.getBoolean(AppConstants.theftPinEnabled, false)
+        set(status) =
+            preferences.edit {
+                it.putBoolean(AppConstants.theftPinEnabled, status!!)
+            }
+
     var snoozeTimeArrayPosition: Int
         get() = preferences.getInt(AppConstants.snoozeTimeArrayPosition, 0)
         set(position) =

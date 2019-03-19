@@ -128,7 +128,7 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
         RoomRepository.amendTimingsAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsList[index])
 
         if (status)
-            AlarmHelper.setAlarm(timingsList[index].hour.toInt(), timingsList[index].minute.toInt(), timingsList[index].pIntentRequestCode.toInt(), mActivity, type)
+            AlarmHelper.setAlarm(timingsList[index].hour.toInt(), timingsList[index].minute.toInt(), timingsList[index].pIntentRequestCode.toInt(), mActivity, type, repeatDays = null)
         else
             AlarmHelper.stopAlarm(timingsList[index].pIntentRequestCode.toInt(), mActivity)
     }
