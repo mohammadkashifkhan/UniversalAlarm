@@ -75,6 +75,7 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
                 }))
                 if (timingsModel.repeat) {
                     for (i in timingsModel.repeatDays!!.indices) {
+                        selectedDays.add(timingsModel.repeatDays!![i].repeatDay)
                         rootView.dpDays.setSelectedDays(MaterialDayPicker.Weekday.valueOf(timingsModel.repeatDays!![i].repeatDay))
                     }
                 }
@@ -157,7 +158,12 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
     }
 
     private fun doAccordingly() {
-        RoomRepository.amendTimingsAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsModel)
+        if ((arguments!!.getParcelable("editableData") as TimingsModel) == null)
+            RoomRepository.amendTimingsAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsModel)
+        else {
+            AlarmHelper.stopAlarm(timingsModel.pIntentRequestCode.toInt(), mActivity) // removing older pIntents
+            RoomRepository.amendTimingsAsync(mActivity.returnDbInstance(), AlarmOps.Update.toString(), timingsModel, timingsModel.id)
+        }
         when {
             daysList.isNotEmpty() -> AlarmHelper.setAlarm(timingsModel.hour.toInt(), timingsModel.minute.toInt(), requestCode.toInt(), mActivity, AlarmTypes.Time, timingsModel.note, repeat = true, repeatDays = daysList)
             else -> AlarmHelper.setAlarm(timingsModel.hour.toInt(), timingsModel.minute.toInt(), requestCode.toInt(), mActivity, AlarmTypes.Time, timingsModel.note, repeatDays = null)

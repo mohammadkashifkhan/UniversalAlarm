@@ -41,6 +41,9 @@ interface RoomAccessDao {
     @Query("SELECT * FROM Days WHERE alarmId =:alarmId")
     fun getRepeatDays(alarmId: Long): MutableList<DaysModel>
 
+    @Query("Delete FROM Days WHERE alarmId =:alarmId")
+    fun deleteRepeatDays(alarmId: Long)
+
     @Query("SELECT * FROM Timings where type=:type")
     fun getSpecificTimeAlarms(type: String): MutableList<TimingsModel>
 

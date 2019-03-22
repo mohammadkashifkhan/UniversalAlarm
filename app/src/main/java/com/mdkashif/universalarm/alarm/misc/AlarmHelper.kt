@@ -132,6 +132,6 @@ object AlarmHelper {
         val mIntent = Intent(context,
                 TimeIntentService::class.java)
         mIntent.putExtra("requestCode", requestCode)
-        alarmManager.cancel(PendingIntent.getBroadcast(context, requestCode, mIntent, PendingIntent.FLAG_ONE_SHOT))
+        alarmManager.cancel(PendingIntent.getService(context, requestCode, mIntent, PendingIntent.FLAG_ONE_SHOT))
     }
 }

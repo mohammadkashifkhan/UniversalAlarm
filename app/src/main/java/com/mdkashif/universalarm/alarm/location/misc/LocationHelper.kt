@@ -109,10 +109,30 @@ object LocationHelper {
                  failure: (error: String) -> Unit) {
         this.note = note
         val pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode()
-        val dao=LocationsModel(address = address, city = city, latitude = destinationLatitude, longitude = destinationLongitude, note = note, pIntentRequestCode = pIntentRequestCode.toLong(), status = true)
+        val dao = LocationsModel(address = address, city = city, latitude = destinationLatitude, longitude = destinationLongitude, note = note, pIntentRequestCode = pIntentRequestCode.toLong(), status = true)
         RoomRepository.amendLocationsAsync(context.returnDbInstance(), AlarmOps.Add.toString(), dao)
         Utils.showToast("All set!, You are $distance, we will notify you, once you reach within the ${context.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition]} destination radius", context)
 
+        reactAccordingly(context, pIntentRequestCode.toLong(), dao, success = { success() }, failure = {})
+    }
+
+    fun updateAlarm(context: ContainerActivity, note: String,
+                    success: () -> Unit,
+                    failure: (error: String) -> Unit, pIntentRequestCode: Long = 0, alarmId: Int = 0) {
+        this.note = note
+
+        val dao = LocationsModel(address = address, city = city, latitude = destinationLatitude, longitude = destinationLongitude, note = note, pIntentRequestCode = pIntentRequestCode, status = true)
+        RoomRepository.amendLocationsAsync(context.returnDbInstance(), AlarmOps.Update.toString(), dao, alarmId.toLong())
+        Utils.showToast("All set!, You are $distance, we will notify you, once you reach within the ${context.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition]} destination radius", context)
+        removeAlarm(pIntentRequestCode.toString(), success = {
+            reactAccordingly(context, pIntentRequestCode, dao, success = { success() }, failure = {})
+        }, failure = {}, context = context)
+
+    }
+
+    private fun reactAccordingly(context: ContainerActivity, pIntentRequestCode: Long, dao: LocationsModel,
+                                 success: () -> Unit,
+                                 failure: (error: String) -> Unit) {
         val geofence = buildGeofence(destinationLatitude, destinationLongitude, context, pIntentRequestCode.toString())
         if (geofence != null
                 && ContextCompat.checkSelfPermission(

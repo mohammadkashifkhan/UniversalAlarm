@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Intent
 import com.github.omadahealth.lollipin.lib.managers.AppLock
 import com.mdkashif.universalarm.activities.ContainerActivity
+import com.mdkashif.universalarm.alarm.battery.misc.NotificationSwipeReceiver
 import com.mdkashif.universalarm.alarm.misc.AlarmTypes
 import com.mdkashif.universalarm.security.AntiTheftUnlockActivity
 import com.mdkashif.universalarm.utils.AppConstants
@@ -29,9 +30,8 @@ class TimeIntentService : IntentService("TimeIntentService") {
                 mIntent.putExtra("param2", intent.getStringExtra("requestCode"))
             }
             AlarmTypes.Battery.toString() -> {
-                mIntent = Intent(this, ContainerActivity::class.java)
+                mIntent = Intent(this, NotificationSwipeReceiver::class.java) // on swipe a broadcast will be fired to stop the service
                 mIntent.putExtra("param1", "BuzzBatteryAlarm")
-                //todo: as soon as he unplugs , alarm should stop
             }
             AlarmTypes.Theft.toString() -> {
                 mIntent = Intent(this, AntiTheftUnlockActivity::class.java)

@@ -25,9 +25,11 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.location.misc.LocationHelper
+import com.mdkashif.universalarm.alarm.misc.AlarmOps
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.persistence.AppPreferences
+import com.mdkashif.universalarm.persistence.RoomRepository
 import com.mdkashif.universalarm.utils.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -64,8 +66,10 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
         when {
             arguments != null -> {
                 locationModel = arguments!!.getParcelable("editableData") as LocationsModel
-                rootView.btSetAlarm.text="Update Alarm"
+                rootView.btSetAlarm.text = "Update Alarm"
                 rootView.btStopAlarm.visibility = View.VISIBLE
+                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(locationModel.latitude, locationModel.longitude), 18f))
+                reactAccordingly(LatLng(locationModel.latitude, locationModel.longitude))
             }
         }
 
@@ -76,7 +80,7 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
         when (v!!.id) {
             R.id.btSetAlarm -> {
                 when {
-                    rootView.btSetAlarm.text!="Update Alarm" -> LocationHelper.setAlarm(mActivity, etNote.text.toString(),
+                    rootView.btSetAlarm.text != "Update Alarm" -> LocationHelper.setAlarm(mActivity, etNote.text.toString(),
                             success = {
                                 mActivity.onBackPressed()
                             },
@@ -84,13 +88,23 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
                                 Utils.showToast(it, mActivity)
                             })
                     else -> {
-//                        showReminderInMap()
-                        //todo: update alarm
+                        LocationHelper.updateAlarm(mActivity, etNote.text.toString(),
+                                success = {
+                                    mActivity.onBackPressed()
+                                },
+                                failure = {
+                                    Utils.showToast(it, mActivity)
+                                }, alarmId = locationModel.id)
                     }
                 }
             }
             R.id.btStopAlarm -> {
-                //todo: stop alarm, dont delete it, just update the status using the received requestCode
+                LocationHelper.removeAlarm(locationModel.pIntentRequestCode.toString(), success = {
+                    locationModel.status = false
+                    RoomRepository.amendLocationsAsync(mActivity.returnDbInstance(), AlarmOps.Update.toString(), locationModel)
+                }, failure = {
+                    Utils.showToast(it, mActivity)
+                }, context = mActivity)
             }
         }
     }

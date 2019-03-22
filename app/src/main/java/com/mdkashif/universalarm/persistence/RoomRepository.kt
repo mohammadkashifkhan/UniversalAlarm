@@ -89,6 +89,7 @@ object RoomRepository {
     private fun updateTimeAlarm(db: AppDatabase, timingsModel: TimingsModel, id: Long, autoUpdate: Boolean) {
         db.accessDao().updateTimeAlarm(timingsModel.hour, timingsModel.minute, timingsModel.note, timingsModel.repeat, timingsModel.status, id, autoUpdate)
         if (timingsModel.repeat) {
+            db.accessDao().deleteRepeatDays(timingsModel.id)
             for (i in timingsModel.repeatDays!!.indices) {
                 timingsModel.repeatDays!![i].fkAlarmId = id
                 db.accessDao().addRepeatDays(timingsModel.repeatDays!![i])
