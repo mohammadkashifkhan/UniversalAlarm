@@ -11,7 +11,7 @@ import com.mdkashif.universalarm.security.AntiTheftUnlockActivity
 import com.mdkashif.universalarm.utils.AppConstants
 import com.mdkashif.universalarm.utils.Utils
 
-class TimeIntentService : IntentService("TimeIntentService") {
+class MiscIntentService : IntentService("MiscIntentService") {
     private var bundleNotificationId = AppConstants.notificationId
     private var mIntent = Intent()
     private var theftAlarm = false

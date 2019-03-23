@@ -6,6 +6,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.github.omadahealth.lollipin.lib.managers.AppLock
+import com.google.android.gms.location.GeofencingClient
+import com.google.android.gms.location.LocationServices
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
@@ -20,13 +22,14 @@ open class BaseActivity : AppCompatActivity() {
     //    @Inject
     lateinit var appDatabase: AppDatabase
 
-
+    lateinit var geofencingClient: GeofencingClient
     override fun onCreate(savedInstanceState: Bundle?) {
 //        AndroidInjection.inject(this) // Dagger
 
         super.onCreate(savedInstanceState)
         parentLayout = findViewById(android.R.id.content)
         appDatabase = AppDatabase.getAppDatabase(applicationContext)
+        geofencingClient = LocationServices.getGeofencingClient(applicationContext)
     }
 
     fun executeIntent(intent: Intent, doFinish: Boolean, param: Boolean = false, type: String = "") {

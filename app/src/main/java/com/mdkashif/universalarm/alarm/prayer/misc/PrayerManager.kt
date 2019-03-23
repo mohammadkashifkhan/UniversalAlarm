@@ -1,6 +1,5 @@
 package com.mdkashif.universalarm.alarm.prayer.misc
 
-import android.content.Context
 import com.mdkashif.universalarm.alarm.prayer.model.PrayerApiResponse
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.utils.RestClient
@@ -12,7 +11,7 @@ import io.reactivex.schedulers.Schedulers
 class PrayerManager(val prayerPresenterCallback: PrayerPresenterCallback) {
     private val apiInterface = RestClient.client.create(ApiInterface::class.java)
 
-    fun getPrayerDetails(disposable: CompositeDisposable, context: Context) {
+    fun getPrayerDetails(disposable: CompositeDisposable) {
         val prayerCall = apiInterface.getPrayerDetails(AppPreferences.city!!, AppPreferences.country!!)
 
         disposable.add(prayerCall.subscribeOn(Schedulers.io()) // io thread used for fetching data

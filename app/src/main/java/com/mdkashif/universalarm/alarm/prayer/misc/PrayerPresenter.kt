@@ -24,6 +24,7 @@ class PrayerPresenter(private val disposable: CompositeDisposable, private val p
     private val rxLocation = RxLocation(context)
 
     fun getPrayerDetails() {
+        Log.d("check1234567","here")
         locationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(5000)
@@ -35,7 +36,7 @@ class PrayerPresenter(private val disposable: CompositeDisposable, private val p
                         .subscribe(({ t: Address? ->
                             AppPreferences.city = t!!.locality
                             AppPreferences.country = t.countryName
-                            prayerManager.getPrayerDetails(disposable, context)
+                            prayerManager.getPrayerDetails(disposable)
                         }), { throwable -> Log.e("PrayerPresenter", "Error fetching location/address updates", throwable) })
         )
     }
@@ -48,14 +49,14 @@ class PrayerPresenter(private val disposable: CompositeDisposable, private val p
                             || ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED -> return rxLocation.location().updates(locationRequest!!)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
-                            .doOnNext { location = it }
+                            .doOnNext { mLocation = it }
                             .flatMap(({ this.getAddressFromLocation(it) }))
                 }
             else ->
                 when {
                     ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                             || ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED -> return rxLocation.location().lastLocation()
-                            .doOnSuccess { location = it }
+                            .doOnSuccess { mLocation = it }
                             .flatMapObservable { this.getAddressFromLocation(it) }
                 }
 
@@ -64,10 +65,10 @@ class PrayerPresenter(private val disposable: CompositeDisposable, private val p
     }
 
     companion object {
-        private lateinit var location: Location
+        private lateinit var mLocation: Location
         fun getLocationContinuously(): Observable<Location> { // For Location Alarms
             return Observable.interval(0, 10, TimeUnit.SECONDS)
-                    .flatMap<Location> { Observable.just(location) }
+                    .flatMap<Location> { Observable.just(mLocation) }
         }
     }
 

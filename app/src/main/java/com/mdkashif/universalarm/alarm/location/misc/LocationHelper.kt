@@ -9,7 +9,9 @@ import android.location.Geocoder
 import androidx.core.content.ContextCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GooglePlayServicesUtil
-import com.google.android.gms.location.*
+import com.google.android.gms.location.Geofence
+import com.google.android.gms.location.GeofencingRequest
+import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.SphericalUtil
 import com.mdkashif.universalarm.R
@@ -36,9 +38,6 @@ object LocationHelper {
     private var note: String = ""
     private var destinationLatitude: Double = 0.0
     private var destinationLongitude: Double = 0.0
-
-
-    private lateinit var geofencingClient: GeofencingClient
 
     fun createLocationRequest() {
         mLocationRequest = LocationRequest()
@@ -138,7 +137,6 @@ object LocationHelper {
                 && ContextCompat.checkSelfPermission(
                         context,
                         Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            geofencingClient = LocationServices.getGeofencingClient(context)
 
             val geofencePendingIntent: PendingIntent by lazy {
                 val intent = Intent(context, GeofenceTransitionsIntentService::class.java)
@@ -149,7 +147,7 @@ object LocationHelper {
                         intent,
                         PendingIntent.FLAG_UPDATE_CURRENT)
             }
-            geofencingClient
+            context.geofencingClient
                     .addGeofences(buildGeofencingRequest(geofence), geofencePendingIntent)
                     .addOnSuccessListener {
                         success()
@@ -184,8 +182,8 @@ object LocationHelper {
 
     fun removeAlarm(id: String,
                     success: () -> Unit,
-                    failure: (error: String) -> Unit, context: Context) {
-        geofencingClient
+                    failure: (error: String) -> Unit, context: ContainerActivity) {
+        context.geofencingClient
                 .removeGeofences(listOf(id))
                 .addOnSuccessListener {
                     success()

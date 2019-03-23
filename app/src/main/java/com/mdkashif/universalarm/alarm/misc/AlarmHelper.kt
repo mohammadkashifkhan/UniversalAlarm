@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import com.mdkashif.universalarm.alarm.misc.model.DaysModel
-import com.mdkashif.universalarm.alarm.misc.services.TimeIntentService
+import com.mdkashif.universalarm.alarm.misc.services.MiscIntentService
 import java.util.*
 
 object AlarmHelper {
@@ -31,7 +31,7 @@ object AlarmHelper {
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val mIntent = Intent(context,
-                TimeIntentService::class.java)
+                MiscIntentService::class.java)
         var notificationTitle = StringBuilder().append("Alarm for ")
         var notificationMessage = ""
         when (types) {
@@ -130,7 +130,7 @@ object AlarmHelper {
     fun stopAlarm(requestCode: Int, context: Context) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val mIntent = Intent(context,
-                TimeIntentService::class.java)
+                MiscIntentService::class.java)
         mIntent.putExtra("requestCode", requestCode)
         alarmManager.cancel(PendingIntent.getService(context, requestCode, mIntent, PendingIntent.FLAG_ONE_SHOT))
     }

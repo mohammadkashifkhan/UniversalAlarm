@@ -162,6 +162,7 @@ class SettingsActivity : BaseActivity() {
                         title(R.string.snoozeTitle)
                         listItemsSingleChoice(R.array.snoozeTimings) { dialog, index, text ->
                             AppPreferences.snoozeTimeArrayPosition = index
+                            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze)).summary = context!!.resources.getStringArray(R.array.snoozeTimings)[AppPreferences.snoozeTimeArrayPosition]
                         }
                     }
                 }
@@ -171,6 +172,7 @@ class SettingsActivity : BaseActivity() {
                         title(R.string.locationPrecisionTitle)
                         listItemsSingleChoice(R.array.locationPrecision) { dialog, index, text ->
                             AppPreferences.locationPrecisionArrayPosition = index
+                            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision)).summary = "within ${context!!.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition]}"
                         }
                     }
                 }

@@ -158,7 +158,7 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
     }
 
     private fun doAccordingly() {
-        if ((arguments!!.getParcelable("editableData") as TimingsModel) == null)
+        if (arguments == null)
             RoomRepository.amendTimingsAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsModel)
         else {
             AlarmHelper.stopAlarm(timingsModel.pIntentRequestCode.toInt(), mActivity) // removing older pIntents

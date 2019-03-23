@@ -63,7 +63,7 @@
 
         <service android:name="com.mdkashif.universalarm.alarm.misc.AlarmSoundService" />
 
-        <service android:name="com.mdkashif.universalarm.alarm.misc.services.TimeIntentService" />
+        <service android:name="com.mdkashif.universalarm.alarm.misc.services.MiscIntentService" />
 
         <service
             android:name="com.mdkashif.universalarm.alarm.prayer.job.PrayerDataFetchScheduleService"

@@ -7,7 +7,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
 import com.mdkashif.universalarm.alarm.misc.AlarmTypes
-import com.mdkashif.universalarm.alarm.misc.services.TimeIntentService
+import com.mdkashif.universalarm.alarm.misc.services.MiscIntentService
 import com.mdkashif.universalarm.persistence.AppPreferences
 
 class BatteryScheduleService : JobService() {
@@ -68,7 +68,7 @@ class BatteryScheduleService : JobService() {
     }
 
     private fun startAlarm(title: String, message: String, context: Context, theft: Boolean = false) {
-        val alarmIntent = Intent(context, TimeIntentService::class.java)
+        val alarmIntent = Intent(context, MiscIntentService::class.java)
         alarmIntent.putExtra("notificationTitle", title)
         alarmIntent.putExtra("notificationMessage", message)
         if (theft)
