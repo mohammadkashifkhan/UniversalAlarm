@@ -101,7 +101,7 @@ object Utils {
         val sBar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
         val sBarView = sBar.view
         val textView = sBarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
-        textView.setTextColor(view.context.resources.getColor(R.color.bg))
+        textView.setTextColor(view.context.resources.getColor(R.color.colorAccent))
         sBar.show()
     }
 

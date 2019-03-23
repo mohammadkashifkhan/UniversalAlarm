@@ -26,7 +26,8 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
-class HomeFragment : BaseFragment(), View.OnClickListener {
+class HomeFragment : BaseFragment(), View.OnClickListener, AlarmsListAdapter.GetTotalAlarmCountInterface {
+
     private lateinit var mLinearLayoutManager: LinearLayoutManager
     private lateinit var rootView: View
     private val disposable = CompositeDisposable()
@@ -89,16 +90,25 @@ class HomeFragment : BaseFragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         val pair = RoomRepository.fetchDataAsync(mActivity.returnDbInstance(), alarmStatus = true)
         setRVAdapter(pair)
-        if (pair.first!!.isEmpty() && pair.second!!.isEmpty())
-            rootView.tvSeeAll.visibility = View.INVISIBLE
     }
 
     private fun setRVAdapter(pair: Pair<MutableList<TimingsModel>?, MutableList<LocationsModel>?>) {
         mLinearLayoutManager = LinearLayoutManager(mActivity)
         rvAlarms.layoutManager = mLinearLayoutManager
         Utils.setRVSlideInLeftAnimation(rvAlarms)
-        val adapter = AlarmsListAdapter(pair.first!!, pair.second!!, "Home", mActivity, mLinearLayoutManager, disposable)
+        val adapter = AlarmsListAdapter(this, pair.first!!, pair.second!!, "Home", mActivity, mLinearLayoutManager, disposable)
         rvAlarms.adapter = adapter
+        showUiElementsAccordingly()
+    }
+
+    override fun fetchTotalAlarmCount() {
+        showUiElementsAccordingly()
+    }
+
+    private fun showUiElementsAccordingly() {
+        val completePair = RoomRepository.fetchDataAsync(mActivity.returnDbInstance())
+        if ((completePair.first!!.size + completePair.second!!.size <= 3) && AppPreferences.hbl == 0f)
+            rootView.tvSeeAll.visibility = View.INVISIBLE
     }
 
     override fun onDestroy() {

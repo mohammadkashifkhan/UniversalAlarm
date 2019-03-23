@@ -24,7 +24,7 @@
         android:layout_marginStart="@dimen/marginTopEndBottomStart"
         android:layout_marginEnd="@dimen/marginTopEndBottomStart"
         android:fontFamily="sans-serif-smallcaps"
-        android:text="Bummer, no alarms set yet!"
+        android:text="Bummer, you have no Live Alarms"
         android:textColor="@color/primaryTextColor"
         android:textSize="@dimen/headerTextSize"
         app:layout_constraintEnd_toEndOf="parent"

@@ -51,22 +51,22 @@ class SettingsActivity : BaseActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.fragment_settings, rootKey)
 
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleAbout)).onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleRate)).onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleShare)).onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleFaq)).onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitlePP)).onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleTNC)).onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSendFeedback)).onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze)).onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision)).onPreferenceClickListener = this
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleAbout))!!.onPreferenceClickListener = this
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleRate))!!.onPreferenceClickListener = this
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleShare))!!.onPreferenceClickListener = this
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleFaq))!!.onPreferenceClickListener = this
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitlePP))!!.onPreferenceClickListener = this
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleTNC))!!.onPreferenceClickListener = this
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSendFeedback))!!.onPreferenceClickListener = this
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze))!!.onPreferenceClickListener = this
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision))!!.onPreferenceClickListener = this
 
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze)).summary = context!!.resources.getStringArray(R.array.snoozeTimings)[AppPreferences.snoozeTimeArrayPosition]
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision)).summary = "within ${context!!.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition]}"
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze))!!.summary = context!!.resources.getStringArray(R.array.snoozeTimings)[AppPreferences.snoozeTimeArrayPosition]
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision))!!.summary = "within ${context!!.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition]}"
 
-            bindPreferenceSummaryToValue(findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleRingtone)))
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.prefKeyTitleRingtone))!!)
 
-            toggleVibrate = findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleVibrate))
+            toggleVibrate = findPreference(getString(R.string.prefKeyTitleVibrate))!!
             toggleVibrate.onPreferenceChangeListener = object : androidx.preference.Preference.OnPreferenceChangeListener {
                 override fun onPreferenceChange(preference: androidx.preference.Preference, o: Any): Boolean {
                     AppPreferences.vibrateStatus = java.lang.Boolean.valueOf(o.toString())
@@ -162,7 +162,7 @@ class SettingsActivity : BaseActivity() {
                         title(R.string.snoozeTitle)
                         listItemsSingleChoice(R.array.snoozeTimings) { dialog, index, text ->
                             AppPreferences.snoozeTimeArrayPosition = index
-                            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze)).summary = context!!.resources.getStringArray(R.array.snoozeTimings)[AppPreferences.snoozeTimeArrayPosition]
+                            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze))!!.summary = context.resources.getStringArray(R.array.snoozeTimings)[AppPreferences.snoozeTimeArrayPosition]
                         }
                     }
                 }
@@ -172,7 +172,7 @@ class SettingsActivity : BaseActivity() {
                         title(R.string.locationPrecisionTitle)
                         listItemsSingleChoice(R.array.locationPrecision) { dialog, index, text ->
                             AppPreferences.locationPrecisionArrayPosition = index
-                            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision)).summary = "within ${context!!.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition]}"
+                            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision))!!.summary = "within ${context.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition]}"
                         }
                     }
                 }

@@ -15,7 +15,8 @@ import com.mdkashif.universalarm.utils.Utils
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_show_all_alarms.*
 
-class ShowAllAlarmsFragment : BaseFragment() {
+class ShowAllAlarmsFragment : BaseFragment(), AlarmsListAdapter.GetTotalAlarmCountInterface {
+
     private lateinit var mLinearLayoutManager: LinearLayoutManager
     private val disposable = CompositeDisposable()
 
@@ -34,12 +35,16 @@ class ShowAllAlarmsFragment : BaseFragment() {
         mLinearLayoutManager = LinearLayoutManager(mActivity)
         rvAlarms.layoutManager = mLinearLayoutManager
         Utils.setRVSlideInLeftAnimation(rvAlarms)
-        val adapter = AlarmsListAdapter(pair.first!!, pair.second!!, "ShowAll", mActivity, mLinearLayoutManager, disposable)
+        val adapter = AlarmsListAdapter(this, pair.first!!, pair.second!!, "ShowAll", mActivity, mLinearLayoutManager, disposable)
         rvAlarms.adapter = adapter
     }
 
     override fun onDestroy() {
         super.onDestroy()
         disposable.clear()
+    }
+
+    override fun fetchTotalAlarmCount() {
+        // do nothing
     }
 }

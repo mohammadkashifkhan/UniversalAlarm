@@ -57,7 +57,7 @@
             android:theme="@style/commonTheme" />
 
         <activity
-            android:name="com.mdkashif.universalarm.security.AntiTheftUnlockActivity"
+            android:name="com.mdkashif.universalarm.activities.AntiTheftUnlockActivity"
             android:screenOrientation="portrait"
             android:theme="@style/commonTheme" />
 

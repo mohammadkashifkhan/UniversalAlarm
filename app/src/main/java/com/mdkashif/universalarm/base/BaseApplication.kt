@@ -5,9 +5,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.facebook.stetho.Stetho
 import com.github.omadahealth.lollipin.lib.managers.LockManager
 import com.mdkashif.universalarm.R
+import com.mdkashif.universalarm.activities.AntiTheftUnlockActivity
 import com.mdkashif.universalarm.alarm.battery.job.BatteryInfoScheduler
 import com.mdkashif.universalarm.persistence.AppPreferences
-import com.mdkashif.universalarm.security.AntiTheftUnlockActivity
 
 class BaseApplication : Application() { //, HasActivityInjector
 

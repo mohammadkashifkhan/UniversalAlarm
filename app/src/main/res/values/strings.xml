@@ -44,7 +44,7 @@
     <string name="prefKeyTitleLocationPrecision">Location Precision</string>
     <string name="search_hint">Search for any Location..</string>
     <string name="openSourceLicenses">Open Source Licenses</string>
-    <string name="tvItemEmptyExpandableRv">Please tap on + to set one</string>
+    <string name="tvItemEmptyExpandableRv">Please tap on + to set one or enable any existing alarm by tapping on the Show all Button</string>
     <string name="tvItemBatteryExpandableRv">Change Battery and Temperature levels by going into Battery Settings Screen</string>
     <string name="tvItemPrayerExpandableRv">For more regarding prayer details, go in the Prayer Settings Screen</string>
     <string name="google_android_map_api_key">AIzaSyA7sGiJNI3y2SlipMaKX_dxB290mImTmlQ</string>

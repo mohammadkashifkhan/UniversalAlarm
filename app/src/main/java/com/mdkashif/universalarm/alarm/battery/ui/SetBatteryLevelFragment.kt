@@ -9,11 +9,11 @@ import android.widget.CompoundButton
 import androidx.lifecycle.Observer
 import com.appyvet.materialrangebar.RangeBar
 import com.mdkashif.universalarm.R
+import com.mdkashif.universalarm.activities.AntiTheftUnlockActivity
 import com.mdkashif.universalarm.alarm.battery.misc.BatteryLiveData
 import com.mdkashif.universalarm.alarm.battery.misc.BatteryStatsPoJo
 import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.persistence.AppPreferences
-import com.mdkashif.universalarm.security.AntiTheftUnlockActivity
 import com.mdkashif.universalarm.utils.Utils
 import kotlinx.android.synthetic.main.fragment_set_battery_level.view.*
 

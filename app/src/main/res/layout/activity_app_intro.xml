@@ -25,7 +25,7 @@
             android:layout_marginTop="@dimen/marginTopVeryLarge"
             android:gravity="center"
             android:padding="@dimen/paddingAll"
-            android:text="Welcome to Universal Alarm"
+            android:text="Welcome to Timo"
             android:textColor="@color/primaryTextColor"
             android:textSize="@dimen/headerTextSize"
             android:textStyle="bold" />
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="@dimen/paddingAll"
-            android:text="Get notified about new stuff, or turn notifications off"
+            android:text="Your goto for every Alarm."
             android:textColor="@color/secondaryTextColor"
             android:textSize="@dimen/normalTextSize" />
 
@@ -81,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/paddingAll"
-                android:text="See the latest ROMs"
+                android:text="Want to be alerted when you have reached the destination"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/normalTextSize" />
 
@@ -106,7 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/paddingAll"
-                android:text="Full Material Design, ad free and fat(af)"
+                android:text="Don't want to overcharge your device"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/normalTextSize" />
 
@@ -131,7 +131,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/paddingAll"
-                android:text="Get notified about new stuff, or turn notifications off"
+                android:text="+ features like Theft Alarm and Authomatic theming"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/normalTextSize" />
 
@@ -142,12 +142,12 @@
             android:layout_width="@dimen/btWidth"
             android:layout_height="@dimen/btHeight"
             android:layout_gravity="center"
-            android:textSize="@dimen/normalTextSize"
             android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
             android:layout_marginBottom="@dimen/marginTopEndBottomStart"
             android:background="@drawable/button_border"
             android:text="Got It"
             android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/normalTextSize"
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

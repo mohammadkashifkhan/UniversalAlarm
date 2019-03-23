@@ -29,7 +29,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 
-class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, private val locationsList: MutableList<LocationsModel>, private val viewType: String, private val context: ContainerActivity, linearLayoutManager: LinearLayoutManager, private val disposable: CompositeDisposable) : ExpandableRecyclerView.Adapter<RecyclerView.ViewHolder>(linearLayoutManager) {
+class AlarmsListAdapter(private val getTotalAlarmCountInterface : GetTotalAlarmCountInterface,private val alarmsList: MutableList<TimingsModel>, private val locationsList: MutableList<LocationsModel>, private val viewType: String, private val context: ContainerActivity, linearLayoutManager: LinearLayoutManager, private val disposable: CompositeDisposable) : ExpandableRecyclerView.Adapter<RecyclerView.ViewHolder>(linearLayoutManager) {
+
 
     internal inner class TimeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTime: TextView = itemView.findViewById(R.id.tvTime)
@@ -162,6 +163,7 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                 holder.ibDelete.setOnClickListener {
                     RoomRepository.amendTimingsAsync(context.returnDbInstance(), AlarmOps.Delete.toString(), alarmsList[position], alarmsList[position].id)
                     alarmsList.removeAt(position)
+                    getTotalAlarmCountInterface.fetchTotalAlarmCount()
                     notifyItemRemoved(position)
                 }
             }
@@ -213,6 +215,7 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
                     LocationHelper.removeAlarm(locationsList[index].pIntentRequestCode.toString(), success = {
                         RoomRepository.amendLocationsAsync(context.returnDbInstance(), AlarmOps.Delete.toString(), locationsList[index], locationsList[index].id.toLong())
                         locationsList.removeAt(index)
+                        getTotalAlarmCountInterface.fetchTotalAlarmCount()
                         notifyItemRemoved(position)
                     }, failure = {
 
@@ -297,5 +300,9 @@ class AlarmsListAdapter(private val alarmsList: MutableList<TimingsModel>, priva
             }
         }
         return 1
+    }
+
+    interface GetTotalAlarmCountInterface {
+        fun fetchTotalAlarmCount()
     }
 }
