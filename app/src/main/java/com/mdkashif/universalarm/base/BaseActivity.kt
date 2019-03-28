@@ -16,16 +16,13 @@ import com.mdkashif.universalarm.utils.AppConstants
 
 
 open class BaseActivity : AppCompatActivity() {
-
     private var parentLayout: View? = null
 
-    //    @Inject
     lateinit var appDatabase: AppDatabase
 
     lateinit var geofencingClient: GeofencingClient
-    override fun onCreate(savedInstanceState: Bundle?) {
-//        AndroidInjection.inject(this) // Dagger
 
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         parentLayout = findViewById(android.R.id.content)
         appDatabase = AppDatabase.getAppDatabase(applicationContext)

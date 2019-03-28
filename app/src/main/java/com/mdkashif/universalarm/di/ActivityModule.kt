@@ -1,12 +1,12 @@
 package com.mdkashif.universalarm.di
 
-import com.mdkashif.universalarm.base.BaseActivity
+import com.mdkashif.universalarm.activities.ContainerActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class ActivityModule {
 
-    @ContributesAndroidInjector
-    abstract fun contributeBaseActivity(): BaseActivity
+    @ContributesAndroidInjector(modules = [FragmentModule::class])
+    abstract fun contributeContainerActivity(): ContainerActivity
 }

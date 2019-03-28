@@ -13,12 +13,10 @@ class RoomModule {
 
     @Provides
     @Singleton
-    fun provideRoomDb(app: Application): AppDatabase = Room.databaseBuilder(app, AppDatabase::class.java, "universal-alarm-db")
+    fun provideAppDatabase(app: Application): AppDatabase = Room.databaseBuilder(app, AppDatabase::class.java, "universal-alarm-db")
             .build()
-
 
     @Provides
     @Singleton
     fun provideRoomAccessDao(appDatabase: AppDatabase): RoomAccessDao = appDatabase.accessDao()
-
 }

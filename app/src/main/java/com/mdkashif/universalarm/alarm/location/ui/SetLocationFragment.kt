@@ -109,24 +109,6 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
         }
     }
 
-//    fun showReminderInMap(context: Context,
-//                          map: GoogleMap,
-//                          reminder: Reminder) {
-//        if (reminder.latLng != null) {
-//            val latLng = reminder.latLng as LatLng
-//            val vectorToBitmap = vectorToBitmap(context.resources, R.drawable.ic_twotone_location_on_48px)
-//            val marker = map.addMarker(MarkerOptions().position(latLng).icon(vectorToBitmap))
-//            marker.tag = reminder.id
-//            if (reminder.radius != null) {
-//                val radius = reminder.radius as Double
-//                map.addCircle(CircleOptions()
-//                        .center(reminder.latLng)
-//                        .radius(radius)
-//                        .strokeColor(ContextCompat.getColor(context, R.color.colorAccent))
-//                        .fillColor(ContextCompat.getColor(context, R.color.colorReminderFill)))
-//            }
-//        }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (mapView != null) {
@@ -217,8 +199,9 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
                 rootView.tvDistance.text = LocationHelper.getDistance(mGoogleMap.cameraPosition.target, pos)
                 rootView.btSetAlarm.isEnabled = true
 
-                val radius = context!!.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition].split(" ")[0]
-
+                var radius = context!!.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition].split(" ")[0]
+                if(radius.length<2)
+                    radius= (radius.toDouble()*1000).toString()
                 mGoogleMap.addCircle(CircleOptions()
                         .center(mGoogleMap.cameraPosition.target)
                         .radius(radius.toDouble())
