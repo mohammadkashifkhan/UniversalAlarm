@@ -45,9 +45,9 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
         rootView.swMidnight.setOnCheckedChangeListener(this)
         rootView.clSendFeedback.setOnClickListener(this)
 
-        rootView.tvTimezone.text = AppPreferences.timezone
-        rootView.tvIslamicDate.text = AppPreferences.islamicDate
-        rootView.tvMonth.text = AppPreferences.islamicMonth
+        rootView.tvTimezone.text = AppPreferences().instance.timezone
+        rootView.tvIslamicDate.text = AppPreferences().instance.islamicDate
+        rootView.tvMonth.text = AppPreferences().instance.islamicMonth
         timingsList = RoomRepository.fetchDataAsync(mActivity.returnDbInstance(), AlarmTypes.Prayer).first!! // Pair's first value
 
         for (i in timingsList.indices) {

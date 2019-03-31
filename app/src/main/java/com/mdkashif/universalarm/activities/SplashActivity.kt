@@ -25,7 +25,7 @@ class SplashActivity : BaseActivity() {
 
         val splashTimeOut = applicationContext.resources.getInteger(R.integer.splash_Time_Out)
         Handler().postDelayed({
-            mIntent = if (!AppPreferences.isFirstTimeLaunch)
+            mIntent = if (!AppPreferences().instance.isFirstTimeLaunch)
                 Intent(this@SplashActivity, ContainerActivity::class.java)
             else
                 Intent(this@SplashActivity, AppIntroActivity::class.java)

@@ -15,6 +15,8 @@ object AppConstants {
     const val TNC = MAIN_URL + "terms-and-conditions.html"
 
     /////// Miscellaneous ///////
+    const val spAlias = "universal-alarm-sp"
+    const val dbAlias = "universal-alarm-db"
     const val isFirstTimeLaunch = "isFirstTimeLaunch"
     const val ringtoneUri = "ringtone_uri"
     const val vibrateStatus = "vibrate_status"

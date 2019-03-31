@@ -110,7 +110,7 @@ object LocationHelper {
         val pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode()
         val dao = LocationsModel(address = address, city = city, latitude = destinationLatitude, longitude = destinationLongitude, note = note, pIntentRequestCode = pIntentRequestCode.toLong(), status = true)
         RoomRepository.amendLocationsAsync(context.returnDbInstance(), AlarmOps.Add.toString(), dao)
-        Utils.showToast("All set!, You are $distance, we will notify you, once you reach within the ${context.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition]} destination radius", context)
+        Utils.showToast("All set!, You are $distance, we will notify you, once you reach within the ${context.resources.getStringArray(R.array.locationPrecision)[AppPreferences().instance.locationPrecisionArrayPosition]} destination radius", context)
 
         reactAccordingly(context, pIntentRequestCode.toLong(), dao, success = { success() }, failure = {})
     }
@@ -122,7 +122,7 @@ object LocationHelper {
 
         val dao = LocationsModel(address = address, city = city, latitude = destinationLatitude, longitude = destinationLongitude, note = note, pIntentRequestCode = pIntentRequestCode, status = true)
         RoomRepository.amendLocationsAsync(context.returnDbInstance(), AlarmOps.Update.toString(), dao, alarmId.toLong())
-        Utils.showToast("All set!, You are $distance, we will notify you, once you reach within the ${context.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition]} destination radius", context)
+        Utils.showToast("All set!, You are $distance, we will notify you, once you reach within the ${context.resources.getStringArray(R.array.locationPrecision)[AppPreferences().instance.locationPrecisionArrayPosition]} destination radius", context)
         removeAlarm(pIntentRequestCode.toString(), success = {
             reactAccordingly(context, pIntentRequestCode, dao, success = { success() }, failure = {})
         }, failure = {}, context = context)
@@ -159,7 +159,7 @@ object LocationHelper {
     }
 
     private fun buildGeofence(latitude: Double, longitude: Double, context: Context, pIntentRequestCode: String): Geofence? {
-        val radius = context.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition].split(" ")[0]
+        val radius = context.resources.getStringArray(R.array.locationPrecision)[AppPreferences().instance.locationPrecisionArrayPosition].split(" ")[0]
 
         return Geofence.Builder()
                 .setRequestId(pIntentRequestCode)

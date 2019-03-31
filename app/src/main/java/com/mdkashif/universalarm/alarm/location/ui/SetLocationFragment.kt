@@ -199,7 +199,7 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
                 rootView.tvDistance.text = LocationHelper.getDistance(mGoogleMap.cameraPosition.target, pos)
                 rootView.btSetAlarm.isEnabled = true
 
-                var radius = context!!.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition].split(" ")[0]
+                var radius = context!!.resources.getStringArray(R.array.locationPrecision)[AppPreferences().instance.locationPrecisionArrayPosition].split(" ")[0]
                 if(radius.length<2)
                     radius= (radius.toDouble()*1000).toString()
                 mGoogleMap.addCircle(CircleOptions()

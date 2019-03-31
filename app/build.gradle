@@ -68,7 +68,11 @@ static def getDate() {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    ////////////// Kotlin //////////////
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
 
     ////////////// Crashlytics //////////////
     implementation 'com.google.firebase:firebase-crash:16.2.1'

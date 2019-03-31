@@ -20,7 +20,7 @@ class AppIntroActivity : BaseActivity() {
 
         setContentView(R.layout.activity_app_intro)
 
-        btGotIt!!.setOnClickListener { AppPreferences.isFirstTimeLaunch = false
+        btGotIt!!.setOnClickListener { AppPreferences().instance.isFirstTimeLaunch = false
             executeIntent(Intent(this@AppIntroActivity, ContainerActivity::class.java), true) }
     }
 }

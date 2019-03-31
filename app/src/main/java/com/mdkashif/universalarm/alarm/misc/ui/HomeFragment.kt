@@ -25,12 +25,15 @@ import com.mdkashif.universalarm.utils.Utils
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import javax.inject.Inject
 
 class HomeFragment : BaseFragment(), View.OnClickListener, AlarmsListAdapter.GetTotalAlarmCountInterface {
 
     private lateinit var mLinearLayoutManager: LinearLayoutManager
     private lateinit var rootView: View
     private val disposable = CompositeDisposable()
+
+    @Inject lateinit var roomRepository: RoomRepository
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -72,7 +75,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, AlarmsListAdapter.Get
                     Utils.showSnackBar("You have not granted the Location Permissions, please do so by going into the app permissions", rootView)
                     return
                 }
-                if (AppPreferences.islamicDate != "")
+                if (AppPreferences().instance.islamicDate != "")
                     mActivity.replaceFragment(SetPrayerTimeFragment(), SetPrayerTimeFragment::class.java.simpleName, true)
                 else
                     Utils.showSnackBar("Fetching the latest Prayer timings, Please try again later", rootView)
@@ -88,7 +91,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, AlarmsListAdapter.Get
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pair = RoomRepository.fetchDataAsync(mActivity.returnDbInstance(), alarmStatus = true)
+        val pair = roomRepository.fetchAllAlarmsAsync(true)
         setRVAdapter(pair)
     }
 
@@ -106,8 +109,8 @@ class HomeFragment : BaseFragment(), View.OnClickListener, AlarmsListAdapter.Get
     }
 
     private fun showUiElementsAccordingly() {
-        val completePair = RoomRepository.fetchDataAsync(mActivity.returnDbInstance())
-        if ((completePair.first!!.size + completePair.second!!.size <= 3) && AppPreferences.hbl == 0f)
+        val completePair = roomRepository.fetchAllAlarmsAsync(true)
+        if ((completePair.first!!.size + completePair.second!!.size <= 3) && AppPreferences().instance.hbl == 0f)
             rootView.tvSeeAll.visibility = View.INVISIBLE
     }
 

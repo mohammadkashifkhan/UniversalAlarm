@@ -9,10 +9,11 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
 class PrayerManager(val prayerPresenterCallback: PrayerPresenterCallback) {
+    //todo : remove this and add injection
     private val apiInterface = RestClient.client.create(ApiInterface::class.java)
 
     fun getPrayerDetails(disposable: CompositeDisposable) {
-        val prayerCall = apiInterface.getPrayerDetails(AppPreferences.city!!, AppPreferences.country!!)
+        val prayerCall = apiInterface.getPrayerDetails(AppPreferences().instance.city!!, AppPreferences().instance.country!!)
 
         disposable.add(prayerCall.subscribeOn(Schedulers.io()) // io thread used for fetching data
                 .observeOn(AndroidSchedulers.mainThread()) // data thrown to main thread

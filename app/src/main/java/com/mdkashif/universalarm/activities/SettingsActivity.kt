@@ -61,15 +61,15 @@ class SettingsActivity : BaseActivity() {
             findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze))!!.onPreferenceClickListener = this
             findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision))!!.onPreferenceClickListener = this
 
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze))!!.summary = context!!.resources.getStringArray(R.array.snoozeTimings)[AppPreferences.snoozeTimeArrayPosition]
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision))!!.summary = "within ${context!!.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition]}"
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze))!!.summary = context!!.resources.getStringArray(R.array.snoozeTimings)[AppPreferences().instance.snoozeTimeArrayPosition]
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision))!!.summary = "within ${context!!.resources.getStringArray(R.array.locationPrecision)[AppPreferences().instance.locationPrecisionArrayPosition]}"
 
             bindPreferenceSummaryToValue(findPreference(getString(R.string.prefKeyTitleRingtone))!!)
 
             toggleVibrate = findPreference(getString(R.string.prefKeyTitleVibrate))!!
             toggleVibrate.onPreferenceChangeListener = object : androidx.preference.Preference.OnPreferenceChangeListener {
                 override fun onPreferenceChange(preference: androidx.preference.Preference, o: Any): Boolean {
-                    AppPreferences.vibrateStatus = java.lang.Boolean.valueOf(o.toString())
+                    AppPreferences().instance.vibrateStatus = java.lang.Boolean.valueOf(o.toString())
                     return true
                 }
             }
@@ -161,8 +161,8 @@ class SettingsActivity : BaseActivity() {
                     MaterialDialog(mActivity).show {
                         title(R.string.snoozeTitle)
                         listItemsSingleChoice(R.array.snoozeTimings) { dialog, index, text ->
-                            AppPreferences.snoozeTimeArrayPosition = index
-                            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze))!!.summary = context.resources.getStringArray(R.array.snoozeTimings)[AppPreferences.snoozeTimeArrayPosition]
+                            AppPreferences().instance.snoozeTimeArrayPosition = index
+                            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze))!!.summary = context.resources.getStringArray(R.array.snoozeTimings)[AppPreferences().instance.snoozeTimeArrayPosition]
                         }
                     }
                 }
@@ -171,8 +171,8 @@ class SettingsActivity : BaseActivity() {
                     MaterialDialog(mActivity).show {
                         title(R.string.locationPrecisionTitle)
                         listItemsSingleChoice(R.array.locationPrecision) { dialog, index, text ->
-                            AppPreferences.locationPrecisionArrayPosition = index
-                            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision))!!.summary = "within ${context.resources.getStringArray(R.array.locationPrecision)[AppPreferences.locationPrecisionArrayPosition]}"
+                            AppPreferences().instance.locationPrecisionArrayPosition = index
+                            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision))!!.summary = "within ${context.resources.getStringArray(R.array.locationPrecision)[AppPreferences().instance.locationPrecisionArrayPosition]}"
                         }
                     }
                 }
@@ -269,7 +269,7 @@ class SettingsActivity : BaseActivity() {
                     } else {
                         val ringtone = RingtoneManager.getRingtone(
                                 preference.getContext(), Uri.parse(stringValue))
-                        AppPreferences.ringtoneUri = Uri.parse(stringValue).toString()
+                        AppPreferences().instance.ringtoneUri = Uri.parse(stringValue).toString()
 
                         if (ringtone == null)
                             preference.setSummary(R.string.prefSummaryRingtone)

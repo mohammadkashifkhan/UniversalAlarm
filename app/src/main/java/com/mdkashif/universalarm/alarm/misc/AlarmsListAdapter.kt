@@ -28,8 +28,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class AlarmsListAdapter(private val getTotalAlarmCountInterface : GetTotalAlarmCountInterface,private val alarmsList: MutableList<TimingsModel>, private val locationsList: MutableList<LocationsModel>, private val viewType: String, private val context: ContainerActivity, linearLayoutManager: LinearLayoutManager, private val disposable: CompositeDisposable) : ExpandableRecyclerView.Adapter<RecyclerView.ViewHolder>(linearLayoutManager) {
+class AlarmsListAdapter(@Inject val roomRepository: RoomRepository, private val getTotalAlarmCountInterface: GetTotalAlarmCountInterface, private val alarmsList: MutableList<TimingsModel>, private val locationsList: MutableList<LocationsModel>, private val viewType: String, private val context: ContainerActivity, linearLayoutManager: LinearLayoutManager, private val disposable: CompositeDisposable) : ExpandableRecyclerView.Adapter<RecyclerView.ViewHolder>(linearLayoutManager) {
 
 
     internal inner class TimeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -148,7 +149,7 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface : GetTotalAlarmC
                 holder.swTime.isChecked = alarmsList[position].status
                 holder.swTime.setOnCheckedChangeListener { p0, p1 ->
                     alarmsList[position].status = p1
-                    RoomRepository.amendTimingsAsync(context.returnDbInstance(), AlarmOps.Update.toString(), alarmsList[position], alarmsList[position].id)
+                    roomRepository.amendTimingsAlarmsAsync(AlarmOps.Update.toString(), alarmsList[position], alarmsList[position].id)
                     if (p1) {
                         if (alarmsList[position].repeat)
                             AlarmHelper.setAlarm(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt(), alarmsList[position].pIntentRequestCode.toInt(), context, AlarmTypes.Time, alarmsList[position].note, repeat = true, repeatDays = alarmsList[position].repeatDays)
@@ -161,24 +162,24 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface : GetTotalAlarmC
                     context.replaceFragment(SetTimeFragment(), SetTimeFragment::class.java.simpleName, false, timingDao = alarmsList[position])
                 }
                 holder.ibDelete.setOnClickListener {
-                    RoomRepository.amendTimingsAsync(context.returnDbInstance(), AlarmOps.Delete.toString(), alarmsList[position], alarmsList[position].id)
+                    roomRepository.amendTimingsAlarmsAsync(AlarmOps.Delete.toString(), alarmsList[position], alarmsList[position].id)
                     alarmsList.removeAt(position)
                     getTotalAlarmCountInterface.fetchTotalAlarmCount()
                     notifyItemRemoved(position)
                 }
             }
             is AlarmsListAdapter.BatteryViewHolder -> {
-                holder.tvHbl.text = AppPreferences.hbl.toString()
-                holder.tvLbl.text = AppPreferences.lbl.toString()
-                holder.tvTemp.text = AppPreferences.temp.toString()
+                holder.tvHbl.text = AppPreferences().instance.hbl.toString()
+                holder.tvLbl.text = AppPreferences().instance.lbl.toString()
+                holder.tvTemp.text = AppPreferences().instance.temp.toString()
                 holder.tvNote.text = context.getText(R.string.tvItemBatteryExpandableRv)
-                holder.swBattery.isChecked = AppPreferences.batteryAlarmStatus!!
-                holder.swTemperature.isChecked = AppPreferences.temperatureAlarmStatus!!
+                holder.swBattery.isChecked = AppPreferences().instance.batteryAlarmStatus!!
+                holder.swTemperature.isChecked = AppPreferences().instance.temperatureAlarmStatus!!
                 holder.swBattery.setOnCheckedChangeListener { p0, p1 ->
-                    AppPreferences.batteryAlarmStatus = p1
+                    AppPreferences().instance.batteryAlarmStatus = p1
                 }
                 holder.swTemperature.setOnCheckedChangeListener { p0, p1 ->
-                    AppPreferences.temperatureAlarmStatus = p1
+                    AppPreferences().instance.temperatureAlarmStatus = p1
                 }
             }
             is AlarmsListAdapter.LocationViewHolder -> {
@@ -206,14 +207,14 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface : GetTotalAlarmC
                 holder.swLocation.isChecked = locationsList[index].status
                 holder.swLocation.setOnCheckedChangeListener { p0, p1 ->
                     locationsList[position].status = p1
-                    RoomRepository.amendLocationsAsync(context.returnDbInstance(), AlarmOps.Update.toString(), locationsList[index], locationsList[index].id.toLong())
+                    roomRepository.amendLocationsAlarmsAsync(AlarmOps.Update.toString(), locationsList[index], locationsList[index].id.toLong())
                 }
                 holder.ibEdit.setOnClickListener {
                     context.replaceFragment(SetLocationFragment(), SetLocationFragment::class.java.simpleName, false, locationDao = locationsList[index])
                 }
                 holder.ibDelete.setOnClickListener {
                     LocationHelper.removeAlarm(locationsList[index].pIntentRequestCode.toString(), success = {
-                        RoomRepository.amendLocationsAsync(context.returnDbInstance(), AlarmOps.Delete.toString(), locationsList[index], locationsList[index].id.toLong())
+                        roomRepository.amendLocationsAlarmsAsync(AlarmOps.Delete.toString(), locationsList[index], locationsList[index].id.toLong())
                         locationsList.removeAt(index)
                         getTotalAlarmCountInterface.fetchTotalAlarmCount()
                         notifyItemRemoved(position)
@@ -256,7 +257,7 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface : GetTotalAlarmC
                 holder.swPrayer.isChecked = alarmsList[position].status
                 holder.swPrayer.setOnCheckedChangeListener { p0, p1 ->
                     alarmsList[position].status = p1
-                    RoomRepository.amendTimingsAsync(context.returnDbInstance(), AlarmOps.Add.toString(), alarmsList[position]) // sending add instead of update because its handled in the repository
+                    roomRepository.amendPrayerAlarmsAsync(alarmsList[position]) // sending add instead of update because its handled in the repository
                     if (p1)
                         AlarmHelper.setAlarm(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt(), alarmsList[position].pIntentRequestCode.toInt(), context, AlarmTypes.valueOf(alarmsList[position].alarmType), repeatDays = null)
                     else
@@ -279,7 +280,7 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface : GetTotalAlarmC
                 else -> 3
             }
             (position - alarmsList.size) < locationsList.size -> 2
-            (position - (alarmsList.size + locationsList.size) < 1) && (AppPreferences.hbl != 0f) -> 1
+            (position - (alarmsList.size + locationsList.size) < 1) && (AppPreferences().instance.hbl != 0f) -> 1
             else -> -1
         }
     }
@@ -287,16 +288,16 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface : GetTotalAlarmC
     override fun getItemCount(): Int {
         when (viewType) {
             "ShowAll" -> return when {
-                AppPreferences.hbl != 0f -> alarmsList.size + locationsList.size + 1
+                AppPreferences().instance.hbl != 0f -> alarmsList.size + locationsList.size + 1
                 else -> alarmsList.size + locationsList.size
             }
             "Home" -> when {
                 (alarmsList.size + locationsList.size) > 4 -> return 4
                 (alarmsList.size + locationsList.size) in 1..4 -> return when {
-                    AppPreferences.hbl != 0f -> alarmsList.size + locationsList.size + 1
+                    AppPreferences().instance.hbl != 0f -> alarmsList.size + locationsList.size + 1
                     else -> alarmsList.size + locationsList.size
                 }
-                AppPreferences.hbl != 0f -> return 1
+                AppPreferences().instance.hbl != 0f -> return 1
             }
         }
         return 1

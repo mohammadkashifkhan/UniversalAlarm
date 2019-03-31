@@ -22,10 +22,10 @@ class AlarmSoundService : Service() {
                 .setUsage(AudioAttributes.USAGE_ALARM)
                 .build())
         try {
-            if (AppPreferences.ringtoneUri != "")
-                mediaPlayer.setDataSource(this, Uri.parse(AppPreferences.ringtoneUri))
+            if (AppPreferences().instance.ringtoneUri != "")
+                mediaPlayer.setDataSource(this, Uri.parse(AppPreferences().instance.ringtoneUri))
 
-            if (AppPreferences.vibrateStatus)
+            if (AppPreferences().instance.vibrateStatus)
                 vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
             mediaPlayer.prepare()
@@ -46,7 +46,7 @@ class AlarmSoundService : Service() {
             mediaPlayer.release()
         }
 
-        if (AppPreferences.vibrateStatus)
+        if (AppPreferences().instance.vibrateStatus)
             vibrator!!.cancel()
     }
 

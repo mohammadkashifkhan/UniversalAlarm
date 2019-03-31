@@ -1,19 +1,22 @@
 package com.mdkashif.universalarm.persistence
 
-import android.content.Context
 import android.content.SharedPreferences
 import com.mdkashif.universalarm.utils.AppConstants
+import javax.inject.Inject
+import javax.inject.Singleton
+
 
 /**
  * Created by Kashif on 16-Apr-18.
  */
-object AppPreferences {
-    private const val prefFileName = "universal-alarm-sp"
-    private lateinit var preferences: SharedPreferences
+@Singleton
+class AppPreferences {
 
-    fun init(context: Context) {
-        preferences = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE)
-    }
+    @Inject
+    lateinit var preferences: SharedPreferences
+
+    val instance: AppPreferences
+        get() = AppPreferences()
 
     private inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {
         val editor = edit()
@@ -25,7 +28,6 @@ object AppPreferences {
         get() = preferences.getBoolean(AppConstants.isFirstTimeLaunch, true)
         set(isFirstTime) =
             preferences.edit { it.putBoolean(AppConstants.isFirstTimeLaunch, isFirstTime) }
-
 
     var ringtoneUri: String?
         get() = preferences.getString(AppConstants.ringtoneUri, "")

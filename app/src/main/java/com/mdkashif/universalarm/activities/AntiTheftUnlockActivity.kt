@@ -35,7 +35,7 @@ class AntiTheftUnlockActivity : AppLockActivity() {
     }
 
     override fun onPinSuccess(attempts: Int) {
-        AppPreferences.theftAlarmStatus = theftAlarmStatus
+        AppPreferences().instance.theftAlarmStatus = theftAlarmStatus
 
         finish()
     }
@@ -44,7 +44,7 @@ class AntiTheftUnlockActivity : AppLockActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         when (requestCode) {
-            AppConstants.REQUEST_CODE_ENABLE_THEFT_ALARM -> AppPreferences.theftPinEnabled = true
+            AppConstants.REQUEST_CODE_ENABLE_THEFT_ALARM -> AppPreferences().instance.theftPinEnabled = true
         }
     }
 }

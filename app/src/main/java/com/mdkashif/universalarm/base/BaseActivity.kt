@@ -18,6 +18,7 @@ import com.mdkashif.universalarm.utils.AppConstants
 open class BaseActivity : AppCompatActivity() {
     private var parentLayout: View? = null
 
+    //todo : remove this
     lateinit var appDatabase: AppDatabase
 
     lateinit var geofencingClient: GeofencingClient

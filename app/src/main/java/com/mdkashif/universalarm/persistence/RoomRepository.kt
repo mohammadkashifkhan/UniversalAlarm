@@ -1,160 +1,136 @@
 package com.mdkashif.universalarm.persistence
 
-import android.os.AsyncTask
 import com.mdkashif.universalarm.alarm.misc.AlarmOps
-import com.mdkashif.universalarm.alarm.misc.AlarmTypes
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-object RoomRepository {
-    fun fetchDataAsync(db: AppDatabase, type: AlarmTypes = AlarmTypes.All, alarmStatus: Boolean = false, locationRequestId: Long = 0): Pair<MutableList<TimingsModel>?, MutableList<LocationsModel>?> {
-        return when (type) {
-            AlarmTypes.Prayer -> TransactRoomAsync(db, null, null, 0).execute(AlarmOps.Get.toString()).get() // passed 0 to get Prayer alarms
-            AlarmTypes.Time -> when {
-                alarmStatus -> TransactRoomAsync(db, null, null, 1).execute(AlarmOps.Get.toString()).get() // passed 1 to get only live alarms
-                else -> TransactRoomAsync(db, null, null, 2).execute(AlarmOps.Get.toString()).get() // passed 2 to get all Time alarms
-            }
-            else -> {
-                when {
-                    alarmStatus -> TransactRoomAsync(db, null, null, 3).execute(AlarmOps.Get.toString()).get() // passed 3 to get all live alarms
-                    else -> TransactRoomAsync(db, null, null, 4).execute(AlarmOps.Get.toString()).get() // passed 4 to get all alarms}
-                }
-            }
-        }
+class RoomRepository constructor(@Inject val dao: RoomAccessDao) {
+
+    suspend fun fetchPrayersAlarmsAsync(): MutableList<TimingsModel> {
+        var list: MutableList<TimingsModel> = ArrayList()
+        GlobalScope.launch { list = async(Dispatchers.IO) { return@async getPrayerTimings() }.await() }
+        return list
     }
 
-    fun amendTimingsAsync(db: AppDatabase, taskType: String, timingsModel: TimingsModel?, id: Long = 0, autoUpdate: Boolean = false) {//id=0 means we are just inserting
+    suspend fun fetchTimingsAlarmsAsync(alarmStatus: Boolean = false): MutableList<TimingsModel> {
+        var list: MutableList<TimingsModel> = ArrayList()
+        GlobalScope.launch { list = async(Dispatchers.IO) { return@async getTimingsWithRepeatDays(alarmStatus) }.await() }
+        return list
+    }
+
+    suspend fun fetchAllAlarmsAsync(alarmStatus: Boolean = false): Pair<MutableList<TimingsModel>, MutableList<LocationsModel>> {
+        var timingslist: MutableList<TimingsModel> = ArrayList()
+        var locationslist: MutableList<LocationsModel> = ArrayList()
+        GlobalScope.launch(Dispatchers.IO) {
+            timingslist = getTimingsWithRepeatDays(alarmStatus)
+            locationslist = getLocations(alarmStatus)
+        }
+        return Pair(timingslist, locationslist)
+    }
+
+    suspend fun amendPrayerAlarmsAsync(timingsModel: TimingsModel?, autoUpdate: Boolean = false) {
+        var timingsList: MutableList<TimingsModel> = ArrayList()
+        GlobalScope.launch { timingsList = async(Dispatchers.IO) { return@async getSpecificTimings(timingsModel!!) }.await() }
+
         when {
-            timingsModel!!.alarmType != AlarmTypes.Time.toString() -> TransactRoomAsync(db, timingsModel, null, id, autoUpdate, deleteAlarmType = AlarmTypes.Time).execute(AlarmOps.Check.toString()) // to check if we have any existing prayer alarm
-            timingsModel.alarmType == AlarmTypes.Time.toString() -> TransactRoomAsync(db, timingsModel, null, id, deleteAlarmType = AlarmTypes.Time).execute(taskType)
+            timingsList.isNotEmpty() -> GlobalScope.launch(Dispatchers.IO) { updateTimeAlarm(timingsModel!!, timingsList[0].id, autoUpdate) }
+            else -> GlobalScope.launch(Dispatchers.IO) { addTimingsWithoutRepeatDays(timingsModel!!) }
         }
     }
 
-    fun amendLocationsAsync(db: AppDatabase, taskType: String, locationsModel: LocationsModel?, id: Long = 0) {
-        TransactRoomAsync(db, null, locationsModel, id, deleteAlarmType = AlarmTypes.Location).execute(taskType)
+    suspend fun amendTimingsAlarmsAsync(taskType: String, timingsModel: TimingsModel?, id: Long = 0) {//id=0 means we are just inserting
+        when (taskType) {
+            AlarmOps.Add.toString() ->
+                when {
+                    timingsModel!!.repeat -> GlobalScope.launch(Dispatchers.IO) { addTimingsWithRepeatDays(timingsModel) }
+                    else -> GlobalScope.launch(Dispatchers.IO) { addTimingsWithoutRepeatDays(timingsModel) }
+                }
+
+            AlarmOps.Update.toString() -> GlobalScope.launch(Dispatchers.IO) { updateTimeAlarm(timingsModel!!, id, false) }
+
+            AlarmOps.Delete.toString() -> GlobalScope.launch(Dispatchers.IO) { deleteTimeAlarm(id) }
+        }
     }
 
-    private fun addTimingsWithoutRepeatDays(db: AppDatabase, timingsModel: TimingsModel): Long {
-        return db.accessDao().addNewTimeAlarm(timingsModel)
+    suspend fun amendLocationsAlarmsAsync(taskType: String, locationsModel: LocationsModel?, id: Long = 0) {
+        when (taskType) {
+            AlarmOps.Add.toString() -> GlobalScope.launch(Dispatchers.IO) { addLocation(locationsModel!!) }
+
+            AlarmOps.Update.toString() -> GlobalScope.launch(Dispatchers.IO) { updateLocationAlarm(locationsModel!!, id) }
+
+            AlarmOps.Delete.toString() -> GlobalScope.launch(Dispatchers.IO) { deleteLocationAlarm(id) }
+        }
     }
 
-    private fun addTimingsWithRepeatDays(db: AppDatabase, timingsModel: TimingsModel) {
-        val alarmId = db.accessDao().addNewTimeAlarm(timingsModel)
+    private fun addTimingsWithoutRepeatDays(timingsModel: TimingsModel): Long {
+        return dao.addNewTimeAlarm(timingsModel)
+    }
+
+    private fun addTimingsWithRepeatDays(timingsModel: TimingsModel) {
+        val alarmId = dao.addNewTimeAlarm(timingsModel)
         for (i in timingsModel.repeatDays!!.indices) {
             timingsModel.repeatDays!![i].fkAlarmId = alarmId
-            db.accessDao().addRepeatDays(timingsModel.repeatDays!![i])
+            dao.addRepeatDays(timingsModel.repeatDays!![i])
         }
     }
 
-    private fun addLocation(db: AppDatabase, locationsModel: LocationsModel): Long {
-        return db.accessDao().addNewLocationAlarm(locationsModel)
+    private fun addLocation(locationsModel: LocationsModel): Long {
+        return dao.addNewLocationAlarm(locationsModel)
     }
 
-    private fun getSpecificTimings(db: AppDatabase, timingsModel: TimingsModel): MutableList<TimingsModel> {
-        return db.accessDao().getSpecificTimeAlarms(timingsModel.alarmType)
+    private fun getSpecificTimings(timingsModel: TimingsModel): MutableList<TimingsModel> {
+        return dao.getSpecificTimeAlarms(timingsModel.alarmType)
     }
 
-    private fun getPrayerTimings(db: AppDatabase): MutableList<TimingsModel> {
-        return db.accessDao().getPrayerAlarms()
+    private fun getPrayerTimings(): MutableList<TimingsModel> {
+        return dao.getPrayerAlarms()
     }
 
-    private fun getLocations(db: AppDatabase, status: Boolean = false): MutableList<LocationsModel> {
+    private fun getLocations(status: Boolean = false): MutableList<LocationsModel> {
         return if (status)
-            db.accessDao().getOnlyLiveLocationAlarms()
+            dao.getOnlyLiveLocationAlarms()
         else
-            db.accessDao().getLocationAlarms()
+            dao.getLocationAlarms()
     }
 
-    private fun getTimingsWithRepeatDays(db: AppDatabase, status: Boolean = false): MutableList<TimingsModel> {
-        val timings: MutableList<TimingsModel> = if (status)
-            db.accessDao().getOnlyLiveTimeAlarms()
-        else
-            db.accessDao().getAllTimeAlarms()
+    private fun getTimingsWithRepeatDays(status: Boolean = false): MutableList<TimingsModel> {
+        val timings: MutableList<TimingsModel> = when {
+            status -> dao.getOnlyLiveTimeAlarms()
+            else -> dao.getAllTimeAlarms()
+        }
         for (i in timings.indices) {
-            if (db.accessDao().getRepeatDays(timings[i].id).isNotEmpty()) {
-                timings[i].repeatDays = db.accessDao().getRepeatDays(timings[i].id)
+            if (dao.getRepeatDays(timings[i].id).isNotEmpty()) {
+                timings[i].repeatDays = dao.getRepeatDays(timings[i].id)
             }
         }
         return timings
     }
 
-    private fun deleteTimeAlarm(db: AppDatabase, id: Long) {
-        db.accessDao().deleteTimeAlarm(id)
+    private fun deleteTimeAlarm(id: Long) {
+        dao.deleteTimeAlarm(id)
     }
 
-    private fun deleteLocationAlarm(db: AppDatabase, id: Long) {
-        db.accessDao().deleteLocationAlarm(id)
+    private fun deleteLocationAlarm(id: Long) {
+        dao.deleteLocationAlarm(id)
     }
 
-    private fun updateTimeAlarm(db: AppDatabase, timingsModel: TimingsModel, id: Long, autoUpdate: Boolean) {
-        db.accessDao().updateTimeAlarm(timingsModel.hour, timingsModel.minute, timingsModel.note, timingsModel.repeat, timingsModel.status, id, autoUpdate)
+    private fun updateTimeAlarm(timingsModel: TimingsModel, id: Long, autoUpdate: Boolean) {
+        dao.updateTimeAlarm(timingsModel.hour, timingsModel.minute, timingsModel.note, timingsModel.repeat, timingsModel.status, id, autoUpdate)
         if (timingsModel.repeat) {
-            db.accessDao().deleteRepeatDays(timingsModel.id)
+            dao.deleteRepeatDays(timingsModel.id)
             for (i in timingsModel.repeatDays!!.indices) {
                 timingsModel.repeatDays!![i].fkAlarmId = id
-                db.accessDao().addRepeatDays(timingsModel.repeatDays!![i])
+                dao.addRepeatDays(timingsModel.repeatDays!![i])
             }
         }
     }
 
-    private fun updateLocationAlarm(db: AppDatabase, locationsModel: LocationsModel, id: Long) {
-        db.accessDao().updateLocationAlarm(locationsModel.address, locationsModel.city, locationsModel.latitude, locationsModel.longitude, locationsModel.status, id)
+    private fun updateLocationAlarm(locationsModel: LocationsModel, id: Long) {
+        dao.updateLocationAlarm(locationsModel.address, locationsModel.city, locationsModel.latitude, locationsModel.longitude, locationsModel.status, id)
     }
-
-    private class TransactRoomAsync(private val db: AppDatabase, private val timingsModel: TimingsModel?, private val locationsModel: LocationsModel?, private val alarmId: Long, private val autoUpdate: Boolean = false, private val deleteAlarmType: AlarmTypes = AlarmTypes.Time) : AsyncTask<String, Any, Pair<MutableList<TimingsModel>?, MutableList<LocationsModel>?>>() {
-        var timingsList: MutableList<TimingsModel> = ArrayList()
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-            timingsList.clear()
-        }
-
-        override fun doInBackground(vararg params: String): Pair<MutableList<TimingsModel>?, MutableList<LocationsModel>?>? {
-            when (params[0]) {
-                AlarmOps.Get.toString() -> {
-                    (return when (alarmId) {
-                        0.toLong() -> Pair(getPrayerTimings(db), null)
-                        1.toLong() -> Pair(getTimingsWithRepeatDays(db, true), null)
-                        2.toLong() -> Pair(getTimingsWithRepeatDays(db), null)
-                        3.toLong() -> Pair(getTimingsWithRepeatDays(db, true), getLocations(db, true))
-                        else -> Pair(getTimingsWithRepeatDays(db), getLocations(db))
-                    })
-                }
-                AlarmOps.Check.toString() -> {
-                    timingsList = getSpecificTimings(db, timingsModel!!)
-                    when {
-                        timingsList.isNotEmpty() -> TransactRoomAsync(db, timingsModel, null, timingsList[0].id, autoUpdate).execute(AlarmOps.Update.toString()) // update an existing prayer alarm
-                        else -> TransactRoomAsync(db, timingsModel, null, alarmId).execute(AlarmOps.Add.toString()) // add the prayer alarm
-                    }
-                }
-                AlarmOps.Add.toString() -> {
-                    when {
-                        timingsModel != null -> when {
-                            timingsModel.repeat -> addTimingsWithRepeatDays(db, timingsModel)
-                            else -> addTimingsWithoutRepeatDays(db, timingsModel)
-                        }
-                        else -> addLocation(db, locationsModel!!)
-                    }
-                }
-                AlarmOps.Update.toString() -> {
-                    when {
-                        alarmId > 0 -> when {
-                            timingsModel != null -> updateTimeAlarm(db, timingsModel, alarmId, autoUpdate)
-                            else -> updateLocationAlarm(db, locationsModel!!, alarmId)
-                        }
-                    }
-                }
-                AlarmOps.Delete.toString() -> {
-                    when {
-                        alarmId > 0 -> when (deleteAlarmType) {
-                            AlarmTypes.Time -> deleteTimeAlarm(db, alarmId)
-                            else -> deleteLocationAlarm(db, alarmId)
-                        }
-                    }
-                }
-            }
-            return null
-        }
-    }
-
 }

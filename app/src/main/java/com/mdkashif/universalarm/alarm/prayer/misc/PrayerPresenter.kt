@@ -34,8 +34,8 @@ class PrayerPresenter(private val disposable: CompositeDisposable, private val p
                         .flatMapObservable { getAddressObservable(it) }
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(({ t: Address? ->
-                            AppPreferences.city = t!!.locality
-                            AppPreferences.country = t.countryName
+                            AppPreferences().instance.city = t!!.locality
+                            AppPreferences().instance.country = t.countryName
                             prayerManager.getPrayerDetails(disposable)
                         }), { throwable -> Log.e("PrayerPresenter", "Error fetching location/address updates", throwable) })
         )

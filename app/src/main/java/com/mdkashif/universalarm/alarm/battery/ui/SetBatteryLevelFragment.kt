@@ -38,23 +38,23 @@ class SetBatteryLevelFragment : BaseFragment(), CompoundButton.OnCheckedChangeLi
             rootView.temperature.text = connection.temp.toString()
         })
 
-        if(AppPreferences.theftPinEnabled!!)
+        if(AppPreferences().instance.theftPinEnabled!!)
             rootView.btChangePin.visibility=View.VISIBLE
 
-        rootView.swBattery.isChecked = AppPreferences.batteryAlarmStatus == true
-        rootView.swTemperature.isChecked = AppPreferences.temperatureAlarmStatus == true
-        rootView.swTheft.isChecked = AppPreferences.theftAlarmStatus == true
+        rootView.swBattery.isChecked = AppPreferences().instance.batteryAlarmStatus == true
+        rootView.swTemperature.isChecked = AppPreferences().instance.temperatureAlarmStatus == true
+        rootView.swTheft.isChecked = AppPreferences().instance.theftAlarmStatus == true
 
         when {
-            (AppPreferences.hbl == 0f) && (AppPreferences.lbl == 0f) -> rootView.rbBatteryLevel.setRangePinsByValue(20f, 85f)
-            AppPreferences.hbl == 0f -> rootView.rbBatteryLevel.setRangePinsByValue(AppPreferences.lbl!!, 85f)
-            AppPreferences.lbl == 0f -> rootView.rbBatteryLevel.setRangePinsByValue(20f, AppPreferences.hbl!!)
-            else -> rootView.rbBatteryLevel.setRangePinsByValue(AppPreferences.lbl!!, AppPreferences.hbl!!)
+            (AppPreferences().instance.hbl == 0f) && (AppPreferences().instance.lbl == 0f) -> rootView.rbBatteryLevel.setRangePinsByValue(20f, 85f)
+            AppPreferences().instance.hbl == 0f -> rootView.rbBatteryLevel.setRangePinsByValue(AppPreferences().instance.lbl!!, 85f)
+            AppPreferences().instance.lbl == 0f -> rootView.rbBatteryLevel.setRangePinsByValue(20f, AppPreferences().instance.hbl!!)
+            else -> rootView.rbBatteryLevel.setRangePinsByValue(AppPreferences().instance.lbl!!, AppPreferences().instance.hbl!!)
         }
 
         when {
-            AppPreferences.temp == 0f -> rootView.rbTemp.setSeekPinByValue(35f)
-            else -> rootView.rbTemp.setSeekPinByValue(AppPreferences.temp!!)
+            AppPreferences().instance.temp == 0f -> rootView.rbTemp.setSeekPinByValue(35f)
+            else -> rootView.rbTemp.setSeekPinByValue(AppPreferences().instance.temp!!)
         }
 
         return rootView
@@ -63,16 +63,16 @@ class SetBatteryLevelFragment : BaseFragment(), CompoundButton.OnCheckedChangeLi
     override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
         when (p0!!.id) {
             R.id.swBattery -> {
-                AppPreferences.batteryAlarmStatus = p1
+                AppPreferences().instance.batteryAlarmStatus = p1
             }
             R.id.swTemperature -> {
-                AppPreferences.temperatureAlarmStatus = p1
+                AppPreferences().instance.temperatureAlarmStatus = p1
             }
             R.id.swTheft -> {
-                if (!AppPreferences.theftPinEnabled!!)
+                if (!AppPreferences().instance.theftPinEnabled!!)
                     mActivity.executeIntent(Intent(mActivity, AntiTheftUnlockActivity::class.java), false, param = true, type = "AntiTheftFirstTimeEnable")
                 else
-                    AppPreferences.theftAlarmStatus = p1
+                    AppPreferences().instance.theftAlarmStatus = p1
             }
         }
     }
@@ -88,14 +88,14 @@ class SetBatteryLevelFragment : BaseFragment(), CompoundButton.OnCheckedChangeLi
     override fun onRangeChangeListener(rangeBar: RangeBar?, leftPinIndex: Int, rightPinIndex: Int, leftPinValue: String?, rightPinValue: String?) {
         when (rangeBar!!.id) {
             R.id.rbBatteryLevel -> {
-                if (AppPreferences.hbl != rightPinValue!!.toFloat())
-                    AppPreferences.hbl = rightPinValue.toFloat()
-                if (AppPreferences.lbl != leftPinValue!!.toFloat())
-                    AppPreferences.lbl = leftPinValue.toFloat()
+                if (AppPreferences().instance.hbl != rightPinValue!!.toFloat())
+                    AppPreferences().instance.hbl = rightPinValue.toFloat()
+                if (AppPreferences().instance.lbl != leftPinValue!!.toFloat())
+                    AppPreferences().instance.lbl = leftPinValue.toFloat()
             }
             R.id.rbTemp -> {
-                if (AppPreferences.temp != rightPinValue!!.toFloat())
-                    AppPreferences.temp = rightPinValue.toFloat()
+                if (AppPreferences().instance.temp != rightPinValue!!.toFloat())
+                    AppPreferences().instance.temp = rightPinValue.toFloat()
             }
         }
     }

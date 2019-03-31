@@ -1,5 +1,6 @@
 package com.mdkashif.universalarm.base
 
+
 import android.app.Activity
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
@@ -8,8 +9,6 @@ import com.github.omadahealth.lollipin.lib.managers.LockManager
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.activities.AntiTheftUnlockActivity
 import com.mdkashif.universalarm.alarm.battery.job.BatteryInfoScheduler
-import com.mdkashif.universalarm.di.DaggerAppComponent
-import com.mdkashif.universalarm.persistence.AppPreferences
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import javax.inject.Inject
@@ -26,8 +25,6 @@ class BaseApplication : Application(), HasActivityInjector {
                 .build().inject(this)
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO)
-
-        AppPreferences.init(applicationContext)
 
         BatteryInfoScheduler.scheduleJob(applicationContext) // scheduled it here just for the sake of starting them simultaneously
         // TODO: remove at production!
