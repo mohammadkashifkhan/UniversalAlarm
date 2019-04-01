@@ -29,12 +29,15 @@ import javax.inject.Inject
 
 class HomeFragment : BaseFragment(), View.OnClickListener, AlarmsListAdapter.GetTotalAlarmCountInterface {
 
+    @Inject
+    lateinit var roomRepository: RoomRepository
+
+    @Inject
+    lateinit var appPreferences: AppPreferences
+
     private lateinit var mLinearLayoutManager: LinearLayoutManager
     private lateinit var rootView: View
     private val disposable = CompositeDisposable()
-
-    @Inject lateinit var roomRepository: RoomRepository
-    @Inject lateinit var appPreferences: AppPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

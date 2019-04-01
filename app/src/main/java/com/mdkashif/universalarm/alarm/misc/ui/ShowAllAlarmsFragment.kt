@@ -14,8 +14,12 @@ import com.mdkashif.universalarm.persistence.RoomRepository
 import com.mdkashif.universalarm.utils.Utils
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_show_all_alarms.*
+import javax.inject.Inject
 
 class ShowAllAlarmsFragment : BaseFragment(), AlarmsListAdapter.GetTotalAlarmCountInterface {
+
+    @Inject
+    lateinit var roomRepository: RoomRepository
 
     private lateinit var mLinearLayoutManager: LinearLayoutManager
     private val disposable = CompositeDisposable()
@@ -27,7 +31,7 @@ class ShowAllAlarmsFragment : BaseFragment(), AlarmsListAdapter.GetTotalAlarmCou
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pair = RoomRepository.fetchDataAsync(mActivity.returnDbInstance())
+        val pair = roomRepository.fetchAllAlarmsAsync()
         setRVAdapter(pair)
     }
 

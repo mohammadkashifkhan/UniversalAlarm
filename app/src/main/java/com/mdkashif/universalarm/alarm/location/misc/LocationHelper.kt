@@ -31,8 +31,12 @@ import javax.inject.Inject
 
 
 object LocationHelper {
+
     @Inject
     lateinit var appPreferences: AppPreferences
+
+    @Inject
+    lateinit var roomRepository: RoomRepository
 
     lateinit var mLocationRequest: LocationRequest
 
@@ -113,7 +117,7 @@ object LocationHelper {
         this.note = note
         val pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode()
         val dao = LocationsModel(address = address, city = city, latitude = destinationLatitude, longitude = destinationLongitude, note = note, pIntentRequestCode = pIntentRequestCode.toLong(), status = true)
-        RoomRepository.amendLocationsAsync(context.returnDbInstance(), AlarmOps.Add.toString(), dao)
+        roomRepository.amendLocationsAlarmsAsync(AlarmOps.Add.toString(), dao)
         Utils.showToast("All set!, You are $distance, we will notify you, once you reach within the ${context.resources.getStringArray(R.array.locationPrecision)[appPreferences.locationPrecisionArrayPosition]} destination radius", context)
 
         reactAccordingly(context, pIntentRequestCode.toLong(), dao, success = { success() }, failure = {})
@@ -125,7 +129,7 @@ object LocationHelper {
         this.note = note
 
         val dao = LocationsModel(address = address, city = city, latitude = destinationLatitude, longitude = destinationLongitude, note = note, pIntentRequestCode = pIntentRequestCode, status = true)
-        RoomRepository.amendLocationsAsync(context.returnDbInstance(), AlarmOps.Update.toString(), dao, alarmId.toLong())
+        roomRepository.amendLocationsAlarmsAsync(AlarmOps.Update.toString(), dao, alarmId.toLong())
         Utils.showToast("All set!, You are $distance, we will notify you, once you reach within the ${context.resources.getStringArray(R.array.locationPrecision)[appPreferences.locationPrecisionArrayPosition]} destination radius", context)
         removeAlarm(pIntentRequestCode.toString(), success = {
             reactAccordingly(context, pIntentRequestCode, dao, success = { success() }, failure = {})

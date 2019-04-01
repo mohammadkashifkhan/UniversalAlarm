@@ -9,7 +9,6 @@ import android.view.animation.RotateAnimation
 import android.widget.CompoundButton
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.misc.AlarmHelper
-import com.mdkashif.universalarm.alarm.misc.AlarmOps
 import com.mdkashif.universalarm.alarm.misc.AlarmTypes
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import com.mdkashif.universalarm.alarm.prayer.misc.Compass
@@ -24,8 +23,12 @@ import javax.inject.Inject
 
 
 class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener, View.OnClickListener {
+
     @Inject
     lateinit var appPreferences: AppPreferences
+
+    @Inject
+    lateinit var roomRepository: RoomRepository
 
     private var timingsList: List<TimingsModel> = ArrayList()
 
@@ -52,7 +55,7 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
         rootView.tvTimezone.text = appPreferences.timezone
         rootView.tvIslamicDate.text = appPreferences.islamicDate
         rootView.tvMonth.text = appPreferences.islamicMonth
-        timingsList = RoomRepository.fetchDataAsync(mActivity.returnDbInstance(), AlarmTypes.Prayer).first!! // Pair's first value
+        timingsList = roomRepository.fetchPrayersAlarmsAsync()
 
         for (i in timingsList.indices) {
             when (timingsList[i].alarmType) {
@@ -129,7 +132,7 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
     private fun switchPrayerStatus(type: AlarmTypes, status: Boolean) {
         val index = returnPrayerIndex(type)
         timingsList[index].status = status
-        RoomRepository.amendTimingsAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsList[index])
+        roomRepository.amendPrayerAlarmsAsync(timingsList[index])
 
         if (status)
             AlarmHelper.setAlarm(timingsList[index].hour.toInt(), timingsList[index].minute.toInt(), timingsList[index].pIntentRequestCode.toInt(), mActivity, type, repeatDays = null)

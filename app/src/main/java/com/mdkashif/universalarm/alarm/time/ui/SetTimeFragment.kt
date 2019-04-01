@@ -23,10 +23,14 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_buzzing_alarm.view.*
 import kotlinx.android.synthetic.main.fragment_set_time.view.*
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 
 class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.DayPressedListener {
+
+    @Inject
+    lateinit var roomRepository: RoomRepository
 
     private lateinit var rootView: View
     private var selectedDays: MutableList<String> = ArrayList()
@@ -159,10 +163,10 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
 
     private fun doAccordingly() {
         if (arguments == null)
-            RoomRepository.amendTimingsAsync(mActivity.returnDbInstance(), AlarmOps.Add.toString(), timingsModel)
+            roomRepository.amendTimingsAlarmsAsync(AlarmOps.Add.toString(), timingsModel)
         else {
             AlarmHelper.stopAlarm(timingsModel.pIntentRequestCode.toInt(), mActivity) // removing older pIntents
-            RoomRepository.amendTimingsAsync(mActivity.returnDbInstance(), AlarmOps.Update.toString(), timingsModel, timingsModel.id)
+            roomRepository.amendTimingsAlarmsAsync(AlarmOps.Update.toString(), timingsModel, timingsModel.id)
         }
         when {
             daysList.isNotEmpty() -> AlarmHelper.setAlarm(timingsModel.hour.toInt(), timingsModel.minute.toInt(), requestCode.toInt(), mActivity, AlarmTypes.Time, timingsModel.note, repeat = true, repeatDays = daysList)

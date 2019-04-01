@@ -41,8 +41,12 @@ import javax.inject.Inject
 
 class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener, View.OnClickListener {
+
     @Inject
     lateinit var appPreferences: AppPreferences
+
+    @Inject
+    lateinit var roomRepository: RoomRepository
 
     private lateinit var mGoogleMap: GoogleMap
     private lateinit var mLastLocation: Location
@@ -105,7 +109,7 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
             R.id.btStopAlarm -> {
                 LocationHelper.removeAlarm(locationModel.pIntentRequestCode.toString(), success = {
                     locationModel.status = false
-                    RoomRepository.amendLocationsAsync(mActivity.returnDbInstance(), AlarmOps.Update.toString(), locationModel)
+                    roomRepository.amendLocationsAsync(AlarmOps.Update.toString(), locationModel)
                 }, failure = {
                     Utils.showToast(it, mActivity)
                 }, context = mActivity)
@@ -204,8 +208,8 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
                 rootView.btSetAlarm.isEnabled = true
 
                 var radius = context!!.resources.getStringArray(R.array.locationPrecision)[appPreferences.locationPrecisionArrayPosition].split(" ")[0]
-                if(radius.length<2)
-                    radius= (radius.toDouble()*1000).toString()
+                if (radius.length < 2)
+                    radius = (radius.toDouble() * 1000).toString()
                 mGoogleMap.addCircle(CircleOptions()
                         .center(mGoogleMap.cameraPosition.target)
                         .radius(radius.toDouble())

@@ -32,8 +32,11 @@ import javax.inject.Inject
 
 class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCountInterface, private val alarmsList: MutableList<TimingsModel>, private val locationsList: MutableList<LocationsModel>, private val viewType: String, private val context: ContainerActivity, linearLayoutManager: LinearLayoutManager, private val disposable: CompositeDisposable) : ExpandableRecyclerView.Adapter<RecyclerView.ViewHolder>(linearLayoutManager) {
 
-    @Inject lateinit var roomRepository: RoomRepository
-    @Inject lateinit var appPreferences: AppPreferences
+    @Inject
+    lateinit var roomRepository: RoomRepository
+
+    @Inject
+    lateinit var appPreferences: AppPreferences
 
     internal inner class TimeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTime: TextView = itemView.findViewById(R.id.tvTime)

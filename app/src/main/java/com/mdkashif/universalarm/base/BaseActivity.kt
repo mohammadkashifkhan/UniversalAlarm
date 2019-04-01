@@ -11,22 +11,17 @@ import com.google.android.gms.location.LocationServices
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
-import com.mdkashif.universalarm.persistence.AppDatabase
 import com.mdkashif.universalarm.utils.AppConstants
 
 
 open class BaseActivity : AppCompatActivity() {
     private var parentLayout: View? = null
 
-    //todo : remove this
-    lateinit var appDatabase: AppDatabase
-
     lateinit var geofencingClient: GeofencingClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         parentLayout = findViewById(android.R.id.content)
-        appDatabase = AppDatabase.getAppDatabase(applicationContext)
         geofencingClient = LocationServices.getGeofencingClient(applicationContext)
     }
 
@@ -74,9 +69,5 @@ open class BaseActivity : AppCompatActivity() {
             ft.addToBackStack(tag)
         }
         ft.commit()
-    }
-
-    fun returnDbInstance(): AppDatabase {
-        return appDatabase
     }
 }
