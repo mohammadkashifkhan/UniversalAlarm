@@ -9,8 +9,9 @@ import android.os.BatteryManager
 import com.mdkashif.universalarm.alarm.misc.AlarmTypes
 import com.mdkashif.universalarm.alarm.misc.services.MiscIntentService
 import com.mdkashif.universalarm.persistence.AppPreferences
+import javax.inject.Inject
 
-class BatteryScheduleService : JobService() {
+class BatteryScheduleService(@Inject val appPreferences: AppPreferences) : JobService() {
     private var highBatteryPercentage: Float = 0f
     private var lowBatteryPercentage: Float = 0f
     private var tempLevel: Float = 0f
@@ -19,9 +20,9 @@ class BatteryScheduleService : JobService() {
     private var maxBatteryLevel: Float = 0f
 
     override fun onStartJob(p0: JobParameters?): Boolean {
-        highBatteryPercentage = AppPreferences().instance.hbl!!
-        lowBatteryPercentage = AppPreferences().instance.lbl!!
-        tempLevel = AppPreferences().instance.temp!!
+        highBatteryPercentage = appPreferences.hbl!!
+        lowBatteryPercentage = appPreferences.lbl!!
+        tempLevel = appPreferences.temp!!
 
         val iFilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
         val batteryStatus = applicationContext.registerReceiver(null, iFilter)
@@ -32,19 +33,19 @@ class BatteryScheduleService : JobService() {
                 BatteryManager.EXTRA_SCALE, -1).toFloat()
         currentBatteryPercentage = Math.round(currentBatteryLevel * 100.0 / maxBatteryLevel).toFloat()
 
-        if (currentBatteryPercentage >= highBatteryPercentage && AppPreferences().instance.batteryAlarmStatus!!)
+        if (currentBatteryPercentage >= highBatteryPercentage && appPreferences.batteryAlarmStatus!!)
             if (isConnectedToCharge(applicationContext))
                 startAlarm("Unplug your Charger", "Your mobile is already $highBatteryPercentage% charged", applicationContext)
 
-        if (currentBatteryPercentage <= lowBatteryPercentage && AppPreferences().instance.batteryAlarmStatus!!)
+        if (currentBatteryPercentage <= lowBatteryPercentage && appPreferences.batteryAlarmStatus!!)
             if (!isConnectedToCharge(applicationContext))
                 startAlarm("Plugin your Charger", "Battery has less than $lowBatteryPercentage% charge left", applicationContext)
 
-        if (AppPreferences().instance.theftAlarmStatus!!)
+        if (appPreferences.theftAlarmStatus!!)
             if (!isConnectedToCharge(applicationContext))
                 startAlarm("Theft Alarm", "Someone just might be unplugging your phone!", applicationContext, true)
 
-        if (getCurrentBatteryTemperature(applicationContext) > tempLevel && AppPreferences().instance.temperatureAlarmStatus!!)
+        if (getCurrentBatteryTemperature(applicationContext) > tempLevel && appPreferences.temperatureAlarmStatus!!)
             startAlarm("Your Phone is getting too warm", "Either switch it off or unplug it", applicationContext)
 
         jobFinished(p0, false)

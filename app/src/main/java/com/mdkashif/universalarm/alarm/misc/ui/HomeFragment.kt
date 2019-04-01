@@ -34,6 +34,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, AlarmsListAdapter.Get
     private val disposable = CompositeDisposable()
 
     @Inject lateinit var roomRepository: RoomRepository
+    @Inject lateinit var appPreferences: AppPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -75,7 +76,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, AlarmsListAdapter.Get
                     Utils.showSnackBar("You have not granted the Location Permissions, please do so by going into the app permissions", rootView)
                     return
                 }
-                if (AppPreferences().instance.islamicDate != "")
+                if (appPreferences.islamicDate != "")
                     mActivity.replaceFragment(SetPrayerTimeFragment(), SetPrayerTimeFragment::class.java.simpleName, true)
                 else
                     Utils.showSnackBar("Fetching the latest Prayer timings, Please try again later", rootView)
@@ -110,7 +111,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, AlarmsListAdapter.Get
 
     private fun showUiElementsAccordingly() {
         val completePair = roomRepository.fetchAllAlarmsAsync(true)
-        if ((completePair.first!!.size + completePair.second!!.size <= 3) && AppPreferences().instance.hbl == 0f)
+        if ((completePair.first!!.size + completePair.second!!.size <= 3) && appPreferences.hbl == 0f)
             rootView.tvSeeAll.visibility = View.INVISIBLE
     }
 

@@ -11,8 +11,12 @@ import com.mdkashif.universalarm.base.BaseActivity
 import com.mdkashif.universalarm.persistence.AppPreferences
 import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_splash.*
+import javax.inject.Inject
 
 class SplashActivity : BaseActivity() {
+    @Inject
+    lateinit var appPreferences: AppPreferences
+
     private lateinit var mIntent: Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +29,7 @@ class SplashActivity : BaseActivity() {
 
         val splashTimeOut = applicationContext.resources.getInteger(R.integer.splash_Time_Out)
         Handler().postDelayed({
-            mIntent = if (!AppPreferences().instance.isFirstTimeLaunch)
+            mIntent = if (!appPreferences.isFirstTimeLaunch)
                 Intent(this@SplashActivity, ContainerActivity::class.java)
             else
                 Intent(this@SplashActivity, AppIntroActivity::class.java)

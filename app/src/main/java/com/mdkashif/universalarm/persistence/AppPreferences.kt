@@ -15,9 +15,6 @@ class AppPreferences {
     @Inject
     lateinit var preferences: SharedPreferences
 
-    val instance: AppPreferences
-        get() = AppPreferences()
-
     private inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {
         val editor = edit()
         operation(editor)

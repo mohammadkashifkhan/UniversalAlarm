@@ -15,9 +15,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 
 class PrayerPresenter(private val disposable: CompositeDisposable, private val prayerViewCallback: PrayerViewCallback, private val context: Context) : PrayerManager.PrayerPresenterCallback {
+    @Inject
+    lateinit var appPreferences: AppPreferences
+
     private var prayerManager = PrayerManager(this)
 
     private var locationRequest: LocationRequest? = null
@@ -34,8 +38,8 @@ class PrayerPresenter(private val disposable: CompositeDisposable, private val p
                         .flatMapObservable { getAddressObservable(it) }
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(({ t: Address? ->
-                            AppPreferences().instance.city = t!!.locality
-                            AppPreferences().instance.country = t.countryName
+                            appPreferences.city = t!!.locality
+                            appPreferences.country = t.countryName
                             prayerManager.getPrayerDetails(disposable)
                         }), { throwable -> Log.e("PrayerPresenter", "Error fetching location/address updates", throwable) })
         )

@@ -8,9 +8,11 @@ import com.github.omadahealth.lollipin.lib.managers.AppLockActivity
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.utils.AppConstants
+import javax.inject.Inject
 
 
 class AntiTheftUnlockActivity : AppLockActivity() {
+    @Inject lateinit var appPreferences: AppPreferences
 
     var theftAlarmStatus: Boolean = false
 
@@ -35,7 +37,7 @@ class AntiTheftUnlockActivity : AppLockActivity() {
     }
 
     override fun onPinSuccess(attempts: Int) {
-        AppPreferences().instance.theftAlarmStatus = theftAlarmStatus
+        appPreferences.theftAlarmStatus = theftAlarmStatus
 
         finish()
     }
@@ -44,7 +46,7 @@ class AntiTheftUnlockActivity : AppLockActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         when (requestCode) {
-            AppConstants.REQUEST_CODE_ENABLE_THEFT_ALARM -> AppPreferences().instance.theftPinEnabled = true
+            AppConstants.REQUEST_CODE_ENABLE_THEFT_ALARM -> appPreferences.theftPinEnabled = true
         }
     }
 }

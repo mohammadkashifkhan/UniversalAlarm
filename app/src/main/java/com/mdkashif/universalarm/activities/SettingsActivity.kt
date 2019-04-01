@@ -31,6 +31,7 @@ import com.mdkashif.universalarm.utils.AppConstants
 import com.mdkashif.universalarm.utils.Utils
 import com.pkmmte.view.CircularImageView
 import jp.wasabeef.blurry.Blurry
+import javax.inject.Inject
 
 class SettingsActivity : BaseActivity() {
 
@@ -43,6 +44,9 @@ class SettingsActivity : BaseActivity() {
     }
 
     class SettingsFragment : PreferenceFragmentCompat(), androidx.preference.Preference.OnPreferenceClickListener {
+        @Inject
+        lateinit var appPreferences: AppPreferences
+
         private lateinit var toggleVibrate: androidx.preference.Preference
         private val googlePlayUrl = "http://play.google.com/store/apps/details?id="
         private lateinit var mActivity: SettingsActivity
@@ -61,15 +65,15 @@ class SettingsActivity : BaseActivity() {
             findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze))!!.onPreferenceClickListener = this
             findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision))!!.onPreferenceClickListener = this
 
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze))!!.summary = context!!.resources.getStringArray(R.array.snoozeTimings)[AppPreferences().instance.snoozeTimeArrayPosition]
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision))!!.summary = "within ${context!!.resources.getStringArray(R.array.locationPrecision)[AppPreferences().instance.locationPrecisionArrayPosition]}"
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze))!!.summary = context!!.resources.getStringArray(R.array.snoozeTimings)[appPreferences.snoozeTimeArrayPosition]
+            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision))!!.summary = "within ${context!!.resources.getStringArray(R.array.locationPrecision)[appPreferences.locationPrecisionArrayPosition]}"
 
             bindPreferenceSummaryToValue(findPreference(getString(R.string.prefKeyTitleRingtone))!!)
 
             toggleVibrate = findPreference(getString(R.string.prefKeyTitleVibrate))!!
             toggleVibrate.onPreferenceChangeListener = object : androidx.preference.Preference.OnPreferenceChangeListener {
                 override fun onPreferenceChange(preference: androidx.preference.Preference, o: Any): Boolean {
-                    AppPreferences().instance.vibrateStatus = java.lang.Boolean.valueOf(o.toString())
+                    appPreferences.vibrateStatus = java.lang.Boolean.valueOf(o.toString())
                     return true
                 }
             }
@@ -161,8 +165,8 @@ class SettingsActivity : BaseActivity() {
                     MaterialDialog(mActivity).show {
                         title(R.string.snoozeTitle)
                         listItemsSingleChoice(R.array.snoozeTimings) { dialog, index, text ->
-                            AppPreferences().instance.snoozeTimeArrayPosition = index
-                            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze))!!.summary = context.resources.getStringArray(R.array.snoozeTimings)[AppPreferences().instance.snoozeTimeArrayPosition]
+                            appPreferences.snoozeTimeArrayPosition = index
+                            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze))!!.summary = context.resources.getStringArray(R.array.snoozeTimings)[appPreferences.snoozeTimeArrayPosition]
                         }
                     }
                 }
@@ -171,8 +175,8 @@ class SettingsActivity : BaseActivity() {
                     MaterialDialog(mActivity).show {
                         title(R.string.locationPrecisionTitle)
                         listItemsSingleChoice(R.array.locationPrecision) { dialog, index, text ->
-                            AppPreferences().instance.locationPrecisionArrayPosition = index
-                            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision))!!.summary = "within ${context.resources.getStringArray(R.array.locationPrecision)[AppPreferences().instance.locationPrecisionArrayPosition]}"
+                            appPreferences.locationPrecisionArrayPosition = index
+                            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision))!!.summary = "within ${context.resources.getStringArray(R.array.locationPrecision)[appPreferences.locationPrecisionArrayPosition]}"
                         }
                     }
                 }
@@ -235,22 +239,7 @@ class SettingsActivity : BaseActivity() {
             super.onAttach(context)
             mActivity = context as SettingsActivity
         }
-    }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            onBackPressed()
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    companion object {
         private fun bindPreferenceSummaryToValue(preference: androidx.preference.Preference) {
             preference.onPreferenceChangeListener = sBindPreferenceSummaryToValueListener
 
@@ -269,7 +258,7 @@ class SettingsActivity : BaseActivity() {
                     } else {
                         val ringtone = RingtoneManager.getRingtone(
                                 preference.getContext(), Uri.parse(stringValue))
-                        AppPreferences().instance.ringtoneUri = Uri.parse(stringValue).toString()
+                        appPreferences.ringtoneUri = Uri.parse(stringValue).toString()
 
                         if (ringtone == null)
                             preference.setSummary(R.string.prefSummaryRingtone)
@@ -280,7 +269,21 @@ class SettingsActivity : BaseActivity() {
                     }
                 }
                 return true
+
             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

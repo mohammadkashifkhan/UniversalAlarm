@@ -10,9 +10,10 @@ import android.os.IBinder
 import android.os.Vibrator
 import com.mdkashif.universalarm.persistence.AppPreferences
 import java.io.IOException
+import javax.inject.Inject
 
 
-class AlarmSoundService : Service() {
+class AlarmSoundService(@Inject val appPreferences: AppPreferences) : Service() {
     private lateinit var mediaPlayer: MediaPlayer
     private var vibrator: Vibrator? = null
 
@@ -22,10 +23,10 @@ class AlarmSoundService : Service() {
                 .setUsage(AudioAttributes.USAGE_ALARM)
                 .build())
         try {
-            if (AppPreferences().instance.ringtoneUri != "")
-                mediaPlayer.setDataSource(this, Uri.parse(AppPreferences().instance.ringtoneUri))
+            if (appPreferences.ringtoneUri != "")
+                mediaPlayer.setDataSource(this, Uri.parse(appPreferences.ringtoneUri))
 
-            if (AppPreferences().instance.vibrateStatus)
+            if (appPreferences.vibrateStatus)
                 vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
             mediaPlayer.prepare()
@@ -46,7 +47,7 @@ class AlarmSoundService : Service() {
             mediaPlayer.release()
         }
 
-        if (AppPreferences().instance.vibrateStatus)
+        if (appPreferences.vibrateStatus)
             vibrator!!.cancel()
     }
 

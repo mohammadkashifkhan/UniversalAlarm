@@ -12,7 +12,7 @@ import com.mdkashif.universalarm.persistence.RoomRepository
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class PrayerDataFetchScheduleService constructor(@Inject val roomRepository: RoomRepository) : JobService(), PrayerPresenter.PrayerViewCallback {
+class PrayerDataFetchScheduleService constructor(@Inject val roomRepository: RoomRepository,@Inject val appPreferences: AppPreferences) : JobService(), PrayerPresenter.PrayerViewCallback {
     private val disposable = CompositeDisposable()
     private lateinit var params: JobParameters
 
@@ -29,9 +29,9 @@ class PrayerDataFetchScheduleService constructor(@Inject val roomRepository: Roo
 
     override fun onPrayerDetailSuccess(prayerApiResponse: PrayerApiResponse?) {
         jobFinished(params, false)
-        AppPreferences().instance.timezone = prayerApiResponse!!.data!!.meta!!.timezone!!
-        AppPreferences().instance.islamicDate = prayerApiResponse.data!!.date!!.hijri!!.date!!
-        AppPreferences().instance.islamicMonth = prayerApiResponse.data.date!!.hijri!!.month!!.en!!
+        appPreferences.timezone = prayerApiResponse!!.data!!.meta!!.timezone!!
+        appPreferences.islamicDate = prayerApiResponse.data!!.date!!.hijri!!.date!!
+        appPreferences.islamicMonth = prayerApiResponse.data.date!!.hijri!!.month!!.en!!
 
         val sunsetTiming = prayerApiResponse.data.timings!!.sunset!!.split(":")
         val sunsetTimingsModel = TimingsModel(hour = sunsetTiming[0], minute = sunsetTiming[1], alarmType = AlarmTypes.Sunset.toString(), status = false, pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong())

@@ -20,9 +20,13 @@ import com.mdkashif.universalarm.utils.Utils
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_set_prayer_time.*
 import kotlinx.android.synthetic.main.fragment_set_prayer_time.view.*
+import javax.inject.Inject
 
 
 class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener, View.OnClickListener {
+    @Inject
+    lateinit var appPreferences: AppPreferences
+
     private var timingsList: List<TimingsModel> = ArrayList()
 
     private var compass: Compass? = null
@@ -45,9 +49,9 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
         rootView.swMidnight.setOnCheckedChangeListener(this)
         rootView.clSendFeedback.setOnClickListener(this)
 
-        rootView.tvTimezone.text = AppPreferences().instance.timezone
-        rootView.tvIslamicDate.text = AppPreferences().instance.islamicDate
-        rootView.tvMonth.text = AppPreferences().instance.islamicMonth
+        rootView.tvTimezone.text = appPreferences.timezone
+        rootView.tvIslamicDate.text = appPreferences.islamicDate
+        rootView.tvMonth.text = appPreferences.islamicMonth
         timingsList = RoomRepository.fetchDataAsync(mActivity.returnDbInstance(), AlarmTypes.Prayer).first!! // Pair's first value
 
         for (i in timingsList.indices) {
