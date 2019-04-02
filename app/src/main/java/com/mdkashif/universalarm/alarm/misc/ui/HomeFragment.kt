@@ -25,9 +25,19 @@ import com.mdkashif.universalarm.utils.Utils
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
-class HomeFragment : BaseFragment(), View.OnClickListener, AlarmsListAdapter.GetTotalAlarmCountInterface {
+class HomeFragment : BaseFragment(), View.OnClickListener, AlarmsListAdapter.GetTotalAlarmCountInterface, CoroutineScope {
+
+    private var job = Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
 
     @Inject
     lateinit var roomRepository: RoomRepository
@@ -95,16 +105,21 @@ class HomeFragment : BaseFragment(), View.OnClickListener, AlarmsListAdapter.Get
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pair = roomRepository.fetchAllAlarmsAsync(true)
-        setRVAdapter(pair)
+        launch {
+            val pair = roomRepository.fetchAllAlarmsAsync(true)
+            setRVAdapter(pair)
+        }
     }
 
     private fun setRVAdapter(pair: Pair<MutableList<TimingsModel>?, MutableList<LocationsModel>?>) {
         mLinearLayoutManager = LinearLayoutManager(mActivity)
         rvAlarms.layoutManager = mLinearLayoutManager
         Utils.setRVSlideInLeftAnimation(rvAlarms)
-        val adapter = AlarmsListAdapter(this, pair.first!!, pair.second!!, "Home", mActivity, mLinearLayoutManager, disposable)
-        rvAlarms.adapter = adapter
+        var adapter: AlarmsListAdapter
+        launch {
+            adapter = AlarmsListAdapter(this@HomeFragment, pair.first!!, pair.second!!, "Home", mActivity, mLinearLayoutManager, disposable)
+            rvAlarms.adapter = adapter
+        }
         showUiElementsAccordingly()
     }
 
@@ -113,13 +128,16 @@ class HomeFragment : BaseFragment(), View.OnClickListener, AlarmsListAdapter.Get
     }
 
     private fun showUiElementsAccordingly() {
-        val completePair = roomRepository.fetchAllAlarmsAsync(true)
-        if ((completePair.first!!.size + completePair.second!!.size <= 3) && appPreferences.hbl == 0f)
-            rootView.tvSeeAll.visibility = View.INVISIBLE
+        launch {
+            val completePair = roomRepository.fetchAllAlarmsAsync(true)
+            if ((completePair.first!!.size + completePair.second!!.size <= 3) && appPreferences.hbl == 0f)
+                rootView.tvSeeAll.visibility = View.INVISIBLE
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        job.cancel()
         disposable.clear()
     }
 }

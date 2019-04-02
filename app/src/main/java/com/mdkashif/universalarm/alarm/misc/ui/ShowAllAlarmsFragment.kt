@@ -14,9 +14,19 @@ import com.mdkashif.universalarm.persistence.RoomRepository
 import com.mdkashif.universalarm.utils.Utils
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_show_all_alarms.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
-class ShowAllAlarmsFragment : BaseFragment(), AlarmsListAdapter.GetTotalAlarmCountInterface {
+class ShowAllAlarmsFragment : BaseFragment(), AlarmsListAdapter.GetTotalAlarmCountInterface, CoroutineScope {
+
+    private var job = Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
 
     @Inject
     lateinit var roomRepository: RoomRepository
@@ -31,8 +41,10 @@ class ShowAllAlarmsFragment : BaseFragment(), AlarmsListAdapter.GetTotalAlarmCou
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pair = roomRepository.fetchAllAlarmsAsync()
-        setRVAdapter(pair)
+        launch {
+            val pair = roomRepository.fetchAllAlarmsAsync()
+            setRVAdapter(pair)
+        }
     }
 
     private fun setRVAdapter(pair: Pair<MutableList<TimingsModel>?, MutableList<LocationsModel>?>) {
@@ -45,6 +57,7 @@ class ShowAllAlarmsFragment : BaseFragment(), AlarmsListAdapter.GetTotalAlarmCou
 
     override fun onDestroy() {
         super.onDestroy()
+        job.cancel()
         disposable.clear()
     }
 

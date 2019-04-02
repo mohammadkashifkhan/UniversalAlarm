@@ -20,9 +20,9 @@ class BaseApplication : Application(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
-        DaggerAppComponent.builder()
-                .application(this)
-                .build().inject(this)
+//        DaggerAppComponent.builder()
+//                .application(this)
+//                .build().inject(this)
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO)
 

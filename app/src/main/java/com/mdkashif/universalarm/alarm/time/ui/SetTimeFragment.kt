@@ -22,12 +22,22 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_buzzing_alarm.view.*
 import kotlinx.android.synthetic.main.fragment_set_time.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
+import kotlin.coroutines.CoroutineContext
 
 
-class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.DayPressedListener {
+class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.DayPressedListener, CoroutineScope {
+
+    private var job = Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
 
     @Inject
     lateinit var roomRepository: RoomRepository
@@ -163,10 +173,14 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
 
     private fun doAccordingly() {
         if (arguments == null)
-            roomRepository.amendTimingsAlarmsAsync(AlarmOps.Add.toString(), timingsModel)
+            launch {
+                roomRepository.amendTimingsAlarmsAsync(AlarmOps.Add.toString(), timingsModel)
+            }
         else {
             AlarmHelper.stopAlarm(timingsModel.pIntentRequestCode.toInt(), mActivity) // removing older pIntents
-            roomRepository.amendTimingsAlarmsAsync(AlarmOps.Update.toString(), timingsModel, timingsModel.id)
+            launch {
+                roomRepository.amendTimingsAlarmsAsync(AlarmOps.Update.toString(), timingsModel, timingsModel.id)
+            }
         }
         when {
             daysList.isNotEmpty() -> AlarmHelper.setAlarm(timingsModel.hour.toInt(), timingsModel.minute.toInt(), requestCode.toInt(), mActivity, AlarmTypes.Time, timingsModel.note, repeat = true, repeatDays = daysList)
@@ -178,6 +192,7 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
 
     override fun onDestroy() {
         super.onDestroy()
+        job.cancel()
         disposable.clear()
     }
 }

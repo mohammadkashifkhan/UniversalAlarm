@@ -23,7 +23,7 @@ class RoomRepository constructor(@Inject val dao: RoomAccessDao) {
         return list
     }
 
-    suspend fun fetchAllAlarmsAsync(alarmStatus: Boolean = false): Pair<MutableList<TimingsModel>, MutableList<LocationsModel>> {
+    fun fetchAllAlarmsAsync(alarmStatus: Boolean = false): Pair<MutableList<TimingsModel>, MutableList<LocationsModel>> {
         var timingslist: MutableList<TimingsModel> = ArrayList()
         var locationslist: MutableList<LocationsModel> = ArrayList()
         GlobalScope.launch(Dispatchers.IO) {
@@ -33,7 +33,7 @@ class RoomRepository constructor(@Inject val dao: RoomAccessDao) {
         return Pair(timingslist, locationslist)
     }
 
-    suspend fun amendPrayerAlarmsAsync(timingsModel: TimingsModel?, autoUpdate: Boolean = false) {
+    suspend fun amendPrayerAlarmsAsync(timingsModel: TimingsModel?, autoUpdate: Boolean = false) { //autoUpdate=false for differentiating between manual & auto update
         var timingsList: MutableList<TimingsModel> = ArrayList()
         GlobalScope.launch { timingsList = async(Dispatchers.IO) { return@async getSpecificTimings(timingsModel!!) }.await() }
 
@@ -43,7 +43,7 @@ class RoomRepository constructor(@Inject val dao: RoomAccessDao) {
         }
     }
 
-    suspend fun amendTimingsAlarmsAsync(taskType: String, timingsModel: TimingsModel?, id: Long = 0) {//id=0 means we are just inserting
+    fun amendTimingsAlarmsAsync(taskType: String, timingsModel: TimingsModel?, id: Long = 0) { //id=0 means we are just inserting
         when (taskType) {
             AlarmOps.Add.toString() ->
                 when {
@@ -57,7 +57,7 @@ class RoomRepository constructor(@Inject val dao: RoomAccessDao) {
         }
     }
 
-    suspend fun amendLocationsAlarmsAsync(taskType: String, locationsModel: LocationsModel?, id: Long = 0) {
+    fun amendLocationsAlarmsAsync(taskType: String, locationsModel: LocationsModel?, id: Long = 0) {
         when (taskType) {
             AlarmOps.Add.toString() -> GlobalScope.launch(Dispatchers.IO) { addLocation(locationsModel!!) }
 

@@ -21,7 +21,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
-        versionName "0.45."+getDate()+"_beta"
+        versionName "0.47."+getDate()+"_beta"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -107,12 +107,10 @@ dependencies {
     implementation "com.google.android.gms:play-services-location:$play_services_version"
     implementation "com.google.android.gms:play-services-places:$play_services_version"
 
-    ////////////// Rx //////////////
+    ////////////// Rx - Retrofit - Gson //////////////
     implementation 'io.reactivex.rxjava2:rxjava:2.2.5'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
-
-    ////////////// Retrofit //////////////
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.google.code.gson:gson:2.8.5'
@@ -126,7 +124,6 @@ dependencies {
 
     ////////////// Room //////////////
     implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
     ////////////// Dagger //////////////

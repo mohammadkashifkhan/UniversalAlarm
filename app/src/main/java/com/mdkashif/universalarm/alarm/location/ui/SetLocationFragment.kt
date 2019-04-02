@@ -37,10 +37,20 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_set_location.*
 import kotlinx.android.synthetic.main.fragment_set_location.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, LocationListener, View.OnClickListener {
+        GoogleApiClient.OnConnectionFailedListener, LocationListener, View.OnClickListener, CoroutineScope {
+
+    private var job = Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
 
     @Inject
     lateinit var appPreferences: AppPreferences
@@ -109,7 +119,9 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
             R.id.btStopAlarm -> {
                 LocationHelper.removeAlarm(locationModel.pIntentRequestCode.toString(), success = {
                     locationModel.status = false
-                    roomRepository.amendLocationsAsync(AlarmOps.Update.toString(), locationModel)
+                    launch {
+                        roomRepository.amendLocationsAlarmsAsync(AlarmOps.Update.toString(), locationModel)
+                    }
                 }, failure = {
                     Utils.showToast(it, mActivity)
                 }, context = mActivity)
@@ -280,6 +292,7 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
     override fun onDestroyView() {
         super.onDestroyView()
         mapView.onDestroy()
+        job.cancel()
         disposable.clear()
     }
 }

@@ -28,6 +28,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCountInterface, private val alarmsList: MutableList<TimingsModel>, private val locationsList: MutableList<LocationsModel>, private val viewType: String, private val context: ContainerActivity, linearLayoutManager: LinearLayoutManager, private val disposable: CompositeDisposable) : ExpandableRecyclerView.Adapter<RecyclerView.ViewHolder>(linearLayoutManager) {
@@ -154,7 +156,9 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
                 holder.swTime.isChecked = alarmsList[position].status
                 holder.swTime.setOnCheckedChangeListener { p0, p1 ->
                     alarmsList[position].status = p1
-                    roomRepository.amendTimingsAlarmsAsync(AlarmOps.Update.toString(), alarmsList[position], alarmsList[position].id)
+                    GlobalScope.launch {
+                        roomRepository.amendTimingsAlarmsAsync(AlarmOps.Update.toString(), alarmsList[position], alarmsList[position].id)
+                    }
                     if (p1) {
                         if (alarmsList[position].repeat)
                             AlarmHelper.setAlarm(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt(), alarmsList[position].pIntentRequestCode.toInt(), context, AlarmTypes.Time, alarmsList[position].note, repeat = true, repeatDays = alarmsList[position].repeatDays)
@@ -167,7 +171,9 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
                     context.replaceFragment(SetTimeFragment(), SetTimeFragment::class.java.simpleName, false, timingDao = alarmsList[position])
                 }
                 holder.ibDelete.setOnClickListener {
-                    roomRepository.amendTimingsAlarmsAsync(AlarmOps.Delete.toString(), alarmsList[position], alarmsList[position].id)
+                    GlobalScope.launch {
+                        roomRepository.amendTimingsAlarmsAsync(AlarmOps.Delete.toString(), alarmsList[position], alarmsList[position].id)
+                    }
                     alarmsList.removeAt(position)
                     getTotalAlarmCountInterface.fetchTotalAlarmCount()
                     notifyItemRemoved(position)
@@ -212,14 +218,18 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
                 holder.swLocation.isChecked = locationsList[index].status
                 holder.swLocation.setOnCheckedChangeListener { p0, p1 ->
                     locationsList[position].status = p1
-                    roomRepository.amendLocationsAlarmsAsync(AlarmOps.Update.toString(), locationsList[index], locationsList[index].id.toLong())
+                    GlobalScope.launch {
+                        roomRepository.amendLocationsAlarmsAsync(AlarmOps.Update.toString(), locationsList[index], locationsList[index].id.toLong())
+                    }
                 }
                 holder.ibEdit.setOnClickListener {
                     context.replaceFragment(SetLocationFragment(), SetLocationFragment::class.java.simpleName, false, locationDao = locationsList[index])
                 }
                 holder.ibDelete.setOnClickListener {
                     LocationHelper.removeAlarm(locationsList[index].pIntentRequestCode.toString(), success = {
-                        roomRepository.amendLocationsAlarmsAsync(AlarmOps.Delete.toString(), locationsList[index], locationsList[index].id.toLong())
+                        GlobalScope.launch {
+                            roomRepository.amendLocationsAlarmsAsync(AlarmOps.Delete.toString(), locationsList[index], locationsList[index].id.toLong())
+                        }
                         locationsList.removeAt(index)
                         getTotalAlarmCountInterface.fetchTotalAlarmCount()
                         notifyItemRemoved(position)
@@ -262,7 +272,9 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
                 holder.swPrayer.isChecked = alarmsList[position].status
                 holder.swPrayer.setOnCheckedChangeListener { p0, p1 ->
                     alarmsList[position].status = p1
-                    roomRepository.amendPrayerAlarmsAsync(alarmsList[position]) // sending add instead of update because its handled in the repository
+                    GlobalScope.launch {
+                        roomRepository.amendPrayerAlarmsAsync(alarmsList[position])
+                    } // sending add instead of update because its handled in the repository
                     if (p1)
                         AlarmHelper.setAlarm(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt(), alarmsList[position].pIntentRequestCode.toInt(), context, AlarmTypes.valueOf(alarmsList[position].alarmType), repeatDays = null)
                     else

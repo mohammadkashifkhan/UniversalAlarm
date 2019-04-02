@@ -19,10 +19,20 @@ import com.mdkashif.universalarm.utils.Utils
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_set_prayer_time.*
 import kotlinx.android.synthetic.main.fragment_set_prayer_time.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 
-class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener, View.OnClickListener {
+class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener, View.OnClickListener, CoroutineScope {
+
+    private var job = Job()
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
 
     @Inject
     lateinit var appPreferences: AppPreferences
@@ -55,7 +65,7 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
         rootView.tvTimezone.text = appPreferences.timezone
         rootView.tvIslamicDate.text = appPreferences.islamicDate
         rootView.tvMonth.text = appPreferences.islamicMonth
-        timingsList = roomRepository.fetchPrayersAlarmsAsync()
+        launch { timingsList = roomRepository.fetchPrayersAlarmsAsync() }
 
         for (i in timingsList.indices) {
             when (timingsList[i].alarmType) {
@@ -132,7 +142,9 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
     private fun switchPrayerStatus(type: AlarmTypes, status: Boolean) {
         val index = returnPrayerIndex(type)
         timingsList[index].status = status
-        roomRepository.amendPrayerAlarmsAsync(timingsList[index])
+        launch {
+            roomRepository.amendPrayerAlarmsAsync(timingsList[index])
+        }
 
         if (status)
             AlarmHelper.setAlarm(timingsList[index].hour.toInt(), timingsList[index].minute.toInt(), timingsList[index].pIntentRequestCode.toInt(), mActivity, type, repeatDays = null)
@@ -199,6 +211,7 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
 
     override fun onDestroy() {
         super.onDestroy()
+        job.cancel()
         disposable.dispose()
     }
 }
