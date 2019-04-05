@@ -32,13 +32,9 @@ import java.util.*
 import javax.inject.Inject
 
 
-object LocationHelper {
-
-    @Inject
-    lateinit var appPreferences: AppPreferences
-
-    @Inject
-    lateinit var roomRepository: RoomRepository
+class LocationHelper @Inject constructor(
+        var appPreferences: AppPreferences,
+        var roomRepository: RoomRepository) {
 
     lateinit var mLocationRequest: LocationRequest
 

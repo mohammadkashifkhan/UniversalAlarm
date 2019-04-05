@@ -3,17 +3,13 @@ package com.mdkashif.universalarm.persistence
 import android.content.SharedPreferences
 import com.mdkashif.universalarm.utils.AppConstants
 import javax.inject.Inject
-import javax.inject.Singleton
 
 
 /**
  * Created by Kashif on 16-Apr-18.
  */
-@Singleton
-class AppPreferences {
 
-    @Inject
-    lateinit var preferences: SharedPreferences
+class AppPreferences @Inject constructor(var preferences: SharedPreferences) {
 
     private inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {
         val editor = edit()

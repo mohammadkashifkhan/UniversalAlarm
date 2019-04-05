@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class PrayerDataFetchScheduleService constructor(@Inject val roomRepository: RoomRepository, @Inject val appPreferences: AppPreferences) : JobService(), PrayerPresenter.PrayerViewCallback , CoroutineScope {
+class PrayerDataFetchScheduleService @Inject constructor(var roomRepository: RoomRepository, var appPreferences: AppPreferences) : JobService(), PrayerPresenter.PrayerViewCallback, CoroutineScope {
 
     private var job = Job()
 

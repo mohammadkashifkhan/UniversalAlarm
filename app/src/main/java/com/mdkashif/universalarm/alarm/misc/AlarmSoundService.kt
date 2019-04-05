@@ -13,7 +13,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 
-class AlarmSoundService(@Inject val appPreferences: AppPreferences) : Service() {
+class AlarmSoundService @Inject constructor(var appPreferences: AppPreferences) : Service() {
     private lateinit var mediaPlayer: MediaPlayer
     private var vibrator: Vibrator? = null
 

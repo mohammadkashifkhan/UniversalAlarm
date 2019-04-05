@@ -16,6 +16,7 @@ import com.mdkashif.universalarm.alarm.time.TimeHelper
 import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.persistence.RoomRepository
 import com.mdkashif.universalarm.utils.Utils
+import dagger.android.support.AndroidSupportInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
@@ -52,6 +53,11 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
     private val disposable = CompositeDisposable()
     private var requestCode: Long = 0
     private lateinit var mTimePicker: TimePickerDialog
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        AndroidSupportInjection.inject(this)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

@@ -22,7 +22,7 @@ class PersistenceModule {
 
     @Provides
     @Singleton
-    fun provideAppPreferences() = AppPreferences()
+    fun provideAppPreferences(sharedPreferences: SharedPreferences) = AppPreferences(sharedPreferences)
 
     @Provides
     @Singleton

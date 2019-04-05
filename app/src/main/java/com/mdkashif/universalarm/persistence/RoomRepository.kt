@@ -9,7 +9,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class RoomRepository constructor(@Inject val dao: RoomAccessDao) {
+class RoomRepository @Inject constructor(var dao: RoomAccessDao) {
 
     suspend fun fetchPrayersAlarmsAsync(): MutableList<TimingsModel> {
         var list: MutableList<TimingsModel> = ArrayList()

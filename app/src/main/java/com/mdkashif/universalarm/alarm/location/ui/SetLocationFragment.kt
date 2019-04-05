@@ -31,6 +31,7 @@ import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.persistence.RoomRepository
 import com.mdkashif.universalarm.utils.Utils
+import dagger.android.support.AndroidSupportInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
@@ -58,6 +59,9 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
     @Inject
     lateinit var roomRepository: RoomRepository
 
+    @Inject
+    lateinit var locationHelper: LocationHelper
+
     private lateinit var mGoogleMap: GoogleMap
     private lateinit var mLastLocation: Location
     private lateinit var mGoogleApiClient: GoogleApiClient
@@ -72,6 +76,11 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
 
     private var latitude: Double = 0.toDouble()
     private var longitude: Double = 0.toDouble()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        AndroidSupportInjection.inject(this)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -98,7 +107,7 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
         when (v!!.id) {
             R.id.btSetAlarm -> {
                 when {
-                    rootView.btSetAlarm.text != "Update Alarm" -> LocationHelper.setAlarm(mActivity, etNote.text.toString(),
+                    rootView.btSetAlarm.text != "Update Alarm" -> locationHelper.setAlarm(mActivity, etNote.text.toString(),
                             success = {
                                 mActivity.onBackPressed()
                             },
@@ -106,7 +115,7 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
                                 Utils.showToast(it, mActivity)
                             })
                     else -> {
-                        LocationHelper.updateAlarm(mActivity, etNote.text.toString(),
+                        locationHelper.updateAlarm(mActivity, etNote.text.toString(),
                                 success = {
                                     mActivity.onBackPressed()
                                 },
@@ -117,7 +126,7 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
                 }
             }
             R.id.btStopAlarm -> {
-                LocationHelper.removeAlarm(locationModel.pIntentRequestCode.toString(), success = {
+                locationHelper.removeAlarm(locationModel.pIntentRequestCode.toString(), success = {
                     locationModel.status = false
                     launch {
                         roomRepository.amendLocationsAlarmsAsync(AlarmOps.Update.toString(), locationModel)
@@ -137,9 +146,9 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
             mapView.getMapAsync(this)
         }
 
-        if (LocationHelper.checkPlayServices(mActivity)) {
+        if (locationHelper.checkPlayServices(mActivity)) {
             buildGoogleApiClient()
-            LocationHelper.createLocationRequest()
+            locationHelper.createLocationRequest()
         }
     }
 
@@ -171,7 +180,7 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return
         }
-        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, LocationHelper.mLocationRequest, this)
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationHelper.mLocationRequest, this)
 
     }
 
@@ -207,7 +216,7 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
     }
 
     private fun reactAccordingly(latLng: LatLng) {
-        disposable.add(LocationHelper.getAddress(latLng, mActivity).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(object : DisposableObserver<String>() {
+        disposable.add(locationHelper.getAddress(latLng, mActivity).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(object : DisposableObserver<String>() {
             override fun onComplete() {
                 // do nothing
             }
@@ -216,7 +225,7 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
                 mGoogleMap.clear()
                 rootView.pbAddress.visibility = View.GONE
                 rootView.tvAddress.text = t
-                rootView.tvDistance.text = LocationHelper.getDistance(mGoogleMap.cameraPosition.target, pos)
+                rootView.tvDistance.text = locationHelper.getDistance(mGoogleMap.cameraPosition.target, pos)
                 rootView.btSetAlarm.isEnabled = true
 
                 var radius = context!!.resources.getStringArray(R.array.locationPrecision)[appPreferences.locationPrecisionArrayPosition].split(" ")[0]
@@ -265,7 +274,7 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
         super.onResume()
         mGoogleApiClient.connect()
         mapView.onResume()
-        LocationHelper.checkPlayServices(mActivity)
+        locationHelper.checkPlayServices(mActivity)
 
         if (mGoogleApiClient.isConnected)
             startLocationUpdates(this.context!!)

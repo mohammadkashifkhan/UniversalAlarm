@@ -40,6 +40,9 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
     @Inject
     lateinit var appPreferences: AppPreferences
 
+    @Inject
+    lateinit var locationHelper: LocationHelper
+
     internal inner class TimeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTime: TextView = itemView.findViewById(R.id.tvTime)
         val tvTimeType: TextView = itemView.findViewById(R.id.tvTimeType)
@@ -203,7 +206,7 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
 
                 disposable.add(PrayerPresenter.getLocationContinuously().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(object : DisposableObserver<Location>() {
                     override fun onNext(t: Location) {
-                        holder.tvDistance.text = LocationHelper.getDistance(LatLng(locationsList[index].latitude, locationsList[index].longitude), LatLng(t.latitude, t.longitude))
+                        holder.tvDistance.text = locationHelper.getDistance(LatLng(locationsList[index].latitude, locationsList[index].longitude), LatLng(t.latitude, t.longitude))
                     }
 
                     override fun onError(e: Throwable) {
@@ -226,7 +229,7 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
                     context.replaceFragment(SetLocationFragment(), SetLocationFragment::class.java.simpleName, false, locationDao = locationsList[index])
                 }
                 holder.ibDelete.setOnClickListener {
-                    LocationHelper.removeAlarm(locationsList[index].pIntentRequestCode.toString(), success = {
+                    locationHelper.removeAlarm(locationsList[index].pIntentRequestCode.toString(), success = {
                         GlobalScope.launch {
                             roomRepository.amendLocationsAlarmsAsync(AlarmOps.Delete.toString(), locationsList[index], locationsList[index].id.toLong())
                         }
