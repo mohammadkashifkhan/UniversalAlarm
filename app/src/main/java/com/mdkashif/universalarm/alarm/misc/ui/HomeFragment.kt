@@ -1,6 +1,7 @@
 package com.mdkashif.universalarm.alarm.misc.ui
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -50,9 +51,9 @@ class HomeFragment : BaseFragment(), View.OnClickListener, AlarmsListAdapter.Get
     private lateinit var rootView: View
     private val disposable = CompositeDisposable()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
+        super.onAttach(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

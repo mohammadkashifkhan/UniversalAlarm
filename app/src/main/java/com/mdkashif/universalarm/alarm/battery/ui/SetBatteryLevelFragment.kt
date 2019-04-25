@@ -1,5 +1,6 @@
 package com.mdkashif.universalarm.alarm.battery.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,9 +26,9 @@ class SetBatteryLevelFragment : BaseFragment(), CompoundButton.OnCheckedChangeLi
     @Inject
     lateinit var appPreferences: AppPreferences
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
+        super.onAttach(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

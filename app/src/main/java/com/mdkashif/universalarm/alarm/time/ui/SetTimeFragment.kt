@@ -1,6 +1,7 @@
 package com.mdkashif.universalarm.alarm.time.ui
 
 import android.app.TimePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -54,9 +55,9 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
     private var requestCode: Long = 0
     private lateinit var mTimePicker: TimePickerDialog
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
+        super.onAttach(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

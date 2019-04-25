@@ -15,7 +15,6 @@ import com.mdkashif.universalarm.alarm.prayer.ui.SetPrayerTimeFragment
 import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment
 import com.mdkashif.universalarm.base.BaseActivity
 import dagger.android.AndroidInjection
-import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import permissions.dispatcher.*
@@ -46,7 +45,7 @@ class ContainerActivity : BaseActivity(), HasSupportFragmentInjector {
         }
     }
 
-    override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
+    override fun supportFragmentInjector() = dispatchingAndroidInjector
 
     @NeedsPermission(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun getPermissions() {

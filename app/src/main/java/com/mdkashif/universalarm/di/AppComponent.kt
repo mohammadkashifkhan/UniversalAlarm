@@ -4,11 +4,11 @@ import android.app.Application
 import com.mdkashif.universalarm.base.BaseApplication
 import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjectionModule
+import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AndroidInjectionModule::class, ActivityModule::class, FragmentModule::class, PersistenceModule::class, RetrofitModule::class, HelperModule::class])
+@Component(modules = [AndroidSupportInjectionModule::class, ActivityModule::class, HomeFragmentModule::class, SetBatteryLevelFragmentModule::class, SetLocationFragmentModule::class, SetPrayerTimeFragmentModule::class, SetTimeFragmentModule::class, ShowAllAlarmsFragmentModule::class, PersistenceModule::class, RetrofitModule::class, HelperModule::class])
 interface AppComponent {
 
     @Component.Builder

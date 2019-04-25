@@ -1,5 +1,6 @@
 package com.mdkashif.universalarm.alarm.prayer.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -47,9 +48,9 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
     private var currentAzimuth: Float = 0.toFloat()
     private val disposable = CompositeDisposable()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
+        super.onAttach(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

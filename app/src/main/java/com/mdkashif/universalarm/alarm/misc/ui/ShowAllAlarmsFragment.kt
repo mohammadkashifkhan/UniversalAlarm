@@ -1,5 +1,6 @@
 package com.mdkashif.universalarm.alarm.misc.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -35,9 +36,9 @@ class ShowAllAlarmsFragment : BaseFragment(), AlarmsListAdapter.GetTotalAlarmCou
     private lateinit var mLinearLayoutManager: LinearLayoutManager
     private val disposable = CompositeDisposable()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
+        super.onAttach(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

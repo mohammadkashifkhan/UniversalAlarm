@@ -77,9 +77,9 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
     private var latitude: Double = 0.toDouble()
     private var longitude: Double = 0.toDouble()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
+        super.onAttach(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
