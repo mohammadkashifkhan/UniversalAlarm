@@ -21,7 +21,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.google.android.material.snackbar.Snackbar
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.alarm.misc.AlarmSoundService
+import com.mdkashif.universalarm.alarm.misc.services.AlarmSoundService
 import com.mdkashif.universalarm.base.BaseActivity
 
 object Utils {

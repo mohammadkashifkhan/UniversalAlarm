@@ -4,32 +4,42 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.os.BatteryManager
-
 import androidx.lifecycle.LiveData
+import kotlin.math.roundToInt
 
 class BatteryLiveData(private val context: Context) : LiveData<BatteryStatsPoJo>() {
-    internal var level: Int = 0
-    internal var temp: Float = 0.toFloat()
-    lateinit var status: String
+    private var level = 0
+    private var temp = 0F
+    private var status = ""
+    private var time = ""
+
+    companion object {
+        internal var timeToCharge = ""
+        internal var timeToDischarge = ""
+    }
 
     private val mBatteryInfoReceiver = object : BroadcastReceiver() {
         override fun onReceive(ctxt: Context, intent: Intent) {
+            val batteryStats = BatteryStats(intent)
 
-            val currLevel = intent.getIntExtra(
-                    BatteryManager.EXTRA_LEVEL, -1)
-            val maxLevel = intent.getIntExtra(
-                    BatteryManager.EXTRA_SCALE, -1)
-            level = Math.round(currLevel * 100.0 / maxLevel).toInt()
+            val currLevel = batteryStats.level
+            val maxLevel = batteryStats.scale
+            level = (currLevel * 100.0 / maxLevel).roundToInt()
 
-            status = if (isConnected(context))
-                "Charging"
-            else
-                "Discharging"
+            when {
+                batteryStats.isCharging -> {
+                    time = timeToCharge
+                    status = "Charging"
+                }
+                else -> {
+                    time = timeToDischarge
+                    status = "Discharging"
+                }
+            }
 
-            temp = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0).toFloat() / 10
+            temp = batteryStats.temperature.toFloat()
 
-            postValue(BatteryStatsPoJo(level, temp, status))
+            postValue(BatteryStatsPoJo(level, temp, status, time))
         }
     }
 
@@ -44,9 +54,27 @@ class BatteryLiveData(private val context: Context) : LiveData<BatteryStatsPoJo>
         context.unregisterReceiver(mBatteryInfoReceiver)
     }
 
-    fun isConnected(context: Context): Boolean {
-        val intent = context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-        val plugged = intent!!.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)
-        return plugged == BatteryManager.BATTERY_PLUGGED_AC || plugged == BatteryManager.BATTERY_PLUGGED_USB
+    class BatteryTimeStats : BatteryTimeService() {
+        override fun onChargingTimePublish(hours: Int, mins: Int) {
+            //Called while charging and time to charge is being calculated.
+            timeToCharge = "${hours}h ${mins}m"
+        }
+
+        override fun onCalculatingChargingTime() {
+            //hours and mins params indicates remaining time for full charge.
+        }
+
+        override fun onDischargeTimePublish(days: Int, hours: Int, mins: Int) {
+            //days, hours and mins params indicates remaining time for discharge.
+            timeToDischarge = "${days}d ${hours}h ${mins}m"
+        }
+
+        override fun onCalculatingDischargingTime() {
+            //Called while discharging and time to discharge is being calculated.
+        }
+
+        override fun onFullBattery() {
+            //Called when device is charging and battery becomes full.
+        }
     }
 }

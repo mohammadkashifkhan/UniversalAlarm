@@ -1,7 +1,6 @@
-package com.mdkashif.universalarm.alarm.misc.ui
+package com.mdkashif.universalarm.alarm.misc.view.ui
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -11,50 +10,42 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.activities.SettingsActivity
 import com.mdkashif.universalarm.alarm.battery.ui.SetBatteryLevelFragment
 import com.mdkashif.universalarm.alarm.location.ui.SetLocationFragment
-import com.mdkashif.universalarm.alarm.misc.AlarmsListAdapter
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
+import com.mdkashif.universalarm.alarm.misc.view.adapter.AlarmsListAdapter
 import com.mdkashif.universalarm.alarm.prayer.ui.SetPrayerTimeFragment
 import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment
 import com.mdkashif.universalarm.base.BaseFragment
+import com.mdkashif.universalarm.misc.ui.SettingsActivity
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.persistence.RoomRepository
 import com.mdkashif.universalarm.utils.Utils
-import dagger.android.support.AndroidSupportInjection
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import kotlin.coroutines.CoroutineContext
 
-class HomeFragment : BaseFragment(), View.OnClickListener, AlarmsListAdapter.GetTotalAlarmCountInterface, CoroutineScope {
+class HomeFragment : BaseFragment(), View.OnClickListener, AlarmsListAdapter.GetTotalAlarmCountInterface, CoroutineScope, KoinComponent {
 
     private var job = Job()
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    @Inject
-    lateinit var roomRepository: RoomRepository
+    private val roomRepository: RoomRepository by inject()
 
-    @Inject
-    lateinit var appPreferences: AppPreferences
+    private val appPreferences: AppPreferences by inject()
 
     private lateinit var mLinearLayoutManager: LinearLayoutManager
     private lateinit var rootView: View
     private val disposable = CompositeDisposable()
-
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -120,12 +111,12 @@ class HomeFragment : BaseFragment(), View.OnClickListener, AlarmsListAdapter.Get
 
     private fun setRVAdapter(pair: Pair<MutableList<TimingsModel>?, MutableList<LocationsModel>?>) {
         mLinearLayoutManager = LinearLayoutManager(mActivity)
-        rvAlarms.layoutManager = mLinearLayoutManager
-        Utils.setRVSlideInLeftAnimation(rvAlarms)
+        rootView.rvAlarms.layoutManager = mLinearLayoutManager
+        Utils.setRVSlideInLeftAnimation(rootView.rvAlarms)
         var adapter: AlarmsListAdapter
         launch {
             adapter = AlarmsListAdapter(this@HomeFragment, pair.first!!, pair.second!!, "Home", mActivity, mLinearLayoutManager, disposable)
-            rvAlarms.adapter = adapter
+            rootView.rvAlarms.adapter = adapter
         }
         showUiElementsAccordingly()
     }
@@ -137,7 +128,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, AlarmsListAdapter.Get
     private fun showUiElementsAccordingly() {
         launch {
             val completePair = roomRepository.fetchAllAlarmsAsync(true)
-            if ((completePair.first!!.size + completePair.second!!.size <= 3) && appPreferences.hbl == 0f)
+            if ((completePair.first.size + completePair.second.size <= 3) && appPreferences.hbl == 0f)
                 rootView.tvSeeAll.visibility = View.INVISIBLE
         }
     }

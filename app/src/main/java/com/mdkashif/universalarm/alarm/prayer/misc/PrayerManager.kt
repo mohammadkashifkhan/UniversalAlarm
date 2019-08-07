@@ -6,33 +6,27 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class PrayerManager(val prayerPresenterCallback: PrayerPresenterCallback) {
-    @Inject
-    lateinit var apiInterface: ApiInterface
+class PrayerManager : KoinComponent {
+    private val apiInterface: ApiInterface by inject()
 
-    @Inject
-    lateinit var appPreferences: AppPreferences
+    private val appPreferences: AppPreferences by inject()
 
-    fun getPrayerDetails(disposable: CompositeDisposable) {
+    fun getPrayerDetails(disposable: CompositeDisposable, onSuccess: (PrayerApiResponse) -> Unit, onFailure: (String) -> Unit) {
         val prayerCall = apiInterface.getPrayerDetails(appPreferences.city!!, appPreferences.country!!)
 
-        disposable.add(prayerCall.subscribeOn(Schedulers.io()) // io thread used for fetching data
-                .observeOn(AndroidSchedulers.mainThread()) // data thrown to main thread
+        disposable.add(prayerCall.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<PrayerApiResponse>() {
-            override fun onSuccess(t: PrayerApiResponse) {
-                prayerPresenterCallback.onGetPrayerDetails(t)
-            }
+                    override fun onSuccess(t: PrayerApiResponse) {
+                        onSuccess(t)
+                    }
 
-            override fun onError(e: Throwable) {
-                prayerPresenterCallback.onError(e.message!!)
-            }
-        }))
-    }
-
-    interface PrayerPresenterCallback {
-        fun onGetPrayerDetails(prayerApiResponse: PrayerApiResponse?)
-        fun onError(error: String)
+                    override fun onError(e: Throwable) {
+                        onFailure(e.message!!)
+                    }
+                }))
     }
 }

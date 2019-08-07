@@ -66,10 +66,10 @@
                     android:src="@drawable/ic_battery" />
 
                 <TextView
-                    android:id="@+id/batteryStatus"
+                    android:id="@+id/tvBatteryStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/marginTopEndBottomStart"
+                    android:layout_marginStart="@dimen/marginTopEndBottomStart"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="@dimen/normalTextSize" />
 
@@ -88,11 +88,10 @@
                     android:src="@drawable/ic_eta" />
 
                 <TextView
-                    android:id="@+id/eta"
+                    android:id="@+id/tvEta"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/marginTopEndBottomStart"
-                    android:text="6h 22m left"
+                    android:layout_marginStart="@dimen/marginTopEndBottomStart"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="@dimen/normalTextSize" />
 
@@ -111,10 +110,10 @@
                     android:src="@drawable/ic_thermometer" />
 
                 <TextView
-                    android:id="@+id/temperature"
+                    android:id="@+id/tvTemperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/marginTopEndBottomStart"
+                    android:layout_marginStart="@dimen/marginTopEndBottomStart"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="@dimen/normalTextSize" />
 

@@ -1,15 +1,17 @@
 package com.mdkashif.universalarm.persistence
 
-import com.mdkashif.universalarm.alarm.misc.AlarmOps
+import com.mdkashif.universalarm.alarm.misc.enums.AlarmOps
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import org.koin.core.KoinComponent
+import org.koin.core.get
 
-class RoomRepository @Inject constructor(var dao: RoomAccessDao) {
+class RoomRepository : KoinComponent {
+    private val dao: RoomAccessDao = get()
 
     suspend fun fetchPrayersAlarmsAsync(): MutableList<TimingsModel> {
         var list: MutableList<TimingsModel> = ArrayList()

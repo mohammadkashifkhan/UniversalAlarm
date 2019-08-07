@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.alarm.prayer.misc
+package com.mdkashif.universalarm.alarm.prayer.ui
 
 import android.content.Context
 import android.content.pm.PackageManager
@@ -7,6 +7,7 @@ import android.location.Location
 import android.util.Log
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.LocationRequest
+import com.mdkashif.universalarm.alarm.prayer.misc.PrayerManager
 import com.mdkashif.universalarm.alarm.prayer.model.PrayerApiResponse
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.patloew.rxlocation.RxLocation
@@ -14,21 +15,21 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 
-class PrayerPresenter(private val disposable: CompositeDisposable, private val prayerViewCallback: PrayerViewCallback, private val context: Context) : PrayerManager.PrayerPresenterCallback {
-    @Inject
-    lateinit var appPreferences: AppPreferences
+class PrayerPresenter(private val disposable: CompositeDisposable, private val prayerViewCallback: PrayerViewCallback, private val context: Context) : KoinComponent {
+    private val appPreferences: AppPreferences by inject()
 
-    private var prayerManager = PrayerManager(this)
+    private var prayerManager = PrayerManager()
 
     private var locationRequest: LocationRequest? = null
     private val rxLocation = RxLocation(context)
 
     fun getPrayerDetails() {
-        Log.d("check1234567","here")
+        Log.d("check1234567", "here")
         locationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(5000)
@@ -40,7 +41,14 @@ class PrayerPresenter(private val disposable: CompositeDisposable, private val p
                         .subscribe(({ t: Address? ->
                             appPreferences.city = t!!.locality
                             appPreferences.country = t.countryName
-                            prayerManager.getPrayerDetails(disposable)
+                            prayerManager.getPrayerDetails(disposable,
+                                    onSuccess = {
+                                        prayerViewCallback.onPrayerDetailSuccess(it)
+                                    },
+                                    onFailure = {
+                                        prayerViewCallback.onError(it)
+                                    }
+                            )
                         }), { throwable -> Log.e("PrayerPresenter", "Error fetching location/address updates", throwable) })
         )
     }
@@ -72,7 +80,7 @@ class PrayerPresenter(private val disposable: CompositeDisposable, private val p
         private lateinit var mLocation: Location
         fun getLocationContinuously(): Observable<Location> { // For Location Alarms
             return Observable.interval(0, 10, TimeUnit.SECONDS)
-                    .flatMap<Location> { Observable.just(mLocation) }
+                    .flatMap { Observable.just(mLocation) }
         }
     }
 
@@ -81,17 +89,8 @@ class PrayerPresenter(private val disposable: CompositeDisposable, private val p
                 .subscribeOn(Schedulers.io())
     }
 
-    override fun onGetPrayerDetails(prayerApiResponse: PrayerApiResponse?) {
-        prayerViewCallback.onPrayerDetailSuccess(prayerApiResponse)
-    }
-
-    override fun onError(error: String) {
-        prayerViewCallback.onError(error)
-    }
-
     interface PrayerViewCallback {
         fun onPrayerDetailSuccess(prayerApiResponse: PrayerApiResponse?)
         fun onError(error: String)
     }
-
 }

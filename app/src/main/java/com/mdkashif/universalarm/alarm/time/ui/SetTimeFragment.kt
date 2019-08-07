@@ -1,7 +1,6 @@
 package com.mdkashif.universalarm.alarm.time.ui
 
 import android.app.TimePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,15 +8,14 @@ import android.view.ViewGroup
 import ca.antonious.materialdaypicker.MaterialDayPicker
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.misc.AlarmHelper
-import com.mdkashif.universalarm.alarm.misc.AlarmOps
-import com.mdkashif.universalarm.alarm.misc.AlarmTypes
+import com.mdkashif.universalarm.alarm.misc.enums.AlarmOps
+import com.mdkashif.universalarm.alarm.misc.enums.AlarmTypes
 import com.mdkashif.universalarm.alarm.misc.model.DaysModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import com.mdkashif.universalarm.alarm.time.TimeHelper
 import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.persistence.RoomRepository
 import com.mdkashif.universalarm.utils.Utils
-import dagger.android.support.AndroidSupportInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
@@ -28,21 +26,21 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import java.util.*
-import javax.inject.Inject
 import kotlin.collections.ArrayList
 import kotlin.coroutines.CoroutineContext
 
 
-class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.DayPressedListener, CoroutineScope {
+class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.DayPressedListener, CoroutineScope, KoinComponent {
 
     private var job = Job()
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    @Inject
-    lateinit var roomRepository: RoomRepository
+    private val roomRepository: RoomRepository by inject()
 
     private lateinit var rootView: View
     private var selectedDays: MutableList<String> = ArrayList()
@@ -54,11 +52,6 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
     private val disposable = CompositeDisposable()
     private var requestCode: Long = 0
     private lateinit var mTimePicker: TimePickerDialog
-
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

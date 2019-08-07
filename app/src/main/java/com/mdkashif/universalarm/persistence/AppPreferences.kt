@@ -2,14 +2,16 @@ package com.mdkashif.universalarm.persistence
 
 import android.content.SharedPreferences
 import com.mdkashif.universalarm.utils.AppConstants
-import javax.inject.Inject
+import org.koin.core.KoinComponent
+import org.koin.core.get
 
 
 /**
  * Created by Kashif on 16-Apr-18.
  */
 
-class AppPreferences @Inject constructor(var preferences: SharedPreferences) {
+class AppPreferences : KoinComponent {
+    private val preferences: SharedPreferences = get()
 
     private inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {
         val editor = edit()

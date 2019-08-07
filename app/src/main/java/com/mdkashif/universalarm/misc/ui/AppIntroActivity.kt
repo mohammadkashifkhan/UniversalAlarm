@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.activities
+package com.mdkashif.universalarm.misc.ui
 
 import android.content.Intent
 import android.os.Build
@@ -8,11 +8,10 @@ import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.base.BaseActivity
 import com.mdkashif.universalarm.persistence.AppPreferences
 import kotlinx.android.synthetic.main.activity_app_intro.*
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
 class AppIntroActivity : BaseActivity() {
-    @Inject
-    lateinit var appPreferences: AppPreferences
+    private val appPreferences: AppPreferences by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +22,10 @@ class AppIntroActivity : BaseActivity() {
 
         setContentView(R.layout.activity_app_intro)
 
-        btGotIt!!.setOnClickListener { appPreferences.isFirstTimeLaunch = false
-            executeIntent(Intent(this@AppIntroActivity, ContainerActivity::class.java), true) }
+        btGotIt!!.setOnClickListener {
+            appPreferences.isFirstTimeLaunch = false
+            executeIntent(Intent(this@AppIntroActivity, ContainerActivity::class.java), true)
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.activities
+package com.mdkashif.universalarm.misc.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,11 +11,10 @@ import com.mdkashif.universalarm.base.BaseActivity
 import com.mdkashif.universalarm.persistence.AppPreferences
 import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_splash.*
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
 class SplashActivity : BaseActivity() {
-    @Inject
-    lateinit var appPreferences: AppPreferences
+    private val appPreferences: AppPreferences by inject()
 
     private lateinit var mIntent: Intent
 

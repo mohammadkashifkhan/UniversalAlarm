@@ -31,14 +31,14 @@
             android:name="com.mdkashif.universalarm.base.BaseActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.mdkashif.universalarm.activities.ContainerActivity"
+            android:name="com.mdkashif.universalarm.misc.ui.ContainerActivity"
             android:theme="@style/commonTheme" />
         <activity
-            android:name="com.mdkashif.universalarm.activities.SettingsActivity"
+            android:name="com.mdkashif.universalarm.misc.ui.SettingsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/settingsTheme" />
         <activity
-            android:name="com.mdkashif.universalarm.activities.SplashActivity"
+            android:name="com.mdkashif.universalarm.misc.ui.SplashActivity"
             android:theme="@style/commonTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,16 +52,16 @@
                 android:resource="@xml/shortcuts" />
         </activity>
         <activity
-            android:name="com.mdkashif.universalarm.activities.AppIntroActivity"
+            android:name="com.mdkashif.universalarm.misc.ui.AppIntroActivity"
             android:screenOrientation="portrait"
             android:theme="@style/commonTheme" />
 
         <activity
-            android:name="com.mdkashif.universalarm.activities.AntiTheftUnlockActivity"
+            android:name="com.mdkashif.universalarm.misc.ui.AntiTheftUnlockActivity"
             android:screenOrientation="portrait"
             android:theme="@style/commonTheme" />
 
-        <service android:name="com.mdkashif.universalarm.alarm.misc.AlarmSoundService" />
+        <service android:name="com.mdkashif.universalarm.alarm.misc.services.AlarmSoundService" />
 
         <service android:name="com.mdkashif.universalarm.alarm.misc.services.MiscIntentService" />
 
@@ -75,9 +75,10 @@
             android:label="Battery Info change Service"
             android:permission="android.permission.BIND_JOB_SERVICE" />
         <service android:name=".alarm.misc.services.GeofenceTransitionsIntentService" />
+        <service android:name=".alarm.battery.misc.BatteryLiveData$BatteryTimeStats" />
 
         <activity
-            android:name="com.mdkashif.universalarm.activities.WebviewActivity"
+            android:name="com.mdkashif.universalarm.misc.ui.WebviewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/commonTheme" />
     </application>

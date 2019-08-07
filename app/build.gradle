@@ -16,12 +16,13 @@ android {
     }
 
     compileSdkVersion 28
+
     defaultConfig {
         applicationId "com.mdkashif.universalarm"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
-        versionName "0.50."+getDate()+"_beta"
+        versionName "0.51." + getDate() + "_beta"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -44,6 +45,10 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/atomicfu.kotlin_module'
     }
 }
 
@@ -124,11 +129,8 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
-    ////////////// Dagger //////////////
-    implementation "com.google.dagger:dagger-android:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
-    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
-    implementation "com.google.dagger:dagger-android-support:$dagger_version"
+    ////////////// Koin //////////////
+    implementation "org.koin:koin-android:$koin_version"
 
     ////////////// Testing //////////////
     testImplementation 'junit:junit:4.12'

@@ -20,7 +20,7 @@
         android:gravity="center"
         android:padding="@dimen/paddingAll"
         android:background="@color/offWhite"
-        android:text="Dagger by Google"
+        android:text="Koin by Arnaud Giuliani"
         android:textSize="@dimen/mediumTextSize"
         android:layout_marginTop="@dimen/marginTopEndBottomStart"
         android:layout_width="match_parent"

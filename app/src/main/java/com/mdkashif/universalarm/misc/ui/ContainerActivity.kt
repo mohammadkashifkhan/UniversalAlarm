@@ -1,34 +1,25 @@
-package com.mdkashif.universalarm.activities
+package com.mdkashif.universalarm.misc.ui
 
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.battery.ui.SetBatteryLevelFragment
 import com.mdkashif.universalarm.alarm.location.ui.SetLocationFragment
-import com.mdkashif.universalarm.alarm.misc.ui.BuzzingAlarmFragment
-import com.mdkashif.universalarm.alarm.misc.ui.HomeFragment
+import com.mdkashif.universalarm.alarm.misc.view.ui.BuzzingAlarmFragment
+import com.mdkashif.universalarm.alarm.misc.view.ui.HomeFragment
 import com.mdkashif.universalarm.alarm.prayer.job.PrayerDataFetchScheduler
 import com.mdkashif.universalarm.alarm.prayer.ui.SetPrayerTimeFragment
 import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment
 import com.mdkashif.universalarm.base.BaseActivity
-import dagger.android.AndroidInjection
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
 import permissions.dispatcher.*
-import javax.inject.Inject
 
 
 @RuntimePermissions
-class ContainerActivity : BaseActivity(), HasSupportFragmentInjector {
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+class ContainerActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_container)
 
@@ -44,8 +35,6 @@ class ContainerActivity : BaseActivity(), HasSupportFragmentInjector {
             else -> replaceFragment(HomeFragment(), HomeFragment::class.java.simpleName, false)
         }
     }
-
-    override fun supportFragmentInjector() = dispatchingAndroidInjector
 
     @NeedsPermission(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun getPermissions() {

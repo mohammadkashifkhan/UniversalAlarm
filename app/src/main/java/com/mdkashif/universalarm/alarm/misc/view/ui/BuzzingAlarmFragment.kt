@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.alarm.misc.ui
+package com.mdkashif.universalarm.alarm.misc.view.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.misc.AlarmHelper
-import com.mdkashif.universalarm.alarm.misc.AlarmSoundService
+import com.mdkashif.universalarm.alarm.misc.services.AlarmSoundService
 import com.mdkashif.universalarm.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_buzzing_alarm.view.*
 

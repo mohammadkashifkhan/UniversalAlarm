@@ -25,13 +25,12 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.location.misc.LocationHelper
-import com.mdkashif.universalarm.alarm.misc.AlarmOps
+import com.mdkashif.universalarm.alarm.misc.enums.AlarmOps
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.persistence.RoomRepository
 import com.mdkashif.universalarm.utils.Utils
-import dagger.android.support.AndroidSupportInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
@@ -42,25 +41,23 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.core.KoinComponent
 import kotlin.coroutines.CoroutineContext
 
 class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, LocationListener, View.OnClickListener, CoroutineScope {
+        GoogleApiClient.OnConnectionFailedListener, LocationListener, View.OnClickListener, CoroutineScope, KoinComponent {
 
     private var job = Job()
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    @Inject
-    lateinit var appPreferences: AppPreferences
+    private val appPreferences: AppPreferences by inject()
 
-    @Inject
-    lateinit var roomRepository: RoomRepository
+    private val roomRepository: RoomRepository by inject()
 
-    @Inject
-    lateinit var locationHelper: LocationHelper
+    private val locationHelper: LocationHelper by inject()
 
     private lateinit var mGoogleMap: GoogleMap
     private lateinit var mLastLocation: Location
@@ -76,11 +73,6 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
 
     private var latitude: Double = 0.toDouble()
     private var longitude: Double = 0.toDouble()
-
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

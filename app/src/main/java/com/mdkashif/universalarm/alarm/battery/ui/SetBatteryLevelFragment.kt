@@ -1,6 +1,5 @@
 package com.mdkashif.universalarm.alarm.battery.ui
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,26 +9,20 @@ import android.widget.CompoundButton
 import androidx.lifecycle.Observer
 import com.appyvet.materialrangebar.RangeBar
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.activities.AntiTheftUnlockActivity
 import com.mdkashif.universalarm.alarm.battery.misc.BatteryLiveData
 import com.mdkashif.universalarm.alarm.battery.misc.BatteryStatsPoJo
 import com.mdkashif.universalarm.base.BaseFragment
+import com.mdkashif.universalarm.misc.ui.AntiTheftUnlockActivity
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.utils.Utils
-import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_set_battery_level.view.*
-import javax.inject.Inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 
-class SetBatteryLevelFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener, RangeBar.OnRangeBarChangeListener, View.OnClickListener {
+class SetBatteryLevelFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener, RangeBar.OnRangeBarChangeListener, View.OnClickListener, KoinComponent {
 
-    @Inject
-    lateinit var appPreferences: AppPreferences
-
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
+    private val appPreferences: AppPreferences by inject()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -45,8 +38,9 @@ class SetBatteryLevelFragment : BaseFragment(), CompoundButton.OnCheckedChangeLi
         BatteryLiveData(context!!).observe(this, Observer<BatteryStatsPoJo> { connection ->
             rootView.cpBattery.isShowTextWhileSpinning = true
             rootView.cpBattery.setValueAnimated(connection!!.level.toFloat())
-            rootView.batteryStatus.text = connection.status
-            rootView.temperature.text = connection.temp.toString()
+            rootView.tvBatteryStatus.text = connection.status
+            rootView.tvTemperature.text = connection.temp.toString()
+            rootView.tvEta.text = connection.time
         })
 
         if (appPreferences.theftPinEnabled!!)

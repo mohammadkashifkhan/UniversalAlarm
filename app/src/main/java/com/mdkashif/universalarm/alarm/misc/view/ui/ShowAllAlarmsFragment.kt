@@ -1,45 +1,38 @@
-package com.mdkashif.universalarm.alarm.misc.ui
+package com.mdkashif.universalarm.alarm.misc.view.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.alarm.misc.AlarmsListAdapter
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
+import com.mdkashif.universalarm.alarm.misc.view.adapter.AlarmsListAdapter
 import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.persistence.RoomRepository
 import com.mdkashif.universalarm.utils.Utils
-import dagger.android.support.AndroidSupportInjection
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_show_all_alarms.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import kotlin.coroutines.CoroutineContext
 
-class ShowAllAlarmsFragment : BaseFragment(), AlarmsListAdapter.GetTotalAlarmCountInterface, CoroutineScope {
+class ShowAllAlarmsFragment : BaseFragment(), AlarmsListAdapter.GetTotalAlarmCountInterface, CoroutineScope, KoinComponent {
 
     private var job = Job()
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    @Inject
-    lateinit var roomRepository: RoomRepository
+    private val roomRepository: RoomRepository by inject()
 
     private lateinit var mLinearLayoutManager: LinearLayoutManager
     private val disposable = CompositeDisposable()
-
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

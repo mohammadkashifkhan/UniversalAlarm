@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/relativeLayoutContainerMain"
-    tools:context="com.mdkashif.universalarm.activities.WebviewActivity">
+    tools:context="com.mdkashif.universalarm.misc.ui.WebviewActivity">
 
     <WebView
         android:id="@+id/webView"

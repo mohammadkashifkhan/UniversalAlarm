@@ -15,11 +15,11 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.SphericalUtil
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.activities.ContainerActivity
 import com.mdkashif.universalarm.alarm.misc.AlarmHelper
-import com.mdkashif.universalarm.alarm.misc.AlarmOps
+import com.mdkashif.universalarm.alarm.misc.enums.AlarmOps
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.alarm.misc.services.GeofenceTransitionsIntentService
+import com.mdkashif.universalarm.misc.ui.ContainerActivity
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.persistence.RoomRepository
 import com.mdkashif.universalarm.utils.AppConstants
@@ -27,14 +27,15 @@ import com.mdkashif.universalarm.utils.Utils
 import io.reactivex.Observable
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.koin.core.KoinComponent
+import org.koin.core.get
 import java.text.DecimalFormat
 import java.util.*
-import javax.inject.Inject
 
 
-class LocationHelper @Inject constructor(
-        var appPreferences: AppPreferences,
-        var roomRepository: RoomRepository) {
+class LocationHelper : KoinComponent {
+    private val appPreferences: AppPreferences = get()
+    private val roomRepository: RoomRepository = get()
 
     lateinit var mLocationRequest: LocationRequest
 

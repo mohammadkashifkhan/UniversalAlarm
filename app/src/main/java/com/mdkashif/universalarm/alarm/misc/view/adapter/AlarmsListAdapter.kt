@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.alarm.misc
+package com.mdkashif.universalarm.alarm.misc.view.adapter
 
 import android.location.Location
 import android.view.LayoutInflater
@@ -14,14 +14,17 @@ import com.bumptech.glide.Glide
 import com.google.android.gms.maps.model.LatLng
 import com.hendraanggrian.recyclerview.widget.ExpandableRecyclerView
 import com.mdkashif.universalarm.R
-import com.mdkashif.universalarm.activities.ContainerActivity
 import com.mdkashif.universalarm.alarm.location.misc.LocationHelper
 import com.mdkashif.universalarm.alarm.location.ui.SetLocationFragment
+import com.mdkashif.universalarm.alarm.misc.AlarmHelper
+import com.mdkashif.universalarm.alarm.misc.enums.AlarmOps
+import com.mdkashif.universalarm.alarm.misc.enums.AlarmTypes
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
-import com.mdkashif.universalarm.alarm.prayer.misc.PrayerPresenter
+import com.mdkashif.universalarm.alarm.prayer.ui.PrayerPresenter
 import com.mdkashif.universalarm.alarm.time.TimeHelper
 import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment
+import com.mdkashif.universalarm.misc.ui.ContainerActivity
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.persistence.RoomRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -30,18 +33,16 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCountInterface, private val alarmsList: MutableList<TimingsModel>, private val locationsList: MutableList<LocationsModel>, private val viewType: String, private val context: ContainerActivity, linearLayoutManager: LinearLayoutManager, private val disposable: CompositeDisposable) : ExpandableRecyclerView.Adapter<RecyclerView.ViewHolder>(linearLayoutManager) {
+class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCountInterface, private val alarmsList: MutableList<TimingsModel>, private val locationsList: MutableList<LocationsModel>, private val viewType: String, private val context: ContainerActivity, linearLayoutManager: LinearLayoutManager, private val disposable: CompositeDisposable) : ExpandableRecyclerView.Adapter<RecyclerView.ViewHolder>(linearLayoutManager), KoinComponent {
 
-    @Inject
-    lateinit var roomRepository: RoomRepository
+    private val roomRepository: RoomRepository by inject()
 
-    @Inject
-    lateinit var appPreferences: AppPreferences
+    private val appPreferences: AppPreferences by inject()
 
-    @Inject
-    lateinit var locationHelper: LocationHelper
+    private val locationHelper: LocationHelper by inject()
 
     internal inner class TimeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTime: TextView = itemView.findViewById(R.id.tvTime)
@@ -116,7 +117,7 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         super.onBindViewHolder(holder, position)
         when (holder) {
-            is AlarmsListAdapter.TimeViewHolder -> {
+            is TimeViewHolder -> {
                 val builder = StringBuilder()
                 when {
                     alarmsList[position].hour.toInt() >= 12 -> {
@@ -182,7 +183,7 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
                     notifyItemRemoved(position)
                 }
             }
-            is AlarmsListAdapter.BatteryViewHolder -> {
+            is BatteryViewHolder -> {
                 holder.tvHbl.text = appPreferences.hbl.toString()
                 holder.tvLbl.text = appPreferences.lbl.toString()
                 holder.tvTemp.text = appPreferences.temp.toString()
@@ -196,7 +197,7 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
                     appPreferences.temperatureAlarmStatus = p1
                 }
             }
-            is AlarmsListAdapter.LocationViewHolder -> {
+            is LocationViewHolder -> {
                 val index = if (alarmsList.size == 0)
                     position
                 else
@@ -241,7 +242,7 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
                     }, context = context)
                 }
             }
-            is AlarmsListAdapter.PrayerViewHolder -> {
+            is PrayerViewHolder -> {
                 holder.tvPrayerType.text = alarmsList[position].alarmType
                 holder.tvNote.text = context.getText(R.string.tvItemPrayerExpandableRv)
                 when {
@@ -284,7 +285,7 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
                         AlarmHelper.stopAlarm(alarmsList[position].pIntentRequestCode.toInt(), context)
                 }
             }
-            is AlarmsListAdapter.EmptyViewHolder -> {
+            is EmptyViewHolder -> {
                 holder.tvNote.text = context.getText(R.string.tvItemEmptyExpandableRv)
                 Glide.with(context)
                         .load(R.raw.no_alarms_placeholder)

@@ -3,10 +3,10 @@ package com.mdkashif.universalarm.alarm.prayer.job
 import android.app.job.JobParameters
 import android.app.job.JobService
 import com.mdkashif.universalarm.alarm.misc.AlarmHelper
-import com.mdkashif.universalarm.alarm.misc.AlarmTypes
+import com.mdkashif.universalarm.alarm.misc.enums.AlarmTypes
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
-import com.mdkashif.universalarm.alarm.prayer.misc.PrayerPresenter
 import com.mdkashif.universalarm.alarm.prayer.model.PrayerApiResponse
+import com.mdkashif.universalarm.alarm.prayer.ui.PrayerPresenter
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.persistence.RoomRepository
 import io.reactivex.disposables.CompositeDisposable
@@ -14,10 +14,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import kotlin.coroutines.CoroutineContext
 
-class PrayerDataFetchScheduleService @Inject constructor(var roomRepository: RoomRepository, var appPreferences: AppPreferences) : JobService(), PrayerPresenter.PrayerViewCallback, CoroutineScope {
+class PrayerDataFetchScheduleService : JobService(), PrayerPresenter.PrayerViewCallback, CoroutineScope, KoinComponent {
+
+    private val roomRepository: RoomRepository by inject()
+    private val appPreferences: AppPreferences by inject()
 
     private var job = Job()
 

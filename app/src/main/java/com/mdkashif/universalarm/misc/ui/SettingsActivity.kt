@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.activities
+package com.mdkashif.universalarm.misc.ui
 
 import android.content.ActivityNotFoundException
 import android.content.Context
@@ -31,7 +31,8 @@ import com.mdkashif.universalarm.utils.AppConstants
 import com.mdkashif.universalarm.utils.Utils
 import com.pkmmte.view.CircularImageView
 import jp.wasabeef.blurry.Blurry
-import javax.inject.Inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 class SettingsActivity : BaseActivity() {
 
@@ -43,9 +44,8 @@ class SettingsActivity : BaseActivity() {
         supportFragmentManager.beginTransaction().replace(android.R.id.content, SettingsFragment()).commit()
     }
 
-    class SettingsFragment : PreferenceFragmentCompat(), androidx.preference.Preference.OnPreferenceClickListener {
-        @Inject
-        lateinit var appPreferences: AppPreferences
+    class SettingsFragment : PreferenceFragmentCompat(), androidx.preference.Preference.OnPreferenceClickListener, KoinComponent {
+        private val appPreferences: AppPreferences by inject()
 
         private lateinit var toggleVibrate: androidx.preference.Preference
         private val googlePlayUrl = "http://play.google.com/store/apps/details?id="

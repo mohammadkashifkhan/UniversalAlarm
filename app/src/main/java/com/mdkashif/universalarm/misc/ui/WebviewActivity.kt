@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.activities
+package com.mdkashif.universalarm.misc.ui
 
 import android.os.Bundle
 import android.webkit.WebSettings
@@ -18,7 +18,7 @@ class WebviewActivity : BaseActivity() {
     private fun loadUrlToWebView(url: String) {
         webView.settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
         webView.settings.setAppCacheEnabled(true)
-        webView.settings.javaScriptEnabled=true
+        webView.settings.javaScriptEnabled = true
         webView.loadUrl(url)
         webView.webViewClient = AlarmWebViewClient(this)
     }

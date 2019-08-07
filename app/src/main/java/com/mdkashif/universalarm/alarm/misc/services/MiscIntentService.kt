@@ -4,10 +4,10 @@ import android.app.IntentService
 import android.app.PendingIntent
 import android.content.Intent
 import com.github.omadahealth.lollipin.lib.managers.AppLock
-import com.mdkashif.universalarm.activities.AntiTheftUnlockActivity
-import com.mdkashif.universalarm.activities.ContainerActivity
 import com.mdkashif.universalarm.alarm.battery.misc.NotificationSwipeReceiver
-import com.mdkashif.universalarm.alarm.misc.AlarmTypes
+import com.mdkashif.universalarm.alarm.misc.enums.AlarmTypes
+import com.mdkashif.universalarm.misc.ui.AntiTheftUnlockActivity
+import com.mdkashif.universalarm.misc.ui.ContainerActivity
 import com.mdkashif.universalarm.utils.AppConstants
 import com.mdkashif.universalarm.utils.Utils
 

@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.activities
+package com.mdkashif.universalarm.misc.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,13 +8,13 @@ import com.github.omadahealth.lollipin.lib.managers.AppLockActivity
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.utils.AppConstants
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
 
 class AntiTheftUnlockActivity : AppLockActivity() {
-    @Inject lateinit var appPreferences: AppPreferences
+    private val appPreferences: AppPreferences by inject()
 
-    var theftAlarmStatus: Boolean = false
+    private var theftAlarmStatus: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)

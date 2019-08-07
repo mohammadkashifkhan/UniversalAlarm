@@ -6,12 +6,14 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
-import com.mdkashif.universalarm.alarm.misc.AlarmTypes
+import com.mdkashif.universalarm.alarm.misc.enums.AlarmTypes
 import com.mdkashif.universalarm.alarm.misc.services.MiscIntentService
 import com.mdkashif.universalarm.persistence.AppPreferences
-import javax.inject.Inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class BatteryScheduleService(@Inject val appPreferences: AppPreferences) : JobService() {
+class BatteryScheduleService : JobService(), KoinComponent {
+    private val appPreferences: AppPreferences by inject()
     private var highBatteryPercentage: Float = 0f
     private var lowBatteryPercentage: Float = 0f
     private var tempLevel: Float = 0f

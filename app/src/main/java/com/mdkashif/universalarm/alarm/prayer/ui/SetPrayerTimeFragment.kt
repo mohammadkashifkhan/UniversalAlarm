@@ -1,6 +1,5 @@
 package com.mdkashif.universalarm.alarm.prayer.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,14 +9,13 @@ import android.view.animation.RotateAnimation
 import android.widget.CompoundButton
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.misc.AlarmHelper
-import com.mdkashif.universalarm.alarm.misc.AlarmTypes
+import com.mdkashif.universalarm.alarm.misc.enums.AlarmTypes
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import com.mdkashif.universalarm.alarm.prayer.misc.Compass
 import com.mdkashif.universalarm.base.BaseFragment
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.persistence.RoomRepository
 import com.mdkashif.universalarm.utils.Utils
-import dagger.android.support.AndroidSupportInjection
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_set_prayer_time.*
 import kotlinx.android.synthetic.main.fragment_set_prayer_time.view.*
@@ -25,33 +23,27 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import kotlin.coroutines.CoroutineContext
 
 
-class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener, View.OnClickListener, CoroutineScope {
+class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener, View.OnClickListener, CoroutineScope, KoinComponent {
 
     private var job = Job()
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    @Inject
-    lateinit var appPreferences: AppPreferences
+    private val appPreferences: AppPreferences by inject()
 
-    @Inject
-    lateinit var roomRepository: RoomRepository
+    private val roomRepository: RoomRepository by inject()
 
     private var timingsList: List<TimingsModel> = ArrayList()
 
     private var compass: Compass? = null
     private var currentAzimuth: Float = 0.toFloat()
     private val disposable = CompositeDisposable()
-
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

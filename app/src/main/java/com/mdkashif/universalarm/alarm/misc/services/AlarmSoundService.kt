@@ -1,4 +1,4 @@
-package com.mdkashif.universalarm.alarm.misc
+package com.mdkashif.universalarm.alarm.misc.services
 
 import android.app.Service
 import android.content.Context
@@ -9,11 +9,15 @@ import android.net.Uri
 import android.os.IBinder
 import android.os.Vibrator
 import com.mdkashif.universalarm.persistence.AppPreferences
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import java.io.IOException
-import javax.inject.Inject
 
 
-class AlarmSoundService @Inject constructor(var appPreferences: AppPreferences) : Service() {
+class AlarmSoundService : Service(), KoinComponent {
+
+    private val appPreferences: AppPreferences by inject()
+
     private lateinit var mediaPlayer: MediaPlayer
     private var vibrator: Vibrator? = null
 

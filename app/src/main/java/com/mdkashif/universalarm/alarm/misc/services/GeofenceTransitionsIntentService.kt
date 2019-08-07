@@ -5,8 +5,8 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.util.Log
 import com.google.android.gms.location.GeofencingEvent
-import com.mdkashif.universalarm.activities.ContainerActivity
 import com.mdkashif.universalarm.alarm.location.misc.GeofenceErrorMessages
+import com.mdkashif.universalarm.misc.ui.ContainerActivity
 import com.mdkashif.universalarm.utils.AppConstants
 import com.mdkashif.universalarm.utils.Utils
 

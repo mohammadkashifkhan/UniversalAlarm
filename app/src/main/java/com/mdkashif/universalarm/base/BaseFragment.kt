@@ -3,7 +3,7 @@ package com.mdkashif.universalarm.base
 
 import android.content.Context
 import androidx.fragment.app.Fragment
-import com.mdkashif.universalarm.activities.ContainerActivity
+import com.mdkashif.universalarm.misc.ui.ContainerActivity
 
 open class BaseFragment : Fragment() {
     lateinit var mActivity: ContainerActivity
