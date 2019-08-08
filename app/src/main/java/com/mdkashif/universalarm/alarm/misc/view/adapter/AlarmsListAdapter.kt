@@ -177,9 +177,9 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
                 }
                 holder.ibDelete.setOnClickListener {
                     GlobalScope.launch {
-                        roomRepository.amendTimingsAlarmsAsync(AlarmOps.Delete.toString(), alarmsList[position], alarmsList[position].id)
+                        roomRepository.amendTimingsAlarmsAsync(AlarmOps.Delete.toString(), null, alarmsList[position].id)
+                        alarmsList.removeAt(position)
                     }
-                    alarmsList.removeAt(position)
                     getTotalAlarmCountInterface.fetchTotalAlarmCount()
                     notifyItemRemoved(position)
                 }

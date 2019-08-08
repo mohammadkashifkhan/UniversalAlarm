@@ -118,14 +118,15 @@
                 app:layout_constraintStart_toEndOf="@+id/btSetAlarm"
                 app:layout_constraintTop_toBottomOf="@+id/etNote" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                app:cornerRadius="@dimen/_12sdp"
                 android:id="@+id/btSetAlarm"
                 android:layout_width="@dimen/btWidth"
                 android:layout_height="@dimen/btHeight"
                 android:layout_marginStart="@dimen/marginTopEndBottomStart"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:layout_marginBottom="@dimen/marginTopEndBottomStart"
-                android:background="@drawable/button_border"
                 android:enabled="false"
                 android:text="Set Alarm"
                 android:textAllCaps="false"
@@ -135,14 +136,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/etNote"
                 app:layout_constraintVertical_bias="1.0" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                app:cornerRadius="@dimen/_12sdp"
                 android:id="@+id/btStopAlarm"
                 android:layout_width="@dimen/btWidth"
                 android:layout_height="@dimen/btHeight"
                 android:layout_marginStart="@dimen/marginTopEndBottomStart"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:layout_marginBottom="@dimen/marginTopEndBottomStart"
-                android:background="@drawable/button_border"
                 android:enabled="false"
                 android:text="Stop Alarm"
                 android:textAllCaps="false"
