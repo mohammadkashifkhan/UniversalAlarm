@@ -27,6 +27,7 @@ import com.mdkashif.universalarm.alarm.time.ui.SetTimeFragment
 import com.mdkashif.universalarm.misc.ui.ContainerActivity
 import com.mdkashif.universalarm.persistence.AppPreferences
 import com.mdkashif.universalarm.persistence.RoomRepository
+import com.mdkashif.universalarm.utils.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
@@ -238,7 +239,7 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
                         getTotalAlarmCountInterface.fetchTotalAlarmCount()
                         notifyItemRemoved(position)
                     }, failure = {
-
+                        Utils.showToast(it, context)
                     }, context = context)
                 }
             }

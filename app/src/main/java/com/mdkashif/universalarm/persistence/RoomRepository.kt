@@ -4,9 +4,7 @@ import com.mdkashif.universalarm.alarm.misc.enums.AlarmOps
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.core.KoinComponent
 import org.koin.core.get
 
@@ -14,21 +12,17 @@ class RoomRepository : KoinComponent {
     private val dao: RoomAccessDao = get()
 
     suspend fun fetchPrayersAlarmsAsync(): MutableList<TimingsModel> {
-        var list: MutableList<TimingsModel> = ArrayList()
-        GlobalScope.launch { list = async(Dispatchers.IO) { return@async getPrayerTimings() }.await() }
-        return list
+        return withContext(Dispatchers.IO) { getPrayerTimings() }
     }
 
     suspend fun fetchTimingsAlarmsAsync(alarmStatus: Boolean = false): MutableList<TimingsModel> {
-        var list: MutableList<TimingsModel> = ArrayList()
-        GlobalScope.launch { list = async(Dispatchers.IO) { return@async getTimingsWithRepeatDays(alarmStatus) }.await() }
-        return list
+        return withContext(Dispatchers.IO) { getTimingsWithRepeatDays(alarmStatus) }
     }
 
-    fun fetchAllAlarmsAsync(alarmStatus: Boolean = false): Pair<MutableList<TimingsModel>, MutableList<LocationsModel>> {
-        var timingslist: MutableList<TimingsModel> = ArrayList()
-        var locationslist: MutableList<LocationsModel> = ArrayList()
-        GlobalScope.launch(Dispatchers.IO) {
+    suspend fun fetchAllAlarmsAsync(alarmStatus: Boolean = false): Pair<MutableList<TimingsModel>, MutableList<LocationsModel>> {
+        var timingslist = mutableListOf<TimingsModel>()
+        var locationslist = mutableListOf<LocationsModel>()
+        withContext(Dispatchers.IO) {
             timingslist = getTimingsWithRepeatDays(alarmStatus)
             locationslist = getLocations(alarmStatus)
         }
@@ -36,36 +30,35 @@ class RoomRepository : KoinComponent {
     }
 
     suspend fun amendPrayerAlarmsAsync(timingsModel: TimingsModel?, autoUpdate: Boolean = false) { //autoUpdate=false for differentiating between manual & auto update
-        var timingsList: MutableList<TimingsModel> = ArrayList()
-        GlobalScope.launch { timingsList = async(Dispatchers.IO) { return@async getSpecificTimings(timingsModel!!) }.await() }
+        val timingsList = withContext(Dispatchers.IO) { getSpecificTimings(timingsModel!!) }
 
         when {
-            timingsList.isNotEmpty() -> GlobalScope.launch(Dispatchers.IO) { updateTimeAlarm(timingsModel!!, timingsList[0].id, autoUpdate) }
-            else -> GlobalScope.launch(Dispatchers.IO) { addTimingsWithoutRepeatDays(timingsModel!!) }
+            timingsList.isNotEmpty() -> withContext(Dispatchers.IO) { updateTimeAlarm(timingsModel!!, timingsList[0].id, autoUpdate) }
+            else -> withContext(Dispatchers.IO) { addTimingsWithoutRepeatDays(timingsModel!!) }
         }
     }
 
-    fun amendTimingsAlarmsAsync(taskType: String, timingsModel: TimingsModel?, id: Long = 0) { //id=0 means we are just inserting
+    suspend fun amendTimingsAlarmsAsync(taskType: String, timingsModel: TimingsModel?, id: Long = 0) { //id=0 means we are just inserting
         when (taskType) {
             AlarmOps.Add.toString() ->
                 when {
-                    timingsModel!!.repeat -> GlobalScope.launch(Dispatchers.IO) { addTimingsWithRepeatDays(timingsModel) }
-                    else -> GlobalScope.launch(Dispatchers.IO) { addTimingsWithoutRepeatDays(timingsModel) }
+                    timingsModel!!.repeat -> withContext(Dispatchers.IO) { addTimingsWithRepeatDays(timingsModel) }
+                    else -> withContext(Dispatchers.IO) { addTimingsWithoutRepeatDays(timingsModel) }
                 }
 
-            AlarmOps.Update.toString() -> GlobalScope.launch(Dispatchers.IO) { updateTimeAlarm(timingsModel!!, id, false) }
+            AlarmOps.Update.toString() -> withContext(Dispatchers.IO) { updateTimeAlarm(timingsModel!!, id, false) }
 
-            AlarmOps.Delete.toString() -> GlobalScope.launch(Dispatchers.IO) { deleteTimeAlarm(id) }
+            AlarmOps.Delete.toString() -> withContext(Dispatchers.IO) { deleteTimeAlarm(id) }
         }
     }
 
-    fun amendLocationsAlarmsAsync(taskType: String, locationsModel: LocationsModel?, id: Long = 0) {
+    suspend fun amendLocationsAlarmsAsync(taskType: String, locationsModel: LocationsModel?, id: Long = 0) {
         when (taskType) {
-            AlarmOps.Add.toString() -> GlobalScope.launch(Dispatchers.IO) { addLocation(locationsModel!!) }
+            AlarmOps.Add.toString() -> withContext(Dispatchers.IO) { addLocation(locationsModel!!) }
 
-            AlarmOps.Update.toString() -> GlobalScope.launch(Dispatchers.IO) { updateLocationAlarm(locationsModel!!, id) }
+            AlarmOps.Update.toString() -> withContext(Dispatchers.IO) { updateLocationAlarm(locationsModel!!, id) }
 
-            AlarmOps.Delete.toString() -> GlobalScope.launch(Dispatchers.IO) { deleteLocationAlarm(id) }
+            AlarmOps.Delete.toString() -> withContext(Dispatchers.IO) { deleteLocationAlarm(id) }
         }
     }
 

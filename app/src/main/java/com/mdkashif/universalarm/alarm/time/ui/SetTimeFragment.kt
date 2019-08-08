@@ -172,14 +172,15 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
     }
 
     private fun doAccordingly() {
-        if (arguments == null)
-            launch {
+        when (arguments) {
+            null -> launch {
                 roomRepository.amendTimingsAlarmsAsync(AlarmOps.Add.toString(), timingsModel)
             }
-        else {
-            AlarmHelper.stopAlarm(timingsModel.pIntentRequestCode.toInt(), mActivity) // removing older pIntents
-            launch {
-                roomRepository.amendTimingsAlarmsAsync(AlarmOps.Update.toString(), timingsModel, timingsModel.id)
+            else -> {
+                AlarmHelper.stopAlarm(timingsModel.pIntentRequestCode.toInt(), mActivity) // removing older pIntents
+                launch {
+                    roomRepository.amendTimingsAlarmsAsync(AlarmOps.Update.toString(), timingsModel, timingsModel.id)
+                }
             }
         }
         when {
