@@ -7,11 +7,11 @@ apply plugin: 'io.fabric'
 android {
     signingConfigs {
         release {
-//            Properties properties = getProperties('D:/Alarm-android/Alarm/keystore.properties')
-//            storeFile file(getProperty(properties, 'storeFile'))
-//            keyAlias getProperty(properties, 'keyAlias')
-//            storePassword getProperty(properties, 'storePassword')
-//            keyPassword getProperty(properties, 'keyPassword')
+            Properties properties = getProperties('D:/Alarm-android/Alarm/keystore.properties')
+            storeFile file(getProperty(properties, 'storeFile'))
+            keyAlias getProperty(properties, 'keyAlias')
+            storePassword getProperty(properties, 'storePassword')
+            keyPassword getProperty(properties, 'keyPassword')
         }
     }
 
@@ -21,6 +21,7 @@ android {
         applicationId "com.mdkashif.universalarm"
         minSdkVersion 21
         targetSdkVersion 28
+        multiDexEnabled = true
         versionCode 1
         versionName "0.51." + getDate() + "_beta"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

@@ -151,7 +151,7 @@
             android:layout_marginBottom="@dimen/marginTopEndBottomStart"
             android:text="Got It"
             android:textColor="@color/primaryTextColor"
-            android:textSize="@dimen/normalTextSize"
+            android:textSize="@dimen/_10sdp"
             app:cornerRadius="@dimen/_12sdp"
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"

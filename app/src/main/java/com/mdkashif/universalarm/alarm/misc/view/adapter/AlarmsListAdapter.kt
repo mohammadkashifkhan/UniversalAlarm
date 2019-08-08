@@ -234,8 +234,8 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
                     locationHelper.removeAlarm(locationsList[index].pIntentRequestCode.toString(), success = {
                         GlobalScope.launch {
                             roomRepository.amendLocationsAlarmsAsync(AlarmOps.Delete.toString(), locationsList[index], locationsList[index].id.toLong())
+                            locationsList.removeAt(index)
                         }
-                        locationsList.removeAt(index)
                         getTotalAlarmCountInterface.fetchTotalAlarmCount()
                         notifyItemRemoved(position)
                     }, failure = {

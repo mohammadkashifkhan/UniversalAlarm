@@ -85,23 +85,36 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvAddress"/>
 
-            <EditText
-                android:id="@+id/etNote"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilNote"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:layout_marginStart="@dimen/marginTopEndBottomStart"
+                android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:layout_marginEnd="@dimen/marginTopEndBottomStart"
-                android:background="@drawable/item_alarm_list_border"
+                android:textColorHint="@color/gray"
+                app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                app:boxCornerRadiusTopStart="@dimen/_10sdp"
+                app:boxStrokeColor="@color/gray"
+                app:hintTextColor="@color/gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvInstruction2">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="top|left"
-                android:textColor="@color/primaryTextColor"
                 android:hint="@string/etNoteHint"
                 android:padding="@dimen/paddingAll"
-                android:textSize="@dimen/mediumTextSize"
-                android:imeOptions="actionDone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvInstruction2" />
+                android:textSize="@dimen/headerTextSize" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/tvDistance"
@@ -116,7 +129,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/btSetAlarm"
-                app:layout_constraintTop_toBottomOf="@+id/etNote" />
+                app:layout_constraintTop_toBottomOf="@+id/tilNote" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -124,6 +137,7 @@
                 android:id="@+id/btSetAlarm"
                 android:layout_width="@dimen/btWidth"
                 android:layout_height="@dimen/btHeight"
+                android:textSize="@dimen/_10sdp"
                 android:layout_marginStart="@dimen/marginTopEndBottomStart"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:layout_marginBottom="@dimen/marginTopEndBottomStart"
@@ -133,7 +147,7 @@
                 android:textColor="@color/primaryTextColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etNote"
+                app:layout_constraintTop_toBottomOf="@+id/tilNote"
                 app:layout_constraintVertical_bias="1.0" />
 
             <com.google.android.material.button.MaterialButton
@@ -142,6 +156,7 @@
                 android:id="@+id/btStopAlarm"
                 android:layout_width="@dimen/btWidth"
                 android:layout_height="@dimen/btHeight"
+                android:textSize="@dimen/_10sdp"
                 android:layout_marginStart="@dimen/marginTopEndBottomStart"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:layout_marginBottom="@dimen/marginTopEndBottomStart"
@@ -152,7 +167,7 @@
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btSetAlarm"
-                app:layout_constraintTop_toBottomOf="@+id/etNote"
+                app:layout_constraintTop_toBottomOf="@+id/tilNote"
                 app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

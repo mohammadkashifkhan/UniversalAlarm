@@ -40,7 +40,7 @@
 
         <LinearLayout
             android:id="@+id/llPhoneStats"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="@dimen/llStatsSetBatteryFragmentHeight"
             android:layout_marginStart="@dimen/marginTopEndBottomStartLarge"
             android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
@@ -123,7 +123,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl1"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/marginTopEndBottomStartLarge"
             android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
@@ -141,16 +141,18 @@
                 android:text="Low (Left) &amp; High (Right) Battery Percentage"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/normalTextSize"
-                app:layout_constraintEnd_toStartOf="@+id/swBattery"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/swBattery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="@id/cl1"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/textView"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.appyvet.materialrangebar.RangeBar
@@ -178,7 +180,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl2"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/marginTopEndBottomStartLarge"
             android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
@@ -197,21 +199,23 @@
                 android:text="Set Temperature (celsius)"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/normalTextSize"
-                app:layout_constraintEnd_toStartOf="@+id/swTemperature"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/swTemperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="@id/cl2"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/textView8"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.appyvet.materialrangebar.RangeBar
                 android:id="@+id/rbTemp"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -234,7 +238,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl3"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/marginTopEndBottomStartLarge"
             android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
@@ -256,11 +260,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/swTheft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/marginTopEndBottomStart"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/textView9"
@@ -279,18 +284,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView9"
+                app:layout_constraintTop_toBottomOf="@+id/swTheft"
                 app:layout_constraintVertical_bias="0.0" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                app:cornerRadius="@dimen/_12sdp"
-                android:visibility="gone"
                 android:id="@+id/btChangePin"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="@dimen/btWidth"
                 android:layout_height="@dimen/btHeight"
                 android:layout_marginTop="@dimen/marginTopEndBottomStart"
                 android:text="Change Pin"
+                android:visibility="gone"
+                app:cornerRadius="@dimen/_12sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

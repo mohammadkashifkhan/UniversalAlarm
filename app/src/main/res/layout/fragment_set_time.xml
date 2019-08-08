@@ -77,38 +77,53 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
-        <EditText
-            android:id="@+id/etNote"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilNote"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginTopEndBottomStartLarge"
             android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
             android:layout_marginEnd="@dimen/marginTopEndBottomStartLarge"
-            android:background="@drawable/item_alarm_list_border"
-            android:gravity="top|left"
-            android:hint="@string/etNoteHint"
-            android:padding="@dimen/paddingAll"
-            android:textSize="@dimen/headerTextSize"
+            android:textColorHint="@color/gray"
+            app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+            app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+            app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+            app:boxCornerRadiusTopStart="@dimen/_10sdp"
+            app:boxStrokeColor="@color/gray"
+            app:hintTextColor="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dpDays" />
+            app:layout_constraintTop_toBottomOf="@+id/dpDays">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNote"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:gravity="top|left"
+                android:hint="@string/etNoteHint"
+                android:padding="@dimen/paddingAll"
+                android:textSize="@dimen/headerTextSize" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            app:cornerRadius="@dimen/_12sdp"
             android:id="@+id/btSetAlarm"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="@dimen/btWidth"
             android:layout_height="@dimen/btHeight"
+            android:textSize="@dimen/_10sdp"
             android:layout_marginStart="@dimen/marginTopEndBottomStartLarge"
             android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
             android:text="Set Alarm"
             android:textAllCaps="false"
             android:textColor="@color/primaryTextColor"
+            app:cornerRadius="@dimen/_12sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etNote" />
+            app:layout_constraintTop_toBottomOf="@+id/tilNote" />
 
         <TextView
             android:id="@+id/textView25"
@@ -241,7 +256,6 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:textSize="@dimen/normalTextSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/marginTopEndBottomStart"
@@ -254,6 +268,7 @@
                 android:paddingBottom="@dimen/marginTopEndBottomStart"
                 android:text="@string/bot_text"
                 android:textColor="@color/primaryTextColor"
+                android:textSize="@dimen/normalTextSize"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
