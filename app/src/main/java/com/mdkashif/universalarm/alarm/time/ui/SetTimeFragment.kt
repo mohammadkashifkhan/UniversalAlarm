@@ -20,7 +20,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_buzzing_alarm.view.*
 import kotlinx.android.synthetic.main.fragment_set_time.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -45,8 +44,8 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
     private lateinit var rootView: View
     private var selectedDays: MutableList<String> = ArrayList()
     private lateinit var timingsModel: TimingsModel
-    private lateinit var selectedHour: String
-    private lateinit var selectedMinute: String
+    private var selectedHour = ""
+    private var selectedMinute = ""
     private var daysList: MutableList<DaysModel> = ArrayList()
     private lateinit var timeLeftFromNow: String
     private val disposable = CompositeDisposable()
@@ -88,12 +87,14 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
                     }
                 }))
                 if (timingsModel.repeat) {
+                    val days= mutableListOf<MaterialDayPicker.Weekday>()
                     for (i in timingsModel.repeatDays!!.indices) {
                         selectedDays.add(timingsModel.repeatDays!![i].repeatDay)
-                        rootView.dpDays.setSelectedDays(MaterialDayPicker.Weekday.valueOf(timingsModel.repeatDays!![i].repeatDay))
+                        days.add(MaterialDayPicker.Weekday.valueOf(timingsModel.repeatDays!![i].repeatDay))
                     }
+                    rootView.dpDays.selectedDays = days
                 }
-                rootView.tvNote.text = timingsModel.note
+                rootView.etNote.setText(timingsModel.note)
             }
         }
         return rootView
@@ -132,9 +133,10 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
             }
 
             R.id.btSetAlarm -> {
-                when {
-                    selectedDays.isEmpty() -> {
-                        if (this.selectedMinute.isNotEmpty()) {
+                if (this.selectedMinute.isNotEmpty()) {
+                    when {
+                        selectedDays.isEmpty() -> {
+
                             requestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong()
                             timingsModel = when {
                                 rootView.etNote.text.toString().isEmpty() -> TimingsModel(hour = this.selectedHour, minute = this.selectedMinute, alarmType = AlarmTypes.Time.toString(), status = true, pIntentRequestCode = requestCode)
@@ -142,9 +144,7 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
                             }
                             doAccordingly()
                         }
-                    }
-                    else -> {
-                        if (this.selectedMinute.isNotEmpty()) {
+                        else -> {
                             for (day in selectedDays) {
                                 val daysModel = DaysModel(repeatDay = day)
                                 daysList.add(daysModel)
@@ -158,6 +158,8 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
                         }
                     }
                 }
+                else
+                    Utils.showToast("Please select time first!", mActivity)
             }
 
             R.id.clSendFeedback -> Utils.sendFeedback(mActivity)

@@ -182,8 +182,10 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
                     }
                     getTotalAlarmCountInterface.fetchTotalAlarmCount()
                     notifyItemRemoved(position)
+                    notifyItemRangeChanged(position, itemCount)
                 }
             }
+
             is BatteryViewHolder -> {
                 holder.tvHbl.text = appPreferences.hbl.toString()
                 holder.tvLbl.text = appPreferences.lbl.toString()
@@ -198,6 +200,7 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
                     appPreferences.temperatureAlarmStatus = p1
                 }
             }
+
             is LocationViewHolder -> {
                 val index = if (alarmsList.size == 0)
                     position
@@ -238,11 +241,13 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
                         }
                         getTotalAlarmCountInterface.fetchTotalAlarmCount()
                         notifyItemRemoved(position)
+                        notifyItemRangeChanged(position, itemCount)
                     }, failure = {
                         Utils.showToast(it, context)
                     }, context = context)
                 }
             }
+
             is PrayerViewHolder -> {
                 holder.tvPrayerType.text = alarmsList[position].alarmType
                 holder.tvNote.text = context.getText(R.string.tvItemPrayerExpandableRv)
@@ -286,6 +291,7 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
                         AlarmHelper.stopAlarm(alarmsList[position].pIntentRequestCode.toInt(), context)
                 }
             }
+
             is EmptyViewHolder -> {
                 holder.tvNote.text = context.getText(R.string.tvItemEmptyExpandableRv)
                 Glide.with(context)
