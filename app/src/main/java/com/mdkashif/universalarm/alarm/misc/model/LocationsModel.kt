@@ -27,11 +27,11 @@ data class LocationsModel(
         var status: Boolean = false) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
-            parcel.readString(),
-            parcel.readString(),
+            parcel.readString()!!,
+            parcel.readString()!!,
             parcel.readDouble(),
             parcel.readDouble(),
-            parcel.readString(),
+            parcel.readString()!!,
             parcel.readLong(),
             parcel.readByte() != 0.toByte())
 

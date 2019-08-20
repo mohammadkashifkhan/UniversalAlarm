@@ -21,7 +21,7 @@ data class DaysModel(
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
             parcel.readLong(),
-            parcel.readString())
+            parcel.readString()!!)
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)

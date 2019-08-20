@@ -32,10 +32,10 @@ data class TimingsModel(
         var pIntentRequestCode: Long = 0) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readLong(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
+            parcel.readString()!!,
+            parcel.readString()!!,
+            parcel.readString()!!,
+            parcel.readString()!!,
             parcel.readByte() != 0.toByte(),
             parcel.readByte() != 0.toByte(),
             listOf<DaysModel>().apply {

@@ -69,7 +69,7 @@ class SetTimeFragment : BaseFragment(), View.OnClickListener, MaterialDayPicker.
 
         when {
             arguments != null -> {
-                timingsModel = arguments!!.getParcelable("editableData") as TimingsModel
+                timingsModel = arguments!!.getParcelable<TimingsModel>("editableData") as TimingsModel
                 rootView.tvPickTime.text = "${timingsModel.hour}:${timingsModel.minute}"
 
                 disposable.add(TimeHelper.getTimeFromNow(timingsModel.hour.toInt(), timingsModel.minute.toInt()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeWith(object : DisposableObserver<String>() {

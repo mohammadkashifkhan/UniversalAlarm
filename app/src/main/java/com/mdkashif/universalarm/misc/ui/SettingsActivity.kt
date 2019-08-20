@@ -19,6 +19,7 @@ import android.text.style.ForegroundColorSpan
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
@@ -44,10 +45,10 @@ class SettingsActivity : BaseActivity() {
         supportFragmentManager.beginTransaction().replace(android.R.id.content, SettingsFragment()).commit()
     }
 
-    class SettingsFragment : PreferenceFragmentCompat(), androidx.preference.Preference.OnPreferenceClickListener, KoinComponent {
+    class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceClickListener, KoinComponent {
         private val appPreferences: AppPreferences by inject()
 
-        private lateinit var toggleVibrate: androidx.preference.Preference
+        private lateinit var toggleVibrate: Preference
         private val googlePlayUrl = "http://play.google.com/store/apps/details?id="
         private lateinit var mActivity: SettingsActivity
         private lateinit var mIntent: Intent
@@ -55,27 +56,26 @@ class SettingsActivity : BaseActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.fragment_settings, rootKey)
 
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleAbout))!!.onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleRate))!!.onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleShare))!!.onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleFaq))!!.onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitlePP))!!.onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleTNC))!!.onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSendFeedback))!!.onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze))!!.onPreferenceClickListener = this
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision))!!.onPreferenceClickListener = this
+            findPreference<Preference>(getString(R.string.prefKeyTitleAbout))!!.onPreferenceClickListener = this
+            findPreference<Preference>(getString(R.string.prefKeyTitleRate))!!.onPreferenceClickListener = this
+            findPreference<Preference>(getString(R.string.prefKeyTitleShare))!!.onPreferenceClickListener = this
+            findPreference<Preference>(getString(R.string.prefKeyTitleFaq))!!.onPreferenceClickListener = this
+            findPreference<Preference>(getString(R.string.prefKeyTitlePP))!!.onPreferenceClickListener = this
+            findPreference<Preference>(getString(R.string.prefKeyTitleTNC))!!.onPreferenceClickListener = this
+            findPreference<Preference>(getString(R.string.prefKeyTitleSendFeedback))!!.onPreferenceClickListener = this
+            findPreference<Preference>(getString(R.string.prefKeyTitleSnooze))!!.onPreferenceClickListener = this
+            findPreference<Preference>(getString(R.string.prefKeyTitleLocationPrecision))!!.onPreferenceClickListener = this
+            findPreference<Preference>(getString(R.string.prefKeyTitleRingtone))!!.onPreferenceClickListener = this
 
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze))!!.summary = context!!.resources.getStringArray(R.array.snoozeTimings)[appPreferences.snoozeTimeArrayPosition]
-            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision))!!.summary = "within ${context!!.resources.getStringArray(R.array.locationPrecision)[appPreferences.locationPrecisionArrayPosition]}"
+            findPreference<Preference>(getString(R.string.prefKeyTitleSnooze))!!.summary = context!!.resources.getStringArray(R.array.snoozeTimings)[appPreferences.snoozeTimeArrayPosition]
+            findPreference<Preference>(getString(R.string.prefKeyTitleLocationPrecision))!!.summary = "within ${context!!.resources.getStringArray(R.array.locationPrecision)[appPreferences.locationPrecisionArrayPosition]}"
 
             bindPreferenceSummaryToValue(findPreference(getString(R.string.prefKeyTitleRingtone))!!)
 
             toggleVibrate = findPreference(getString(R.string.prefKeyTitleVibrate))!!
-            toggleVibrate.onPreferenceChangeListener = object : androidx.preference.Preference.OnPreferenceChangeListener {
-                override fun onPreferenceChange(preference: androidx.preference.Preference, o: Any): Boolean {
-                    appPreferences.vibrateStatus = java.lang.Boolean.valueOf(o.toString())
-                    return true
-                }
+            toggleVibrate.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, o ->
+                appPreferences.vibrateStatus = java.lang.Boolean.valueOf(o.toString())
+                true
             }
         }
 
@@ -159,14 +159,14 @@ class SettingsActivity : BaseActivity() {
             }
         }
 
-        override fun onPreferenceClick(preference: androidx.preference.Preference?): Boolean {
+        override fun onPreferenceClick(preference: Preference?): Boolean {
             when (preference!!.title) {
                 getString(R.string.prefKeyTitleSnooze) -> {
                     MaterialDialog(mActivity).show {
                         title(R.string.snoozeTitle)
                         listItemsSingleChoice(R.array.snoozeTimings) { dialog, index, text ->
                             appPreferences.snoozeTimeArrayPosition = index
-                            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleSnooze))!!.summary = context.resources.getStringArray(R.array.snoozeTimings)[appPreferences.snoozeTimeArrayPosition]
+                            findPreference<Preference>(getString(R.string.prefKeyTitleSnooze))!!.summary = context.resources.getStringArray(R.array.snoozeTimings)[appPreferences.snoozeTimeArrayPosition]
                         }
                     }
                 }
@@ -176,7 +176,7 @@ class SettingsActivity : BaseActivity() {
                         title(R.string.locationPrecisionTitle)
                         listItemsSingleChoice(R.array.locationPrecision) { dialog, index, text ->
                             appPreferences.locationPrecisionArrayPosition = index
-                            findPreference<androidx.preference.Preference>(getString(R.string.prefKeyTitleLocationPrecision))!!.summary = "within ${context.resources.getStringArray(R.array.locationPrecision)[appPreferences.locationPrecisionArrayPosition]}"
+                            findPreference<Preference>(getString(R.string.prefKeyTitleLocationPrecision))!!.summary = "within ${context.resources.getStringArray(R.array.locationPrecision)[appPreferences.locationPrecisionArrayPosition]}"
                         }
                     }
                 }
@@ -240,37 +240,34 @@ class SettingsActivity : BaseActivity() {
             mActivity = context as SettingsActivity
         }
 
-        private fun bindPreferenceSummaryToValue(preference: androidx.preference.Preference) {
+        private fun bindPreferenceSummaryToValue(preference: Preference) {
             preference.onPreferenceChangeListener = sBindPreferenceSummaryToValueListener
 
             sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
-                    PreferenceManager
+                    androidx.preference.PreferenceManager
                             .getDefaultSharedPreferences(preference.context)
                             .getString(preference.key, ""))
         }
 
-        private val sBindPreferenceSummaryToValueListener = object : androidx.preference.Preference.OnPreferenceChangeListener {
-            override fun onPreferenceChange(preference: androidx.preference.Preference, newValue: Any): Boolean {
-                val stringValue = newValue.toString()
-                if (preference is RingtonePreference) {
-                    if (TextUtils.isEmpty(stringValue)) {
-                        preference.setSummary(R.string.pref_ringtone_silent)
-                    } else {
-                        val ringtone = RingtoneManager.getRingtone(
-                                preference.getContext(), Uri.parse(stringValue))
-                        appPreferences.ringtoneUri = Uri.parse(stringValue).toString()
+        private val sBindPreferenceSummaryToValueListener = Preference.OnPreferenceChangeListener { preference, newValue ->
+            val stringValue = newValue.toString()
+            if (preference is RingtonePreference) {
+                if (TextUtils.isEmpty(stringValue)) {
+                    preference.setSummary(R.string.pref_ringtone_silent)
+                } else {
+                    val ringtone = RingtoneManager.getRingtone(
+                            preference.getContext(), Uri.parse(stringValue))
+                    appPreferences.ringtoneUri = Uri.parse(stringValue).toString()
 
-                        if (ringtone == null)
-                            preference.setSummary(R.string.prefSummaryRingtone)
-                        else {
-                            val name = ringtone.getTitle(preference.getContext())
-                            preference.setSummary(name)
-                        }
+                    if (ringtone == null)
+                        preference.setSummary(R.string.prefSummaryRingtone)
+                    else {
+                        val name = ringtone.getTitle(preference.getContext())
+                        preference.setSummary(name)
                     }
                 }
-                return true
-
             }
+            true
         }
     }
 

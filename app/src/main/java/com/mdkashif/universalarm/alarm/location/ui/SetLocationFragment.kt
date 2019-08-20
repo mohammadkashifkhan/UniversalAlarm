@@ -84,7 +84,7 @@ class SetLocationFragment : BaseFragment(), OnMapReadyCallback, GoogleApiClient.
 
         when {
             arguments != null -> {
-                locationModel = arguments!!.getParcelable("editableData") as LocationsModel
+                locationModel = arguments!!.getParcelable<LocationsModel>("editableData") as LocationsModel
                 rootView.btSetAlarm.text = "Update Alarm"
                 rootView.btStopAlarm.visibility = View.VISIBLE
                 mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(locationModel.latitude, locationModel.longitude), 18f))

@@ -29,7 +29,7 @@ class BatteryScheduleService : JobService(), KoinComponent {
         val iFilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
         val batteryStatus = applicationContext.registerReceiver(null, iFilter)
 
-        currentBatteryLevel = batteryStatus.getIntExtra(
+        currentBatteryLevel = batteryStatus!!.getIntExtra(
                 BatteryManager.EXTRA_LEVEL, -1).toFloat()
         maxBatteryLevel = batteryStatus.getIntExtra(
                 BatteryManager.EXTRA_SCALE, -1).toFloat()
