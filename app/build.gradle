@@ -23,7 +23,7 @@ android {
         targetSdkVersion 29
         multiDexEnabled = true
         versionCode 1
-        versionName "0.51." + getDate() + "_beta"
+        versionName "0.52." + getDate() + "_beta"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -86,7 +86,7 @@ dependencies {
 
     ////////////// Miscellaneous //////////////
     implementation 'com.github.clans:fab:1.6.4'
-    implementation 'com.afollestad.material-dialogs:core:2.0.2'
+    implementation 'com.afollestad.material-dialogs:core:3.1.0'
     implementation 'com.github.jakob-grabner:Circle-Progress-View:v1.3'
     implementation 'com.pkmmte.view:circularimageview:1.1'
     implementation 'jp.wasabeef:blurry:2.1.1'

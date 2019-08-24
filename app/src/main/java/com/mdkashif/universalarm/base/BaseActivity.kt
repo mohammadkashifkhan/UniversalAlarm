@@ -11,6 +11,7 @@ import com.google.android.gms.location.LocationServices
 import com.mdkashif.universalarm.R
 import com.mdkashif.universalarm.alarm.misc.model.LocationsModel
 import com.mdkashif.universalarm.alarm.misc.model.TimingsModel
+import com.mdkashif.universalarm.misc.errorhandling.ExceptionHandler
 import com.mdkashif.universalarm.utils.AppConstants
 
 
@@ -21,6 +22,7 @@ open class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Thread.setDefaultUncaughtExceptionHandler(ExceptionHandler(this))
         parentLayout = findViewById(android.R.id.content)
         geofencingClient = LocationServices.getGeofencingClient(applicationContext)
     }

@@ -26,6 +26,27 @@
     <string name="settings">Settings</string>
     <string name="snoozeTitle">Select Snooze Time</string>
     <string name="locationPrecisionTitle">Select Location Precision</string>
+    <string name="prefKeyTitleLocationPrecision">Location Precision</string>
+    <string name="search_hint">Search for any Location..</string>
+    <string name="openSourceLicenses">Open Source Licenses</string>
+    <string name="tvItemEmptyExpandableRv">Please tap on + to set one or enable any existing alarm by tapping on the Show all Button</string>
+    <string name="tvItemBatteryExpandableRv">Change Battery and Temperature levels by going into Battery Settings Screen</string>
+    <string name="tvItemPrayerExpandableRv">For more regarding prayer details, go in the Prayer Settings Screen</string>
+    <string name="google_android_map_api_key">AIzaSyA7sGiJNI3y2SlipMaKX_dxB290mImTmlQ</string>
+    <string name="etNoteHint">Take a Note (Optional)</string>
+    <string name="tvMapInstruction">Where do you want to be reminded? Drag the map to set the location</string>
+    <string name="geofence_unknown_error">Unknown error: the Geofence service is not available now.</string>
+    <string name="geofence_not_available">Geofence service is not available now. Go to Settings>Location>Mode and choose High accuracy.</string>
+
+    <string name="geofence_too_many_geofences">Your app has registered too many geofences.</string>
+    <string name="geofence_too_many_pending_intents">You have provided too many PendingIntents to the addGeofences() call.</string>
+    <string name="activity_dialog_title">Forgot your Pin-Code?</string>
+    <string name="activity_dialog_accept">OK</string>
+
+    /////////////////////////////
+    <string name="activity_dialog_decline">Cancel</string>
+    <string name="activity_dialog_content">Tap \'OK\' to set your new Password,\n\nIf you remember your Pin-Code, tap \'Cancel\' to go back.</string>
+    <string name="title_activity_crash">CrashActivity</string>
     <string-array name="snoozeTimings">
         <item>1 minute</item>
         <item>5 minutes</item>
@@ -41,25 +62,5 @@
         <item>2 kilometres</item>
         <item>5 kilometres</item>
     </string-array>
-    <string name="prefKeyTitleLocationPrecision">Location Precision</string>
-    <string name="search_hint">Search for any Location..</string>
-    <string name="openSourceLicenses">Open Source Licenses</string>
-    <string name="tvItemEmptyExpandableRv">Please tap on + to set one or enable any existing alarm by tapping on the Show all Button</string>
-    <string name="tvItemBatteryExpandableRv">Change Battery and Temperature levels by going into Battery Settings Screen</string>
-    <string name="tvItemPrayerExpandableRv">For more regarding prayer details, go in the Prayer Settings Screen</string>
-    <string name="google_android_map_api_key">AIzaSyA7sGiJNI3y2SlipMaKX_dxB290mImTmlQ</string>
-    <string name="etNoteHint">Take a Note (Optional)</string>
-    <string name="tvMapInstruction">Where do you want to be reminded? Drag the map to set the location</string>
-
-    <string name="geofence_unknown_error">Unknown error: the Geofence service is not available now.</string>
-    <string name="geofence_not_available">Geofence service is not available now. Go to Settings>Location>Mode and choose High accuracy.</string>
-    <string name="geofence_too_many_geofences">Your app has registered too many geofences.</string>
-    <string name="geofence_too_many_pending_intents">You have provided too many PendingIntents to the addGeofences() call.</string>
-
-    /////////////////////////////
-    <string name="activity_dialog_title">Forgot your Pin-Code?</string>
-    <string name="activity_dialog_accept">OK</string>
-    <string name="activity_dialog_decline">Cancel</string>
-    <string name="activity_dialog_content">Tap \'OK\' to set your new Password,\n\nIf you remember your Pin-Code, tap \'Cancel\' to go back.</string>
 
 </resources>
