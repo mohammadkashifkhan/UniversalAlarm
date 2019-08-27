@@ -9,7 +9,7 @@ object AppConstants {
 
     /////// Endpoints ///////
     private const val MAIN_URL = "http://www.mdkashif.com/UniversalAlarm/"
-    const val GET_PRAYER_DATA = "http://api.aladhan.com/v1/"
+    const val GET_PRAYER_DATA_URL = "http://api.aladhan.com/v1/"
     const val FAQ = MAIN_URL + "faq.html"
     const val PP = MAIN_URL + "privacy-policy.html"
     const val TNC = MAIN_URL + "terms-and-conditions.html"

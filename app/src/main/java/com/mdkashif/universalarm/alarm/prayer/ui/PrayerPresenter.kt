@@ -29,7 +29,6 @@ class PrayerPresenter(private val disposable: CompositeDisposable, private val p
     private val rxLocation = RxLocation(context)
 
     fun getPrayerDetails() {
-        Log.d("check1234567", "here")
         locationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(5000)
@@ -41,7 +40,7 @@ class PrayerPresenter(private val disposable: CompositeDisposable, private val p
                         .subscribe(({ t: Address? ->
                             appPreferences.city = t!!.locality
                             appPreferences.country = t.countryName
-                            prayerManager.getPrayerDetails(disposable,
+                            prayerManager.getPrayerDetails(
                                     onSuccess = {
                                         prayerViewCallback.onPrayerDetailSuccess(it)
                                     },
