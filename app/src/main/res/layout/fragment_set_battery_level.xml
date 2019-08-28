@@ -10,34 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <at.grabner.circleprogress.CircleProgressView
-            android:id="@+id/cpBattery"
-            android:layout_width="@dimen/cpSetBatteryFragmentWidthHeight"
-            android:layout_height="@dimen/cpSetBatteryFragmentWidthHeight"
-            android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
-            app:cpv_autoTextSize="true"
-            app:cpv_barColor="@color/red"
-            app:cpv_barColor1="@color/yellow"
-            app:cpv_barColor2="@color/green"
-            app:cpv_barStrokeCap="Round"
-            app:cpv_barWidth="6dp"
-            app:cpv_innerContourSize="0dp"
-            app:cpv_maxValue="100"
-            app:cpv_outerContourSize="0dp"
-            app:cpv_rimColor="@color/lightestColorPrimaryDark"
-            app:cpv_rimWidth="3dp"
-            app:cpv_showUnit="true"
-            app:cpv_spinColor="@color/secondaryTextColor"
-            app:cpv_textColor="@color/primaryTextColor"
-            app:cpv_textScale="1"
-            app:cpv_unit="%"
-            app:cpv_unitColor="@color/primaryTextColor"
-            app:cpv_unitPosition="right_top"
-            app:cpv_unitScale="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <LinearLayout
             android:id="@+id/llPhoneStats"
             android:layout_width="0dp"
@@ -144,17 +116,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/swBattery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="@id/cl1"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/textView"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <com.appyvet.materialrangebar.RangeBar
                 android:id="@+id/rbBatteryLevel"
                 android:layout_width="match_parent"
@@ -175,6 +136,17 @@
                 app:mrb_tickEnd="95"
                 app:mrb_tickInterval="5"
                 app:mrb_tickStart="5" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/swBattery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="@id/cl1"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -202,17 +174,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/swTemperature"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="@id/cl2"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/textView8"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <com.appyvet.materialrangebar.RangeBar
                 android:id="@+id/rbTemp"
                 android:layout_width="match_parent"
@@ -233,6 +194,17 @@
                 app:mrb_tickEnd="50"
                 app:mrb_tickInterval="5"
                 app:mrb_tickStart="25" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/swTemperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="@id/cl2"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/textView8"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -258,17 +230,6 @@
                 android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/normalTextSize"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/swTheft"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/marginTopEndBottomStart"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/textView9"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -302,6 +263,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/swTheft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/marginTopEndBottomStart"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/textView9"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -331,18 +303,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="@dimen/ivAssistantWidthHeight"
-                android:layout_height="@dimen/ivAssistantWidthHeight"
-                android:layout_marginStart="@dimen/marginTopEndBottomStartLarge"
-                android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
-                android:src="@drawable/ic_support"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvAssistantPH"
-                app:layout_constraintVertical_bias="0.0" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -359,10 +319,52 @@
                 android:textSize="@dimen/normalTextSize"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                app:layout_constraintStart_toEndOf="@+id/lavChatbot"
                 app:layout_constraintTop_toBottomOf="@+id/tvAssistantPH" />
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lavChatbot"
+                android:layout_width="@dimen/_42sdp"
+                android:layout_height="@dimen/_42sdp"
+                android:layout_marginStart="@dimen/marginTopEndBottomStartLarge"
+                android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAssistantPH"
+                app:layout_constraintVertical_bias="0.0"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/assist_chatbot" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <at.grabner.circleprogress.CircleProgressView
+            android:id="@+id/cpBattery"
+            android:layout_width="@dimen/cpSetBatteryFragmentWidthHeight"
+            android:layout_height="@dimen/cpSetBatteryFragmentWidthHeight"
+            android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
+            app:cpv_autoTextSize="true"
+            app:cpv_barColor="@color/red"
+            app:cpv_barColor1="@color/yellow"
+            app:cpv_barColor2="@color/green"
+            app:cpv_barStrokeCap="Round"
+            app:cpv_barWidth="6dp"
+            app:cpv_innerContourSize="0dp"
+            app:cpv_maxValue="100"
+            app:cpv_outerContourSize="0dp"
+            app:cpv_rimColor="@color/lightestColorPrimaryDark"
+            app:cpv_rimWidth="3dp"
+            app:cpv_showUnit="true"
+            app:cpv_spinColor="@color/secondaryTextColor"
+            app:cpv_textColor="@color/primaryTextColor"
+            app:cpv_textScale="1"
+            app:cpv_unit="%"
+            app:cpv_unitColor="@color/primaryTextColor"
+            app:cpv_unitPosition="right_top"
+            app:cpv_unitScale="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

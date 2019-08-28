@@ -5,12 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.google.android.gms.maps.model.LatLng
 import com.hendraanggrian.recyclerview.widget.ExpandableRecyclerView
 import com.mdkashif.universalarm.R
@@ -83,7 +81,6 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
     }
 
     internal inner class EmptyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val ivPlaceHolder: ImageView = itemView.findViewById(R.id.ivPlaceHolder)
         val tvNote: TextView = itemView.findViewById(R.id.tvNote)
     }
 
@@ -294,9 +291,6 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
 
             is EmptyViewHolder -> {
                 holder.tvNote.text = context.getText(R.string.tvItemEmptyExpandableRv)
-                Glide.with(context)
-                        .load(R.raw.no_alarms_placeholder)
-                        .into(holder.ivPlaceHolder)
             }
         }
     }

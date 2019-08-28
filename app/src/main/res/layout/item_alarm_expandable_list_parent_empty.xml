@@ -9,13 +9,17 @@
     app:layout_constraintHorizontal_bias="0.0"
     app:layout_constraintStart_toStartOf="parent">
 
-    <ImageView
-        android:id="@+id/ivPlaceHolder"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lavEmpty"
         android:layout_width="@dimen/ivItemAlarmExpandableListEmptyWidthHeight"
         android:layout_height="@dimen/ivItemAlarmExpandableListEmptyWidthHeight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/no_alarms_placeholder" />
 
     <TextView
         android:id="@+id/tvPrayerType"
@@ -30,6 +34,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivPlaceHolder" />
+        app:layout_constraintTop_toBottomOf="@+id/lavEmpty" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -142,6 +142,17 @@
         android:gravity="center"
         android:padding="@dimen/paddingAll"
         android:background="@color/offWhite"
+        android:text="Lottie by Airbnb"
+        android:textSize="@dimen/mediumTextSize"
+        android:layout_marginTop="@dimen/marginTopEndBottomStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="@color/primaryTextColor"
+        android:gravity="center"
+        android:padding="@dimen/paddingAll"
+        android:background="@color/offWhite"
         android:text="MaterialDayPicker by antonious"
         android:textSize="@dimen/mediumTextSize"
         android:layout_marginTop="@dimen/marginTopEndBottomStart"
