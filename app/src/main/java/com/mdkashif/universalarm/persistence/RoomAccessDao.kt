@@ -13,6 +13,9 @@ interface RoomAccessDao {
     @Insert
     fun addNewTimeAlarm(timing: TimingsModel): Long
 
+    @Insert
+    fun addPrayerAlarms(timings: List<TimingsModel>)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addRepeatDays(day: DaysModel): Long
 
@@ -43,9 +46,6 @@ interface RoomAccessDao {
 
     @Query("Delete FROM Days WHERE alarmId =:alarmId")
     fun deleteRepeatDays(alarmId: Long)
-
-    @Query("SELECT * FROM Timings where type=:type")
-    fun getSpecificTimeAlarms(type: String): MutableList<TimingsModel>
 
     @Query("SELECT * FROM Timings where type!='Time'")
     fun getPrayerAlarms(): MutableList<TimingsModel>

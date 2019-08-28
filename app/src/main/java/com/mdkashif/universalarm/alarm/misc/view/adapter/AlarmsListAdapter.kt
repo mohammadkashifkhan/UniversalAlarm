@@ -280,7 +280,7 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
                 holder.swPrayer.setOnCheckedChangeListener { p0, p1 ->
                     alarmsList[position].status = p1
                     GlobalScope.launch {
-                        roomRepository.amendPrayerAlarmsAsync(alarmsList[position])
+                        roomRepository.amendPrayerAlarmsAsync(listOf(alarmsList[position]))
                     } // sending add instead of update because its handled in the repository
                     if (p1)
                         AlarmHelper.setAlarm(alarmsList[position].hour.toInt(), alarmsList[position].minute.toInt(), alarmsList[position].pIntentRequestCode.toInt(), context, AlarmTypes.valueOf(alarmsList[position].alarmType), repeatDays = null)

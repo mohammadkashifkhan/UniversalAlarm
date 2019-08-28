@@ -29,12 +29,14 @@ class RoomRepository : KoinComponent {
         return Pair(timingslist, locationslist)
     }
 
-    suspend fun amendPrayerAlarmsAsync(timingsModel: TimingsModel?, autoUpdate: Boolean = false) { //autoUpdate=false for differentiating between manual & auto update
-        val timingsList = withContext(Dispatchers.IO) { getSpecificTimings(timingsModel!!) }
+    suspend fun amendPrayerAlarmsAsync(timingsModel: List<TimingsModel>, autoUpdate: Boolean = false) { //autoUpdate=false for differentiating between manual & auto update
+        val timingsList = withContext(Dispatchers.IO) { getPrayerTimings() }
 
-        when {
-            timingsList.isNotEmpty() -> withContext(Dispatchers.IO) { updateTimeAlarm(timingsModel!!, timingsList[0].id, autoUpdate) }
-            else -> withContext(Dispatchers.IO) { addTimingsWithoutRepeatDays(timingsModel!!) }
+        for(timings in timingsModel) {
+            when {
+                timingsList.isNotEmpty() -> withContext(Dispatchers.IO) { updateTimeAlarm(timings, timings.id, autoUpdate) }
+                else -> withContext(Dispatchers.IO) { addTimingsWithoutRepeatDays(timings) }
+            }
         }
     }
 
@@ -76,10 +78,6 @@ class RoomRepository : KoinComponent {
 
     private fun addLocation(locationsModel: LocationsModel): Long {
         return dao.addNewLocationAlarm(locationsModel)
-    }
-
-    private fun getSpecificTimings(timingsModel: TimingsModel): MutableList<TimingsModel> {
-        return dao.getSpecificTimeAlarms(timingsModel.alarmType)
     }
 
     private fun getPrayerTimings(): MutableList<TimingsModel> {

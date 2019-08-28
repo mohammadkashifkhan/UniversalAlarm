@@ -70,7 +70,6 @@ class PrayerPresenter(private val disposable: CompositeDisposable, private val p
                             .doOnSuccess { mLocation = it }
                             .flatMapObservable { this.getAddressFromLocation(it) }
                 }
-
         }
         return null
     }

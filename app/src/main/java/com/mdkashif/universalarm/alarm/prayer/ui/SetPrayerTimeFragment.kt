@@ -142,7 +142,7 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
         val index = returnPrayerIndex(type)
         timingsList[index].status = status
         launch {
-            roomRepository.amendPrayerAlarmsAsync(timingsList[index])
+            roomRepository.amendPrayerAlarmsAsync(listOf(timingsList[index]))
         }
 
         if (status)

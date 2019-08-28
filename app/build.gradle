@@ -23,7 +23,7 @@ android {
         targetSdkVersion 29
         multiDexEnabled = true
         versionCode 1
-        versionName "0.52." + getDate() + "_beta"
+        versionName "0.53." + getDate() + "_beta"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -99,7 +99,6 @@ dependencies {
     implementation('com.github.omadahealth:lollipin:2.1.0@aar') {
         transitive = true
     }
-    kapt 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'com.patloew.rxlocation:rxlocation:1.0.5'
     implementation 'com.hendraanggrian.recyclerview:recyclerview-expandable:0.1'
     implementation 'com.google.maps.android:android-maps-utils:0.5'
