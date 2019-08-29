@@ -24,7 +24,10 @@ data class LocationsModel(
         @ColumnInfo(name = "pid")
         var pIntentRequestCode: Long = 0,
 
-        var status: Boolean = false) : Parcelable {
+        var status: Boolean = false,
+
+        @ColumnInfo(name = "createdOn")
+        var createdOn: Long = 0L) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
             parcel.readString()!!,
@@ -33,7 +36,8 @@ data class LocationsModel(
             parcel.readDouble(),
             parcel.readString()!!,
             parcel.readLong(),
-            parcel.readByte() != 0.toByte())
+            parcel.readByte() != 0.toByte(),
+            parcel.readLong())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
@@ -44,6 +48,7 @@ data class LocationsModel(
         parcel.writeString(note)
         parcel.writeLong(pIntentRequestCode)
         parcel.writeByte(if (status) 1 else 0)
+        parcel.writeLong(createdOn)
     }
 
     override fun describeContents(): Int {

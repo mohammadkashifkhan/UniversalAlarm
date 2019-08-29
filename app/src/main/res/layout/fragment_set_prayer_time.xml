@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -166,6 +167,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                tools:text="87"
                 android:id="@+id/tvFajr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -176,8 +178,9 @@
                 app:layout_constraintEnd_toStartOf="@+id/swFajr"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/swFajr"
+                android:gravity="top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopEndBottomStart"
@@ -186,15 +189,15 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
+                android:layout_marginTop="@dimen/_16sdp"
                 android:id="@+id/separator1"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/separatorHeight"
-                android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
                 android:background="@color/gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/swFajr" />
+                app:layout_constraintTop_toBottomOf="@+id/textView31" />
 
             <TextView
                 android:id="@+id/textView32"
@@ -209,6 +212,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/separator1" />
 
             <TextView
+                tools:text="87"
                 android:id="@+id/tvSunrise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -219,8 +223,9 @@
                 app:layout_constraintEnd_toStartOf="@+id/swSunrise"
                 app:layout_constraintTop_toBottomOf="@+id/separator1" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/swSunrise"
+                android:gravity="top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
@@ -232,12 +237,12 @@
                 android:id="@+id/separator2"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/separatorHeight"
-                android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:background="@color/gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/swSunrise" />
+                app:layout_constraintTop_toBottomOf="@+id/textView32" />
 
             <TextView
                 android:id="@+id/textView33"
@@ -252,6 +257,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/separator2" />
 
             <TextView
+                tools:text="87"
                 android:id="@+id/tvDhuhr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -262,8 +268,9 @@
                 app:layout_constraintEnd_toStartOf="@+id/swDhuhr"
                 app:layout_constraintTop_toBottomOf="@+id/separator2" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/swDhuhr"
+                android:gravity="top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
@@ -275,12 +282,12 @@
                 android:id="@+id/separator3"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/separatorHeight"
-                android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:background="@color/gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/swDhuhr" />
+                app:layout_constraintTop_toBottomOf="@+id/textView33" />
 
             <TextView
                 android:id="@+id/textView34"
@@ -295,6 +302,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/separator3" />
 
             <TextView
+                tools:text="87"
                 android:id="@+id/tvAsr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -305,8 +313,9 @@
                 app:layout_constraintEnd_toStartOf="@+id/swAsr"
                 app:layout_constraintTop_toBottomOf="@+id/separator3" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/swAsr"
+                android:gravity="top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
@@ -318,12 +327,12 @@
                 android:id="@+id/separator4"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/separatorHeight"
-                android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:background="@color/gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/swAsr" />
+                app:layout_constraintTop_toBottomOf="@+id/textView34" />
 
             <TextView
                 android:id="@+id/textView35"
@@ -338,6 +347,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/separator4" />
 
             <TextView
+                tools:text="87"
                 android:id="@+id/tvSunset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -348,8 +358,9 @@
                 app:layout_constraintEnd_toStartOf="@+id/swSunset"
                 app:layout_constraintTop_toBottomOf="@+id/separator4" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/swSunset"
+                android:gravity="top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
@@ -361,12 +372,12 @@
                 android:id="@+id/separator5"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/separatorHeight"
-                android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:background="@color/gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/swSunset" />
+                app:layout_constraintTop_toBottomOf="@+id/textView35" />
 
             <TextView
                 android:id="@+id/textView36"
@@ -381,6 +392,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/separator5" />
 
             <TextView
+                tools:text="87"
                 android:id="@+id/tvMaghrib"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -391,8 +403,9 @@
                 app:layout_constraintEnd_toStartOf="@+id/swMaghrib"
                 app:layout_constraintTop_toBottomOf="@+id/separator5" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/swMaghrib"
+                android:gravity="top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
@@ -404,12 +417,12 @@
                 android:id="@+id/separator6"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/separatorHeight"
-                android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:background="@color/gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/swMaghrib" />
+                app:layout_constraintTop_toBottomOf="@+id/textView36" />
 
             <TextView
                 android:id="@+id/textView37"
@@ -424,6 +437,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/separator6" />
 
             <TextView
+                tools:text="87"
                 android:id="@+id/tvIsha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -434,8 +448,9 @@
                 app:layout_constraintEnd_toStartOf="@+id/swIsha"
                 app:layout_constraintTop_toBottomOf="@+id/separator6" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/swIsha"
+                android:gravity="top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
@@ -447,12 +462,12 @@
                 android:id="@+id/separator7"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/separatorHeight"
-                android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:background="@color/gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/swIsha" />
+                app:layout_constraintTop_toBottomOf="@+id/textView37" />
 
             <TextView
                 android:id="@+id/textView38"
@@ -467,6 +482,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/separator7" />
 
             <TextView
+                tools:text="87"
                 android:id="@+id/tvImsak"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -477,8 +493,9 @@
                 app:layout_constraintEnd_toStartOf="@+id/swImsak"
                 app:layout_constraintTop_toBottomOf="@+id/separator7" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/swImsak"
+                android:gravity="top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
@@ -490,14 +507,15 @@
                 android:id="@+id/separator8"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/separatorHeight"
-                android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:background="@color/gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/swImsak" />
+                app:layout_constraintTop_toBottomOf="@+id/textView38" />
 
             <TextView
+                android:id="@+id/textView39"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/marginTopEndBottomStart"
@@ -509,6 +527,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/separator8" />
 
             <TextView
+                tools:text="87"
                 android:id="@+id/tvMidnight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -519,8 +538,9 @@
                 app:layout_constraintEnd_toStartOf="@+id/swMidnight"
                 app:layout_constraintTop_toBottomOf="@+id/separator8" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/swMidnight"
+                android:gravity="top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginTopEndBottomStartLarge"

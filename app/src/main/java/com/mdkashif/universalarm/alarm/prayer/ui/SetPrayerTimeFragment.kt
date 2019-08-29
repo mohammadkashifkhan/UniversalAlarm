@@ -24,7 +24,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.get
 import kotlin.coroutines.CoroutineContext
 
 
@@ -35,9 +35,9 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    private val appPreferences: AppPreferences by inject()
+    private val appPreferences: AppPreferences = get()
 
-    private val roomRepository: RoomRepository by inject()
+    private val roomRepository: RoomRepository = get()
 
     private var timingsList: List<TimingsModel> = ArrayList()
 
@@ -64,53 +64,57 @@ class SetPrayerTimeFragment : BaseFragment(), CompoundButton.OnCheckedChangeList
         rootView.tvTimezone.text = appPreferences.timezone
         rootView.tvIslamicDate.text = appPreferences.islamicDate
         rootView.tvMonth.text = appPreferences.islamicMonth
-        launch { timingsList = roomRepository.fetchPrayersAlarmsAsync() }
+        launch {
+            timingsList = roomRepository.fetchPrayersAlarmsAsync()
 
-        for (i in timingsList.indices) {
-            when (timingsList[i].alarmType) {
-                "Fajr" -> {
-                    rootView.tvFajr.text = """${timingsList[i].hour}:${timingsList[i].minute}"""
-                    rootView.swFajr.isChecked = timingsList[i].status
-                }
+            launch(Dispatchers.Main) {
+                for (i in timingsList.indices) {
+                    when (timingsList[i].alarmType) {
+                        AlarmTypes.Fajr.toString() -> {
+                            rootView.tvFajr.text = """${timingsList[i].hour}:${timingsList[i].minute}"""
+                            rootView.swFajr.isChecked = timingsList[i].status
+                        }
 
-                "Sunrise" -> {
-                    rootView.tvSunrise.text = """${timingsList[i].hour}:${timingsList[i].minute}"""
-                    rootView.swSunrise.isChecked = timingsList[i].status
-                }
+                        AlarmTypes.Sunrise.toString() -> {
+                            rootView.tvSunrise.text = """${timingsList[i].hour}:${timingsList[i].minute}"""
+                            rootView.swSunrise.isChecked = timingsList[i].status
+                        }
 
-                "Dhuhr" -> {
-                    rootView.tvDhuhr.text = """${timingsList[i].hour}:${timingsList[i].minute}"""
-                    rootView.swDhuhr.isChecked = timingsList[i].status
-                }
+                        AlarmTypes.Dhuhr.toString() -> {
+                            rootView.tvDhuhr.text = """${timingsList[i].hour}:${timingsList[i].minute}"""
+                            rootView.swDhuhr.isChecked = timingsList[i].status
+                        }
 
-                "Asr" -> {
-                    rootView.tvAsr.text = """${timingsList[i].hour}:${timingsList[i].minute}"""
-                    rootView.swAsr.isChecked = timingsList[i].status
-                }
+                        AlarmTypes.Asr.toString() -> {
+                            rootView.tvAsr.text = """${timingsList[i].hour}:${timingsList[i].minute}"""
+                            rootView.swAsr.isChecked = timingsList[i].status
+                        }
 
-                "Sunset" -> {
-                    rootView.tvSunset.text = """${timingsList[i].hour}:${timingsList[i].minute}"""
-                    rootView.swSunset.isChecked = timingsList[i].status
-                }
+                        AlarmTypes.Sunset.toString() -> {
+                            rootView.tvSunset.text = """${timingsList[i].hour}:${timingsList[i].minute}"""
+                            rootView.swSunset.isChecked = timingsList[i].status
+                        }
 
-                "Maghrib" -> {
-                    rootView.tvMaghrib.text = """${timingsList[i].hour}:${timingsList[i].minute}"""
-                    rootView.swMaghrib.isChecked = timingsList[i].status
-                }
+                        AlarmTypes.Maghrib.toString() -> {
+                            rootView.tvMaghrib.text = """${timingsList[i].hour}:${timingsList[i].minute}"""
+                            rootView.swMaghrib.isChecked = timingsList[i].status
+                        }
 
-                "Isha" -> {
-                    rootView.tvIsha.text = """${timingsList[i].hour}:${timingsList[i].minute}"""
-                    rootView.swIsha.isChecked = timingsList[i].status
-                }
+                        AlarmTypes.Isha.toString() -> {
+                            rootView.tvIsha.text = """${timingsList[i].hour}:${timingsList[i].minute}"""
+                            rootView.swIsha.isChecked = timingsList[i].status
+                        }
 
-                "Imsak" -> {
-                    rootView.tvImsak.text = """${timingsList[i].hour}:${timingsList[i].minute}"""
-                    rootView.swImsak.isChecked = timingsList[i].status
-                }
+                        AlarmTypes.Imsak.toString() -> {
+                            rootView.tvImsak.text = """${timingsList[i].hour}:${timingsList[i].minute}"""
+                            rootView.swImsak.isChecked = timingsList[i].status
+                        }
 
-                "Midnight" -> {
-                    rootView.tvMidnight.text = """${timingsList[i].hour}:${timingsList[i].minute}"""
-                    rootView.swMidnight.isChecked = timingsList[i].status
+                        AlarmTypes.Midnight.toString() -> {
+                            rootView.tvMidnight.text = """${timingsList[i].hour}:${timingsList[i].minute}"""
+                            rootView.swMidnight.isChecked = timingsList[i].status
+                        }
+                    }
                 }
             }
         }

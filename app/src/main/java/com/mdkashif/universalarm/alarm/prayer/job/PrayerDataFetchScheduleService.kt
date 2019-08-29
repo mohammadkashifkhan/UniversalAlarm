@@ -50,31 +50,31 @@ class PrayerDataFetchScheduleService : JobService(), PrayerPresenter.PrayerViewC
         appPreferences.islamicMonth = prayerApiResponse.data.date!!.hijri!!.month!!.en!!
 
         val sunriseTiming = prayerApiResponse.data.timings!!.sunrise!!.split(":")
-        val sunriseTimingsModel = TimingsModel(hour = sunriseTiming[0], minute = sunriseTiming[1], alarmType = AlarmTypes.Sunrise.toString(), status = false, pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong())
+        val sunriseTimingsModel = TimingsModel(hour = sunriseTiming[0], minute = sunriseTiming[1], alarmType = AlarmTypes.Sunrise.toString(), status = false, pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong(), createdOn = System.currentTimeMillis())
 
         val fajrTiming = prayerApiResponse.data.timings.fajr!!.split(":")
-        val fajrTimingsModel = TimingsModel(hour = fajrTiming[0], minute = fajrTiming[1], alarmType = AlarmTypes.Fajr.toString(), status = false, pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong())
+        val fajrTimingsModel = TimingsModel(hour = fajrTiming[0], minute = fajrTiming[1], alarmType = AlarmTypes.Fajr.toString(), status = false, pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong(), createdOn = System.currentTimeMillis())
 
         val dhuhrTiming = prayerApiResponse.data.timings.dhuhr!!.split(":")
-        val dhuhrTimingsModel = TimingsModel(hour = dhuhrTiming[0], minute = dhuhrTiming[1], alarmType = AlarmTypes.Dhuhr.toString(), status = false, pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong())
+        val dhuhrTimingsModel = TimingsModel(hour = dhuhrTiming[0], minute = dhuhrTiming[1], alarmType = AlarmTypes.Dhuhr.toString(), status = false, pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong(), createdOn = System.currentTimeMillis())
 
         val asrTiming = prayerApiResponse.data.timings.asr!!.split(":")
-        val asrTimingsModel = TimingsModel(hour = asrTiming[0], minute = asrTiming[1], alarmType = AlarmTypes.Asr.toString(), status = false, pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong())
+        val asrTimingsModel = TimingsModel(hour = asrTiming[0], minute = asrTiming[1], alarmType = AlarmTypes.Asr.toString(), status = false, pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong(), createdOn = System.currentTimeMillis())
 
         val sunsetTiming = prayerApiResponse.data.timings.sunset!!.split(":")
-        val sunsetTimingsModel = TimingsModel(hour = sunsetTiming[0], minute = sunsetTiming[1], alarmType = AlarmTypes.Sunset.toString(), status = false, pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong())
+        val sunsetTimingsModel = TimingsModel(hour = sunsetTiming[0], minute = sunsetTiming[1], alarmType = AlarmTypes.Sunset.toString(), status = false, pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong(), createdOn = System.currentTimeMillis())
 
         val maghribTiming = prayerApiResponse.data.timings.maghrib!!.split(":")
-        val maghribTimingsModel = TimingsModel(hour = maghribTiming[0], minute = maghribTiming[1], alarmType = AlarmTypes.Maghrib.toString(), status = false, pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong())
+        val maghribTimingsModel = TimingsModel(hour = maghribTiming[0], minute = maghribTiming[1], alarmType = AlarmTypes.Maghrib.toString(), status = false, pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong(), createdOn = System.currentTimeMillis())
 
         val ishaTiming = prayerApiResponse.data.timings.isha!!.split(":")
-        val ishaTimingsModel = TimingsModel(hour = ishaTiming[0], minute = ishaTiming[1], alarmType = AlarmTypes.Isha.toString(), status = false, pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong())
+        val ishaTimingsModel = TimingsModel(hour = ishaTiming[0], minute = ishaTiming[1], alarmType = AlarmTypes.Isha.toString(), status = false, pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong(), createdOn = System.currentTimeMillis())
 
         val midnightTiming = prayerApiResponse.data.timings.midnight!!.split(":")
-        val midnightTimingsModel = TimingsModel(hour = midnightTiming[0], minute = midnightTiming[1], alarmType = AlarmTypes.Midnight.toString(), status = false, pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong())
+        val midnightTimingsModel = TimingsModel(hour = midnightTiming[0], minute = midnightTiming[1], alarmType = AlarmTypes.Midnight.toString(), status = false, pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong(), createdOn = System.currentTimeMillis())
 
         val imsakTiming = prayerApiResponse.data.timings.imsak!!.split(":")
-        val imsakTimingsModel = TimingsModel(hour = imsakTiming[0], minute = imsakTiming[1], alarmType = AlarmTypes.Imsak.toString(), status = false, pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong())
+        val imsakTimingsModel = TimingsModel(hour = imsakTiming[0], minute = imsakTiming[1], alarmType = AlarmTypes.Imsak.toString(), status = false, pIntentRequestCode = AlarmHelper.returnPendingIntentUniqueRequestCode().toLong(), createdOn = System.currentTimeMillis())
 
         val timingsList= listOf(sunriseTimingsModel, fajrTimingsModel, dhuhrTimingsModel, asrTimingsModel, sunsetTimingsModel, maghribTimingsModel, ishaTimingsModel, midnightTimingsModel, imsakTimingsModel)
 

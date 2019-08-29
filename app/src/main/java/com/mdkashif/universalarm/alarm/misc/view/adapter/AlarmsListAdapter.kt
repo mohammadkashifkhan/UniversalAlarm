@@ -158,6 +158,7 @@ class AlarmsListAdapter(private val getTotalAlarmCountInterface: GetTotalAlarmCo
                 holder.swTime.isChecked = alarmsList[position].status
                 holder.swTime.setOnCheckedChangeListener { p0, p1 ->
                     alarmsList[position].status = p1
+                    alarmsList[position].createdOn= System.currentTimeMillis()
                     GlobalScope.launch {
                         roomRepository.amendTimingsAlarmsAsync(AlarmOps.Update.toString(), alarmsList[position], alarmsList[position].id)
                     }

@@ -30,35 +30,40 @@ class RoomRepository : KoinComponent {
     }
 
     suspend fun amendPrayerAlarmsAsync(timingsModel: List<TimingsModel>, autoUpdate: Boolean = false) { //autoUpdate=false for differentiating between manual & auto update
-        val timingsList = withContext(Dispatchers.IO) { getPrayerTimings() }
+       //todo: not updating the existing ones
+        withContext(Dispatchers.IO) {
+            val timingsList = getPrayerTimings()
 
-        for(timings in timingsModel) {
-            when {
-                timingsList.isNotEmpty() -> withContext(Dispatchers.IO) { updateTimeAlarm(timings, timings.id, autoUpdate) }
-                else -> withContext(Dispatchers.IO) { addTimingsWithoutRepeatDays(timings) }
+            for (timings in timingsModel) {
+                when {
+                    timingsList.isNotEmpty() -> updateTimeAlarm(timings, timings.id, autoUpdate)
+                    else -> addTimingsWithoutRepeatDays(timings)
+                }
             }
         }
     }
 
     suspend fun amendTimingsAlarmsAsync(taskType: String, timingsModel: TimingsModel?, id: Long = 0) { //id=0 means we are just inserting
+        timingsModel!!.createdOn = System.currentTimeMillis()
         when (taskType) {
             AlarmOps.Add.toString() ->
                 when {
-                    timingsModel!!.repeat -> withContext(Dispatchers.IO) { addTimingsWithRepeatDays(timingsModel) }
+                    timingsModel.repeat -> withContext(Dispatchers.IO) { addTimingsWithRepeatDays(timingsModel) }
                     else -> withContext(Dispatchers.IO) { addTimingsWithoutRepeatDays(timingsModel) }
                 }
 
-            AlarmOps.Update.toString() -> withContext(Dispatchers.IO) { updateTimeAlarm(timingsModel!!, id, false) }
+            AlarmOps.Update.toString() -> withContext(Dispatchers.IO) { updateTimeAlarm(timingsModel, id, false) }
 
             AlarmOps.Delete.toString() -> withContext(Dispatchers.IO) { deleteTimeAlarm(id) }
         }
     }
 
     suspend fun amendLocationsAlarmsAsync(taskType: String, locationsModel: LocationsModel?, id: Long = 0) {
+        locationsModel!!.createdOn = System.currentTimeMillis()
         when (taskType) {
-            AlarmOps.Add.toString() -> withContext(Dispatchers.IO) { addLocation(locationsModel!!) }
+            AlarmOps.Add.toString() -> withContext(Dispatchers.IO) { addLocation(locationsModel) }
 
-            AlarmOps.Update.toString() -> withContext(Dispatchers.IO) { updateLocationAlarm(locationsModel!!, id) }
+            AlarmOps.Update.toString() -> withContext(Dispatchers.IO) { updateLocationAlarm(locationsModel, id) }
 
             AlarmOps.Delete.toString() -> withContext(Dispatchers.IO) { deleteLocationAlarm(id) }
         }

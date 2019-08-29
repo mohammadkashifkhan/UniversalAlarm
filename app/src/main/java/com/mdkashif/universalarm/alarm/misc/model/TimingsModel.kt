@@ -29,7 +29,10 @@ data class TimingsModel(
         var repeatDays: List<DaysModel>? = null,
 
         @ColumnInfo(name = "pid")
-        var pIntentRequestCode: Long = 0) : Parcelable {
+        var pIntentRequestCode: Long = 0,
+
+        @ColumnInfo(name = "createdOn")
+        var createdOn: Long = 0L) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readLong(),
             parcel.readString()!!,
@@ -41,6 +44,7 @@ data class TimingsModel(
             listOf<DaysModel>().apply {
                 parcel.readList(this, DaysModel::class.java.classLoader)
             },
+            parcel.readLong(),
             parcel.readLong())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -53,6 +57,7 @@ data class TimingsModel(
         parcel.writeByte(if (status) 1 else 0)
         parcel.writeList(repeatDays)
         parcel.writeLong(pIntentRequestCode)
+        parcel.writeLong(createdOn)
     }
 
     override fun describeContents(): Int {

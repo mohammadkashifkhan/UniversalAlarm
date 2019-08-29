@@ -17,16 +17,21 @@ data class DaysModel(
         var fkAlarmId: Long = 0,
 
         @ColumnInfo(name = "day")
-        var repeatDay: String = "") : Parcelable {
+        var repeatDay: String = "",
+
+        @ColumnInfo(name = "createdOn")
+        var createdOn: Long = 0L) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
             parcel.readLong(),
-            parcel.readString()!!)
+            parcel.readString()!!,
+            parcel.readLong())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
         parcel.writeLong(fkAlarmId)
         parcel.writeString(repeatDay)
+        parcel.writeLong(createdOn)
     }
 
     override fun describeContents(): Int {
